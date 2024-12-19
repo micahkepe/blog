@@ -698,7 +698,8 @@ local map = vim.keymap.set
 
 -- Quickly exit Normal mode with `jk`
 -- This makes the transition from typing to command mode faster and more comfortable for the fingers.
-map("i", "jk", "<ESC>")
+-- UPDATE: I disabled this and instead just use Karabiner to map capslock to ESC
+-- map("i", "jk", "<ESC>")
 
 -- Map <C-s> to save
 -- This is a common shortcut in many editors, bringing familiarity from other tools like VSCode.
