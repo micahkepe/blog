@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+     
+    <meta name="description" content="An assortment of my ramblings and random adventures." />
+     
+
+    <title>
+    
+    Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;
+    
+</title>
+
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+     
+    <link
+      rel="stylesheet"
+      href="https://micahkepe.com/blog/site.css"
+    />
+      
+  </head>
+
+  <body class="hack dark main container">
+    
+    
+         
+    <header class="nav-header">
+      <nav
+        itemscope
+        itemtype="http://schema.org/SiteNavigationElement"
+        class="navbar"
+      >
+        <div class="nav-links">
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/"
+          >
+            <span itemprop="name">Home</span></a
+          >
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/categories"
+          >
+            <span itemprop="name">Categories</span></a
+          >
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/tags"
+          >
+            <span itemprop="name">Tags</span></a
+          >
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/"
+          >
+            <span itemprop="name">Main Site</span></a
+          >
+          
+        </div>
+      </nav>
+      <div class="user-actions-container">
+        
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          class="search-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          />
+        </svg>
+        <input type="text" id="search" placeholder="Search..." />
+        <div class="search-results">
+          <div class="search-results__items"></div>
+        </div>
+         
+        <a
+          id="dark-mode-toggle"
+          onclick="toggleTheme(); event.preventDefault();"
+          href="#"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/sun.svg"
+            id="sun-icon"
+            style="filter: invert(1)"
+            alt="Light mode"
+          />
+          <img
+            src="https://micahkepe.com/blog/icons/moon.svg"
+            id="moon-icon"
+            alt="Dark mode"
+          />
+        </a>
+         
+        <a
+          href="https://micahkepe.com/blog/atom.xml"
+          class="feed-icon"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/rss.svg"
+            id="rss-icon"
+            alt="RSS feed"
+            class="social-icon"
+          />
+        </a>
+         
+        <a
+          href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+          class="feed-icon"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/github.svg"
+            id="github-icon"
+            alt="GitHub"
+            class="social-icon"
+          />
+        </a>
+        
+      </div>
+
+      
+      <!-- Set the correct theme in the script -->
+      <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      <script>
+        setTheme(getSavedTheme());
+      </script>
+      
+    </header>
+     
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;</h1>
+        <span class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <span>2 minute read</span>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-11-26
+</span>
+    </header>
+    
+    <div itemprop="articleBody">
+        
+            <p>As part of my design course requirements at Rice University, I will be creating
+a game in a group of 4 using the Godot engine over the upcoming semester. This
+blog post will serve as a progress log for the game's development and hopefully
+provide some good insights into the game development process from someone who
+has never made a game before.</p>
+
+            
+            
+                <details class="toc-container">
+                    <summary class="toc-title">Table of Contents</summary>
+                    <ul class="toc-list">
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/43-monkeys/#initial-project-proposal">Initial Project Proposal</a>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/43-monkeys/#progress-log">Progress Log</a>
+                                
+                            </li>
+                        
+                    </ul>
+                </details>
+            
+            
+            <!-- Render the rest of the content after removing the summary portion -->
+            <span id="continue-reading"></span><h1 id="initial-project-proposal">Initial Project Proposal</h1>
+<p>Not to give too much away yet, but our game is called <strong>43 Monkeys</strong> and draws
+a lot of inspiration from this news source:
+<a href="https://www.cbsnews.com/news/south-carolina-escaped-monkeys-what-we-know/">What we know after 43 monkeys escaped a South Carolina research facility</a></p>
+<br>
+<div
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="images/game-teaser.png" alt="A teaser image of our game idea from our initial project proposal."
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <div style="margin-top: 0.5em;">
+    <p style="font-style: italic;">A teaser image of our game idea from our initial project proposal.</p>
+  </div>
+  
+</div>
+<p>A lot is still up in the air (open-source or not, full storyboard, etc.), but
+I'm excited to see where this project goes. I'll be updating this post as we
+make progress, so stay tuned!</p>
+<hr />
+<h1 id="progress-log">Progress Log</h1>
+<details>
+<summary>Pre-Class Work</summary>
+<p><strong>Updates</strong></p>
+<p>Before the class officially starts, we are taking time to familiarize ourselves
+with the Godot engine and the basics of game development. My first thoughts on
+working with GDScript is that it like a blend of Python and TypeScript, which is
+pretty cool. I'm excited to see how it works in practice. I've also been watching
+some tutorials on the Godot engine and game development in general to get a feel
+for the process.</p>
+<p>As of now, we have basic character sprites and background tiles ready to go. We
+are also working getting a basic scene set up in Godot to start testing out
+movement and interactions. Godot's <a href="https://docs.godotengine.org/en/stable/index.html">documentation</a>
+is very good and has been a great resource for getting started.</p>
+<p><strong>Basic Movement</strong></p>
+<div
+  style="width: 100%; max-width: 40%; margin: 0 auto; text-align: center;">
+  <video autoplay loop muted playsinline
+    style="max-width: 100%; height: auto; display: inline-block;">
+    <source src="https://micahkepe.com/blog/43-monkeys/videos/basic-movt.mp4" type="video/mp4">
+    Your browser doesn't support the video tag, which I use in place of .gifs, and/or the video formats in use here
+    – sorry!
+  </video>
+</div>
+<p><strong>Helpful Tutorials</strong></p>
+<div class="responsive-iframe"
+  style="width: 100%; max-width: 70%; margin: 0 auto; text-align: center;">
+  <iframe src="https://www.youtube.com/embed/LOhfqjmasi0" webkitallowfullscreen
+    mozallowfullscreen allowfullscreen>
+  </iframe>
+</div>
+</details>
+<script
+  src="https://utteranc.es/client.js"
+  repo="micahkepe/blog"
+  issue-term="pathname"
+  label="comment-section"
+  theme="github-dark"
+  crossorigin="anonymous"
+  async
+></script>
+
+
+
+        
+    </div>
+
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by Micah Kepe
+                
+                
+                    
+                    in <a href="https://micahkepe.com/blog/categories/projects/">projects</a>
+                
+                
+                    and
+                    tagged
+                    
+                        <a href="https://micahkepe.com/blog/tags/godot/">godot</a>
+                        
+                            
+                                
+                                    ,
+                                
+                            
+                        
+                    
+                        <a href="https://micahkepe.com/blog/tags/game-dev/">game-dev</a>
+                        
+                            
+                                
+                                    and
+                                
+                            
+                        
+                    
+                        <a href="https://micahkepe.com/blog/tags/rice/">rice</a>
+                        
+                            
+                        
+                    
+                
+            </p>
+            
+            
+        </footer>
+    
+</article>
+
+
+
+    <!-- optional scripts -->
+     
+    <script src="https://micahkepe.com/blog/js/codeblock.js"></script>
+     
+    <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+     
+<!-- MathJax script for rendering LaTeX math equations -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"],
+      ],
+      displayMath: [
+        ["$$", "$$"],
+        ["\\[", "\\]"],
+      ],
+    },
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+ 
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+ 
+  </body>
+</html>
