@@ -837,13 +837,13 @@ feel free to share it in the comments!
 
 ## References and Resources
 
-- [Unix Philosophy Wikipedia page](https://en.wikipedia.org/wiki/Unix_philosophy) \
-- [typescraft: This may be my favorite CLI tool ever](https://www.youtube.com/watch?v=oTNRvnQLLLs&list=WL&index=1) \
-- [Josean Martinez: 7 Amazing CLI Tools You Need To Try](https://www.youtube.com/watch?v=mmqDYw9C30I&t=248s) \
-- [Bash Scripting Tutorial: How to Write a Bash Script](https://linuxconfig.org/bash-scripting-tutorial) \
-- [Bash Scripting Tutorial for Beginners](https://www.youtube.com/watch?v=tK9Oc6AEnR4) \
-- [`fzf` GitHub Repository](https://github.com/junegunn/fzf) \
-- [`fzf.fish` GitHub Repository](https://github.com/PatrickF1/fzf.fish) \
+- [Unix Philosophy Wikipedia page](https://en.wikipedia.org/wiki/Unix_philosophy)
+- [typescraft: This may be my favorite CLI tool ever](https://www.youtube.com/watch?v=oTNRvnQLLLs&list=WL&index=1)
+- [Josean Martinez: 7 Amazing CLI Tools You Need To Try](https://www.youtube.com/watch?v=mmqDYw9C30I&t=248s)
+- [Bash Scripting Tutorial: How to Write a Bash Script](https://linuxconfig.org/bash-scripting-tutorial)
+- [Bash Scripting Tutorial for Beginners](https://www.youtube.com/watch?v=tK9Oc6AEnR4)
+- [`fzf` GitHub Repository](https://github.com/junegunn/fzf)
+- [`fzf.fish` GitHub Repository](https://github.com/PatrickF1/fzf.fish)
 - [`ripgrep` GitHub Repository](https://github.com/BurntSushi/ripgrep)
 
 {{ utterances() }}

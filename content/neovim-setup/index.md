@@ -837,10 +837,9 @@ or just want to chat about Neovim, feel free to write in the comments below!
 
 ## References
 
-\- [Understanding the Origins and the Evolution of Vi & Vim](https://pikuma.com/blog/origins-of-vim-text-editor) \
-\- [How I Setup Neovim On My Mac To Make it AMAZING in 2024
-](https://www.josean.com/posts/how-to-setup-neovim-2024) \
-\- [NVChad Documentation](https://nvchad.com/docs/quickstart/install) \
-\- [An Experienced (Neo)Vimmer's Workflow.](https://seniormars.com/posts/neovim-workflow/) \
+- [Understanding the Origins and the Evolution of Vi & Vim](https://pikuma.com/blog/origins-of-vim-text-editor)
+- [How I Setup Neovim On My Mac To Make it AMAZING in 2024](https://www.josean.com/posts/how-to-setup-neovim-2024)
+- [NVChad Documentation](https://nvchad.com/docs/quickstart/install)
+- [An Experienced (Neo)Vimmer's Workflow.](https://seniormars.com/posts/neovim-workflow/)
 
 {{ utterances() }}

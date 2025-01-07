@@ -380,20 +380,13 @@ the digital age.
 
 ## References
 
-\-
-[Larry Page's University of Michigan commencement address](https://www.youtube.com/watch?v=qFb2rvmrahc)
-\
-\- [Google’s PageRank: The Math Behind the Search Engine](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=33566b740d3cd0c0dde57e13b5da148bef37376f)
-\
-\- [The Anatomy of a Large-Scale Hypertextual Web Search Engine](http://infolab.stanford.edu/~backrub/google.html)
-\
-\- [PageRank GIF Source](https://www.youtube.com/watch?v=meonLcN7LD4) \
-\- [The Levenshtein-Damerau Distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance)
-\
-\- [Shazam: An Industrial-Strength Audio Search Algorithm](https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf)
-\
-\- [How on Earth Does Shazam Recognize Songs](https://youtu.be/ev0Ay1m4MWs?si=C_Bk31NOsUeRVAPN)
-\
-\- [How does Shazam Uniquely Identify A Track?](https://networkedlifeq21.fandom.com/wiki/How_does_Shazam_Uniquely_Identify_A_Track%3F)
+- [Larry Page's University of Michigan commencement address](https://www.youtube.com/watch?v=qFb2rvmrahc)
+- [Google’s PageRank: The Math Behind the Search Engine](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=33566b740d3cd0c0dde57e13b5da148bef37376f)
+- [The Anatomy of a Large-Scale Hypertextual Web Search Engine](http://infolab.stanford.edu/~backrub/google.html)
+- [PageRank GIF Source](https://www.youtube.com/watch?v=meonLcN7LD4)
+- [The Levenshtein-Damerau Distance](https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance)
+- [Shazam: An Industrial-Strength Audio Search Algorithm](https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf)
+- [How on Earth Does Shazam Recognize Songs](https://youtu.be/ev0Ay1m4MWs?si=C_Bk31NOsUeRVAPN)
+- [How does Shazam Uniquely Identify A Track?](https://networkedlifeq21.fandom.com/wiki/How_does_Shazam_Uniquely_Identify_A_Track%3F)
 
 {{ utterances()}}

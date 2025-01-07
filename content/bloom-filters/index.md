@@ -273,18 +273,12 @@ systems and continue to be a valuable tool in a programmer's toolkit.
 
 ## References
 
-\-
-[Bloom Filters and SPV nodes within the bitcoin blockchain](https://tara-annison.medium.com/bloom-filters-and-spv-nodes-within-the-bitcoin-blockchain-66c36ea673f2)
-\
-\- [Bloom Filter Wikipedia Page](https://en.wikipedia.org/wiki/Bloom_filter) \
-\- [Cloud Bigtable under the hood: How we improved single-row read throughput by 20-50%](https://cloud.google.com/blog/products/databases/cloud-bigtable-improves-single-row-read-throughput-by-up-to-50-percent/)
-\
-\- [University of Washington Lecture Slides on Bloom Filter Applications](https://courses.cs.washington.edu/courses/cse312/22wi/files/student_drive/9.4.pdf)
-\
-\- [Bloom Filters – Introduction and Implementation](https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/)
-\
-\- [System Design: Bloom Filter](https://towardsdatascience.com/system-design-bloom-filter-a2e19dcd4810)
-\
-\- [Bloom Filter Data Structure: Implementation and Application](https://www.enjoyalgorithms.com/blog/bloom-filter)
+- [Bloom Filters and SPV nodes within the bitcoin blockchain](https://tara-annison.medium.com/bloom-filters-and-spv-nodes-within-the-bitcoin-blockchain-66c36ea673f2)
+- [Bloom Filter Wikipedia Page](https://en.wikipedia.org/wiki/Bloom_filter)
+- [Cloud Bigtable under the hood: How we improved single-row read throughput by 20-50%](https://cloud.google.com/blog/products/databases/cloud-bigtable-improves-single-row-read-throughput-by-up-to-50-percent/)
+- [University of Washington Lecture Slides on Bloom Filter Applications](https://courses.cs.washington.edu/courses/cse312/22wi/files/student_drive/9.4.pdf)
+- [Bloom Filters – Introduction and Implementation](https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/)
+- [System Design: Bloom Filter](https://towardsdatascience.com/system-design-bloom-filter-a2e19dcd4810)
+- [Bloom Filter Data Structure: Implementation and Application](https://www.enjoyalgorithms.com/blog/bloom-filter)
 
 {{ utterances() }}

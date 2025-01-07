@@ -232,14 +232,14 @@ freedom and productivity.
 
 ## References
 
-- [1984 The Age Article on Artificial Intelligence](https://books.google.com/books?id=eTRVAAAAIBAJ&pg=PA38&dq=artificial+intelligence+jobs&article_id=6556,2471720&hl=en&sa=X&ved=2ahUKEwit047) \
-- [McKinsey & Company 2018 AI Automation Post](https://www.mckinsey.com/featured-insights/future-of-work/ai-automation-and-the-future-of-work-ten-things-to-solve-for#part2) \
-- [Forbes 2019 AI Job Impact Article](https://www.forbes.com/sites/gilpress/2019/07/15/is-ai-going-to-be-a-jobs-killer-new-reports-about-the-future-of-work/) \
-- [2023 Gallup Poll on AI Job Impact](https://news.gallup.com/opinion/gallup/510635/three-four-americans-believe-reduce-jobs.aspx) \
-- [Stanford HAI's 2024 AI Index Report](https://aiindex.stanford.edu/report/) \
-- [GitHub Copilot Workspace Announcement](https://github.blog/2024-04-29-github-copilot-workspace/) \
-- [Builder.io Blog Post on AI Job Impact](https://www.builder.io/blog/ai-jobs-truth) \
-- [U.S. Bureau of Labor Statistics](https://www.bls.gov/ooh/computer-and-information-technology/home.htm) \
+- [1984 The Age Article on Artificial Intelligence](https://books.google.com/books?id=eTRVAAAAIBAJ&pg=PA38&dq=artificial+intelligence+jobs&article_id=6556,2471720&hl=en&sa=X&ved=2ahUKEwit047)
+- [McKinsey & Company 2018 AI Automation Post](https://www.mckinsey.com/featured-insights/future-of-work/ai-automation-and-the-future-of-work-ten-things-to-solve-for#part2)
+- [Forbes 2019 AI Job Impact Article](https://www.forbes.com/sites/gilpress/2019/07/15/is-ai-going-to-be-a-jobs-killer-new-reports-about-the-future-of-work/)
+- [2023 Gallup Poll on AI Job Impact](https://news.gallup.com/opinion/gallup/510635/three-four-americans-believe-reduce-jobs.aspx)
+- [Stanford HAI's 2024 AI Index Report](https://aiindex.stanford.edu/report/)
+- [GitHub Copilot Workspace Announcement](https://github.blog/2024-04-29-github-copilot-workspace/)
+- [Builder.io Blog Post on AI Job Impact](https://www.builder.io/blog/ai-jobs-truth)
+- [U.S. Bureau of Labor Statistics](https://www.bls.gov/ooh/computer-and-information-technology/home.htm)
 - [Leading Projects with Data](https://www.google.com/books/edition/Leading_Projects_with_Data/VQKeEAAAQBAJ?hl=en&gbpv=1&dq=visicalc+accountants+jobs+obsolete&pg=PA138&printsec=frontcover)
 
 {{ utterances() }}
