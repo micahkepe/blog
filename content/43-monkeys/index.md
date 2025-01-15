@@ -66,7 +66,7 @@ is very good and has been a great resource for getting started.
 
 **Helpful Tutorials**
 
-{{ youtube(id="LOhfqjmasi0", width=80)}}
+{{ youtube(id="LOhfqjmasi0", width=90)}}
 
 **Music**
 
@@ -87,6 +87,11 @@ and [boids](https://en.wikipedia.org/wiki/Boids). This is because one of the
 unique features of our game is that the player will be able to control a group
 of monkeys that will follow the player around the map or move independently
 as a swarm.
+
+{{ gif(
+    sources=["videos/boids-demo.mp4"],
+    width = 80
+)}}
 
 </details>
 
