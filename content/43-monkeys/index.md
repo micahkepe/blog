@@ -66,7 +66,27 @@ is very good and has been a great resource for getting started.
 
 **Helpful Tutorials**
 
-{{ youtube(id="LOhfqjmasi0", width=70)}}
+{{ youtube(id="LOhfqjmasi0", width=80)}}
+
+**Music**
+
+With a fun little open-source webapp called [BeepBox](https://www.beepbox.co/),
+we were able to make some fun 8-bit music for our game.
+
+</details>
+
+<details>
+<summary>Making an MVP Demo: Weeks 1-2</summary>
+
+With the spring semester now in full swing and our team assembled, we are working
+on getting our MVP (minimum viable product) ready for a demo scheduled at the end
+of week 2 of the course.
+
+Our big focus is looking at [flocking algorithms](https://en.wikipedia.org/wiki/Flocking)
+and [boids](https://en.wikipedia.org/wiki/Boids). This is because one of the
+unique features of our game is that the player will be able to control a group
+of monkeys that will follow the player around the map or move independently
+as a swarm.
 
 </details>
 
