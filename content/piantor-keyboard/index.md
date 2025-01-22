@@ -300,7 +300,7 @@ that I have been using this board I've noticed:
   keys are now so easily accessible from either my home row or thumbs.
 
 Honestly, if you've already drank the Kool-Aid with Vim... this is just the next
-step on your journey to becomihng an even bigger nerd.
+step on your journey to becoming an even bigger nerd.
 
 # References and Links
 
