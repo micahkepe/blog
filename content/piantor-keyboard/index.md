@@ -80,7 +80,7 @@ The main reasons I chose this board were:
 
 - **42 keys**: This seemed like a good balance of portability and compactness with
   enough fumctionality overlap with a standard full-sized QWERTY keyboard that
-  would make the board(s) super east to tae around and make it so that when I did
+  would make the board(s) super easy to take around and make it so that when I did
   need to use a full-sized keyboard, I wouldn't be completely lost.
 - **wired**: I wanted a wired keyboard to avoid the hassle of charging and from the
   research I did, it seems that wired keyboards are more reliable than wireless
@@ -244,6 +244,11 @@ as a hold rather than a tap) to find your sweet spot. In my configuration, I've
 set this to 150ms, which provides a good balance between preventing
 accidental activations and maintaining quick access to the modifiers.
 
+I also made the right middle thumb key have a tap dance as well where when I tap 
+it is the `Esc` key and when I hold it toggles the second layer. This is something
+that I found really convenient when working in Vim since I use the `Esc` key so often
+when switching modes.
+
 For a way better overview and explanatiohn of home row mods I highly recommend
 checking out this [blog post by precondition](https://precondition.github.io/home-row-mods).
 
@@ -272,8 +277,8 @@ Switching to a split keyboard meant essentially relearning how to type. Here are
   correct keys, especially when working with different layers.
 
 > **Tip**: If you're making the switch, I recommend starting with Keybr to
-> build proper fundamentals, then graduating to MonkeyType for speed training
-> . Keep KeyCastr running initially to catch any layer or modifier key mistakes.
+> build proper fundamentals, then graduating to MonkeyType for speed training.
+> Keep KeyCastr running initially to catch any layer or modifier key mistakes.
 
 # Conclusion: Is it Worth It?
 
@@ -295,7 +300,7 @@ that I have been using this board I've noticed:
   keys are now so easily accessible from either my home row or thumbs.
 
 Honestly, if you've already drank the Kool-Aid with Vim... this is just the next
-step on your journey to becomihng a keyboard gigachad, or an even bigger nerd.
+step on your journey to becomihng an even bigger nerd.
 
 # References and Links
 
