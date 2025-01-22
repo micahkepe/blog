@@ -95,6 +95,14 @@ With that out of the way, I placed my order and waited for the board to arrive.
 
 # First Thoughts with the Board and Dialing It In
 
+{{ responsive(
+    src="images/piantor.jpg",
+    width=70,
+    alt="The Piantor keyboard",
+    caption="The Piantor keyboard. As you can see, it is a split keyboard with
+    42 keys."
+) }}
+
 The initial setup of any split keyboard requires patience. There's a
 significant learning curve, but the ergonomic benefits make it worthwhile.
 Here's my journey:
