@@ -195,7 +195,7 @@ I found that I needed to use [Karabiner-Elements](https://karabiner-elements.pqr
 to retain some of the functionality that I had with my old keyboard. The main
 source of frustration was from the Mac media keys not working with the Piantor
 keyboard. I was able to fix this by simply just using Karabiner-Elements without
-any additional configuration, which I'm sure exactyly that fixed the issue, but
+any additional configuration, which I'm sure exactly that fixed the issue, but
 if it ain't broke, don't fix it. My guess is that by default my Macbook is
 interpreting the media keys as function keys, so I just had to make sure that
 the media keys were being used instead of the function keys.
@@ -244,7 +244,7 @@ as a hold rather than a tap) to find your sweet spot. In my configuration, I've
 set this to 150ms, which provides a good balance between preventing
 accidental activations and maintaining quick access to the modifiers.
 
-I also made the right middle thumb key have a tap dance as well where when I tap 
+I also made the right middle thumb key have a tap dance as well where when I tap
 it is the `Esc` key and when I hold it toggles the second layer. This is something
 that I found really convenient when working in Vim since I use the `Esc` key so often
 when switching modes.
