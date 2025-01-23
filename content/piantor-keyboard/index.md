@@ -254,7 +254,7 @@ checking out this [blog post by precondition](https://precondition.github.io/hom
 
 {{ note(body="
 **Note**: As an aside, while I think Karabiner-Elements is a great tool, I think that
-[KMonad](https://kmonad.github.io/) is a better tool for configuring home row
+[KMonad](https://github.com/kmonad/kmonad) is a better tool for configuring home row
 mods on the default Mac laptop keyboard if you wanted your home row mods to carry
 over to the laptop keyboard as well.
 "
