@@ -64,14 +64,14 @@ is very good and has been a great resource for getting started.
     width=40
 )}}
 
-**Helpful Tutorials**
-
-{{ youtube(id="LOhfqjmasi0", width=90)}}
-
 **Music**
 
 With a fun little open-source webapp called [BeepBox](https://www.beepbox.co/),
 we were able to make some fun 8-bit music for our game.
+
+{{ audio(
+    source="music/fonky-loop.ogg"
+)}}
 
 </details>
 
@@ -92,6 +92,46 @@ as a swarm.
     sources=["videos/boids-demo.mp4"],
     width = 80
 )}}
+
+**Update**: Demo MVP is completed. We ended up doing a simple demo level where
+the plater has to use their group of monkeys to deactivate lazors with
+coordinated button presses and defeat a boss at the end. I'm pretty proud of
+what we've been able to do some far in only a couple weeks of work, but we
+also have a lot of work ahead of us as we figure out the rest of our levels,
+polished up the art, etc.
+
+**Some more teasers**
+
+Little bit of the MVP demo in action:
+
+{{ gif(
+    sources=["videos/mvp-demo.mp4"],
+    width = 80
+)}}
+
+Our pretty epic main theme (if I do say so myself):
+
+{{ audio(
+    source="music/main-theme.ogg"
+)}}
+
+</details>
+
+<details>
+<summary>Work Until Midterm Demo: Weeks 3-7</summary>
+
+With the initial demo out of the way, we are now working on fleshing out the
+rest of the game. This includes creating more levels, adding more mechanics,
+and polishing up the art and music. While our art was pretty good for the MVP,
+we really want to dial in the aesthetic of the game to be something truly
+impressive. Part of this is diving deeper into writing custom shaders and
+animations to make the game feel more alive.
+
+Another big thing that we realized post-demo is that our initial conception of
+the game having procedurally generated levels might lead to unintended
+side effects like the troops getting stuck in walls or not being able to
+complete a level's required puzzle, so we are going to lean into more
+curated levels that we can test and refine.
 
 </details>
 
