@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+     
+    <meta name="description" content="An assortment of my ramblings and random adventures." />
+     
+
+    <title>
+    
+    How Do Software Packages Work?
+    
+</title>
+
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+     
+    <link
+      rel="stylesheet"
+      href="https://micahkepe.com/blog/site.css"
+    />
+      
+  </head>
+
+  <body class="hack dark main container">
+    
+    
+         
+    <header class="nav-header">
+      <nav
+        itemscope
+        itemtype="http://schema.org/SiteNavigationElement"
+        class="navbar"
+      >
+        <div class="nav-links">
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/"
+          >
+            <span itemprop="name">Home</span></a
+          >
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/categories"
+          >
+            <span itemprop="name">Categories</span></a
+          >
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/tags"
+          >
+            <span itemprop="name">Tags</span></a
+          >
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/"
+          >
+            <span itemprop="name">Main Site</span></a
+          >
+          
+        </div>
+      </nav>
+      <div class="user-actions-container">
+        
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          class="search-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          />
+        </svg>
+        <input type="text" id="search" placeholder="Search..." />
+        <div class="search-results">
+          <div class="search-results__items"></div>
+        </div>
+         
+        <a
+          id="dark-mode-toggle"
+          onclick="toggleTheme(); event.preventDefault();"
+          href="#"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/sun.svg"
+            id="sun-icon"
+            style="filter: invert(1)"
+            alt="Light mode"
+          />
+          <img
+            src="https://micahkepe.com/blog/icons/moon.svg"
+            id="moon-icon"
+            alt="Dark mode"
+          />
+        </a>
+         
+        <a
+          href="https://micahkepe.com/blog/atom.xml"
+          class="feed-icon"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/rss.svg"
+            id="rss-icon"
+            alt="RSS feed"
+            class="social-icon"
+          />
+        </a>
+         
+        <a
+          href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+          class="feed-icon"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/github.svg"
+            id="github-icon"
+            alt="GitHub"
+            class="social-icon"
+          />
+        </a>
+        
+      </div>
+
+      
+      <!-- Set the correct theme in the script -->
+      <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      <script>
+        setTheme(getSavedTheme());
+      </script>
+      
+    </header>
+     
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">How Do Software Packages Work?</h1>
+        <span class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <span>7 minute read</span>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-06-04
+</span>
+    </header>
+
+    <div itemprop="articleBody">
+        
+            <p>How do software packages work behind the scenes? How are they created,
+distributed, and installed? In this post, we'll explore the lifecycle of
+software packages, from creation to installation, using the Node Package
+Manager (NPM) and the Autoprefixer package as real-world examples.</p>
+
+
+            
+                <details class="toc-container">
+                    <summary class="toc-title">Table of Contents</summary>
+                    <ul class="toc-list">
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/software-packages/#introduction">Introduction</a>
+                                
+                                    <ul>
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#what-are-software-packages">What Are Software Packages?</a>
+                                            </li>
+                                            
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/software-packages/#how-do-software-packages-work">How Do Software Packages Work?</a>
+                                
+                                    <ul>
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#creation-and-distribution">Creation and Distribution</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#installation-and-dependency-management">Installation and Dependency Management</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#dependency-resolution">Dependency Resolution</a>
+                                            </li>
+                                            
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/software-packages/#a-brief-overview-of-package-managers-and-npm">A Brief Overview of Package Managers and NPM</a>
+                                
+                                    <ul>
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#package-json">package.json</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#package-lock-json">package-lock.json</a>
+                                            </li>
+                                            
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/software-packages/#real-world-example-autoprefixer">Real-World Example: Autoprefixer</a>
+                                
+                                    <ul>
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#directory-structure">Directory Structure</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#files-and-their-purposes">Files and Their Purposes</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#package-json-1">package.json</a>
+                                            </li>
+                                            
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/software-packages/#creating-a-software-package-example-date-formatter">Creating a Software Package (Example: date-formatter)</a>
+                                
+                                    <ul>
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#step-1-setting-up-your-project">Step 1: Setting Up Your Project</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#step-2-preparing-for-distribution">Step 2: Preparing for Distribution</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/software-packages/#step-3-publishing-the-package">Step 3: Publishing the Package</a>
+                                            </li>
+                                            
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/software-packages/#conclusion">Conclusion</a>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/software-packages/#references">References</a>
+                                
+                            </li>
+                        
+                    </ul>
+                </details>
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            <span id="continue-reading"></span><h2 id="introduction">Introduction</h2>
+<h3 id="what-are-software-packages">What Are Software Packages?</h3>
+<p>Chances are, you've used a software package. Software packages are
+collections of code, resources, and metadata that provide specific
+functionality. They can be libraries, tools, or applications that help
+developers build software more efficiently.</p>
+<p>For example, this website uses various software packages like React, Vite,
+and Tailwind CSS to create a modern, responsive, and interactive user
+experience. These packages provide pre-built functionality that developers
+can leverage in their projects. Software packages are essential for modern
+software development, enabling code reuse, dependency management, and
+efficient development workflows.</p>
+<h2 id="how-do-software-packages-work">How Do Software Packages Work?</h2>
+<h3 id="creation-and-distribution">Creation and Distribution</h3>
+<p>Creating a software package involves writing code (<strong>shocker</strong>) that provides
+a specific functionality and then packaging it with metadata, documentation,
+and licensing information. The packaged code can then be published to a
+repository like NPM (Node Package Manager), making it available for others to
+use. Here's a simplified overview:</p>
+<div class="note-container" style="border:  1px solid #e0e0e0">
+  
+    
+
+    <div class="note-content">
+      <ol>
+<li><strong>Write the Code</strong>: Develop the core functionality of your package.</li>
+<li><strong>Package the Code</strong>: Include metadata, documentation, and licensing information.</li>
+<li><strong>Publish</strong>: Upload the package to a repository like NPM.</li>
+</ol>
+
+    </div>
+    
+  </div>
+<br>
+<h3 id="installation-and-dependency-management">Installation and Dependency Management</h3>
+<p>When you install a software package using a package manager like NPM, the
+package manager handles the downloading and installation of the package along
+with its dependencies. Dependencies are other packages that your package
+relies on to function correctly.</p>
+<div class="note-container" style="border:  1px solid #e0e0e0">
+  
+    
+
+    <div class="note-content">
+      <ol>
+<li><strong>Download:</strong> The package and its dependencies are fetched from the repository.</li>
+<li><strong>Install:</strong> The package and its dependencies are installed in your project.</li>
+<li><strong>Configure:</strong> The package manager ensures that all dependencies are compatible.</li>
+</ol>
+
+    </div>
+    
+  </div>
+<br>
+<h3 id="dependency-resolution">Dependency Resolution</h3>
+<p>Dependency resolution is the process of determining which versions of
+dependencies to install to ensure compatibility and prevent conflicts. NPM
+uses the <code>package-lock.json</code> file to lock the versions of installed packages,
+ensuring that the same versions are used if the project is shared with others.</p>
+<h2 id="a-brief-overview-of-package-managers-and-npm">A Brief Overview of Package Managers and NPM</h2>
+<p>Package managers like NPM are crucial tools in modern development workflows.
+They handle the distribution, installation, and management of software
+packages, making it easier for developers to build and maintain their projects.</p>
+<h3 id="package-json">package.json</h3>
+<p>The <code>package.json</code> file is the heart of any Node.js project. It contains
+various metadata relevant to the project, such as the project’s name,
+version, description, main entry point, scripts, dependencies, and more.</p>
+<h3 id="package-lock-json">package-lock.json</h3>
+<p>The <code>package-lock.json</code> file is automatically generated when you run <code>npm  install</code>. It locks the versions of installed packages, ensuring that the same
+versions are used if the project is shared with others.</p>
+<h2 id="real-world-example-autoprefixer">Real-World Example: Autoprefixer</h2>
+<p>Now, let's look at the Autoprefixer package, which is one of packages used
+for this website and is used to parse CSS and add vendor prefixes to CSS
+rules to ensure cross-browser compatibility.</p>
+<h3 id="directory-structure">Directory Structure</h3>
+<p>Here's the directory structure of the Autoprefixer package in <code>node_modules</code>:</p>
+<div class="note-container" style="border:  1px solid #e0e0e0">
+  
+    
+
+    <div class="note-content">
+      <pre>
+├── LICENSE
+├── README.md
+├── bin/
+│   └── autoprefixer
+├── data/
+│   └── prefixes.js
+├── lib/
+│   ├── at-rule.js
+│   ├── autoprefixer.d.ts
+│   ├── autoprefixer.js
+│   ├── brackets.js
+│   ├── browsers.js
+│   ├── declaration.js
+│   ├── hacks
+│   │   ├── align-content.js
+│   │   ├── align-items.js
+│   │   ├── align-self.js
+│   │   ├── animation.js
+│   │   ├── appearance.js
+│   │   ├── autofill.js
+│   │   ├── backdrop-filter.js
+│   │   ├── ...
+└── package.json
+</pre>
+
+    </div>
+    
+  </div>
+<br>
+<h3 id="files-and-their-purposes">Files and Their Purposes</h3>
+<table><thead><tr><th><strong>File/Directory</strong></th><th><strong>Purpose</strong></th></tr></thead><tbody>
+<tr><td><strong>LICENSE</strong> &amp; <strong>README.md</strong></td><td>These files provide licensing information and documentation for the package.</td></tr>
+<tr><td><strong>bin/autoprefixer</strong></td><td>This script file is used for executing the Autoprefixer tool from the command line.</td></tr>
+<tr><td><strong>data/prefixes.js</strong></td><td>Contains data about the CSS prefixes.</td></tr>
+<tr><td><strong>lib/</strong></td><td>This directory contains the core code for the Autoprefixer package, organized into various modules.</td></tr>
+</tbody></table>
+<h3 id="package-json-1">package.json</h3>
+<p>Here's the <code>package.json</code> file for Autoprefixer:</p>
+<!-- prettier-ignore-->
+<pre data-lang="json" style="background-color:#2b303b;color:#6c7079;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#abb2bf;">
+</span><span style="color:#abb2bf;">{
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;name&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;autoprefixer&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;version&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;10.4.19&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;description&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;Parse CSS and add vendor prefixes to CSS rules using values from the Can I Use website&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;engines&quot;</span><span style="color:#abb2bf;">: {
+</span><span style="color:#abb2bf;">    </span><span style="color:#9acc76;">&quot;node&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;^10 || ^12 || &gt;=14&quot;
+</span><span style="color:#abb2bf;">  },
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;keywords&quot;</span><span style="color:#abb2bf;">: [</span><span style="color:#9acc76;">&quot;autoprefixer&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;css&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;prefix&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;postcss&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;postcss-plugin&quot;</span><span style="color:#abb2bf;">],
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;main&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;lib/autoprefixer.js&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;bin&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;bin/autoprefixer&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;types&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;lib/autoprefixer.d.ts&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;funding&quot;</span><span style="color:#abb2bf;">: [
+</span><span style="color:#abb2bf;">    {
+</span><span style="color:#abb2bf;">      </span><span style="color:#9acc76;">&quot;type&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;opencollective&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">      </span><span style="color:#9acc76;">&quot;url&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;https://opencollective.com/postcss/&quot;
+</span><span style="color:#abb2bf;">    },
+</span><span style="color:#abb2bf;">    {
+</span><span style="color:#abb2bf;">      </span><span style="color:#9acc76;">&quot;type&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;tidelift&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">      </span><span style="color:#9acc76;">&quot;url&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;https://tidelift.com/funding/github/npm/autoprefixer&quot;
+</span><span style="color:#abb2bf;">    },
+</span><span style="color:#abb2bf;">    {
+</span><span style="color:#abb2bf;">      </span><span style="color:#9acc76;">&quot;type&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;github&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">      </span><span style="color:#9acc76;">&quot;url&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;https://github.com/sponsors/ai&quot;
+</span><span style="color:#abb2bf;">    }
+</span><span style="color:#abb2bf;">  ],
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;author&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;Andrey Sitnik &lt;andrey@sitnik.ru&gt;&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;license&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;MIT&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;repository&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;postcss/autoprefixer&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;bugs&quot;</span><span style="color:#abb2bf;">: {
+</span><span style="color:#abb2bf;">    </span><span style="color:#9acc76;">&quot;url&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;https://github.com/postcss/autoprefixer/issues&quot;
+</span><span style="color:#abb2bf;">  },
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;peerDependencies&quot;</span><span style="color:#abb2bf;">: {
+</span><span style="color:#abb2bf;">    </span><span style="color:#9acc76;">&quot;postcss&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;^8.1.0&quot;
+</span><span style="color:#abb2bf;">  },
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;dependencies&quot;</span><span style="color:#abb2bf;">: {
+</span><span style="color:#abb2bf;">    </span><span style="color:#9acc76;">&quot;browserslist&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;^4.23.0&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">    </span><span style="color:#9acc76;">&quot;caniuse-lite&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;^1.0.30001599&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">    </span><span style="color:#9acc76;">&quot;fraction.js&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;^4.3.7&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">    </span><span style="color:#9acc76;">&quot;normalize-range&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;^0.1.2&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">    </span><span style="color:#9acc76;">&quot;picocolors&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;^1.0.0&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">    </span><span style="color:#9acc76;">&quot;postcss-value-parser&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;^4.2.0&quot;
+</span><span style="color:#abb2bf;">  }
+</span><span style="color:#abb2bf;">}
+</span></code></pre>
+<p>Let's break down some key fields in the <code>package.json</code> file:</p>
+<div class="note-container" style="border:  1px solid #e0e0e0">
+  
+    
+
+    <div class="note-content">
+      <ul>
+<li><strong>name:</strong> The name of the package.</li>
+<li><strong>version:</strong> The current version of the package.</li>
+<li><strong>description:</strong> A brief description of what the package does.</li>
+<li><strong>engines:</strong> Specifies the versions of Node.js that are compatible with
+this package.</li>
+<li><strong>keywords:</strong> Keywords that help identify the package in searches.</li>
+<li><strong>main:</strong> The entry point for the package.</li>
+<li><strong>bin:</strong> The executable file for the package.</li>
+<li><strong>types:</strong> The TypeScript declaration file for the package.</li>
+<li><strong>funding:</strong> Information about how the package is funded.</li>
+<li><strong>author:</strong> The author of the package.</li>
+<li><strong>license:</strong> The license under which the package is released.</li>
+<li><strong>repository:</strong> The repository where the source code is hosted.</li>
+<li><strong>bugs:</strong> The URL where issues can be reported.</li>
+<li><strong>peerDependencies:</strong> Other packages that are required for this package to work correctly.</li>
+<li><strong>dependencies:</strong> The packages that this package depends on.</li>
+</ul>
+
+    </div>
+    
+  </div>
+<br>
+<h2 id="creating-a-software-package-example-date-formatter">Creating a Software Package (Example: <strong>date-formatter</strong>)</h2>
+<p>To illustrate the creation of a software package, let's build a hypothetical
+example package called <code>date-formatter</code>. This package will provide functions
+to format dates in various ways. We'll use Node.js and NPM for this example.</p>
+<h3 id="step-1-setting-up-your-project">Step 1: Setting Up Your Project</h3>
+<ol>
+<li>
+<p><strong>Initialize the project:</strong></p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#abb2bf;">
+</span><span style="color:#eb6772;">mkdir</span><span style="color:#abb2bf;"> date-formatter
+</span><span style="color:#5ebfcc;">cd</span><span style="color:#abb2bf;"> date-formatter
+</span><span style="color:#eb6772;">npm</span><span style="color:#abb2bf;"> init  </span><span style="font-style:italic;color:#5f697a;"># creates a package.json file
+</span></code></pre>
+</li>
+<li>
+<p><strong>Add some functionality:</strong>
+Create an <code>index.js</code> file with a simple date formatting function.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#abb2bf;">
+</span><span style="color:#eb6772;">touch</span><span style="color:#abb2bf;"> index.js
+</span></code></pre>
+<!-- prettier-ignore-->
+<pre data-lang="js" style="background-color:#2b303b;color:#6c7079;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">// index.js
+</span><span style="color:#abb2bf;">module.exports.</span><span style="color:#5cb3fa;">formatDate </span><span style="color:#adb7c9;">= </span><span style="color:#cd74e8;">function </span><span style="color:#abb2bf;">(</span><span style="color:#eb6772;">date</span><span style="color:#abb2bf;">, </span><span style="color:#eb6772;">format</span><span style="color:#abb2bf;">) {
+</span><span style="color:#abb2bf;">  </span><span style="color:#cd74e8;">const </span><span style="color:#eb6772;">options </span><span style="color:#adb7c9;">= </span><span style="color:#abb2bf;">{ year: </span><span style="color:#9acc76;">&quot;numeric&quot;</span><span style="color:#abb2bf;">, month: </span><span style="color:#9acc76;">&quot;long&quot;</span><span style="color:#abb2bf;">, day: </span><span style="color:#9acc76;">&quot;numeric&quot; </span><span style="color:#abb2bf;">};
+</span><span style="color:#abb2bf;">  </span><span style="color:#cd74e8;">return </span><span style="color:#adb7c9;">new </span><span style="color:#abb2bf;">Date(</span><span style="color:#eb6772;">date</span><span style="color:#abb2bf;">).</span><span style="color:#5cb3fa;">toLocaleDateString</span><span style="color:#abb2bf;">(</span><span style="color:#db9d63;">undefined</span><span style="color:#abb2bf;">, </span><span style="color:#eb6772;">options</span><span style="color:#abb2bf;">);
+</span><span style="color:#abb2bf;">};
+</span></code></pre>
+</li>
+</ol>
+<h3 id="step-2-preparing-for-distribution">Step 2: Preparing for Distribution</h3>
+<p>Before distributing the package, you should ensure it has proper
+documentation, licensing, and metadata.</p>
+<ol>
+<li>
+<p><strong>Add a README file:</strong></p>
+<!-- prettier-ignore-->
+<pre data-lang="markdown" style="background-color:#2b303b;color:#6c7079;" class="language-markdown "><code class="language-markdown" data-lang="markdown"><span style="color:#abb2bf;">
+</span><span style="color:#5cb3fa;"># Date Formatter
+</span><span style="color:#abb2bf;">
+</span><span style="color:#abb2bf;">This package provides utility functions for formatting dates.
+</span><span style="color:#abb2bf;">
+</span><span style="color:#5cb3fa;">## Installation
+</span><span style="color:#abb2bf;">
+</span><span style="color:#abb2bf;">```</span><span style="color:#db9d63;">bash
+</span><span style="color:#eb6772;">npm</span><span style="color:#abb2bf;"> install date-formatter
+</span><span style="color:#abb2bf;">```
+</span><span style="color:#abb2bf;">
+</span><span style="color:#5cb3fa;">## Usage
+</span><span style="color:#abb2bf;">
+</span><span style="color:#abb2bf;">```</span><span style="color:#db9d63;">js
+</span><span style="color:#cd74e8;">const </span><span style="color:#abb2bf;">{ </span><span style="color:#adb7c9;">formatDate </span><span style="color:#abb2bf;">} </span><span style="color:#adb7c9;">= </span><span style="color:#5ebfcc;">require</span><span style="color:#abb2bf;">(</span><span style="color:#9acc76;">&quot;date-formatter&quot;</span><span style="color:#abb2bf;">);
+</span><span style="color:#abb2bf;">console.</span><span style="color:#5ebfcc;">log</span><span style="color:#abb2bf;">(</span><span style="color:#eb6772;">formatDate</span><span style="color:#abb2bf;">(</span><span style="color:#9acc76;">&quot;2024-06-04&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;long&quot;</span><span style="color:#abb2bf;">));
+</span><span style="font-style:italic;color:#5f697a;">// Outputs: June 4, 2024
+</span><span style="color:#abb2bf;">```
+</span></code></pre>
+</li>
+<li>
+<p><strong>Add a LICENSE file:</strong></p>
+<p>Choose a license for your package and add a <code>LICENSE</code> file. For example,
+an MIT license. The license is important for clarifying how others can use
+your package.</p>
+</li>
+<li>
+<p><strong>Update the <code>package.json</code> file:</strong></p>
+<p>Add an entry point to the <code>index.js</code> file and specify the main
+functionality of the package.</p>
+<!-- prettier-ignore -->
+<pre data-lang="json" style="background-color:#2b303b;color:#6c7079;" class="language-json "><code class="language-json" data-lang="json"><span style="color:#abb2bf;">
+</span><span style="color:#abb2bf;">{
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;name&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;date-formatter&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;version&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;1.0.0&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;description&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;A simple date formatting utility&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;main&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;index.js&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;scripts&quot;</span><span style="color:#abb2bf;">: {
+</span><span style="color:#abb2bf;">    </span><span style="color:#9acc76;">&quot;test&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;echo </span><span style="color:#5ebfcc;">\&quot;</span><span style="color:#9acc76;">Error: no test specified</span><span style="color:#5ebfcc;">\&quot;</span><span style="color:#9acc76;"> &amp;&amp; exit 1&quot;
+</span><span style="color:#abb2bf;">  },
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;keywords&quot;</span><span style="color:#abb2bf;">: [</span><span style="color:#9acc76;">&quot;date&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;format&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;utility&quot;</span><span style="color:#abb2bf;">],
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;author&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;Your Name&quot;</span><span style="color:#abb2bf;">,
+</span><span style="color:#abb2bf;">  </span><span style="color:#9acc76;">&quot;license&quot;</span><span style="color:#abb2bf;">: </span><span style="color:#9acc76;">&quot;MIT&quot;
+</span><span style="color:#abb2bf;">}
+</span></code></pre>
+</li>
+</ol>
+<h3 id="step-3-publishing-the-package">Step 3: Publishing the Package</h3>
+<p>Now that your package is ready, you can publish it to the NPM registry for
+others to use.</p>
+<ol>
+  <li><strong>Create an NPM account:</strong>
+<p>If you don't already have one, create an account on <a href="https://www.npmjs.com/">NPM</a>.</p>
+  </li>
+  <li><strong>Login to NPM:</strong>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#abb2bf;">
+</span><span style="color:#eb6772;">npm</span><span style="color:#abb2bf;"> login
+</span></code></pre>
+  </li>
+  <li><strong>Publish the package:</strong>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#abb2bf;">
+</span><span style="color:#eb6772;">npm</span><span style="color:#abb2bf;"> publish
+</span></code></pre>
+<p>This command will upload the package to the NPM registry. This registry is a
+large database that stores all the packages and their versions. When someone
+runs <code>npm install &lt;package-name&gt;</code>, NPM searches the registry for the package,
+downloads it, and installs it along with its dependencies.</p>
+<p>The NPM registry ensures that packages are easily discoverable and accessible
+to developers around the world. It also handles versioning, so developers can
+specify which versions of a package they need, and NPM will resolve dependencies
+accordingly.</p>
+<p><strong>Congratulations!</strong> Your package is now available for others to
+install and use.</p>
+  </li>
+</ol>
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>Understanding how software packages work, from creation to distribution to
+installation, is fundamental for modern software development. By examining a
+real-world example like Autoprefixer and creating a hypothetical package, we've
+seen the key components and processes involved in package managemenjson.</p>
+<p>I hope that this article demystified the world of software packages and
+inspired you to explore the vast ecosystem of packages available to
+developers. Whether you're building a simple utility or a complex
+application, software packages can help you save time, reduce errors, and
+focus on what matters most: building great software.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://docs.npmjs.com/">NPM Documentation</a></li>
+<li><a href="https://www.geeksforgeeks.org/what-is-software-package/">What is Software Package?</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Package_manager">Package Manager (Wikipedia)</a></li>
+<li><a href="https://docs.npmjs.com/creating-and-publishing-scoped-public-packages">Creating and publishing scoped public packages</a></li>
+</ul>
+<script
+  src="https://utteranc.es/client.js"
+  repo="micahkepe/blog"
+  issue-term="pathname"
+  label="comment-section"
+  theme="github-dark"
+  crossorigin="anonymous"
+  async
+></script>
+
+
+
+        
+    </div>
+
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by Micah Kepe
+                
+                
+                    
+                    in <a href="https://micahkepe.com/blog/categories/programming/">programming</a>
+                
+                
+                    and
+                    tagged
+                    
+                        <a href="https://micahkepe.com/blog/tags/software-packages/">software packages</a>
+                        
+                            
+                                
+                                    and
+                                
+                            
+                        
+                    
+                        <a href="https://micahkepe.com/blog/tags/package-managers/">package managers</a>
+                        
+                            
+                        
+                    
+                
+            </p>
+            
+            
+        </footer>
+    
+</article>
+
+
+
+    <!-- optional scripts -->
+     
+    <script src="https://micahkepe.com/blog/js/codeblock.js"></script>
+     
+    <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+     
+<!-- MathJax script for rendering LaTeX math equations -->
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [
+        ["$", "$"],
+        ["\\(", "\\)"],
+      ],
+      displayMath: [
+        ["$$", "$$"],
+        ["\\[", "\\]"],
+      ],
+    },
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+ 
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+ 
+  </body>
+</html>
