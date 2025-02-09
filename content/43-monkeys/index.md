@@ -32,9 +32,23 @@ alt="A teaser image of our game idea from our initial project proposal.",
 caption="A teaser image of our game idea from our initial project proposal.",
 width=80) }}
 
-A lot is still up in the air (open-source or not, full storyboard, etc.), but
-I'm excited to see where this project goes. I'll be updating this post as we
-make progress, so stay tuned!
+## Game Description
+
+In **43 Monkeys**, the player controls a group of monkeys that have escaped from
+a research facility. The monkeys must navigate through a series of puzzles and
+obstacles to escape the facility and make it to freedom on the outside. Along
+the way they can save more monkeys to add to their tropp and use their unique
+abilities to solve puzzles and defeat enemies.
+
+## Game Mechanics
+
+The game is a keyboard-controlled topdown 2d roguelike where the player controls
+both the main monkey and the troop that can follow the player or move
+independently. Through 5 different levels/floors, the player must solve puzzles,
+defeat enemies, and avoid traps to escape the facility. The player can also
+collect powerups and new monkeys to add to their troop. Begin a roguelike, the
+game will have permadeath, but the player can unlock shortcuts and new abilities
+to make future runs easier.
 
 ---
 
@@ -117,7 +131,7 @@ Our pretty epic main theme (if I do say so myself):
 
 </details>
 
-<details>
+<details open>
 <summary>Work Until Midterm Demo: Weeks 3-7</summary>
 
 With the initial demo out of the way, we are now working on fleshing out the
@@ -132,6 +146,37 @@ the game having procedurally generated levels might lead to unintended
 side effects like the troops getting stuck in walls or not being able to
 complete a level's required puzzle, so we are going to lean into more
 curated levels that we can test and refine.
+
+**Shaders**
+
+Shaders have been another interesting challenge. The largest conceptual change
+is that the shader coding paradigm is much different than a traditional piece
+of code. Instead of writing a function that takes in some inputs and returns
+some outputs, you are writing a function that takes in some inputs and modifies
+**every pixel** individually. This is a very different way of thinking about
+code and has been a fun challenge to wrap my head around. With just a little
+bit of work, we were able to create a simple VHS monitor-style shader that
+adds a cool wave effect to the screen when we are doing exposition cutscenes.
+
+For a fantastic introducino to the world of shaders, I highly recommend checking
+out [The Book of Shaders](https://thebookofshaders.com/). Additionally, for
+Godot-specific shader help, the [Godot Shaders](https://godotshaders.com/) website
+has been a great resource for building off the work of others.
+
+**Added Animations**
+
+**_Stayed tuned._** I don't want to give away a lot but let's just say that
+we've added some pretty cool animations to the game that make it feel much more
+alive.
+
+**Boids: Revisisted**
+
+We are making the boids much more interesting by adding targeting behavior to
+them. Now, when the player is within their field of vision, they will target
+the player and move towards them. This makes the game feel much more alive and
+dynamic. The player can hide behind walls to temporarily escape the boids' line
+sight, but the player has to now fend off the boids while trying to solve
+puzzles.
 
 </details>
 
