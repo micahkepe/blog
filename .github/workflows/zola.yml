@@ -1,6 +1,6 @@
 name: Zola on GitHub Pages
 
-on: 
+on:
  push:
   branches:
    - main
