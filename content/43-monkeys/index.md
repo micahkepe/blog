@@ -181,6 +181,10 @@ dynamic. The player can hide behind walls to temporarily escape the boids' line
 sight, but the player has to now fend off the boids while trying to solve
 puzzles.
 
+**2025-02-18 Progress Video**
+
+{{ youtube(id="rKcuIBeEa2A", width=80) }}
+
 </details>
 
 ---
