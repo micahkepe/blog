@@ -846,4 +846,4 @@ feel free to share it in the comments!
 - [`fzf.fish` GitHub Repository](https://github.com/PatrickF1/fzf.fish)
 - [`ripgrep` GitHub Repository](https://github.com/BurntSushi/ripgrep)
 
-{{ utterances() }}
+{{ giscus() }}

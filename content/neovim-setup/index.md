@@ -842,4 +842,4 @@ or just want to chat about Neovim, feel free to write in the comments below!
 - [NVChad Documentation](https://nvchad.com/docs/quickstart/install)
 - [An Experienced (Neo)Vimmer's Workflow.](https://seniormars.com/posts/neovim-workflow/)
 
-{{ utterances() }}
+{{ giscus() }}

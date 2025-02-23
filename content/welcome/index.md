@@ -34,4 +34,4 @@ Hubris" - Larry Wall**). The theme is a custom Zola theme called
 that I made based off the
 [`after-dark` theme](https://github.com/getzola/after-dark).
 
-{{ utterances()}}
+{{ giscus()}}

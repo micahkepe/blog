@@ -605,4 +605,4 @@ SQL queries, feel free to share them in the comments!
 - [The Next-Generation Query Planner](https://www.sqlite.org/queryplanner-ng.html)
 - [Order of Execution of SQL Queries](https://www.geeksforgeeks.org/order-of-execution-of-sql-queries/)
 
-{{ utterances() }}
+{{ giscus() }}

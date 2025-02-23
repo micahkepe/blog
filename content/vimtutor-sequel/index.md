@@ -131,4 +131,4 @@ using `brew install vimtutor-sequel`.
 - [Reddit Post](https://www.reddit.com/r/vim/comments/1eipuan/i_made_an_extended_version_of_vimtutor/)
 - [HackerNews Post](https://news.ycombinator.com/item?id=41144843)
 
-{{ utterances() }}
+{{ giscus() }}

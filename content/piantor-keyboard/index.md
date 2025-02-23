@@ -309,4 +309,4 @@ step on your journey to becoming an even bigger nerd.
 - [Miryoku Layout Github](https://github.com/manna-harbour/miryoku)
 - [Precondition Blog: Home Row Mods](https://precondition.github.io/home-row-mods)
 
-{{ utterances() }}
+{{ giscus() }}

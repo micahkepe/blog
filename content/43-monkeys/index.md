@@ -206,4 +206,4 @@ puzzles.
 | ------ | ------------------------------------------------------------------------------------------- | ------------ |
 | Bospad | [Spotify](https://open.spotify.com/artist/6Z9DPgoBu600ZbUbdQqZQf?si=x_ITREWSQ_CKJkJmOaWXBQ) | Music Design |
 
-{{ utterances() }}
+{{ giscus() }}
