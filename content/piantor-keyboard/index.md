@@ -18,7 +18,7 @@ switch and how I'm finding it so far.
 
 # Why?
 
-A few months ago I stumbled upon a YouTube video that would start off this whole
+A few months ago I stumbled upon a YouTube video[^1] that would start off this whole
 chain of events.
 
 {{
@@ -194,7 +194,7 @@ positions since they perfectly align with movements I already know.
 I found that I needed to use [Karabiner-Elements](https://karabiner-elements.pqrs.org/)
 to retain some of the functionality that I had with my old keyboard. The main
 source of frustration was from the Mac media keys not working with the Piantor
-keyboard. I was able to fix this by simply just using Karabiner-Elements without
+keyboard[^2]. I was able to fix this by simply just using Karabiner-Elements without
 any additional configuration, which I'm sure exactly that fixed the issue, but
 if it ain't broke, don't fix it. My guess is that by default my Macbook is
 interpreting the media keys as function keys, so I just had to make sure that
@@ -212,7 +212,7 @@ having access to all the modifier keys you need. I have found that I prefer this
 setup way more than the traditional modifier key placement and that I am looking
 to carry this over to my laptop keyboard as well.
 
-There are many different layouts of the modifiers that are possible, however I
+There are many different layouts[^3],[^4] of the modifiers that are possible, however I
 settled on the following, which I believe gibves me a good balance of the keyt
 as a MacOS user who frequently uses all of these keys often in combination:
 
@@ -250,7 +250,7 @@ that I found really convenient when working in Vim since I use the `Esc` key so 
 when switching modes.
 
 For a way better overview and explanatiohn of home row mods I highly recommend
-checking out this [blog post by precondition](https://precondition.github.io/home-row-mods).
+checking out this [blog post by precondition](https://precondition.github.io/home-row-mods).[^5]
 
 {{ note(body="
 **Note**: As an aside, while I think Karabiner-Elements is a great tool, I think that
@@ -302,11 +302,18 @@ that I have been using this board I've noticed:
 Honestly, if you've already drank the Kool-Aid with Vim... this is just the next
 step on your journey to becoming an even bigger nerd.
 
+---
+
 # References and Links
 
-- [Christian Selig's Custom Keyboard Build](https://youtu.be/7UXsD7nSfDY?si=_hr36d2jh61xhEap)
-- [Piantor Keyboard](https://shop.beekeeb.com/product/pre-soldered-piantor-split-keyboard/)
-- [Miryoku Layout Github](https://github.com/manna-harbour/miryoku)
-- [Precondition Blog: Home Row Mods](https://precondition.github.io/home-row-mods)
+[^1]: [Christian Selig's Custom Keyboard Build](https://youtu.be/7UXsD7nSfDY?si=_hr36d2jh61xhEap)
+
+[^2]: [Piantor Keyboard](https://shop.beekeeb.com/product/pre-soldered-piantor-split-keyboard/)
+
+[^3]: [Miryoku Layout Github](https://github.com/manna-harbour/miryoku)
+
+[^4]: [markstos Corne 42-key layout](https://mark.stosberg.com/markstos-corne-3x5-1-keyboard-layout/)
+
+[^5]: [Precondition Blog: Home Row Mods](https://precondition.github.io/home-row-mods)
 
 {{ giscus() }}
