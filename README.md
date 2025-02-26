@@ -1,4 +1,6 @@
-# [Micah's Secret Blog 👨‍💻](https://micahkepe.com/blog/)
+# [Micah's Secret Blog 👨‍💻✏](https://micahkepe.com/blog/)
+
+RSS Feed 📡: https://micahkepe.com/blog/atom.xml
 
 My "secret" blog is a collection of my thoughts and experiences as a computer
 science student at Rice University and as a software engineer. I write about
