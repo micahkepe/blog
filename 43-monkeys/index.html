@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+    <meta name="description" content="An assortment of my ramblings and random adventures." />
+    <meta property="og:description" content="An assortment of my ramblings and random adventures." />
+    <meta property="twitter:description" content="An assortment of my ramblings and random adventures." />
+    
+
+    <!-- Title -->
+      
+
+    <title>
+    
+    Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;43-monkeys&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;" />
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/web-app-manifest-512x512.png"
+    />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;43-monkeys&#x2F;"
+    />
+    <meta name="twitter:title" content="Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;" />
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    <link
+      rel="stylesheet"
+      href="https://micahkepe.com/blog/site.css"
+    />
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script>
+      document.documentElement.dataset.theme =
+        "toggle";
+    </script>
+  </head>
+
+  <body class="hack dark main container">
+    
+    
+         
+    <header class="nav-header">
+      <nav
+        itemscope
+        itemtype="http://schema.org/SiteNavigationElement"
+        class="navbar"
+      >
+        <div class="nav-links">
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/"
+          >
+            <span itemprop="name">Home</span>
+          </a>
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/categories"
+          >
+            <span itemprop="name">Categories</span>
+          </a>
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/tags"
+          >
+            <span itemprop="name">Tags</span>
+          </a>
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/"
+          >
+            <span itemprop="name">Main Site</span>
+          </a>
+          
+        </div>
+      </nav>
+      <div class="user-actions-container">
+        
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          class="search-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          />
+        </svg>
+        <input type="text" id="search" placeholder="Search..." />
+        <div class="search-results">
+          <div class="search-results__items"></div>
+        </div>
+         
+        <a id="dark-mode-toggle" href="#">
+          <img
+            src="https://micahkepe.com/blog/icons/sun.svg"
+            id="sun-icon"
+            style="filter: invert(1)"
+            alt="Light mode"
+          />
+          <img
+            src="https://micahkepe.com/blog/icons/moon.svg"
+            id="moon-icon"
+            alt="Dark mode"
+          />
+        </a>
+         
+        <a
+          href="https://micahkepe.com/blog/atom.xml"
+          class="feed-icon"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/rss.svg"
+            id="rss-icon"
+            alt="RSS feed"
+            class="social-icon"
+          />
+        </a>
+         
+        <a
+          href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+          class="feed-icon"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/github.svg"
+            id="github-icon"
+            alt="GitHub"
+            class="social-icon"
+          />
+        </a>
+        
+      </div>
+    </header>
+     
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;</h1>
+        <span class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <span>7 minute read</span>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-11-26
+</span>
+    </header>
+
+    <div itemprop="articleBody">
+        
+            <p>As part of my design course requirements at Rice University, I will be creating
+a game in a <a href="https://micahkepe.com/blog/43-monkeys/#contributors">group of 4 (<em>and more!</em>)</a> using the Godot engine over the
+upcoming semester. This blog post will serve as a progress log for the game's
+development and hopefully provide some good insights into the game
+development process from someone who has never made a game before.</p>
+
+
+            
+                <details class="toc-container">
+                    <summary class="toc-title">Table of Contents</summary>
+                    <ul class="toc-list">
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/43-monkeys/#initial-project-proposal">Initial Project Proposal</a>
+                                
+                                    <ul>
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/43-monkeys/#game-description">Game Description</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/43-monkeys/#game-mechanics">Game Mechanics</a>
+                                            </li>
+                                            
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/43-monkeys/#progress-log">Progress Log</a>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/43-monkeys/#contributors">Contributors</a>
+                                
+                                    <ul>
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/43-monkeys/#core-developer-team">Core Developer Team</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/43-monkeys/#outside-collaborators">Outside Collaborators</a>
+                                            </li>
+                                            
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                    </ul>
+                </details>
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            <span id="continue-reading"></span><h1 id="initial-project-proposal">Initial Project Proposal</h1>
+<p>Not to give too much away yet, but our game is called <strong>43 Monkeys</strong> and draws
+a lot of inspiration from this news source:
+<a href="https://www.cbsnews.com/news/south-carolina-escaped-monkeys-what-we-know/">What we know after 43 monkeys escaped a South Carolina research facility</a></p>
+<br>
+<div
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="images/game-teaser.png" alt="A teaser image of our game idea from our initial project proposal."
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <div style="margin-top: 0.5em;">
+    <p style="font-style: italic;">A teaser image of our game idea from our initial project proposal.</p>
+  </div>
+  
+</div>
+<h2 id="game-description">Game Description</h2>
+<p>In <strong>43 Monkeys</strong>, the player controls a group of monkeys that have escaped from
+a research facility. The monkeys must navigate through a series of puzzles and
+obstacles to escape the facility and make it to freedom on the outside. Along
+the way they can save more monkeys to add to their troop and use their unique
+abilities to solve puzzles and defeat enemies.</p>
+<h2 id="game-mechanics">Game Mechanics</h2>
+<p>The game is a keyboard-controlled top down 2d rogue-like where the player controls
+both the main monkey and the troop that can follow the player or move
+independently. Through 5 different levels/floors, the player must solve puzzles,
+defeat enemies, and avoid traps to escape the facility. The player can also
+collect power ups and new monkeys to add to their troop. Begin a rogue-like, the
+game will have perma-death, but the player can unlock shortcuts and new abilities
+to make future runs easier.</p>
+<hr />
+<h1 id="progress-log">Progress Log</h1>
+<details>
+    <summary>Pre-Class Work</summary>
+<p><strong>Updates</strong></p>
+<p>Before the class officially starts, we are taking time to familiarize ourselves
+with the Godot engine and the basics of game development. My first thoughts on
+working with GDScript is that it like a blend of Python and TypeScript, which is
+pretty cool. I'm excited to see how it works in practice. I've also been watching
+some tutorials on the Godot engine and game development in general to get a feel
+for the process.</p>
+<p>As of now, we have basic character sprites and background tiles ready to go.
+We are also working getting a basic scene set up in Godot to start testing
+out movement and interactions. Godot's
+<a href="https://docs.godotengine.org/en/stable/index.html">documentation</a> is very
+good and has been a great resource for getting started.</p>
+<p><strong>Basic Movement</strong></p>
+<div
+  style="width: 100%; max-width: 40%; margin: 0 auto; text-align: center;">
+  <video autoplay loop muted playsinline
+    style="max-width: 100%; height: auto; display: inline-block;">
+    <source src="https://micahkepe.com/blog/43-monkeys/videos/basic-movt.mp4" type="video/mp4">
+    Your browser doesn't support the video tag, which I use in place of .gifs, and/or the video formats in use here
+    – sorry!
+  </video>
+</div>
+<p><strong>Music</strong></p>
+<p>With a fun little open-source webapp called <a href="https://www.beepbox.co/">BeepBox</a>,
+we were able to make some fun 8-bit music for our game.</p>
+<div
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+
+  <audio controls="controls">
+    <source type="audio/mp3" src="https://micahkepe.com/blog/43-monkeys/music/fonky-loop.ogg">
+    </source>
+    <source type="audio/ogg" src="https://micahkepe.com/blog/43-monkeys/music/fonky-loop.ogg">
+    </source>
+    <p>Your browser does not support the audio element.</p>
+  </audio>
+
+</div>
+</details>
+<details>
+    <summary>Making an MVP Demo: Weeks 1-2</summary>
+<p>With the spring semester now in full swing and our team assembled, we are working
+on getting our MVP (minimum viable product) ready for a demo scheduled at the end
+of week 2 of the course.</p>
+<p>Our big focus is looking at <a href="https://en.wikipedia.org/wiki/Flocking">flocking
+algorithms</a> and
+<a href="https://en.wikipedia.org/wiki/Boids">boids</a>. This is because one of the
+unique features of our game is that the player will be able to control a
+group of monkeys that will follow the player around the map or move
+independently as a swarm.</p>
+<div
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <video autoplay loop muted playsinline
+    style="max-width: 100%; height: auto; display: inline-block;">
+    <source src="https://micahkepe.com/blog/43-monkeys/videos/boids-demo.mp4" type="video/mp4">
+    Your browser doesn't support the video tag, which I use in place of .gifs, and/or the video formats in use here
+    – sorry!
+  </video>
+</div>
+<p><strong>Update</strong>: Demo MVP is completed. We ended up doing a simple demo level where
+the player has to use their group of monkeys to deactivate lasers with
+coordinated button presses and defeat a boss at the end. I'm pretty proud of
+what we've been able to do some far in only a couple weeks of work, but we
+also have a lot of work ahead of us as we figure out the rest of our levels,
+polished up the art, etc.</p>
+<p><strong>Some more teasers</strong></p>
+<p>Little bit of the MVP demo in action:</p>
+<div
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <video autoplay loop muted playsinline
+    style="max-width: 100%; height: auto; display: inline-block;">
+    <source src="https://micahkepe.com/blog/43-monkeys/videos/mvp-demo.mp4" type="video/mp4">
+    Your browser doesn't support the video tag, which I use in place of .gifs, and/or the video formats in use here
+    – sorry!
+  </video>
+</div>
+<p>Our pretty epic main theme (if I do say so myself):</p>
+<div
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+
+  <audio controls="controls">
+    <source type="audio/mp3" src="https://micahkepe.com/blog/43-monkeys/music/main-theme.ogg">
+    </source>
+    <source type="audio/ogg" src="https://micahkepe.com/blog/43-monkeys/music/main-theme.ogg">
+    </source>
+    <p>Your browser does not support the audio element.</p>
+  </audio>
+
+</div>
+</details>
+<details open>
+    <summary>Work Until Midterm Demo: Weeks 3-7</summary>
+<p>With the initial demo out of the way, we are now working on fleshing out the
+rest of the game. This includes creating more levels, adding more mechanics,
+and polishing up the art and music. While our art was pretty good for the MVP,
+we really want to dial in the aesthetic of the game to be something truly
+impressive. Part of this is diving deeper into writing custom shaders and
+animations to make the game feel more alive.</p>
+<p>Another big thing that we realized post-demo is that our initial conception of
+the game having procedurally generated levels might lead to unintended
+side effects like the troops getting stuck in walls or not being able to
+complete a level's required puzzle, so we are going to lean into more
+curated levels that we can test and refine.</p>
+<p><strong>Shaders</strong></p>
+<p>Shaders have been another interesting challenge. The largest conceptual change
+is that the shader coding paradigm is much different than a traditional piece
+of code. Instead of writing a function that takes in some inputs and returns
+some outputs, you are writing a function that takes in some inputs and modifies
+<strong>every pixel</strong> individually. This is a very different way of thinking about
+code and has been a fun challenge to wrap my head around. With just a little
+bit of work, we were able to create a simple VHS monitor-style shader that
+adds a cool wave effect to the screen when we are doing exposition cutscenes.</p>
+<p>For a fantastic introduction to the world of shaders, I highly recommend
+checking out <a href="https://thebookofshaders.com/">The Book of Shaders</a>.
+Additionally, for Godot-specific shader help, the <a href="https://godotshaders.com/">Godot
+Shaders</a> website has been a great resource for
+building off the work of others.</p>
+<p><strong>Added Animations</strong></p>
+<p><strong><em>Stayed tuned.</em></strong> I don't want to give away a lot but let's just say that
+we've added some pretty cool animations to the game that make it feel much more
+alive.</p>
+<p><strong>Boids: Revisited</strong></p>
+<p>We are making the boids much more interesting by adding targeting behavior to
+them. Now, when the player is within their field of vision, they will target
+the player and move towards them. This makes the game feel much more alive and
+dynamic. The player can hide behind walls to temporarily escape the boids' line
+sight, but the player has to now fend off the boids while trying to solve
+puzzles.</p>
+<p><strong>2025-02-18 Progress Video</strong></p>
+<div class="responsive-iframe"
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <iframe src="https://www.youtube.com/embed/rKcuIBeEa2A" webkitallowfullscreen
+    mozallowfullscreen allowfullscreen>
+  </iframe>
+</div>
+</details>
+<hr />
+<h1 id="contributors">Contributors</h1>
+<h2 id="core-developer-team">Core Developer Team</h2>
+<table><thead><tr><th>Name</th><th>Link(s)</th><th>Role</th></tr></thead><tbody>
+<tr><td>Zach Kepe</td><td><a href="https://github.com/zachkepe">GitHub</a> <a href="https://www.zachkepe.com/">Website</a> <a href="https://www.linkedin.com/in/zacharykepe/">LinkedIn</a></td><td>Core Developer</td></tr>
+<tr><td>Grant Thompson</td><td><a href="https://www.linkedin.com/in/grantwthompson/">LinkedIn</a></td><td>Core Developer</td></tr>
+<tr><td>Kevin Lei</td><td><a href="https://www.linkedin.com/in/lei-kevin/">LinkedIn</a></td><td>Core Developer</td></tr>
+<tr><td><em>Micah Kepe (me)</em></td><td><a href="https://github.com/micahkepe">GitHub</a> <a href="https://micahkepe.com/">Website</a> <a href="https://www.linkedin.com/in/micah-kepe/">LinkedIn</a></td><td>Core Developer</td></tr>
+</tbody></table>
+<h2 id="outside-collaborators">Outside Collaborators</h2>
+<table><thead><tr><th>Name</th><th>Link(s)</th><th>Role</th></tr></thead><tbody>
+<tr><td>Bospad</td><td><a href="https://open.spotify.com/artist/6Z9DPgoBu600ZbUbdQqZQf?si=x_ITREWSQ_CKJkJmOaWXBQ">Spotify</a></td><td>Music Design</td></tr>
+</tbody></table>
+<script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe/blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="Announcements"
+  data-category-id="DIC_kwDONfHznc4CnQJ3"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  crossorigin="anonymous"
+  async
+></script>
+
+
+
+        
+    </div>
+
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by Micah Kepe
+                
+                
+                    
+                    in <a href="https://micahkepe.com/blog/categories/projects/">projects</a>
+                
+                
+                    and
+                    tagged
+                    
+                        <a href="https://micahkepe.com/blog/tags/godot/">godot</a>
+                        
+                            
+                                
+                                    ,
+                                
+                            
+                        
+                    
+                        <a href="https://micahkepe.com/blog/tags/game-dev/">game-dev</a>
+                        
+                            
+                                
+                                    and
+                                
+                            
+                        
+                    
+                        <a href="https://micahkepe.com/blog/tags/rice/">rice</a>
+                        
+                            
+                        
+                    
+                
+            </p>
+            
+            
+        </footer>
+    
+</article>
+
+
+
+    <!-- optional scripts -->
+     
+    <script src="https://micahkepe.com/blog/js/codeblock.js"></script>
+     
+    <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+     
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+ 
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+ 
+  </body>
+</html>
