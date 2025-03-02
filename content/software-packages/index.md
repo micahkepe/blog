@@ -380,5 +380,3 @@ focus on what matters most: building great software.
 - [What is Software Package?](https://www.geeksforgeeks.org/what-is-software-package/)
 - [Package Manager (Wikipedia)](https://en.wikipedia.org/wiki/Package_manager)
 - [Creating and publishing scoped public packages](https://docs.npmjs.com/creating-and-publishing-scoped-public-packages)
-
-{{ giscus()}}

@@ -845,5 +845,3 @@ feel free to share it in the comments!
 - [`fzf` GitHub Repository](https://github.com/junegunn/fzf)
 - [`fzf.fish` GitHub Repository](https://github.com/PatrickF1/fzf.fish)
 - [`ripgrep` GitHub Repository](https://github.com/BurntSushi/ripgrep)
-
-{{ giscus() }}

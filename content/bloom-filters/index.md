@@ -280,5 +280,3 @@ systems and continue to be a valuable tool in a programmer's toolkit.
 - [Bloom Filters – Introduction and Implementation](https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/)
 - [System Design: Bloom Filter](https://towardsdatascience.com/system-design-bloom-filter-a2e19dcd4810)
 - [Bloom Filter Data Structure: Implementation and Application](https://www.enjoyalgorithms.com/blog/bloom-filter)
-
-{{ giscus() }}

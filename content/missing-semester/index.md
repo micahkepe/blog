@@ -303,5 +303,3 @@ wide range of topics that are essential for becoming a more productive and
 efficient programmer. The course has helped me improve my skills in version
 control, automation, and configuration management, and I continue to use many of
 the tools and techniques that I learned in my day-to-day work.
-
-{{ giscus()}}

@@ -130,5 +130,3 @@ using `brew install vimtutor-sequel`.
 - [Issues & Feedback](https://github.com/micahkepe/vimtutor-sequel/issues)
 - [Reddit Post](https://www.reddit.com/r/vim/comments/1eipuan/i_made_an_extended_version_of_vimtutor/)
 - [HackerNews Post](https://news.ycombinator.com/item?id=41144843)
-
-{{ giscus() }}

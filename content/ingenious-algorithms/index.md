@@ -388,5 +388,3 @@ the digital age.
 - [Shazam: An Industrial-Strength Audio Search Algorithm](https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf)
 - [How on Earth Does Shazam Recognize Songs](https://youtu.be/ev0Ay1m4MWs?si=C_Bk31NOsUeRVAPN)
 - [How does Shazam Uniquely Identify A Track?](https://networkedlifeq21.fandom.com/wiki/How_does_Shazam_Uniquely_Identify_A_Track%3F)
-
-{{ giscus()}}

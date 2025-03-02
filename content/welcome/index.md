@@ -33,5 +33,3 @@ Hubris" - Larry Wall**). The theme is a custom Zola theme called
 [`radion`](https://github.com/micahkepe/radion)
 that I made based off the
 [`after-dark` theme](https://github.com/getzola/after-dark).
-
-{{ giscus()}}

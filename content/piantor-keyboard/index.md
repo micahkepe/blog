@@ -315,5 +315,3 @@ step on your journey to becoming an even bigger nerd.
 [^4]: [markstos Corne 42-key layout](https://mark.stosberg.com/markstos-corne-3x5-1-keyboard-layout/)
 
 [^5]: [Precondition Blog: Home Row Mods](https://precondition.github.io/home-row-mods)
-
-{{ giscus() }}

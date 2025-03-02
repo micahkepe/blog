@@ -56,3 +56,10 @@ enable_search = true
 
 # Light/Dark Mode set
 theme = "toggle" # options: {light, dark, auto, toggle}
+
+# Comment sections
+comments = true
+giscus_repo = "micahkepe/blog"
+giscus_repo_id = "R_kgDONfHznQ"
+giscus_data_category_id = "DIC_kwDONfHznc4CnQJ4"
+

@@ -241,5 +241,3 @@ freedom and productivity.
 - [Builder.io Blog Post on AI Job Impact](https://www.builder.io/blog/ai-jobs-truth)
 - [U.S. Bureau of Labor Statistics](https://www.bls.gov/ooh/computer-and-information-technology/home.htm)
 - [Leading Projects with Data](https://www.google.com/books/edition/Leading_Projects_with_Data/VQKeEAAAQBAJ?hl=en&gbpv=1&dq=visicalc+accountants+jobs+obsolete&pg=PA138&printsec=frontcover)
-
-{{ giscus() }}
