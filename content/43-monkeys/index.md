@@ -133,7 +133,7 @@ source="music/main-theme.ogg"
 
 </details>
 
-<details open>
+<details>
     <summary>Work Until Midterm Demo: Weeks 3-7</summary>
 
 With the initial demo out of the way, we are now working on fleshing out the
@@ -184,6 +184,21 @@ puzzles.
 **2025-02-18 Progress Video**
 
 {{ youtube(id="rKcuIBeEa2A", width=80) }}
+
+</details>
+
+<details open>
+<summary>Midterm Demo</summary>
+
+As of time of writing this (03/04/2025), we are less than a week away from our
+midterm demo. We have been working on adding a lot of aesthetic features to the
+levels with an expanded tileset and lots of new light elements which have
+dramatically improved the look and feel of the game.
+
+We're in the middle of polishing up the game for the upcoming demo and ironing
+out lingering bugs and issues. For a little sneak peek, I'll let Zach's trailer
+speak for itself:
+[midterm demo trailer](https://www.youtube.com/watch?v=q15k0-rHB08)
 
 </details>
 
