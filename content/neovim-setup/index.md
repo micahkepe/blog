@@ -678,6 +678,11 @@ style the UI to your liking.
 { "stevearc/dressing.nvim", event = "VeryLazy" },
 ```
 
+> **Note**: this plugin has been marked as "Read-Only" by the owner, so I have
+> since switched to
+> [snacks.input](https://github.com/folke/snacks.nvim/blob/main/docs/input.md)
+> for similar effect.
+
 <br>
 
 ## **Key Mappings**
@@ -696,37 +701,9 @@ require "nvchad.mappings" -- NVChad-defined mappings
 
 local map = vim.keymap.set
 
--- Quickly exit Normal mode with `jk`
--- This makes the transition from typing to command mode faster and more comfortable for the fingers.
--- UPDATE: I disabled this and instead just use Karabiner to map capslock to ESC
--- map("i", "jk", "<ESC>")
-
 -- Map <C-s> to save
 -- This is a common shortcut in many editors, bringing familiarity from other tools like VSCode.
 map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
-```
-
-### "Reveal in Finder" Dupe
-
-One of the things that I was missing coming from Visual Studio Code was the
-option in the file explorer to "Reveal in Finder" so I created a simple Vim user
-command that allows me to open a file under in my cursor in a Finder window
-either from the open file buffer or from the file explorer sidebar.
-
-{{ gif(sources=["demos/finder.mp4"], width=80)}}
-
-```lua
-
--- Open file in default viewer
-vim.api.nvim_create_user_command("OpenFileInViewer", function()
-  local current_file = vim.fn.expand "%:p"
-  vim.fn.system('open "' .. current_file .. '"')
-end, {})
-
--- Map <leader>sv to open file in standard viewer
--- NOTE: if cursor is on the file name Nvim Tree, you can simply press `sv` to open the file in the default viewer
--- since the leader key is already used by Nvim Tree.
-map("n", "<leader>sv", ":OpenFileInViewer<CR>", { noremap = true, silent = true, desc = "Open file in default viewer" })
 ```
 
 ### Window Management
