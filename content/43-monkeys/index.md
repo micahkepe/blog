@@ -42,8 +42,8 @@ abilities to solve puzzles and defeat enemies.
 
 ## Game Mechanics
 
-The game is a keyboard-controlled top down 2d rogue-like where the player controls
-both the main monkey and the troop that can follow the player or move
+The game is a keyboard-controlled top down 2D roguelike where the player
+controls both the main monkey and the troop that can follow the player or move
 independently. Through 5 different levels/floors, the player must solve puzzles,
 defeat enemies, and avoid traps to escape the facility. The player can also
 collect power ups and new monkeys to add to their troop. Begin a rogue-like, the
@@ -187,7 +187,7 @@ puzzles.
 
 </details>
 
-<details open>
+<details>
 <summary>Midterm Demo</summary>
 
 As of time of writing this (03/04/2025), we are less than a week away from our
@@ -199,6 +199,24 @@ We're in the middle of polishing up the game for the upcoming demo and ironing
 out lingering bugs and issues. For a little sneak peek, I'll let Zach's trailer
 speak for itself:
 [midterm demo trailer](https://www.youtube.com/watch?v=q15k0-rHB08)
+
+</details>
+
+<details open>
+
+<summary>Wrapping Up: Work Until Final Demo</summary>
+
+Midterm demo went well! We are now focused on creating the finished MVP of the
+game that we can showcase in our final presentation and demo. The major areas of
+focus are:
+
+- Finish complete gameplay
+- Add more unique game elements and puzzles
+- More unique monkey variants, both in terms of design and their unique abilities,
+  attacks, etc.
+
+We are hoping that by the end of the semester we will have a fully-fledged MVP
+that can be embedded in a browser to allow people to play, so stay tuned!
 
 </details>
 
