@@ -12,9 +12,9 @@ toc = true
 +++
 
 As part of my design course requirements at Rice University, I will be creating
-a game in a [group of 4 (_and more!_)](#contributors) using the Godot engine over the
-upcoming semester. This blog post will serve as a progress log for the game's
-development and hopefully provide some good insights into the game
+a game in a [group of 4 (_and more!_)](#contributors) using the Godot engine
+over the upcoming semester. This blog post will serve as a progress log for
+the game's development and hopefully provide some good insights into the game
 development process from someone who has never made a game before.
 
 <!-- more -->
@@ -47,24 +47,25 @@ controls both the main monkey and the troop that can follow the player or move
 independently. Through 5 different levels/floors, the player must solve puzzles,
 defeat enemies, and avoid traps to escape the facility. The player can also
 collect power ups and new monkeys to add to their troop. Begin a rogue-like, the
-game will have perma-death, but the player can unlock shortcuts and new abilities
-to make future runs easier.
+game will have perma-death, but the player can unlock shortcuts and new
+abilities to make future runs easier.
 
 ---
 
 # Progress Log
 
-<details>
-    <summary>Pre-Class Work</summary>
+The following sections document the incremental progress we made over the
+semester from a small MVP from winter break to the complete game at the end of
+the spring semester.
 
-**Updates**
+## Pre-Class Work
 
 Before the class officially starts, we are taking time to familiarize ourselves
 with the Godot engine and the basics of game development. My first thoughts on
 working with GDScript is that it like a blend of Python and TypeScript, which is
-pretty cool. I'm excited to see how it works in practice. I've also been watching
-some tutorials on the Godot engine and game development in general to get a feel
-for the process.
+pretty cool. I'm excited to see how it works in practice. I've also been
+watching some tutorials on the Godot engine and game development in general
+to get a feel for the process.
 
 As of now, we have basic character sprites and background tiles ready to go.
 We are also working getting a basic scene set up in Godot to start testing
@@ -72,7 +73,7 @@ out movement and interactions. Godot's
 [documentation](https://docs.godotengine.org/en/stable/index.html) is very
 good and has been a great resource for getting started.
 
-**Basic Movement**
+### Basic Movement
 
 {{ gif(
 sources=["videos/basic-movt.mp4"],
@@ -88,10 +89,9 @@ we were able to make some fun 8-bit music for our game.
 source="music/fonky-loop.ogg"
 )}}
 
-</details>
+<br>
 
-<details>
-    <summary>Making an MVP Demo: Weeks 1-2</summary>
+## Making an MVP Demo: Weeks 1-2
 
 With the spring semester now in full swing and our team assembled, we are working
 on getting our MVP (minimum viable product) ready for a demo scheduled at the end
@@ -116,7 +116,7 @@ what we've been able to do some far in only a couple weeks of work, but we
 also have a lot of work ahead of us as we figure out the rest of our levels,
 polished up the art, etc.
 
-**Some more teasers**
+### Some more teasers
 
 Little bit of the MVP demo in action:
 
@@ -131,10 +131,9 @@ Our pretty epic main theme (if I do say so myself):
 source="music/main-theme.ogg"
 )}}
 
-</details>
+<br>
 
-<details>
-    <summary>Work Until Midterm Demo: Weeks 3-7</summary>
+## Work Until Midterm Demo: Weeks 3-7
 
 With the initial demo out of the way, we are now working on fleshing out the
 rest of the game. This includes creating more levels, adding more mechanics,
@@ -145,11 +144,11 @@ animations to make the game feel more alive.
 
 Another big thing that we realized post-demo is that our initial conception of
 the game having procedurally generated levels might lead to unintended
-side effects like the troops getting stuck in walls or not being able to
-complete a level's required puzzle, so we are going to lean into more
-curated levels that we can test and refine.
+side effects. For example, troops could get stuck in walls or not be able to
+complete a level's required puzzle. Because of this, we are going to lean into
+more curated levels that we can test and refine.
 
-**Shaders**
+### Shaders
 
 Shaders have been another interesting challenge. The largest conceptual change
 is that the shader coding paradigm is much different than a traditional piece
@@ -166,13 +165,13 @@ Additionally, for Godot-specific shader help, the [Godot
 Shaders](https://godotshaders.com/) website has been a great resource for
 building off the work of others.
 
-**Added Animations**
+### Added Animations
 
 **_Stayed tuned._** I don't want to give away a lot but let's just say that
 we've added some pretty cool animations to the game that make it feel much more
 alive.
 
-**Boids: Revisited**
+### Boids: Revisited
 
 We are making the boids much more interesting by adding targeting behavior to
 them. Now, when the player is within their field of vision, they will target
@@ -181,14 +180,13 @@ dynamic. The player can hide behind walls to temporarily escape the boids' line
 sight, but the player has to now fend off the boids while trying to solve
 puzzles.
 
-**2025-02-18 Progress Video**
+### 2025-02-18 Progress Video
 
 {{ youtube(id="rKcuIBeEa2A", width=80) }}
 
-</details>
+<br>
 
-<details>
-<summary>Midterm Demo</summary>
+## Midterm Demo
 
 As of time of writing this (03/04/2025), we are less than a week away from our
 midterm demo. We have been working on adding a lot of aesthetic features to the
@@ -198,13 +196,11 @@ dramatically improved the look and feel of the game.
 We're in the middle of polishing up the game for the upcoming demo and ironing
 out lingering bugs and issues. For a little sneak peek, I'll let Zach's trailer
 speak for itself:
-[midterm demo trailer](https://www.youtube.com/watch?v=q15k0-rHB08)
+[game trailer](https://www.youtube.com/watch?v=o46NNVcCdBM)
 
-</details>
+<br>
 
-<details open>
-
-<summary>Wrapping Up: Work Until Final Demo</summary>
+## Wrapping Up: Work Until Final Demo
 
 Midterm demo went well! We are now focused on creating the finished MVP of the
 game that we can showcase in our final presentation and demo. The major areas of
@@ -212,13 +208,19 @@ focus are:
 
 - Finish complete gameplay
 - Add more unique game elements and puzzles
-- More unique monkey variants, both in terms of design and their unique abilities,
-  attacks, etc.
+- More unique monkey variants, both in terms of design and their unique
+  abilities, attacks, etc.
 
 We are hoping that by the end of the semester we will have a fully-fledged MVP
 that can be embedded in a browser to allow people to play, so stay tuned!
 
-</details>
+---
+
+# Play the Game on itch.io!
+
+<div align="center">
+    <iframe frameborder="0" src="https://itch.io/embed/3482305?dark=true" width="552" height="167"><a href="https://alpha-prime-studios.itch.io/43-monkeys">43 Monkeys by alpha prime studios | ⍺'</a></iframe>
+</div>
 
 ---
 
