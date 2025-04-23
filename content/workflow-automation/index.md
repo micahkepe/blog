@@ -55,7 +55,6 @@ Just like you would expect, varibles are assigned using the `=` operator. Here
 is an example:
 
 ```bash
-
 name="John"
 age=20
 ```
@@ -67,7 +66,6 @@ a variable and then assign an integer to the same variable.
 Here's some basic things we can do with variables:
 
 ```bash
-
 # Print the value of a variable using the echo command
 echo $name # access the value of a variable using the $ operator
 
@@ -89,7 +87,6 @@ but you can do a lot with what is provided.
 Examples:
 
 ```bash
-
 name="Alice"    # string
 count=42        # integer stored as a string, but usable in arithmetic
 
@@ -117,7 +114,6 @@ feel odd at first, but you’ll get used to it quickly.
 `for` loops:
 
 ```bash
-
 for file in *.txt; do
     echo "Processing $file"
 done
@@ -129,7 +125,6 @@ keyword starts the loop's body, and `done` ends it.
 `while` loops:
 
 ```bash
-
 count=1
 while [ $count -le 5 ]; do
     echo "Count: $count"
@@ -144,7 +139,6 @@ increments the value of the `count` variable by 1.
 `if` statements:
 
 ```bash
-
 age=20
 if [ $age -ge 18 ]; then
     echo "You are an adult."
@@ -193,7 +187,6 @@ subtle differences will make your Bash scripts more reliable and easier to read.
 Example:
 
 ```bash
-
 num=10
 if [ $num -gt 5 ]; then
   echo "$num is greater than 5"
@@ -217,7 +210,6 @@ fi
 Example:
 
 ```bash
-
 str="hello"
 if [ "$str" = "hello" ]; then
     echo "The strings match"
@@ -229,7 +221,6 @@ fi
 The `read` command will let us retrieve data from `stdin`.
 
 ```bash
-
 echo "Enter your name:"
 read user_name
 echo "Hello, $user_name!"
@@ -239,7 +230,6 @@ Next, we can use the `trap` command to execute another command after an event
 like a sent signal such as `SIGINT` (Ctrl + C):
 
 ```bash
-
 trap 'echo "Caught CTRL+C, exiting..."; exit 1' INT
 
 while true; do
@@ -258,7 +248,6 @@ operating system what interpreter to use to run the script. The shebang for
 Bash scripts is `#!/bin/bash`. Here is an example of a simple Bash script:
 
 ```bash
-
 #!/bin/bash
 echo "Hello, World!"
 ```
@@ -273,7 +262,6 @@ Now to actually run the script, save it to a file (e.g. `hello.sh`), make it
 executable using the `chmod` command, and then run it:
 
 ```bash
-
 chmod +x hello.sh
 ```
 
@@ -326,7 +314,6 @@ You can also get platform-specific man pages with the `--platform` flag like
 this:
 
 ```bash
-
 # - Print the tldr page for a command from a specific [p]latform:
 #     tldr --platform android|common|freebsd|linux|osx|netbsd|openbsd|sunos|windows command
 # Example:
@@ -340,7 +327,6 @@ the present working directory. However, the `tldr` page for `fzf` also lists out
 some more complex commands with `fzf`:
 
 ```bash
-
 # - Start `fzf` on all files in the specified directory:
 find path/to/directory -type f | fzf
 
@@ -368,7 +354,6 @@ integration you'll need to add the following to your shell's respective
 configuration file:
 
 ```bash
-
 # Zsh
 source <(fzf --zsh)
 
@@ -402,7 +387,6 @@ adding `set -g prefix C-a` to your `~/.tmux.conf` file.)
 Here are some common `tmux` commands:
 
 ```bash
-
 # Create a new session:
 tmux new-session
 
@@ -431,7 +415,6 @@ lines in a file.
 Here are some examples:
 
 ```bash
-
 # Replace "old_text" with "new_text" in a file:
 sed 's/old_text/new_text/g' file.txt
 
@@ -451,7 +434,6 @@ and kill processes easily.
 Here are some examples:
 
 ```bash
-
 # Start `htop`:
 htop
 
@@ -470,7 +452,6 @@ numbers, and Git integration.
 Examples:
 
 ```bash
-
 # print a file with syntax highlighting
 bat main.py
 
@@ -487,7 +468,6 @@ faster than both `grep` and `ag` (The Silver Searcher).
 Examples:
 
 ```bash
-
 # search for "main" in current directory
 rg main
 
@@ -503,7 +483,6 @@ rg main --glob '*.py'
 #### Finding Files with a Certain Keyword
 
 ```bash
-
 # Find all files in the current directory that contain the word "foo"
 # and display the file name and line
 rg foo | fzf | awk '{print $1, $2}'
@@ -519,7 +498,6 @@ First, let's add the file selected from `fzf` to be what we open the Neovim
 session in:
 
 ```bash
-
 nvim $(fzf)
 ```
 
@@ -527,7 +505,6 @@ Let's also pass a `bat` command to `fzf`'s `'--preview` to let us see the files
 as we navigate them with `fzf`.
 
 ```bash
-
 nvim $(fzf --preview="bat --color=always {}")
 ```
 
@@ -536,7 +513,6 @@ select multiple files with TAB and then these will be put in open buffers when
 we open Neovim!
 
 ```bash
-
 nvim $(fzf -m --preview="bat --color=always {}")
 ```
 
@@ -545,7 +521,6 @@ enhanced command as an alias for `nvim`. Instead your `~/.zshrc`, `~/.bashrc`,
 `~/.config/fish/config.fish`, etc.:
 
 ```bash
-
 alias nvim='nvim $(fzf -m --preview="bat --color=always {}")'
 ```
 
@@ -555,7 +530,6 @@ Another great example of combining tools is this `tmux-sessionizer.sh` script
 that I adapted from [ThePrimeagen](https://www.youtube.com/c/theprimeagen):
 
 ```bash
-
 #!/usr/bin/env bash
 
 # Adapted from: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
@@ -606,14 +580,12 @@ else
     # if running outside of tmux, attach to the new session
     tmux attach-session -t $selected_name
 fi
-
 ```
 
 Add this script to your `$PATH` and create an alias in your shell configuration
 file (e.g. `.bashrc`, `.zshrc`) like:
 
 ```bash
-
 alias tmux-sessionizer='tmux-sessionizer.sh'
 ```
 
@@ -646,7 +618,6 @@ resize them, and switch between them without ever having to touch the mouse.
 With Homebrew, you can install Hammerspoon with the following command:
 
 ```bash
-
 brew install --cask hammerspoon
 ```
 
@@ -660,7 +631,6 @@ Let's create a file called `window.lua` in `~/.hammerspoon/` and add the
 following code:
 
 ```lua
-
 -- window.lua
 
 -- Window grid layout
@@ -726,7 +696,6 @@ To actually include the this window script, add the following to
 `~/.hammerspoon/init.lua`:
 
 ```lua
-
 -- ~/.hammerspoon/init.lua
 require("window")
 ```
@@ -749,7 +718,6 @@ API allows for overcoming both of these shortcomings.
 Add the following to the end of your `~/.hammerspoon/window.lua` file:
 
 ```lua
-
 -- window.lua
 
 -- Window switching
@@ -801,7 +769,6 @@ quickly find a function definition. Instead of manually poking around
 directories, you can run a single command:
 
 ```bash
-
 nvim $(rg "myFunctionName" --files-with-matches | fzf --preview="bat --color=always {}")
 ```
 

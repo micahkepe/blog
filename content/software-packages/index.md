@@ -151,9 +151,7 @@ Here's the directory structure of the Autoprefixer package in `node_modules`:
 
 Here's the `package.json` file for Autoprefixer:
 
-<!-- prettier-ignore-->
 ```json
-
 {
   "name": "autoprefixer",
   "version": "10.4.19",
@@ -330,7 +328,6 @@ If you don't already have one, create an account on <a href="https://www.npmjs.c
   <li><strong>Login to NPM:</strong>
 
 ```bash
-
 npm login
 ```
 
@@ -339,7 +336,6 @@ npm login
   <li><strong>Publish the package:</strong>
 
 ```bash
-
 npm publish
 ```
 

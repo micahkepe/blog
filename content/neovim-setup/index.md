@@ -28,14 +28,12 @@ to do the configuration yourself, you can run these commands to add my setup as 
 1.  Clone the repository and install plugins:
 
 ```bash
-
 git clone git@github.com:micahkepe/dotfiles ~/.config/micahkepe/dotfiles
 ```
 
 2.  Open Neovim with this configuration:
 
 ```bash
-
 NVIM_APPNAME=micahkepe/dotfiles/nvim nvim
 ```
 
@@ -115,7 +113,6 @@ If you are following along, let's first install NVChad before we continue:
 **For Mac and Linux Users**:
 
 ```bash
-
 git clone https://github.com/NvChad/starter ~/.config/nvim && nvim
 ```
 
@@ -159,7 +156,6 @@ To do this, I created a separate file for the diagnostics configuration in
 `nvim/lua/configs/diagnostics.lua`:
 
 ```lua
-
 -- nvim/lua/configs/diagnostics.lua
 local M = {}
 
@@ -185,7 +181,6 @@ Then to load this configuration, I added the following lines to the top of my
 `nvim/lua/configs/lspconfig.lua`:
 
 ```lua
-
 -- nvim/lua/configs/lspconfig.lua
 local diagnostics = require "configs.diagnostics"
 
@@ -204,7 +199,6 @@ To do this, I altered the section in the `nvim/lua/init.lua` file that loads
 NvChad's defined plugins:
 
 ```lua
-
 -- nvim/lua/init.lua
 -- load plugins
 require("lazy").setup({
@@ -311,7 +305,6 @@ usage.
 **lazy.nvim**:
 
 ```lua
-
 -- nvim/lua/plugins/wilder.nvim
 
 return {
@@ -392,7 +385,6 @@ me.
 **lazy.nvim**:
 
 ```lua
-
 -- nvim/lua/plugins/image-nvim.lua
 
 -- For dependencies see
@@ -519,7 +511,6 @@ want to resume exactly where you left off.
 **lazy.nvim**:
 
 ```lua
-
 -- automatically creates a Vim session when Neovim opens for saving work
 return {
   "rmagatti/auto-session",
@@ -537,7 +528,6 @@ return {
 Then I define these mappings to save and restore sessions:
 
 ```lua
-
 -- nvim/lua/mappings.lua
 
 -- Autosession mappings
@@ -567,7 +557,6 @@ can navigate between these panes with ease.
 **lazy.nvim**:
 
 ```lua
-
   {
     "christoomey/vim-tmux-navigator",
     lazy = false, -- load on start up to immediately enable
@@ -611,7 +600,6 @@ can navigate between these panes with ease.
 If using tmux, add the following to your `~/.tmux.conf`:
 
 ```bash
-
 # ~/.tmux.conf
 # Smart pane switching with awareness of Vim splits.
 # See: https://github.com/christoomey/vim-tmux-navigator
@@ -649,7 +637,6 @@ settings to suit your workflow.
 **lazy.nvim**:
 
 ```lua
-
 -- nvim/lua/plugins/init.lua
 {
 "pocco81/auto-save.nvim",
@@ -673,7 +660,6 @@ style the UI to your liking.
 **lazy.nvim**:
 
 ```lua
-
 -- nvim/lua/plugins/init.lua
 { "stevearc/dressing.nvim", event = "VeryLazy" },
 ```
@@ -695,7 +681,6 @@ these by doing `<leader>ch` to pull up the mappings cheat sheet).
 ### Quality of Life Remaps
 
 ```lua
-
 -- nvim/lua/mappings.lua
 require "nvchad.mappings" -- NVChad-defined mappings
 
@@ -713,7 +698,6 @@ key provides a description of the mapping for use in command help or plugins
 like `which-key.nvim`.
 
 ```lua
-
 map("n", "<leader>v", "<C-w>v", { desc = "Split window vertically" }) -- split window vertically
 map("n", "<leader>sd", "<cmd>close<CR>", { desc = "Close current split" }) -- close current split window
 map("n", "<leader>se", "<C-w>=", { desc = "Equalize splits" }) -- equalize split layouts
@@ -727,7 +711,6 @@ These mappings keep the cursor and search result centered in the window while
 scrolling or jumping to search results.
 
 ```lua
-
 -- maintain visual context on page navigation and searching
 map("n", "<C-d>", "<C-d>zz") -- Keeps cursor centered when going down the page
 map("n", "<C-u>", "<C-u>zz") -- Keeps cursor centered when going up the page
@@ -744,7 +727,6 @@ These are the mappings I use for GitSigns, which I believe are fairly standard.
 {{ gif(sources=["demos/gitsigns.mp4"], width=80)}}
 
 ```lua
-
 map("n", "<leader>hn", "<cmd>lua require'gitsigns'.next_hunk()<CR>", { desc = "Next hunk" })
 map("n", "<leader>hp", "<cmd>lua require'gitsigns'.prev_hunk()<CR>", { desc = "Previous hunk" })
 map("n", "<leader>hs", "<cmd>lua require'gitsigns'.stage_hunk()<CR>", { desc = "Stage hunk" })
@@ -766,7 +748,6 @@ that enhances usability by enabling features like clipboard integration and
 better search behavior.
 
 ```lua
-
 -- nvim/lua/options.lua
 
 require "nvchad.options"

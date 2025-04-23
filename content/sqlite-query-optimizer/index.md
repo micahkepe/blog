@@ -90,7 +90,6 @@ Borrowing from the Rice University legend, Dr. Christopher Jermaine, let's say
 we have the following relational schema:
 
 ```sql
-
 CREATE TABLE LIKES (
     DRINKER TEXT,
     BEER TEXT
@@ -114,7 +113,6 @@ For demonstration, I'll be using the
 we want to find all the beers that Ava likes with the following query:
 
 ```sql
-
 SELECT BEER FROM LIKES WHERE DRINKER = 'Ava';
 ```
 
@@ -159,7 +157,6 @@ will retrieve the data. This involves several key decisions:
 We can inspect the execution plan using the `EXPLAIN QUERY PLAN` command:
 
 ```sql
-
 -- Explain query plan
 EXPLAIN QUERY PLAN
 SELECT BEER FROM LIKES WHERE DRINKER = 'Ava';
@@ -168,7 +165,6 @@ SELECT BEER FROM LIKES WHERE DRINKER = 'Ava';
 As expected since there's no index on the `DRINKER` column, the output is:
 
 ```sql
-
 SCAN LIKES
 ```
 
@@ -204,7 +200,6 @@ identifier, which is significantly faster than a full table scan.
 For example, consider the following query:
 
 ```sql
-
 SELECT BEER FROM LIKES WHERE rowid = 1;
 ```
 
@@ -244,14 +239,12 @@ to create an index on the `DRINKER` column. With an index, SQLite could:
 Here’s how you could create the index:
 
 ```sql
-
 CREATE INDEX idx_drinker ON LIKES(DRINKER);
 ```
 
 With this index, if you run the same query again:
 
 ```sql
-
 SELECT BEER FROM LIKES WHERE DRINKER = 'Ava';
 ```
 
@@ -261,9 +254,9 @@ reducing the amount of work it needs to do.
 Now when we `EXPLAIN QUERY PLAN` command to inspect how SQLite would handle the
 query now, we see:
 
-```
-SEARCH LIKES USING INDEX idx_drinker (DRINKER=?)
-```
+<div align="center">
+    <code>SEARCH LIKES USING INDEX idx_drinker (DRINKER=?)</code> 
+</div>
 
 This indicates that SQLite is now using the `idx_drinker` index to perform a
 much faster search. Instead of scanning the entire table, it quickly narrows
@@ -297,7 +290,6 @@ that joins them to find out which beers each drinker likes, sorted by their
 preference. The schema might look something like this:
 
 ```sql
-
 CREATE TABLE DRINKER (
     ID INTEGER PRIMARY KEY,
     NAME TEXT
@@ -321,7 +313,6 @@ CREATE TABLE LIKES (
 And let's populate the tables with some example data:
 
 ```sql
-
 -- Example data
 INSERT INTO DRINKER (ID, NAME) VALUES
 (1, 'Alice'),
@@ -346,7 +337,6 @@ Now, suppose we want to find out which beers each drinker likes, sorted by their
 preference:
 
 ```sql
-
 SELECT DRINKER.NAME, BEER.NAME, LIKES.PREFERENCE
 FROM DRINKER
 JOIN LIKES ON DRINKER.ID = LIKES.DRINKER_ID
@@ -366,7 +356,6 @@ This query isn’t as simple as it looks. SQLite’s optimizer has to decide:
 When we look at the query plan for the complex query:
 
 ```sql
-
 EXPLAIN QUERY PLAN
 SELECT DRINKER.NAME, BEER.NAME, LIKES.PREFERENCE
 FROM DRINKER
@@ -463,7 +452,6 @@ index** on the combination of `DRINKER_ID` and `PREFERENCE` would directly
 support the sorting required by the query:
 
 ```sql
-
 CREATE INDEX idx_likes_drinker_pref ON LIKES(DRINKER_ID, PREFERENCE);
 ```
 
@@ -493,7 +481,6 @@ After creating the index, if we re-run the `EXPLAIN QUERY PLAN` command, we
 might see a different plan:
 
 ```sql
-
 EXPLAIN QUERY PLAN
 SELECT DRINKER.NAME, BEER.NAME, LIKES.PREFERENCE
 FROM DRINKER

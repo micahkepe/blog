@@ -11,8 +11,9 @@ tags = ["ai", "cli"]
 toc = true
 +++
 
-Fabric is a CLI tool that takes a different approach to interfacing with AI
-providers. Learn how Fabric has
+A different type of CLI AI tool.
+
+<!-- more -->
 
 ## Introduction
 
@@ -78,7 +79,6 @@ command to serve as the input for another using the pipe symbol (`|`). For
 example:
 
 ```bash
-
 command1 | command2
 ```
 
@@ -87,7 +87,6 @@ further. This composability is central to Fabric’s effectiveness, enabling
 users to chain commands to create powerful workflows. For instance:
 
 ```bash
-
 pbpaste | fabric -p extract_wisdom | fabric -p create_micro_summary
 ```
 
@@ -115,7 +114,6 @@ Download the binary executable: [link](replace-me)
 macOS (arm64)
 
 ```bash
-
 curl -L https://github.com/danielmiessler/fabric/releases/latest/download/fabric-darwin-arm64 > fabric
 chmod +x fabric
 ./fabric --version
@@ -124,7 +122,6 @@ chmod +x fabric
 macOS (amd64)
 
 ```bash
-
 curl -L https://github.com/danielmiessler/fabric/releases/latest/download/fabric-darwin-amd64 > fabric
 chmod +x fabric
 ./fabric --version
@@ -133,7 +130,6 @@ chmod +x fabric
 Linux (amd64)
 
 ```bash
-
 curl -L https://github.com/danielmiessler/fabric/releases/latest/download/fabric-linux-amd64 > fabric
 chmod +x fabric
 ./fabric --version
@@ -142,7 +138,6 @@ chmod +x fabric
 Linux (arm64)
 
 ```bash
-
 curl -L https://github.com/danielmiessler/fabric/releases/latest/download/fabric-linux-arm64 > fabric
 chmod +x fabric
 ./fabric --version
@@ -159,7 +154,6 @@ For macOS and Arch Linux users, package managers simplify installation:
 > configuration (e.g., `~/.bashrc` or `~/.zshrc`):
 
 ```bash
-
 alias fabric='fabric-ai'
 ```
 
@@ -169,7 +163,6 @@ For those preferring to build from source, ensure Go is installed ([Go
 Installation](https://go.dev/doc/install)), then run:
 
 ```bash
-
 go install github.com/danielmiessler/fabric@latest
 ```
 
@@ -178,7 +171,6 @@ Set environment variables in your shell configuration:
 **Intel-based Macs or Linux**:
 
 ```bash
-
 export GOROOT=/usr/local/go
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PATH
@@ -187,7 +179,6 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PATH
 **Apple Silicon Macs**:
 
 ```bash
-
 export GOROOT=$(brew --prefix go)/libexec
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PATH
@@ -196,7 +187,6 @@ export PATH=$GOPATH/bin:$GOROOT/bin:$HOME/.local/bin:$PATH
 Complete the setup with:
 
 ```bash
-
 fabric --setup
 ```
 
@@ -205,7 +195,6 @@ fabric --setup
 To upgrade to the latest version, run:
 
 ```bash
-
 go install github.com/danielmiessler/fabric@latest
 ```
 
@@ -218,7 +207,6 @@ for other platforms include:
   PowerShell profile (`~\Documents\PowerShell\.profile.ps1`):
 
 ```powershell
-
 Set-Alias pbpaste Get-Clipboard
 ```
 

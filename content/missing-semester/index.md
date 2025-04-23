@@ -42,7 +42,6 @@ the course and through my own exploration:
 ### 1.1 Using switch instead of checkout
 
 ```bash
-
 # Using `switch` instead of `checkout`
 git switch -c new-branch
 
@@ -59,7 +58,6 @@ for beginners. It is also more consistent with other Git commands, such as
 ### 1.2 Learning to use rebase
 
 ```bash
-
 # Rebasing a feature branch on top of the main branch to keep the commit
 # history clean
 git switch main
@@ -121,7 +119,6 @@ making it easier to understand and navigate.
 ### 1.3 Stashing changes
 
 ```bash
-
 # Stashing changes before switching branches
 git stash
 
@@ -163,7 +160,6 @@ every time I need to resize a window compound into minutes and hours saved over
 time. Here's a snippet of the `window.lua` script I wrote to do this:
 
 ```lua
-
 -- Bind Option+Command+Arrow keys to move windows
 hs.hotkey.bind({"cmd", "alt"}, "left", function() moveWindowToGrid(1) end)   -- Move window to left half
 hs.hotkey.bind({"cmd", "alt"}, "right", function() moveWindowToGrid(2) end)  -- Move window to right half
@@ -202,7 +198,6 @@ commands easier to type and remember. Here are some examples of aliases that you
 can add to your `.bashrc` or `.zshrc` file to make your life easier:
 
 ```bash
-
 # Example aliases
 alias ll="ls -la"
 alias gs="git status"
@@ -217,7 +212,6 @@ In my `.gitconfig` file, I have also set up aliases to enhance the `graph` and
 `log` commands:
 
 ```bash
-
 # .gitconfig
 [alias]
     graph = log --all --graph --decorate --oneline
@@ -231,14 +225,12 @@ To set up a dotfiles repository, you can follow these steps:
 1\. Create a new directory for your dotfiles repository in your home directory:
 
 ```bash
-
 mkdir ~/.dotfiles # or any other name you prefer
 ```
 
 2\. Initialize a new Git repository in the directory:
 
 ```bash
-
 cd ~/.dotfiles
 git init
 ```
@@ -247,7 +239,6 @@ git init
 your home directory:
 
 ```bash
-
 mv ~/.bashrc ~/.dotfiles
 ln -s ~/.dotfiles/.bashrc ~/.bashrc
 ```
@@ -255,7 +246,6 @@ ln -s ~/.dotfiles/.bashrc ~/.bashrc
 You can view all of your configuration files with the following command:
 
 ```bash
-
 ls -a ~
 ```
 
@@ -278,7 +268,6 @@ in your repository like so:
 GitHub):
 
 ```bash
-
 git add .
 git commit -m "Initial commit"
 git remote add origin
