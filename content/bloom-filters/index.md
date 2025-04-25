@@ -39,12 +39,9 @@ come with a small chance of false positives.
 
 A Bloom filter consists of:
 
-{{ note(body="
-
 - A bit array of size $m$ (initially all bits are set to 0).
 - $k$ independent hash functions, each of which maps an element to one of the
   $m$ array positions.
-  ")}}
 
 ## How Bloom Filters Work
 
@@ -101,9 +98,7 @@ inserted $n$.
 
 The false positive probability $p$ can be approximated by:
 
-{{ note(body="
 \\[ p \approx \left(1 - \left(1 - \frac{1}{m}\right)^{kn}\right)^k \\]
-")}}
 
 For practical use, choosing the optimal number of hash functions $k$ and the bit
 array size $m$ is crucial to minimize the false positive rate.
@@ -144,7 +139,9 @@ the space efficiency of Bloom filters compared to hash sets.
 
 Here's the results I got when running the Bloom filter simulation:
 
-{{ note(body="
+{{ note(
+header="Bloom Filter Simulation Results"
+body="
 Bloom Filter Insertion Time: 3.457702159881592 seconds
 
 Bloom Filter Query Time: 0.10877871513366699 seconds
@@ -168,7 +165,9 @@ Memory Usage: 1.14 MB
 
 Here's the results I got when running the hash set simulation:
 
-{{ note(body="
+{{ note(
+header="Hash Set Simulation Resuls"
+body="
 Hash Set Insertion Time: 0.6073956489562988 seconds
 
 Hash Set Query Time: 0.03299856185913086 seconds
@@ -198,8 +197,6 @@ becomes a critical factor. This is where Bloom filters shine:
 
 ### Pros
 
-{{ note(body="
-
 - **Space Efficiency**: Bloom filters use minimal space compared to other data
   structures.
 - **Fast Set Membership Tests**: Bloom filters offer constant-time set
@@ -208,13 +205,10 @@ becomes a critical factor. This is where Bloom filters shine:
   regardless of the number of elements inserted.
 - **Reduced I/O Operations**: Bloom filters can reduce disk reads and network
   calls by quickly filtering out non-existent elements.
-  ")}}
 
 <br>
 
 ### Cons
-
-{{ note(body="
 
 - **False Positives**: Bloom filters can produce false positives, which may not
   be acceptable in certain applications.
@@ -222,8 +216,6 @@ becomes a critical factor. This is where Bloom filters shine:
   array size is crucial for minimizing false positives.
 - **Limited Applications**: Bloom filters are best suited for scenarios where
   false positives are acceptable and space efficiency is critical.
-
-")}}
 
 <br>
 

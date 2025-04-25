@@ -4,24 +4,20 @@ date = 2024-05-01
 updated = 2024-10-28
 +++
 
-{{ note(body="
-
-<pre>
-██████╗ ██╗      ██████╗  ██████╗
-██╔══██╗██║     ██╔═══██╗██╔════╝
-██████╔╝██║     ██║   ██║██║  ███╗
-██╔══██╗██║     ██║   ██║██║   ██║
-██████╔╝███████╗╚██████╔╝╚██████╔╝
-╚═════╝ ╚══════╝╚═════╝  ╚═════╝
-</pre>
-
-") }}
-
 Congratulations! You have found my "secret" blog- you must have been snooping
 around. It is a hidden gem that only the most curious and adventurous visitors
 will discover.
 
 <!-- more -->
+
+<pre style="width: 57%; margin: 0 auto;">
+ ██████╗ ██╗      ██████╗  ██████╗
+ ██╔══██╗██║     ██╔═══██╗██╔════╝
+ ██████╔╝██║     ██║   ██║██║  ███╗
+ ██╔══██╗██║     ██║   ██║██║   ██║
+ ██████╔╝███████╗╚██████╔╝╚██████╔╝
+ ╚═════╝ ╚══════╝╚═════╝  ╚═════╝
+</pre>
 
 This blog is a place for me to share personal stories, thoughts, and reflections
 that don't quite fit into the rest of my site.

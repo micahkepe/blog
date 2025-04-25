@@ -44,13 +44,9 @@ and licensing information. The packaged code can then be published to a
 repository like NPM (Node Package Manager), making it available for others to
 use. Here's a simplified overview:
 
-{{ note(body="
-
 1. **Write the Code**: Develop the core functionality of your package.
 2. **Package the Code**: Include metadata, documentation, and licensing information.
 3. **Publish**: Upload the package to a repository like NPM.
-
-")}}
 
 <br>
 
@@ -61,7 +57,9 @@ package manager handles the downloading and installation of the package along
 with its dependencies. Dependencies are other packages that your package
 relies on to function correctly.
 
-{{ note(body="
+{{ note(
+header="Package Manager Tasks"
+body="
 
 1. **Download:** The package and its dependencies are fetched from the repository.
 2. **Install:** The package and its dependencies are installed in your project.
@@ -106,9 +104,7 @@ rules to ensure cross-browser compatibility.
 
 Here's the directory structure of the Autoprefixer package in `node_modules`:
 
-{{ note(body="
-
-<pre>
+<pre style="width: 50%; margin: 0 auto;">
 ├── LICENSE
 ├── README.md
 ├── bin/
@@ -133,8 +129,6 @@ Here's the directory structure of the Autoprefixer package in `node_modules`:
 │   │   ├── ...
 └── package.json
 </pre>
-
-")}}
 
 <br>
 
@@ -199,8 +193,6 @@ Here's the `package.json` file for Autoprefixer:
 
 Let's break down some key fields in the `package.json` file:
 
-{{ note(body="
-
 - **name:** The name of the package.
 - **version:** The current version of the package.
 - **description:** A brief description of what the package does.
@@ -217,7 +209,6 @@ Let's break down some key fields in the `package.json` file:
 - **bugs:** The URL where issues can be reported.
 - **peerDependencies:** Other packages that are required for this package to work correctly.
 - **dependencies:** The packages that this package depends on.
-  ")}}
 
 <br>
 
@@ -232,7 +223,6 @@ to format dates in various ways. We'll use Node.js and NPM for this example.
 1. **Initialize the project:**
 
    ```bash
-
    mkdir date-formatter
    cd date-formatter
    npm init  # creates a package.json file
@@ -242,7 +232,6 @@ to format dates in various ways. We'll use Node.js and NPM for this example.
    Create an `index.js` file with a simple date formatting function.
 
    ```bash
-
    touch index.js
    ```
 
@@ -263,9 +252,7 @@ documentation, licensing, and metadata.
 
 1. **Add a README file:**
 
-   <!-- prettier-ignore-->
    ````markdown
-
    # Date Formatter
 
    This package provides utility functions for formatting dates.
@@ -296,9 +283,7 @@ documentation, licensing, and metadata.
    Add an entry point to the `index.js` file and specify the main
    functionality of the package.
 
-   <!-- prettier-ignore -->
    ```json
-
    {
      "name": "date-formatter",
      "version": "1.0.0",

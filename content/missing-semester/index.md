@@ -138,13 +138,9 @@ Git is by actually using it, struggling with it, and learning from others.
 Again, Git can be tricky and it takes practice— Linus Torvalds, the creator of
 Git, wrote in the initial commit message of Git that it stands for:
 
-{{ note(body="
-
-- 'global information tracker': you're in a good mood, and it actually
-  works for you. Angels sing, and a light suddenly fills the room.
-- 'goddamn idiotic truckload of sh\*t': when it breaks
-
-")}}
+> - 'global information tracker': you're in a good mood, and it actually
+>   works for you. Angels sing, and a light suddenly fills the room.
+> - 'goddamn idiotic truckload of sh\*t': when it breaks
 
 <br>
 

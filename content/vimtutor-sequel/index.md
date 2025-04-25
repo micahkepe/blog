@@ -36,7 +36,9 @@ advanced features that users could benefit from, which were not covered. Thus,
 The original vimtutor has 7 lessons, I created 8 additional lessons for
 `vimtutor-sequel`. Here is a list of the lessons:
 
-{{ note(body="
+{{ note(
+header="Lesson Included"
+body="
 
 - Lesson 8: Splitting Screens
 - Lesson 9: Spellcheck
@@ -87,13 +89,9 @@ feedback has been instrumental in planning further improvements to the project.
 With the initial success and the community's interest, I plan to continue
 enhancing `vimtutor-sequel`. Here are a few things on the roadmap:
 
-{{ note(body="
-
 - Adding more advanced lessons and topics.
 - Improving the existing content based on user feedback.
 - Exploring ways to make the tutorial even more interactive and engaging.
-  ")
-  }}
 
 ### How You Can Help
 

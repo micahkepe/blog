@@ -58,7 +58,9 @@ the number and quality of other pages that link to it. In other words, if many
 important pages link to a particular page, then that page must also be
 important. Mathematically, PageRank can be expressed as:
 
-{{ note(body="
+{{ note(
+header="PageRank Formal Definition"
+body="
 
 \\[ PR(p_i) = \frac{1-d}{N} + d \sum_{p_j \in M(p_i)} \frac{PR(p_j)}{L(p_j)} \\]
 
@@ -104,7 +106,9 @@ width=80
 Initially, each page is assigned a PageRank of 0.25. After one iteration, page
 A's PageRank is updated as follows:
 
-{{ note(body="
+{{ note(
+header="PageRank Iteration 1 Update"
+body="
 
 \\[ PR(A) = \frac{1-0.85}{4} + \\]
 
@@ -203,7 +207,9 @@ Let $d(i, j)$ be the Levenshtein distance between the first $i$ characters of
 string $s_1$ and the first $j$ characters of string $s_2$. Then, $d(i, j)$ can
 be calculated using the following recurrence relation:
 
-{{ note(body="
+{{ note(
+header="Levenshetin Distance Recurrence Relation"
+body="
 
 $$
 d(i, j) =

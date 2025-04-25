@@ -32,12 +32,9 @@ intelligence" was first coined). In 1984, the Australian newspaper The Age
 published an article entitled ["Researchers coming with some provocative
 hi-tech findings"](https://books.google.com/books?id=eTRVAAAAIBAJ&pg=PA38&dq=artificial+intelligence+jobs&article_id=6556,2471720&hl=en&sa=X&ved=2ahUKEwit047aoLSHAxV-JkQIHSGAAHUQ6AF6BAgIEAI#v=onepage&q=artificial%20intelligence%20jobs&f=false), in which the author details the opinions of two Stanford University professors, Henry Levin and Russell Rumberger, who studied employment statistics and concluded that "high technology is no panacea for unemployment... high technology will reduce the skills required by workers in the next decade because **machines will do the work**. Creativity and innovation by many individual workers will suffer." The article goes on to quote another Stanford computer science professor, [Edward Feigenbaum](https://en.wikipedia.org/wiki/Edward_Feigenbaum), a prominent artificial intelligence researcher who at the time said:
 
-{{ note(body='
-\"One of the worst pieces of advice you can give youngsters today is to
-become a computer programmer. Automation of software development will
-take place in this decade and the 1990s.\"
-
-') }}
+> \"One of the worst pieces of advice you can give youngsters today is to
+> become a computer programmer. Automation of software development will
+> take place in this decade and the 1990s.\"
 
 Obviously, the likes of Bill Gates, Linus Torvalds, and countless other
 software professionals who have made their careers in the decades since would
@@ -125,15 +122,13 @@ tools for developers, also provides a [comprehensive look](https://www.builder.i
 at the current state of AI in the software industry and also seeks to dispel
 the myth that AI will replace software professionals. The post states:
 
-{{ note(body="
-By automating routine tasks and augmenting human capabilities,
-AI tools are ushering in a new golden age of software engineering.
-
-Developers who adapt and leverage these tools will find themselves
-more productive, more creative, and more valuable than ever before.
-The future of software engineering isn't about competing with AI —
-it's about orchestrating it to build amazing things.
-") }}
+> By automating routine tasks and augmenting human capabilities,
+> AI tools are ushering in a new golden age of software engineering.
+>
+> Developers who adapt and leverage these tools will find themselves
+> more productive, more creative, and more valuable than ever before.
+> The future of software engineering isn't about competing with AI —
+> it's about orchestrating it to build amazing things.
 
 The U.S. Bureau of Labor Statistics also provides a [positive
 outlook](https://www.bls.gov/ooh/computer-and-information-technology/home.htm)
@@ -174,15 +169,13 @@ security and the potential devaluation of their skills.
 
 In the book Leading Projects with Data, author Marcus Glowasz writes:
 
-{{ note(body="
-Nowadays, no accountant would imagine doing their work by hand, but back
-then [in the late 1970s and early 1980s], many accountants were hesitant,
-fearing that these tools would make their jobs obsolete. And, to some
-extent, their fears were well-founded. Since 1980, around 400,000 accounting
-clerks have become obsolete as spreadsheets took over their role. But
-spreadsheets made accounting more effective and easier, which resulted in
-600,000 new jobs in the accounting industry. (Glowasz, 2022, p. 138-139)
-")}}
+> Nowadays, no accountant would imagine doing their work by hand, but back
+> then [in the late 1970s and early 1980s], many accountants were hesitant,
+> fearing that these tools would make their jobs obsolete. And, to some
+> extent, their fears were well-founded. Since 1980, around 400,000 accounting
+> clerks have become obsolete as spreadsheets took over their role. But
+> spreadsheets made accounting more effective and easier, which resulted in
+> 600,000 new jobs in the accounting industry. (Glowasz, 2022, p. 138-139)
 
 The introduction of spreadsheets did indeed lead to the automation of many
 tasks previously done manually. However, it also created new opportunities

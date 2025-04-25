@@ -141,8 +141,6 @@ After parsing, SQLite moves on to the query planning phase, where it generates
 an execution plan. An execution plan is a step-by-step roadmap of how SQLite
 will retrieve the data. This involves several key decisions:
 
-{{note(body="
-
 - **Table Access Method**: SQLite needs to decide how to access the `LIKES`
   table. Since the `WHERE` clause filters rows based on the `DRINKER` column,
   SQLite considers whether there's an index on `DRINKER` that can speed up the
@@ -151,8 +149,6 @@ will retrieve the data. This involves several key decisions:
 - **Index Usage**: If there were an index on the `DRINKER` column, SQLite might
   use it to directly look up rows where `DRINKER = 'Ava'`. However, in this
   case, there’s no such index, so SQLite will perform a **full table scan**.
-
-")}}
 
 We can inspect the execution plan using the `EXPLAIN QUERY PLAN` command:
 
@@ -174,15 +170,11 @@ The plan indicates "SCAN LIKES," meaning SQLite will read through the entire
 `LIKES` table, row by row, to find matches where `DRINKER = 'Ava'`. Here’s how
 it works:
 
-{{ note(body="
-
 - SQLite starts at the first row of the `LIKES` table and checks if the
   `DRINKER` column equals 'Ava'.
 - If it matches, SQLite includes the `BEER` column from that row in the result
   set.
 - This process repeats for every row in the table.
-
-") }}
 
 Even though a full table scan is the least efficient method (especially with
 large tables), it’s the only option when no suitable index is available. For
@@ -216,13 +208,11 @@ returned to the user.
 
 In this simple case, the query returns:
 
-{{ note(body="
+<pre style="width: 25%; margin: 0 auto;">
 Bud Light
-
 Pabst
-
 Miller Lite
-")}}
+</pre>
 
 These results match what we expected because the query is straightforward and
 the table is small.
@@ -366,7 +356,7 @@ ORDER BY DRINKER.NAME, LIKES.PREFERENCE;
 
 We get the following output:
 
-{{ note(body="
+<pre style="width: 80%; margin: 0 auto;">
 SCAN LIKES
 
 SEARCH DRINKER USING INTEGER PRIMARY KEY (rowid=?)
@@ -374,8 +364,7 @@ SEARCH DRINKER USING INTEGER PRIMARY KEY (rowid=?)
 SEARCH BEER USING INTEGER PRIMARY KEY (rowid=?)
 
 USE TEMP B-TREE FOR ORDER BY
-
-")}}
+</pre>
 
 This output provides a high-level overview of how SQLite intends to execute the
 query. Let’s break down each component and understand what’s happening under the
@@ -396,13 +385,9 @@ makes sense for SQLite to start here.
 
 #### 2. **Searching the `DRINKER` and `BEER` Tables**
 
-{{ note(body="
-
 - **Plan Steps**:
   - `SEARCH DRINKER USING INTEGER PRIMARY KEY (rowid=?)`
   - `SEARCH BEER USING INTEGER PRIMARY KEY (rowid=?)`
-
-")}}
 
 For each row in `LIKES`, SQLite needs to find the corresponding `DRINKER` and
 `BEER` entries. It uses the primary key indexes (`INTEGER PRIMARY KEY`) on
@@ -491,13 +476,12 @@ ORDER BY DRINKER.NAME, LIKES.PREFERENCE;
 
 The updated plan now reflects the use of the new index:
 
-{{ note(body="
+<pre style="width: 100%; margin: 0 auto;">
 SCAN DRINKER
 SEARCH LIKES USING INDEX idx_likes_drinker_pref (DRINKER_ID=?)
 SEARCH BEER USING INTEGER PRIMARY KEY (rowid=?)
 USE TEMP B-TREE FOR ORDER BY
-
-")}}
+</pre>
 
 This new execution plan reflects several optimizations made by SQLite:
 

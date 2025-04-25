@@ -287,13 +287,9 @@ tools.
 
 This philosophy can be summarized as follows:
 
-{{ note(body="
-
 1. Write programs that do one thing and do it well.
 2. Write programs to work together.
 3. Write programs to handle text streams, because that is a universal interface.
-
-")}}
 
 These rules are simple but have powerful implications. By writing programs that
 do one thing well, you can create a set of tools that can be combined in
@@ -367,10 +363,15 @@ fzf --fish | source
 Relaunch your shell to source the new configuration. Now we can use the provided
 shell functionality.
 
-> **Note for fish shell**: I use Fish shell, and while `fzf` has a fish plugin,
-> but it doesn't seem well maintained and I had issues, use [fzf.fish](https://github.com/PatrickF1/fzf.fish)
-> instead, which actually has a lot of bonus features as well like finding
-> processes and variables.
+{{ note(
+header="Note for fish shell"
+body="
+I use Fish shell, and while `fzf` has a fish plugin, but it doesn't seem well
+maintained and I had issues, use [fzf.fish](https://github.com/PatrickF1/fzf.fish)
+instead, which actually has a lot of bonus features as well like finding
+processes and variables.
+"
+)}}
 
 #### `tmux`: terminal manager
 
