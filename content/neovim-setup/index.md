@@ -19,7 +19,7 @@ landed at to turn my Neovim editor into a supercharged workhorse.
 
 <!-- more -->
 
-# **TL;DR**
+## **TL;DR**
 
 I think my setup is pretty sweet. If you want to try out my setup without having
 to do the configuration yourself, you can run these commands to add my setup as a
@@ -44,7 +44,7 @@ width=80) }}
 
 ---
 
-# What is Neovim Anyway?
+## What is Neovim Anyway?
 
 Vim (short for Vi Improved) was created by Bram Moolenaar in 1991 as an enhanced
 version of the Vi editor, which was originally developed in 1976 by Bill Joy for
@@ -66,7 +66,7 @@ flourishing ecosystem of plugins that are tailored to extend Neovim’s
 capabilities—from file navigation and autocompletion to even embedding images
 inside your text editor.
 
-# Getting Started with Neovim
+## Getting Started with Neovim
 
 If you want to follow along with setup, you can install Neovim by following the
 instructions below. If you already have Neovim installed, you can skip ahead to
@@ -82,7 +82,7 @@ the Neovim repository for the instructions for your machine.
 
 <br>
 
-# The Setup
+## The Setup
 
 First off, a confession. I am not using off the shelf Neovim but starting from
 a very strong base configuration provided by the awesome folks at
@@ -121,9 +121,9 @@ git clone https://github.com/NvChad/starter ~/.config/nvim && nvim
 A little more complicated (as usual), check out the install documentation
 [here](https://nvchad.com/docs/quickstart/install)
 
-## Changes to NVChad's Default Settings
+### Changes to NVChad's Default Settings
 
-### Diagnostics Menu
+#### Diagnostics Menu
 
 One of the things I changed from NVChad was the diagnostics display. By default,
 NVChad has the diagnostics displayed inline in red text. One consequence of this
@@ -188,7 +188,7 @@ local diagnostics = require "configs.diagnostics"
 diagnostics.setup()
 ```
 
-### Enable Hidden Files in `nvim-tree` Display
+#### Enable Hidden Files in `nvim-tree` Display
 
 Another change I made was to show hidden files in the `nvim-tree` file explorer.
 By default, hidden files are not displayed in the file explorer, which can be a
@@ -228,7 +228,7 @@ and to ignore the `.DS_Store` files that macOS creates, respectively.
 
 ---
 
-## Plugins
+### Plugins
 
 I won't be detailing every plugin that I use, but instead the ones that have
 become staples in my editing experience. All plugins snippets that follow will
@@ -240,7 +240,7 @@ plugins that come by default from NVChad and the plugins that I have added on.
 
 <br>
 
-### NVChad Plugins
+#### NVChad Plugins
 
 NVChad comes with a carefully curated set of plugins that provide a solid
 foundation for your Neovim setup. Here are some of the key plugins included:
@@ -285,12 +285,12 @@ to work well together, providing a smooth and cohesive editing experience.
 
 <br>
 
-### Added Plugins "Musts"
+#### Added Plugins "Musts"
 
 In no particular order, here are the plugins that I have added to augment
 NVChad's base.
 
-#### [`gelguy/wilder.nvim`](https://github.com/gelguy/wilder.nvim)
+##### [`gelguy/wilder.nvim`](https://github.com/gelguy/wilder.nvim)
 
 {{ gif(sources=["demos/wilder-cmds.mp4"], width=80)}}
 
@@ -357,7 +357,7 @@ return {
 }
 ```
 
-#### [`3rd/image.nvim`](https://github.com/3rd/image.nvim)
+##### [`3rd/image.nvim`](https://github.com/3rd/image.nvim)
 
 {{ gif(sources=["demos/image-nvim.mp4"], width=80)}}
 
@@ -498,7 +498,7 @@ return {
 
 <br>
 
-#### [`rmagatti/autosession`](https://github.com/rmagatti/auto-session)
+##### [`rmagatti/autosession`](https://github.com/rmagatti/auto-session)
 
 {{ gif(sources=["demos/autosession.mp4"], width=80)}}
 
@@ -537,7 +537,7 @@ map("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for 
 
 <br>
 
-#### [`christoomey/vim-tmux-navigator`](https://github.com/christoomey/vim-tmux-navigator)
+##### [`christoomey/vim-tmux-navigator`](https://github.com/christoomey/vim-tmux-navigator)
 
 {{ gif(sources=["demos/navigator.mp4"], width=80)}}
 
@@ -626,7 +626,7 @@ bind-key -T copy-mode-vi 'C-\' select-pane -l
 set -g allow-passthrough on
 ```
 
-#### [`pocco81/auto-save.nvim`](https://github.com/pocco81/auto-save.nvim)
+##### [`pocco81/auto-save.nvim`](https://github.com/pocco81/auto-save.nvim)
 
 Automatically saves your files when you leave insert mode. This plugin is a
 lifesaver for those who forget to save their work frequently. It ensures that
@@ -647,7 +647,7 @@ end,
 },
 ```
 
-#### [`stevearc/dressing.nvim`](https://github.com/stevearc/dressing.nvim)
+##### [`stevearc/dressing.nvim`](https://github.com/stevearc/dressing.nvim)
 
 {{ responsive(src="dressing.png", alt="Dressing.nvim plugin in action") }}
 
@@ -671,14 +671,14 @@ style the UI to your liking.
 
 <br>
 
-## **Key Mappings**
+### **Key Mappings**
 
 Similarly, I have a ton of mappings that I have defined so I will just be going
 over the ones that I can't live without. Additionally, I will not be detailing
 the mappings that come with the NVChad base configuration (NVChad users can view
 these by doing `<leader>ch` to pull up the mappings cheat sheet).
 
-### Quality of Life Remaps
+#### Quality of Life Remaps
 
 ```lua
 -- nvim/lua/mappings.lua
@@ -691,7 +691,7 @@ local map = vim.keymap.set
 map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
 ```
 
-### Window Management
+#### Window Management
 
 These mappings manage window splits and layout efficiently in Neovim. The `desc`
 key provides a description of the mapping for use in command help or plugins
@@ -705,7 +705,7 @@ map("n", "<leader>se", "<C-w>=", { desc = "Equalize splits" }) -- equalize split
 map("n", "<leader>s", "<cmd>split<CR>", { desc = "Split window horizontally" }) -- split window horizobtally
 ```
 
-### Visually Appealing Scrolling and Searching
+#### Visually Appealing Scrolling and Searching
 
 These mappings keep the cursor and search result centered in the window while
 scrolling or jumping to search results.
@@ -718,7 +718,7 @@ map("n", "n", "nzzzv") -- Keeps the search result in the center after jumping to
 map("n", "N", "Nzzzv") -- Keeps the search result in the center after jumping to previous result
 ```
 
-### GitSigns Mappings
+#### GitSigns Mappings
 
 These are the mappings I use for GitSigns, which I believe are fairly standard.
 `gitsigns` works in "hunks" of code, hence all of these mappings begin with an
@@ -741,7 +741,7 @@ map("n", "<leader>hU", "<cmd>lua require'gitsigns'.reset_buffer_index()<CR>", { 
 
 <br>
 
-## **Options**
+### **Options**
 
 These options provide a basic, yet highly functional configuration for Neovim
 that enhances usability by enabling features like clipboard integration and
@@ -777,7 +777,9 @@ opt.clipboard:append "unnamedplus"
 o.wrap = false
 ```
 
-# Conclusion
+---
+
+## Conclusion
 
 While transitioning from VSCode to Neovim wasn’t without its challenges—
 especially getting used to Vim motions and configuring the plugins to my

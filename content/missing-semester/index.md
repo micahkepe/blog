@@ -142,8 +142,6 @@ Git, wrote in the initial commit message of Git that it stands for:
 >   works for you. Angels sing, and a light suddenly fills the room.
 > - 'goddamn idiotic truckload of sh\*t': when it breaks
 
-<br>
-
 ## 2. Hammerspoon
 
 Hammerspoon is an automation tool available for macOS that runs on custom Lua

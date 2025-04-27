@@ -25,6 +25,8 @@ build_search_index = true
 highlight_code = true
 highlight_theme = "one-dark"
 
+insert_anchor_links = "heading"
+
 [search]
 # Wether to produce the search index as a javascript file or as a JSON file
 # Accepted values:

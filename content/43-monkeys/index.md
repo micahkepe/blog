@@ -20,7 +20,7 @@ development process from someone who has never made a game before.
 
 <!-- more -->
 
-# Initial Project Proposal
+## Initial Project Proposal
 
 Not to give too much away yet, but our game is called **43 Monkeys** and draws
 a lot of inspiration from this news source:
@@ -60,13 +60,13 @@ abilities to make future runs easier.
 
 ---
 
-# Progress Log
+## Progress Log
 
 The following sections document the incremental progress we made over the
 semester from a small MVP from winter break to the complete game at the end of
 the spring semester.
 
-## Pre-Class Work
+### Pre-Class Work
 
 Before the class officially starts, we are taking time to familiarize ourselves
 with the Godot engine and the basics of game development. My first thoughts on
@@ -81,7 +81,7 @@ out movement and interactions. Godot's
 [documentation](https://docs.godotengine.org/en/stable/index.html) is very
 good and has been a great resource for getting started.
 
-### Overview of Godot
+#### Overview of Godot
 
 At the most basic level, creating games in Godot revolves around four major
 concepts: (1) **scenes**, (2) **nodes**, (3) **the scene tree**, and (4)
@@ -149,7 +149,7 @@ func _on_start_button_pressed() -> void:
 For a more complete breakdown of Godot, check out the documentation's
 [Overview of Godot's key concepts](https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#doc-key-concepts-overview).
 
-### Handling Basic Movement
+#### Handling Basic Movement
 
 Now that we have a big picture idea of how Godot operates, let's break down how
 we achieve something as seemingly simple as a navigating our character sprite
@@ -251,7 +251,7 @@ For a more detailed breakdown of how you can do this yourself, checking out
 this [official Godot guide](https://docs.godotengine.org/en/stable/tutorials/2d/2d_sprite_animation.html)
 for animating 2D sprites.
 
-**Music**
+#### Music
 
 With a fun little open-source webapp called [BeepBox](https://www.beepbox.co/),
 we were able to make some fun 8-bit music for our game.
@@ -262,7 +262,7 @@ source="music/fonky-loop.ogg"
 
 <br>
 
-## Making an MVP Demo: Weeks 1-2
+### Making an MVP Demo: Weeks 1-2
 
 With the spring semester now in full swing and our team assembled, we are working
 on getting our MVP (minimum viable product) ready for a demo scheduled at the end
@@ -391,7 +391,7 @@ what we've been able to do some far in only a couple weeks of work, but we
 also have a lot of work ahead of us as we figure out the rest of our levels,
 polished up the art, etc.
 
-### Some more teasers
+#### Some more teasers
 
 Little bit of the MVP demo in action:
 
@@ -408,7 +408,7 @@ source="music/main-theme.ogg"
 
 <br>
 
-## Work Until Midterm Demo: Weeks 3-7
+### Work Until Midterm Demo: Weeks 3-7
 
 With the initial demo out of the way, we are now working on fleshing out the
 rest of the game. This includes creating more levels, adding more mechanics,
@@ -423,7 +423,7 @@ side effects. For example, troops could get stuck in walls or not be able to
 complete a level's required puzzle. Because of this, we are going to lean into
 more curated levels that we can test and refine.
 
-### Shaders
+#### Shaders
 
 Shaders have been another interesting challenge. The largest conceptual change
 is that the shader coding paradigm is much different than a traditional piece
@@ -440,13 +440,13 @@ Additionally, for Godot-specific shader help, the [Godot
 Shaders](https://godotshaders.com/) website has been a great resource for
 building off the work of others.
 
-### Added Animations
+#### Added Animations
 
 **_Stayed tuned._** I don't want to give away a lot but let's just say that
 we've added some pretty cool animations to the game that make it feel much more
 alive.
 
-### Boids: Revisited
+#### Boids: Revisited
 
 We are making the boids much more interesting by adding targeting behavior to
 them. Now, when the player is within their field of vision, they will target
@@ -482,13 +482,13 @@ func _get_closest_target() -> Node2D:
 	return closest_target
 ```
 
-### 2025-02-18 Progress Video
+#### 2025-02-18 Progress Video
 
 {{ youtube(id="rKcuIBeEa2A", width=80) }}
 
 <br>
 
-## Midterm Demo
+### Midterm Demo
 
 As of time of writing this (03/04/2025), we are less than a week away from our
 midterm demo. We have been working on adding a lot of aesthetic features to the
@@ -500,9 +500,7 @@ out lingering bugs and issues. For a little sneak peek, I'll let Zach's trailer
 speak for itself:
 [game trailer](https://www.youtube.com/watch?v=o46NNVcCdBM)
 
-<br>
-
-## Wrapping Up: Work Until Final Demo
+### Wrapping Up: Work Until Final Demo
 
 Midterm demo went well! We are now focused on creating the finished MVP of the
 game that we can showcase in our final presentation and demo. The major areas of
@@ -518,7 +516,7 @@ that can be embedded in a browser to allow people to play, so stay tuned!
 
 ---
 
-# Play the Game on itch.io!
+## Play the Game on itch.io!
 
 The game is now available for play on [itch.io](https://alpha-prime-studios.itch.io/43-monkeys)!
 Play directly in your browser with the link below:
@@ -529,9 +527,9 @@ Play directly in your browser with the link below:
 
 ---
 
-# Contributors
+## Contributors
 
-## Core Developer Team
+### Core Developer Team
 
 | Name              | Link(s)                                                                                                                         | Role           |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------- | -------------- |
@@ -540,7 +538,7 @@ Play directly in your browser with the link below:
 | Kevin Lei         | [LinkedIn](https://www.linkedin.com/in/lei-kevin/)                                                                              | Core Developer |
 | _Micah Kepe (me)_ | [GitHub](https://github.com/micahkepe) [Website](https://micahkepe.com/) [LinkedIn](https://www.linkedin.com/in/micah-kepe/)    | Core Developer |
 
-## Outside Collaborators
+### Outside Collaborators
 
 | Name   | Link(s)                                                                                     | Role         |
 | ------ | ------------------------------------------------------------------------------------------- | ------------ |

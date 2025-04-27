@@ -48,8 +48,6 @@ use. Here's a simplified overview:
 2. **Package the Code**: Include metadata, documentation, and licensing information.
 3. **Publish**: Upload the package to a repository like NPM.
 
-<br>
-
 ### Installation and Dependency Management
 
 When you install a software package using a package manager like NPM, the
@@ -66,8 +64,6 @@ body="
 3. **Configure:** The package manager ensures that all dependencies are compatible.
 
 ")}}
-
-<br>
 
 ### Dependency Resolution
 
@@ -129,8 +125,6 @@ Here's the directory structure of the Autoprefixer package in `node_modules`:
 │   │   ├── ...
 └── package.json
 </pre>
-
-<br>
 
 ### Files and Their Purposes
 
@@ -209,8 +203,6 @@ Let's break down some key fields in the `package.json` file:
 - **bugs:** The URL where issues can be reported.
 - **peerDependencies:** Other packages that are required for this package to work correctly.
 - **dependencies:** The packages that this package depends on.
-
-<br>
 
 ## Creating a Software Package (Example: **date-formatter**)
 

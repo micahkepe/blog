@@ -29,8 +29,6 @@ advanced features that users could benefit from, which were not covered. Thus,
     width=80)
 }}
 
-<br>
-
 ## Featured Lessons (as of 2024-08-04)
 
 The original vimtutor has 7 lessons, I created 8 additional lessons for
@@ -49,8 +47,6 @@ body="
 - Lesson 14: Vim Plugins
 - Lesson 15: Vim Sessions and Registers
   ")}}
-
-<br>
 
 ## Unexpected Popularity
 
@@ -81,8 +77,6 @@ feedback has been instrumental in planning further improvements to the project.
     source of traffic from HackerNews with 2,834 views.",
     width=60)
 }}
-
-<br>
 
 ## Future Plans
 

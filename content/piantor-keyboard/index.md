@@ -16,7 +16,7 @@ switch and how I'm finding it so far.
 
 <!-- more -->
 
-# Why?
+## Why?
 
 A few months ago I stumbled upon a YouTube video[^1] that would start off this whole
 chain of events.
@@ -71,7 +71,9 @@ can lead to repetitive strain injuries (RSI) over time. The main issues include:
 A split keyboard addresses these issues by allowing each half to be
 positioned at shoulder width and angled to maintain neutral wrist position.
 
-# The Piantor
+---
+
+## The Piantor
 
 After watching quite a few YouTube videos and reading a lot of blog posts, I
 settled on the
@@ -93,7 +95,7 @@ The main reasons I chose this board were:
 
 With that out of the way, I placed my order and waited for the board to arrive.
 
-# First Thoughts with the Board and Dialing It In
+### First Thoughts with the Board and Dialing It In
 
 {{ responsive(
     src="images/piantor.jpg",
@@ -107,7 +109,7 @@ The initial setup of any split keyboard requires patience. There's a
 significant learning curve, but the ergonomic benefits make it worthwhile.
 Here's my journey:
 
-## Initial Challenges
+### Initial Challenges
 
 My preview WPM dropped to a snail's pace. The main challenges were:
 
@@ -115,6 +117,8 @@ My preview WPM dropped to a snail's pace. The main challenges were:
 - Learning to use layers effectively
 - Training my thumbs to do more than just hit the spacebar
 - Getting comfortable with home row mods
+
+---
 
 ## Configuring the Keyboard with QMK
 
@@ -280,7 +284,9 @@ Switching to a split keyboard meant essentially relearning how to type. Here are
 > build proper fundamentals, then graduating to MonkeyType for speed training.
 > Keep KeyCastr running initially to catch any layer or modifier key mistakes.
 
-# Conclusion: Is it Worth It?
+---
+
+## Conclusion: Is it Worth It?
 
 **It depends**. If you're looking for a new hobby and are willing to spend a lot of
 time and the money on a keyboard, then I think it could potentially be a good choice.
@@ -304,7 +310,7 @@ step on your journey to becoming an even bigger nerd.
 
 ---
 
-# References and Links
+## References and Links
 
 [^1]: [Christian Selig's Custom Keyboard Build](https://youtu.be/7UXsD7nSfDY?si=_hr36d2jh61xhEap)
 
