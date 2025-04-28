@@ -39,7 +39,7 @@ NVIM_APPNAME=micahkepe/dotfiles/nvim nvim
 
 **If you're interested in the nerdy details of my setup, keep reading!**
 
-{{ gif(sources=["demos/nvdash.mp4"]
+{{ gif(sources=["./demos/nvdash.mp4"]
 width=80) }}
 
 ---
@@ -76,11 +76,7 @@ To install Neovim, check the
 [INSTALL.md](https://github.com/neovim/neovim/blob/master/INSTALL.md) file on
 the Neovim repository for the instructions for your machine.
 
-<br>
-
 {{ responsive(src="neovim-logo.png", alt="Neovim logo") }}
-
-<br>
 
 ## The Setup
 
@@ -103,8 +99,6 @@ I particularly like NVChad for the following reasons:
 
 - **Community Support**: NVChad’s [community](https://discord.com/invite/gADmkJb9Fb)
   is active, and the configuration gets frequent updates and improvements.
-
-<br>
 
 {{ responsive(src="nvchad-logo.png", alt="NVChad logo", width=40) }}
 
@@ -281,7 +275,7 @@ These plugins work together to provide a fully-featured IDE-like experience
 right out of the box. NVChad's setup ensures that these plugins are configured
 to work well together, providing a smooth and cohesive editing experience.
 
-{{ gif(sources=["demos/nvchad-demo.mp4"], width=80)}}
+{{ gif(sources=["./demos/nvchad-demo.mp4"], width=80)}}
 
 <br>
 
@@ -292,7 +286,7 @@ NVChad's base.
 
 ##### [`gelguy/wilder.nvim`](https://github.com/gelguy/wilder.nvim)
 
-{{ gif(sources=["demos/wilder-cmds.mp4"], width=80)}}
+{{ gif(sources=["./demos/wilder-cmds.mp4"], width=80)}}
 
 Makes navigating the Neovim command line much faster with fuzzy search
 capabilities, providing instant suggestions as you type commands.
@@ -359,7 +353,7 @@ return {
 
 ##### [`3rd/image.nvim`](https://github.com/3rd/image.nvim)
 
-{{ gif(sources=["demos/image-nvim.mp4"], width=80)}}
+{{ gif(sources=["./demos/image-nvim.mp4"], width=80)}}
 
 Enables image rendering in Neovim, essential for tasks like markdown previews
 and documentation editing. When editing markdown files or any other file format
@@ -500,7 +494,7 @@ return {
 
 ##### [`rmagatti/autosession`](https://github.com/rmagatti/auto-session)
 
-{{ gif(sources=["demos/autosession.mp4"], width=80)}}
+{{ gif(sources=["./demos/autosession.mp4"], width=80)}}
 
 Automatically saves and restores Neovim sessions, allowing you to pick up your
 work right where you left off. If you close Neovim and reopen it later,
@@ -539,7 +533,7 @@ map("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for 
 
 ##### [`christoomey/vim-tmux-navigator`](https://github.com/christoomey/vim-tmux-navigator)
 
-{{ gif(sources=["demos/navigator.mp4"], width=80)}}
+{{ gif(sources=["./demos/navigator.mp4"], width=80)}}
 
 Enables smooth navigation between Neovim windows and
 [tmux](https://github.com/tmux/tmux/wiki) panes, making it feel like a unified
@@ -581,7 +575,6 @@ can navigate between these panes with ease.
 > to use the Tmux navigation commands instead:
 >
 > ```lua
->
 > -- nvim/lua/options.lua
 > require "nvchad.mappings"
 >
@@ -669,8 +662,6 @@ style the UI to your liking.
 > [snacks.input](https://github.com/folke/snacks.nvim/blob/main/docs/input.md)
 > for similar effect.
 
-<br>
-
 ### **Key Mappings**
 
 Similarly, I have a ton of mappings that I have defined so I will just be going
@@ -724,7 +715,7 @@ These are the mappings I use for GitSigns, which I believe are fairly standard.
 `gitsigns` works in "hunks" of code, hence all of these mappings begin with an
 `h` after the leader.
 
-{{ gif(sources=["demos/gitsigns.mp4"], width=80)}}
+{{ gif(sources=["./demos/gitsigns.mp4"], width=80)}}
 
 ```lua
 map("n", "<leader>hn", "<cmd>lua require'gitsigns'.next_hunk()<CR>", { desc = "Next hunk" })
@@ -738,8 +729,6 @@ map("n", "<leader>hb", "<cmd>lua require'gitsigns'.blame_line()<CR>", { desc = "
 map("n", "<leader>hS", "<cmd>lua require'gitsigns'.stage_buffer()<CR>", { desc = "Stage buffer" })
 map("n", "<leader>hU", "<cmd>lua require'gitsigns'.reset_buffer_index()<CR>", { desc = "Reset buffer index" })
 ```
-
-<br>
 
 ### **Options**
 
