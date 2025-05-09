@@ -25,17 +25,17 @@ I think my setup is pretty sweet. If you want to try out my setup without having
 to do the configuration yourself, you can run these commands to add my setup as a
 "profile" that you can switch to in Neovim:
 
-1.  Clone the repository and install plugins:
+1. Clone the repository and install plugins:
 
-```bash
-git clone git@github.com:micahkepe/dotfiles ~/.config/micahkepe/dotfiles
-```
+   ```bash
+   git clone git@github.com:micahkepe/dotfiles ~/.config/micahkepe/dotfiles
+   ```
 
-2.  Open Neovim with this configuration:
+2. Open Neovim with this configuration:
 
-```bash
-NVIM_APPNAME=micahkepe/dotfiles/nvim nvim
-```
+   ```bash
+   NVIM_APPNAME=micahkepe/dotfiles/nvim nvim
+   ```
 
 **If you're interested in the nerdy details of my setup, keep reading!**
 
