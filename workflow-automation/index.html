@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+    <meta name="description" content="An assortment of my ramblings and random adventures." />
+    <meta property="og:description" content="An assortment of my ramblings and random adventures." />
+    <meta property="twitter:description" content="An assortment of my ramblings and random adventures." />
+    
+
+    <!-- Title -->
+      
+
+    <title>
+    
+    Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;workflow-automation&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow" />
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/web-app-manifest-512x512.png"
+    />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;workflow-automation&#x2F;"
+    />
+    <meta name="twitter:title" content="Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow" />
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    <link
+      rel="stylesheet"
+      href="https://micahkepe.com/blog/site.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script>
+      document.documentElement.dataset.theme =
+        "toggle";
+    </script>
+  </head>
+
+  <body class="hack dark main container">
+    
+    
+         
+    <header class="nav-header">
+      <nav
+        itemscope
+        itemtype="http://schema.org/SiteNavigationElement"
+        class="navbar"
+      >
+        <div class="nav-links">
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/"
+          >
+            <span itemprop="name">Home</span>
+          </a>
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/categories"
+          >
+            <span itemprop="name">Categories</span>
+          </a>
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/tags"
+          >
+            <span itemprop="name">Tags</span>
+          </a>
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/"
+          >
+            <span itemprop="name">Main Site</span>
+          </a>
+          
+        </div>
+      </nav>
+      <div class="user-actions-container">
+        
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          class="search-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          />
+        </svg>
+        <input type="text" id="search" placeholder="Search..." />
+        <div class="search-results">
+          <div class="search-results__items"></div>
+        </div>
+         
+        <a id="dark-mode-toggle" href="#">
+          <img
+            src="https://micahkepe.com/blog/icons/sun.svg"
+            id="sun-icon"
+            style="filter: invert(1)"
+            alt="Light mode"
+          />
+          <img
+            src="https://micahkepe.com/blog/icons/moon.svg"
+            id="moon-icon"
+            alt="Dark mode"
+          />
+        </a>
+         
+        <a
+          href="https://micahkepe.com/blog/atom.xml"
+          class="feed-icon"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/rss.svg"
+            id="rss-icon"
+            alt="RSS feed"
+            class="social-icon"
+          />
+        </a>
+         
+        <a
+          href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+          class="feed-icon"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/github.svg"
+            id="github-icon"
+            alt="GitHub"
+            class="social-icon"
+          />
+        </a>
+        
+      </div>
+    </header>
+     
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>15 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-12-13
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>With just a basic working knowledge of writing Bash scripts and understanding
+Unix tools and their design philosophy, you can easily create scripts to
+automate your workflow and improve your productivity. In this post, we'll get
+our feet wet in writing Bash scripts and combine them with some powerful Unix
+tools to create a powerful and versatile toolset. We'll also explore how you can
+use Hammerspoon, a macOS automation tool, to take your automation to the next
+level.</p>
+
+            
+                <details class="toc-container">
+                    <summary class="toc-title">Table of Contents</summary>
+                    <ul class="toc-list">
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/workflow-automation/#introduction">Introduction</a>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/workflow-automation/#your-20-minute-intro-to-bash">Your 20 Minute Intro to Bash</a>
+                                
+                                    <ul>
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#variables">Variables</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#supported-data-types-in-bash">Supported Data Types in Bash</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#bash-loops-and-comparisons">Bash Loops and Comparisons</a>
+                                            </li>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#bash-loops">Bash Loops</a>
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#bash-comparisons">Bash Comparisons</a>
+                                                        </li>
+                                                    
+                                                </ul>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#reading-user-input-and-trapping">Reading User Input and Trapping</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#executing-bash-files">Executing Bash files</a>
+                                            </li>
+                                            
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/workflow-automation/#unix-tools-101">Unix Tools 101</a>
+                                
+                                    <ul>
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#unix-philosophy">Unix Philosophy</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#common-unix-like-tools">Common Unix-like Tools</a>
+                                            </li>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#tldr-simpler-man-pages">tldr: simpler man pages</a>
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#fzf-powerful-fuzzy-finder">fzf: powerful fuzzy finder</a>
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#tmux-terminal-manager">tmux: terminal manager</a>
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#sed-stream-editor-grep-awk-text-processing">sed (Stream Editor)&#x2F; grep&#x2F; awk: text processing</a>
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#htop-system-processes-management">htop: system processes management</a>
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#bat-cat-but-better">bat: cat, but better</a>
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#rg-faster-grep">rg: faster grep</a>
+                                                        </li>
+                                                    
+                                                </ul>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#practial-examples-of-combining-unix-like-tools">Practial Examples of Combining Unix-like Tools</a>
+                                            </li>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#finding-files-with-a-certain-keyword">Finding Files with a Certain Keyword</a>
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#enhanced-nvim-command">Enhanced nvim Command</a>
+                                                        </li>
+                                                    
+                                                        <li>
+                                                            <a href="https://micahkepe.com/blog/workflow-automation/#theprimeagen-s-tmux-sessionizer-script">ThePrimeagen&#x27;s tmux-sessionizer Script</a>
+                                                        </li>
+                                                    
+                                                </ul>
+                                            
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/workflow-automation/#extra-automating-with-hammerspoon-macos">EXTRA: Automating with Hammerspoon (MacOS)</a>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/workflow-automation/#getting-started-with-hammerspoon">Getting Started with Hammerspoon</a>
+                                
+                                    <ul>
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#installation-and-getting-started">Installation and Getting Started</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#window-sizing">Window Sizing</a>
+                                            </li>
+                                            
+                                        
+                                            <li>
+                                                <a href="https://micahkepe.com/blog/workflow-automation/#window-switching">Window Switching</a>
+                                            </li>
+                                            
+                                        
+                                    </ul>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/workflow-automation/#bringing-it-all-together-crafting-a-powerful-personalized-workflow">Bringing It All Together: Crafting a Powerful, Personalized Workflow</a>
+                                
+                            </li>
+                        
+                            <li>
+                                <a href="https://micahkepe.com/blog/workflow-automation/#references-and-resources">References and Resources</a>
+                                
+                            </li>
+                        
+                    </ul>
+                </details>
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span><h2 id="introduction"><a class="zola-anchor" href="#introduction" aria-label="Anchor link for: introduction">Introduction</a></h2>
+<p>As a college student, I find that most of my peers have little to no experience<br />
+with the command line interface (CLI) and Unix tools. This is unfortunate, as
+personally after discovering Vim, tmux, and other Unix tools, I have found that
+I have become more productive, enjoyed writing code more, and have a better
+understanding of how my machine works. This is not to say that editors like
+Visual Studio Code or IDEs are bad (I myself used Visual Studio Code for a long
+time), but rather that Unix tools provide a different way of working that can
+be more efficient and enjoyable for some people. Even if you don't end up using
+Unix tools in your daily workflow, understanding them can be beneficial, as they
+are the foundation of many modern tools and technologies.</p>
+<p>For Vim users and those trying to minimize their mouse usage, these tools also
+allow you to do everything from file navigation to text manipulation without
+ever leaving the keyboard. Even for non-Vim users, these tools can still be
+useful for automating repetitive tasks, managing files, and more.</p>
+<hr />
+<h2 id="your-20-minute-intro-to-bash"><a class="zola-anchor" href="#your-20-minute-intro-to-bash" aria-label="Anchor link for: your-20-minute-intro-to-bash">Your 20 Minute Intro to Bash</a></h2>
+<p>Bash can be a little intimidating at first, but it is actually quite simple once
+you get the hang of it. In this section, we will cover the basics of Bash
+scripting to get you started. By no means at the end of this will you be an
+expert at writing Bash scripts, but we will know enough to write some useful
+scripts of our own.</p>
+<h3 id="variables"><a class="zola-anchor" href="#variables" aria-label="Anchor link for: variables">Variables</a></h3>
+<p>Just like you would expect, varibles are assigned using the <code>=</code> operator. Here
+is an example:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">name</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">&quot;John&quot;
+</span><span style="color:#eb6772;">age</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">20
+</span></code></pre>
+<p>Notice that there are no spaces around the <code>=</code> operator. Also, Bash does not
+distinguish between different types of variables, so you can assign a string to
+a variable and then assign an integer to the same variable.</p>
+<p>Here's some basic things we can do with variables:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># Print the value of a variable using the echo command
+</span><span style="color:#5ebfcc;">echo </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">name </span><span style="font-style:italic;color:#5f697a;"># access the value of a variable using the $ operator
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Assign the output of a command to a variable
+</span><span style="color:#eb6772;">files</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">$(</span><span style="color:#eb6772;">ls</span><span style="color:#9acc76;">) </span><span style="font-style:italic;color:#5f697a;"># syntax: $(command)
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Use the value of a variable in a command
+</span><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;Hello, $</span><span style="color:#eb6772;">name</span><span style="color:#9acc76;">!&quot; </span><span style="font-style:italic;color:#5f697a;"># prints &quot;Hello, John!&quot;
+</span></code></pre>
+<h3 id="supported-data-types-in-bash"><a class="zola-anchor" href="#supported-data-types-in-bash" aria-label="Anchor link for: supported-data-types-in-bash">Supported Data Types in Bash</a></h3>
+<p>Bash doesn't strongly differentiate data types the way higher-level languages do.
+All variables are essentially strings. For arithmetic operations, Bash evaluates
+the variable contents as integers if possible. Arrays in Bash are just lists of
+strings. There's no native support for complex data structures out of the box,
+but you can do a lot with what is provided.</p>
+<p>Examples:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">name</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">&quot;Alice&quot;    </span><span style="font-style:italic;color:#5f697a;"># string
+</span><span style="color:#eb6772;">count</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">42        </span><span style="font-style:italic;color:#5f697a;"># integer stored as a string, but usable in arithmetic
+</span><span style="color:#abb2bf;">
+</span><span style="color:#eb6772;">fruits</span><span style="color:#adb7c9;">=</span><span style="color:#abb2bf;">(</span><span style="color:#9acc76;">&quot;apple&quot; &quot;banana&quot; &quot;cherry&quot;</span><span style="color:#abb2bf;">)
+</span><span style="color:#5ebfcc;">echo </span><span style="color:#abb2bf;">${</span><span style="color:#eb6772;">fruits[</span><span style="color:#db9d63;">0</span><span style="color:#eb6772;">]</span><span style="color:#abb2bf;">}  </span><span style="font-style:italic;color:#5f697a;"># prints &quot;apple&quot;
+</span></code></pre>
+<p>There’s no separate syntax for declaring a variable as an integer vs. a string.
+It’s all context-based.</p>
+<h3 id="bash-loops-and-comparisons"><a class="zola-anchor" href="#bash-loops-and-comparisons" aria-label="Anchor link for: bash-loops-and-comparisons">Bash Loops and Comparisons</a></h3>
+<h4 id="bash-loops"><a class="zola-anchor" href="#bash-loops" aria-label="Anchor link for: bash-loops">Bash Loops</a></h4>
+<p>Bash loops and conditionals have a somewhat unusual syntax when coming from
+languages like Python or Java. The key patterns to remember are:</p>
+<ul>
+<li><code>if ... then ... fi</code> for conditionals</li>
+<li><code>for ... do ... done</code> for loops</li>
+<li><code>while ... do ... done</code> and <code>until ... do ... done</code> for other loop constructs</li>
+</ul>
+<p>Bash uses <code>fi</code> to end an <code>if</code> block, and done to end loops. This might
+feel odd at first, but you’ll get used to it quickly.</p>
+<p><code>for</code> loops:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#cd74e8;">for</span><span style="color:#abb2bf;"> file </span><span style="color:#cd74e8;">in </span><span style="color:#adb7c9;">*</span><span style="color:#abb2bf;">.txt</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">do
+</span><span style="color:#abb2bf;">    </span><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;Processing $</span><span style="color:#eb6772;">file</span><span style="color:#9acc76;">&quot;
+</span><span style="color:#cd74e8;">done
+</span></code></pre>
+<p>This loop iterates over all <code>.txt</code> files in the current directory. The <code>do</code>
+keyword starts the loop's body, and <code>done</code> ends it.</p>
+<p><code>while</code> loops:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">count</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">1
+</span><span style="color:#cd74e8;">while </span><span style="color:#5ebfcc;">[ </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">count -le</span><span style="color:#abb2bf;"> 5 </span><span style="color:#5ebfcc;">]</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">do
+</span><span style="color:#abb2bf;">    </span><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;Count: $</span><span style="color:#eb6772;">count</span><span style="color:#9acc76;">&quot;
+</span><span style="color:#abb2bf;">    </span><span style="color:#eb6772;">count</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">$((count</span><span style="color:#adb7c9;">+</span><span style="color:#db9d63;">1</span><span style="color:#9acc76;">))
+</span><span style="color:#cd74e8;">done
+</span></code></pre>
+<p>This loop runs as long as the condition <code>[ $count -le 5 ]</code> is true (we'll go
+over the syntax for comparisons in a bit). The <code>count=$((count+1))</code> line
+increments the value of the <code>count</code> variable by 1.</p>
+<p><code>if</code> statements:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">age</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">20
+</span><span style="color:#cd74e8;">if </span><span style="color:#5ebfcc;">[ </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">age -ge</span><span style="color:#abb2bf;"> 18 </span><span style="color:#5ebfcc;">]</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">then
+</span><span style="color:#abb2bf;">    </span><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;You are an adult.&quot;
+</span><span style="color:#cd74e8;">else
+</span><span style="color:#abb2bf;">    </span><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;You are a minor.&quot;
+</span><span style="color:#cd74e8;">fi
+</span></code></pre>
+<p>In Bash, <code>if</code> blocks always end with <code>fi</code>. Also notice we use <code>[</code> and <code>]</code>
+around the condition; this is part of Bash's test syntax.</p>
+<h4 id="bash-comparisons"><a class="zola-anchor" href="#bash-comparisons" aria-label="Anchor link for: bash-comparisons">Bash Comparisons</a></h4>
+<p>Bash has wonky syntax for comparisons that you just have to memorize
+unfortunately.</p>
+<p>Bash uses different forms of brackets and parentheses for distinct purposes,
+which can be confusing at first. The single brackets <code>[ ]</code> are essentially a
+shorthand for the <code>test</code> command and are used for conditional checks. The
+double brackets <code>[[ ]]</code> are a Bash-specific enhancement that provides more
+features, like regular expression matching and simplified handling of strings
+without the need for extensive quoting. For arithmetic operations, double
+parentheses <code>(( ))</code> treat variables as integers and allow direct arithmetic
+evaluation, while command substitution uses <code>$( )</code> to run a command and
+capture its output.</p>
+<p><strong>tldr</strong>: <code>[ ]</code> and <code>[[ ]]</code> are for conditionals, with <code>[[ ]]</code> being more
+versatile and safer in many cases; <code>(( ))</code> handles arithmetic cleanly, and
+<code>$( )</code> executes commands and returns their results. Understanding these
+subtle differences will make your Bash scripts more reliable and easier to read.</p>
+<details open>
+<summary>Arithmetic Comparisons</summary>
+<table><thead><tr><th><strong>Bash</strong></th><th><strong>Meaning</strong></th></tr></thead><tbody>
+<tr><td><code>-lt</code></td><td>&lt;</td></tr>
+<tr><td><code>-gt</code></td><td>&gt;</td></tr>
+<tr><td><code>-le</code></td><td>&lt;=</td></tr>
+<tr><td><code>-ge</code></td><td>&gt;=</td></tr>
+<tr><td><code>-eq</code></td><td>==</td></tr>
+<tr><td><code>-ne</code></td><td>!=</td></tr>
+</tbody></table>
+</details>
+<p>Example:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">num</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">10
+</span><span style="color:#cd74e8;">if </span><span style="color:#5ebfcc;">[ </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">num -gt</span><span style="color:#abb2bf;"> 5 </span><span style="color:#5ebfcc;">]</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">then
+</span><span style="color:#abb2bf;">  </span><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;$</span><span style="color:#eb6772;">num</span><span style="color:#9acc76;"> is greater than 5&quot;
+</span><span style="color:#cd74e8;">fi
+</span></code></pre>
+<details open> 
+<summary>String Comparisons</summary>
+<table><thead><tr><th><strong>Bash</strong></th><th><strong>Meaning</strong></th></tr></thead><tbody>
+<tr><td><code>=</code></td><td>equal</td></tr>
+<tr><td><code>!=</code></td><td>not equal</td></tr>
+<tr><td><code>&lt;</code></td><td>less than</td></tr>
+<tr><td><code>&gt;</code></td><td>greater than</td></tr>
+<tr><td><code>-n s1</code></td><td>string <code>s1</code> is not empty</td></tr>
+<tr><td><code>-z s1</code></td><td>string <code>s1</code> is empty</td></tr>
+</tbody></table>
+</details>
+<p>Example:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">str</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">&quot;hello&quot;
+</span><span style="color:#cd74e8;">if </span><span style="color:#5ebfcc;">[ </span><span style="color:#9acc76;">&quot;$</span><span style="color:#eb6772;">str</span><span style="color:#9acc76;">&quot; </span><span style="color:#adb7c9;">= </span><span style="color:#9acc76;">&quot;hello&quot; </span><span style="color:#5ebfcc;">]</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">then
+</span><span style="color:#abb2bf;">    </span><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;The strings match&quot;
+</span><span style="color:#cd74e8;">fi
+</span></code></pre>
+<h3 id="reading-user-input-and-trapping"><a class="zola-anchor" href="#reading-user-input-and-trapping" aria-label="Anchor link for: reading-user-input-and-trapping">Reading User Input and Trapping</a></h3>
+<p>The <code>read</code> command will let us retrieve data from <code>stdin</code>.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;Enter your name:&quot;
+</span><span style="color:#5ebfcc;">read</span><span style="color:#abb2bf;"> user_name
+</span><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;Hello, $</span><span style="color:#eb6772;">user_name</span><span style="color:#9acc76;">!&quot;
+</span></code></pre>
+<p>Next, we can use the <code>trap</code> command to execute another command after an event
+like a sent signal such as <code>SIGINT</code> (Ctrl + C):</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#5ebfcc;">trap </span><span style="color:#9acc76;">&#39;echo &quot;Caught CTRL+C, exiting...&quot;; exit 1&#39;</span><span style="color:#abb2bf;"> INT
+</span><span style="color:#abb2bf;">
+</span><span style="color:#cd74e8;">while </span><span style="color:#eb6772;">true</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">do
+</span><span style="color:#abb2bf;">    </span><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;Press Ctrl+C to stop...&quot;
+</span><span style="color:#abb2bf;">    </span><span style="color:#eb6772;">sleep</span><span style="color:#abb2bf;"> 2
+</span><span style="color:#cd74e8;">done
+</span></code></pre>
+<h3 id="executing-bash-files"><a class="zola-anchor" href="#executing-bash-files" aria-label="Anchor link for: executing-bash-files">Executing Bash files</a></h3>
+<p>To actually be able to run a Bash scripts, we need to do two things: (1) make
+the file executable and (2) add a shebang to the file.</p>
+<p>The shebang is a special line at the beginning of a script that tells the
+operating system what interpreter to use to run the script. The shebang for
+Bash scripts is <code>#!/bin/bash</code>. Here is an example of a simple Bash script:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;">#!/bin/bash
+</span><span style="color:#5ebfcc;">echo </span><span style="color:#9acc76;">&quot;Hello, World!&quot;
+</span></code></pre>
+<p>Breaking down the shebang, you'll notice that <code>#!</code> is the shebang character
+sequence, and <code>/bin/bash</code> is the path to the Bash interpreter. The shebang line
+<strong>must</strong> be the first line of the script, as it tells your operating system how
+to run the script. Without it, the script will not run since the operating system
+will not know what interpreter to use.</p>
+<p>Now to actually run the script, save it to a file (e.g. <code>hello.sh</code>), make it
+executable using the <code>chmod</code> command, and then run it:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">chmod</span><span style="color:#abb2bf;"> +x hello.sh
+</span></code></pre>
+<p>Then to run the script, use <code>./hello.sh</code>.</p>
+<p>That's it for our 20 minute intro to Bash. There is still a lot more to learn,
+but this should be enough to get you started writing some simple scripts.
+If you are interested in learning more, I recommend checking out the resources I
+have linked at the end of this post or this Youtube video:</p>
+<div class="responsive-iframe"
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <iframe src="https://www.youtube.com/embed/tK9Oc6AEnR4" webkitallowfullscreen
+    mozallowfullscreen allowfullscreen>
+  </iframe>
+</div>
+<hr />
+<h2 id="unix-tools-101"><a class="zola-anchor" href="#unix-tools-101" aria-label="Anchor link for: unix-tools-101">Unix Tools 101</a></h2>
+<h3 id="unix-philosophy"><a class="zola-anchor" href="#unix-philosophy" aria-label="Anchor link for: unix-philosophy">Unix Philosophy</a></h3>
+<p>Before diving into Unix tools, it is important to understand the Unix philosophy,
+not only because it is the foundation of Unix tools, but also because it is a
+design philosphy that leads to the powerful combinations and versatility of Unix
+tools.</p>
+<p>This philosophy can be summarized as follows:</p>
+<ol>
+<li>Write programs that do one thing and do it well.</li>
+<li>Write programs to work together.</li>
+<li>Write programs to handle text streams, because that is a universal interface.</li>
+</ol>
+<p>These rules are simple but have powerful implications. By writing programs that
+do one thing well, you can create a set of tools that can be combined in
+different ways to accomplish complex tasks. By writing programs to work together,
+you can create powerful tool chains that can accomplish tasks that would be
+difficult or impossible with a single program. By writing programs to handle text
+streams, you can create tools that can be used in a wide variety of contexts,
+since text streams are a universal interface.</p>
+<h3 id="common-unix-like-tools"><a class="zola-anchor" href="#common-unix-like-tools" aria-label="Anchor link for: common-unix-like-tools">Common Unix-like Tools</a></h3>
+<h4 id="tldr-simpler-man-pages"><a class="zola-anchor" href="#tldr-simpler-man-pages" aria-label="Anchor link for: tldr-simpler-man-pages"><code>tldr</code>: simpler man pages</a></h4>
+<p><code>tldr</code> provides simplified man page that provides practical examples of how to
+use a command.</p>
+<p>You can also get platform-specific man pages with the <code>--platform</code> flag like
+this:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># - Print the tldr page for a command from a specific [p]latform:
+</span><span style="font-style:italic;color:#5f697a;">#     tldr --platform android|common|freebsd|linux|osx|netbsd|openbsd|sunos|windows command
+</span><span style="font-style:italic;color:#5f697a;"># Example:
+</span><span style="color:#eb6772;">tldr --platform</span><span style="color:#abb2bf;"> linux htop
+</span></code></pre>
+<h4 id="fzf-powerful-fuzzy-finder"><a class="zola-anchor" href="#fzf-powerful-fuzzy-finder" aria-label="Anchor link for: fzf-powerful-fuzzy-finder"><code>fzf</code>: powerful fuzzy finder</a></h4>
+<p>For basic use, just running <code>fzf</code> will fuzzy find recursively on all files in
+the present working directory. However, the <code>tldr</code> page for <code>fzf</code> also lists out
+some more complex commands with <code>fzf</code>:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># - Start `fzf` on all files in the specified directory:
+</span><span style="color:#eb6772;">find</span><span style="color:#abb2bf;"> path/to/directory</span><span style="color:#eb6772;"> -type</span><span style="color:#abb2bf;"> f </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fzf
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># - Start `fzf` for running processes:
+</span><span style="color:#eb6772;">ps</span><span style="color:#abb2bf;"> aux </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fzf
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># - Select multiple files with `Shift + Tab` and write to a file:
+</span><span style="color:#eb6772;">find</span><span style="color:#abb2bf;"> path/to/directory</span><span style="color:#eb6772;"> -type</span><span style="color:#abb2bf;"> f </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fzf --multi </span><span style="color:#adb7c9;">&gt;</span><span style="color:#abb2bf;"> path/to/file
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># - Start `fzf` with a specified query:
+</span><span style="color:#eb6772;">fzf --query </span><span style="color:#9acc76;">&quot;query&quot;
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># - Start `fzf` on entries that start with core and end with either go, rb, or py:
+</span><span style="color:#eb6772;">fzf --query </span><span style="color:#9acc76;">&quot;^core go$ | rb$ | py$&quot;
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># - Start `fzf` on entries that not match pyc and match exactly travis:
+</span><span style="color:#eb6772;">fzf --query </span><span style="color:#9acc76;">&quot;!pyc &#39;travis&quot;
+</span></code></pre>
+<p><code>fzf</code> will list the files in a nicely formatted list that you can navigate using
+either the arrow keys or Vim-like bindings using <code>Ctrl + &lt;hjkl&gt;</code>.</p>
+<p><code>fzf</code> also has shell integration functions that are very helpful. To set up the
+integration you'll need to add the following to your shell's respective
+configuration file:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># Zsh
+</span><span style="color:#5ebfcc;">source </span><span style="color:#adb7c9;">&lt;</span><span style="color:#abb2bf;">(</span><span style="color:#eb6772;">fzf --zsh</span><span style="color:#abb2bf;">)
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Bash
+</span><span style="color:#5ebfcc;">eval </span><span style="color:#9acc76;">&quot;$(</span><span style="color:#eb6772;">fzf --bash</span><span style="color:#9acc76;">)&quot;
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Fish
+</span><span style="color:#eb6772;">fzf --fish </span><span style="color:#adb7c9;">| </span><span style="color:#5ebfcc;">source
+</span></code></pre>
+<p>Relaunch your shell to source the new configuration. Now we can use the provided
+shell functionality.</p>
+<div class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <div class="note-icon">
+        <p>Note for fish shell</p>
+
+      </div>
+      
+    </summary>
+    <div class="note-content">
+      <p>I use Fish shell, and while <code>fzf</code> has a fish plugin, but it doesn't seem well
+maintained and I had issues, use <a href="https://github.com/PatrickF1/fzf.fish">fzf.fish</a>
+instead, which actually has a lot of bonus features as well like finding
+processes and variables.</p>
+
+    </div>
+  </details>
+</div>
+<h4 id="tmux-terminal-manager"><a class="zola-anchor" href="#tmux-terminal-manager" aria-label="Anchor link for: tmux-terminal-manager"><code>tmux</code>: terminal manager</a></h4>
+<p><code>tmux</code> is a terminal multiplexer, in the future I will most likely have a whole
+post dedicated to tmux and how I use it, but for now, just know that it is a
+terminal multiplexer that allows you to split your terminal into multiple panes,
+create sessions, and more. For now, let's just look at some basic commands.</p>
+<p>By default, <code>tmux</code> uses <code>Ctrl + b</code> as a "prefix" key, which means that you press
+<code>Ctrl + b</code> and then another key to execute a command. (You can change this to
+a more convenient keybinding, a common one is <code>Ctrl + a</code>; you can do this by
+adding <code>set -g prefix C-a</code> to your <code>~/.tmux.conf</code> file.)</p>
+<p>Here are some common <code>tmux</code> commands:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># Create a new session:
+</span><span style="color:#eb6772;">tmux</span><span style="color:#abb2bf;"> new-session
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Attach to a session:
+</span><span style="color:#eb6772;">tmux</span><span style="color:#abb2bf;"> attach-session</span><span style="color:#eb6772;"> -t</span><span style="color:#abb2bf;"> session_name
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Create a new window:
+</span><span style="color:#eb6772;">Ctrl+b</span><span style="color:#abb2bf;"> c
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Split a pane horizontally:
+</span><span style="color:#eb6772;">Ctrl+b </span><span style="color:#abb2bf;">%
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Split a pane vertically:
+</span><span style="color:#eb6772;">Ctrl+b </span><span style="color:#9acc76;">&quot;
+</span></code></pre>
+<p>When you are in a <code>tmux</code> session, you can press <code>Ctrl + b</code> and then <code>?</code> to see
+a list of all the keybindings available to you.</p>
+<h4 id="sed-stream-editor-grep-awk-text-processing"><a class="zola-anchor" href="#sed-stream-editor-grep-awk-text-processing" aria-label="Anchor link for: sed-stream-editor-grep-awk-text-processing"><code>sed</code> (Stream Editor)/ <code>grep</code>/ <code>awk</code>: text processing</a></h4>
+<p><code>sed</code> and <code>awk</code> are text processing tools that allow you to manipulate text
+files in various ways. <code>grep</code> is a tool that allows you to search for specific
+lines in a file.</p>
+<p>Here are some examples:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># Replace &quot;old_text&quot; with &quot;new_text&quot; in a file:
+</span><span style="color:#eb6772;">sed </span><span style="color:#9acc76;">&#39;s/old_text/new_text/g&#39;</span><span style="color:#abb2bf;"> file.txt
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Print lines containing &quot;keyword&quot; from a file:
+</span><span style="color:#eb6772;">grep </span><span style="color:#9acc76;">&quot;keyword&quot;</span><span style="color:#abb2bf;"> file.txt
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Extract the second column from a CSV file:
+</span><span style="color:#eb6772;">awk -F</span><span style="color:#9acc76;">&#39;,&#39; &#39;{print $2}&#39;</span><span style="color:#abb2bf;"> file.csv
+</span></code></pre>
+<h4 id="htop-system-processes-management"><a class="zola-anchor" href="#htop-system-processes-management" aria-label="Anchor link for: htop-system-processes-management"><code>htop</code>: system processes management</a></h4>
+<p><code>htop</code> is an interactive process viewer that provides a more user-friendly
+interface than the traditional top command. It allows you to sort, filter,
+and kill processes easily.</p>
+<p>Here are some examples:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># Start `htop`:
+</span><span style="color:#eb6772;">htop
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Start `htop` displaying processes owned by a specific user:
+</span><span style="color:#eb6772;">htop --user</span><span style="color:#abb2bf;"> username
+</span></code></pre>
+<p>I recommend checking out the <code>tldr</code> page for <code>htop</code> for more examples and
+exploring around in <code>htop</code> to see what it can do.</p>
+<h4 id="bat-cat-but-better"><a class="zola-anchor" href="#bat-cat-but-better" aria-label="Anchor link for: bat-cat-but-better"><code>bat</code>: <code>cat</code>, but better</a></h4>
+<p><code>bat</code> is a drop-in replacement for <code>cat</code> that adds syntax highlighting, line
+numbers, and Git integration.</p>
+<p>Examples:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># print a file with syntax highlighting
+</span><span style="color:#eb6772;">bat</span><span style="color:#abb2bf;"> main.py
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># show all supported languages
+</span><span style="color:#eb6772;">bat --list-languages
+</span></code></pre>
+<h4 id="rg-faster-grep"><a class="zola-anchor" href="#rg-faster-grep" aria-label="Anchor link for: rg-faster-grep"><code>rg</code>: faster <code>grep</code></a></h4>
+<p><code>rg</code> (ripgrep) a faster alternative to <code>grep</code>, which is optimized for searching
+large files and directories. It is a drop-in replacement for <code>grep</code> and is
+faster than both <code>grep</code> and <code>ag</code> (The Silver Searcher).</p>
+<p>Examples:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># search for &quot;main&quot; in current directory
+</span><span style="color:#eb6772;">rg</span><span style="color:#abb2bf;"> main
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># search including hidden files
+</span><span style="color:#eb6772;">rg --hidden</span><span style="color:#abb2bf;"> main
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># limit search to certain file types
+</span><span style="color:#eb6772;">rg</span><span style="color:#abb2bf;"> main</span><span style="color:#eb6772;"> --glob </span><span style="color:#9acc76;">&#39;*.py&#39;
+</span></code></pre>
+<h3 id="practial-examples-of-combining-unix-like-tools"><a class="zola-anchor" href="#practial-examples-of-combining-unix-like-tools" aria-label="Anchor link for: practial-examples-of-combining-unix-like-tools">Practial Examples of Combining Unix-like Tools</a></h3>
+<h4 id="finding-files-with-a-certain-keyword"><a class="zola-anchor" href="#finding-files-with-a-certain-keyword" aria-label="Anchor link for: finding-files-with-a-certain-keyword">Finding Files with a Certain Keyword</a></h4>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># Find all files in the current directory that contain the word &quot;foo&quot;
+</span><span style="font-style:italic;color:#5f697a;"># and display the file name and line
+</span><span style="color:#eb6772;">rg</span><span style="color:#abb2bf;"> foo </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fzf </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">awk </span><span style="color:#9acc76;">&#39;{print $1, $2}&#39;
+</span></code></pre>
+<h4 id="enhanced-nvim-command"><a class="zola-anchor" href="#enhanced-nvim-command" aria-label="Anchor link for: enhanced-nvim-command">Enhanced <code>nvim</code> Command</a></h4>
+<p>By default, we can open a new Neovim session in the current directory by simply
+running <code>nvim</code> in the terminal. This is perfectly fine, but we can fine tune it
+more by adding in some of the tools that we have looked at.</p>
+<p>First, let's add the file selected from <code>fzf</code> to be what we open the Neovim
+session in:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">nvim </span><span style="color:#abb2bf;">$(</span><span style="color:#eb6772;">fzf</span><span style="color:#abb2bf;">)
+</span></code></pre>
+<p>Let's also pass a <code>bat</code> command to <code>fzf</code>'s <code>'--preview</code> to let us see the files
+as we navigate them with <code>fzf</code>.</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">nvim </span><span style="color:#abb2bf;">$(</span><span style="color:#eb6772;">fzf --preview</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">&quot;bat --color=always {}&quot;</span><span style="color:#abb2bf;">)
+</span></code></pre>
+<p>Another thing we can enable with <code>fzf</code> is the <code>-m</code> flag, which will allow us to
+select multiple files with TAB and then these will be put in open buffers when
+we open Neovim!</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">nvim </span><span style="color:#abb2bf;">$(</span><span style="color:#eb6772;">fzf -m --preview</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">&quot;bat --color=always {}&quot;</span><span style="color:#abb2bf;">)
+</span></code></pre>
+<p>To make this the default behavior for when we open Neovim, we can save this
+enhanced command as an alias for <code>nvim</code>. Instead your <code>~/.zshrc</code>, <code>~/.bashrc</code>,
+<code>~/.config/fish/config.fish</code>, etc.:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#5ebfcc;">alias </span><span style="color:#5cb3fa;">nvim</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">&#39;nvim $(fzf -m --preview=&quot;bat --color=always {}&quot;)&#39;
+</span></code></pre>
+<h4 id="theprimeagen-s-tmux-sessionizer-script"><a class="zola-anchor" href="#theprimeagen-s-tmux-sessionizer-script" aria-label="Anchor link for: theprimeagen-s-tmux-sessionizer-script">ThePrimeagen's <code>tmux-sessionizer</code> Script</a></h4>
+<p>Another great example of combining tools is this <code>tmux-sessionizer.sh</code> script
+that I adapted from <a href="https://www.youtube.com/c/theprimeagen">ThePrimeagen</a>:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;">#!/usr/bin/env bash
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># Adapted from: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer
+</span><span style="font-style:italic;color:#5f697a;">#
+</span><span style="font-style:italic;color:#5f697a;"># Description:
+</span><span style="font-style:italic;color:#5f697a;">#   A script to create a new tmux session either by passing in a directory or
+</span><span style="font-style:italic;color:#5f697a;">#   selecting one with fzf. For ease of use, add this script to your $PATH and
+</span><span style="font-style:italic;color:#5f697a;">#   create an alias in your shell configuration file (e.g. .bashrc, .zshrc) like:
+</span><span style="font-style:italic;color:#5f697a;">#   alias tmux-sessionizer=&#39;tmux-sessionizer.sh&#39;
+</span><span style="font-style:italic;color:#5f697a;">#
+</span><span style="font-style:italic;color:#5f697a;">#   Then you can simply run with `tmux-sessionizer`
+</span><span style="font-style:italic;color:#5f697a;">#
+</span><span style="font-style:italic;color:#5f697a;"># Usage:
+</span><span style="font-style:italic;color:#5f697a;">#  tmux-sessionizer.sh [directory]
+</span><span style="font-style:italic;color:#5f697a;">#  tmux-sessionizer.sh
+</span><span style="color:#abb2bf;">
+</span><span style="color:#abb2bf;">
+</span><span style="color:#cd74e8;">if </span><span style="color:#5ebfcc;">[[ </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;"># -eq</span><span style="color:#abb2bf;"> 1 </span><span style="color:#5ebfcc;">]]</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">then
+</span><span style="color:#abb2bf;">    </span><span style="color:#eb6772;">selected</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">$</span><span style="color:#eb6772;">1
+</span><span style="color:#cd74e8;">else
+</span><span style="color:#abb2bf;">    </span><span style="font-style:italic;color:#5f697a;"># if no directory is passed in, use fzf to select one
+</span><span style="color:#abb2bf;">    </span><span style="font-style:italic;color:#5f697a;"># NOTE: change the directories to search in the find command as you wish
+</span><span style="color:#abb2bf;">    </span><span style="color:#eb6772;">selected</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">$(</span><span style="color:#eb6772;">FZF_TMUX</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">1 </span><span style="color:#eb6772;">find ~</span><span style="color:#9acc76;">/coding </span><span style="color:#eb6772;">~ ~</span><span style="color:#9acc76;">/vislang/ </span><span style="color:#eb6772;">~</span><span style="color:#9acc76;">/rice/</span><span style="color:#adb7c9;">*</span><span style="color:#eb6772;"> -mindepth</span><span style="color:#9acc76;"> 1</span><span style="color:#eb6772;"> -maxdepth</span><span style="color:#9acc76;"> 1</span><span style="color:#eb6772;"> -type</span><span style="color:#9acc76;"> d </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fzf</span><span style="color:#9acc76;">)
+</span><span style="color:#cd74e8;">fi
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># exit if no directory is selected from fzf
+</span><span style="color:#cd74e8;">if </span><span style="color:#5ebfcc;">[[ </span><span style="color:#eb6772;">-z </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">selected </span><span style="color:#5ebfcc;">]]</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">then
+</span><span style="color:#abb2bf;">    </span><span style="color:#5ebfcc;">exit</span><span style="color:#abb2bf;"> 0
+</span><span style="color:#cd74e8;">fi
+</span><span style="color:#abb2bf;">
+</span><span style="color:#eb6772;">selected_name</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">$(</span><span style="color:#eb6772;">basename </span><span style="color:#9acc76;">&quot;$</span><span style="color:#eb6772;">selected</span><span style="color:#9acc76;">&quot; </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">tr</span><span style="color:#9acc76;"> . _)
+</span><span style="color:#eb6772;">tmux_running</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">$(</span><span style="color:#eb6772;">pgrep</span><span style="color:#9acc76;"> tmux)
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># create new session if not in tmux
+</span><span style="color:#cd74e8;">if </span><span style="color:#5ebfcc;">[[ </span><span style="color:#eb6772;">-z </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">TMUX </span><span style="color:#5ebfcc;">]] </span><span style="color:#adb7c9;">&amp;&amp; </span><span style="color:#5ebfcc;">[[ </span><span style="color:#eb6772;">-z </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">tmux_running </span><span style="color:#5ebfcc;">]]</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">then
+</span><span style="color:#abb2bf;">    </span><span style="color:#eb6772;">tmux</span><span style="color:#abb2bf;"> new-session</span><span style="color:#eb6772;"> -s </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">selected_name -c </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">selected
+</span><span style="color:#abb2bf;">    </span><span style="color:#5ebfcc;">exit</span><span style="color:#abb2bf;"> 0
+</span><span style="color:#cd74e8;">fi
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;"># create new session if name doesn&#39;t exist
+</span><span style="color:#cd74e8;">if </span><span style="color:#adb7c9;">! </span><span style="color:#eb6772;">tmux</span><span style="color:#abb2bf;"> has-session</span><span style="color:#eb6772;"> -t</span><span style="color:#adb7c9;">=</span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">selected_name </span><span style="color:#db9d63;">2</span><span style="color:#adb7c9;">&gt;</span><span style="color:#abb2bf;"> /dev/null</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">then
+</span><span style="color:#abb2bf;">    </span><span style="color:#eb6772;">tmux</span><span style="color:#abb2bf;"> new-session</span><span style="color:#eb6772;"> -ds </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">selected_name -c </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">selected
+</span><span style="color:#cd74e8;">fi
+</span><span style="color:#abb2bf;">
+</span><span style="color:#cd74e8;">if </span><span style="color:#5ebfcc;">[[ </span><span style="color:#eb6772;">-n </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">TMUX </span><span style="color:#5ebfcc;">]]</span><span style="color:#adb7c9;">; </span><span style="color:#cd74e8;">then
+</span><span style="color:#abb2bf;">    </span><span style="color:#eb6772;">tmux</span><span style="color:#abb2bf;"> switch-client</span><span style="color:#eb6772;"> -t </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">selected_name
+</span><span style="color:#cd74e8;">else
+</span><span style="color:#abb2bf;">    </span><span style="font-style:italic;color:#5f697a;"># if running outside of tmux, attach to the new session
+</span><span style="color:#abb2bf;">    </span><span style="color:#eb6772;">tmux</span><span style="color:#abb2bf;"> attach-session</span><span style="color:#eb6772;"> -t </span><span style="color:#abb2bf;">$</span><span style="color:#eb6772;">selected_name
+</span><span style="color:#cd74e8;">fi
+</span></code></pre>
+<p>Add this script to your <code>$PATH</code> and create an alias in your shell configuration
+file (e.g. <code>.bashrc</code>, <code>.zshrc</code>) like:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#5ebfcc;">alias </span><span style="color:#5cb3fa;">tmux-sessionizer</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">&#39;tmux-sessionizer.sh&#39;
+</span></code></pre>
+<p>Then you can simply run with <code>tmux-sessionizer</code>. You'll be prompted to select a
+directory with <code>fzf</code> and then a new <code>tmux</code> session will be created with that
+directory as the working directory.</p>
+<hr />
+<h2 id="extra-automating-with-hammerspoon-macos"><a class="zola-anchor" href="#extra-automating-with-hammerspoon-macos" aria-label="Anchor link for: extra-automating-with-hammerspoon-macos"><strong>EXTRA</strong>: Automating with Hammerspoon <strong>(MacOS)</strong></a></h2>
+<blockquote>
+<p><strong>NOTE:</strong> Sorry Windows and Linux users, this section is MacOS-specific. If you
+have any suggestions for similar tools on Windows or Linux, please let me know!</p>
+</blockquote>
+<p>Hammerspoon is a powerful macOS automation tool that allows you to write Lua
+scripts to automate your workflow. It is similar to Automator, but with more
+power and flexibility. Hammerspoon can be used to automate window management,
+launch applications, and more.</p>
+<p>To be fair, I there is still so much of Hammerspoon's capabilities that I just
+haven't had the time to look at or don't know about, but the biggest thing that
+I use it for is window management. I have a script that I use to manage my
+windows that I will share below. These make it easy to move windows around,
+resize them, and switch between them without ever having to touch the mouse.</p>
+<h2 id="getting-started-with-hammerspoon"><a class="zola-anchor" href="#getting-started-with-hammerspoon" aria-label="Anchor link for: getting-started-with-hammerspoon">Getting Started with Hammerspoon</a></h2>
+<h3 id="installation-and-getting-started"><a class="zola-anchor" href="#installation-and-getting-started" aria-label="Anchor link for: installation-and-getting-started">Installation and Getting Started</a></h3>
+<p>With Homebrew, you can install Hammerspoon with the following command:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">brew</span><span style="color:#abb2bf;"> install</span><span style="color:#eb6772;"> --cask</span><span style="color:#abb2bf;"> hammerspoon
+</span></code></pre>
+<p>Now with Hammerspoon installed, we can start scripting using Lua. Our scripts
+will live in the <code>~/.hammerspoon</code> directory and and then load the modules in
+<code>~/.hammerspoon/init.lua</code> using <code>require(&lt;modname&gt;)</code> statements.</p>
+<h3 id="window-sizing"><a class="zola-anchor" href="#window-sizing" aria-label="Anchor link for: window-sizing">Window Sizing</a></h3>
+<p>Let's create a file called <code>window.lua</code> in <code>~/.hammerspoon/</code> and add the
+following code:</p>
+<pre data-lang="lua" style="background-color:#2b303b;color:#6c7079;" class="language-lua "><code class="language-lua" data-lang="lua"><span style="font-style:italic;color:#5f697a;">-- window.lua
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">-- Window grid layout
+</span><span style="color:#cd74e8;">local </span><span style="color:#eb6772;">grid </span><span style="color:#adb7c9;">= </span><span style="color:#abb2bf;">{
+</span><span style="color:#abb2bf;">	{ </span><span style="color:#9acc76;">x </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">y </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">w </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">h </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">1 </span><span style="color:#abb2bf;">}, </span><span style="font-style:italic;color:#5f697a;">-- Left half
+</span><span style="color:#abb2bf;">	{ </span><span style="color:#9acc76;">x </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">y </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">w </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">h </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">1 </span><span style="color:#abb2bf;">}, </span><span style="font-style:italic;color:#5f697a;">-- Right half
+</span><span style="color:#abb2bf;">	{ </span><span style="color:#9acc76;">x </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">y </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">w </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">1</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">h </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0.5 </span><span style="color:#abb2bf;">}, </span><span style="font-style:italic;color:#5f697a;">-- Top half
+</span><span style="color:#abb2bf;">	{ </span><span style="color:#9acc76;">x </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">y </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">w </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">1</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">h </span><span style="color:#abb2bf;">= </span><span style="color:#db9d63;">0.5 </span><span style="color:#abb2bf;">}, </span><span style="font-style:italic;color:#5f697a;">-- Bottom half
+</span><span style="color:#abb2bf;">}
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">-- Function to move the current window to a specific screen grid location
+</span><span style="color:#cd74e8;">local function </span><span style="color:#5cb3fa;">moveWindowToGrid</span><span style="color:#abb2bf;">(</span><span style="color:#adb7c9;">location</span><span style="color:#abb2bf;">)
+</span><span style="color:#abb2bf;">	</span><span style="color:#cd74e8;">local </span><span style="color:#eb6772;">win </span><span style="color:#adb7c9;">= </span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.window.</span><span style="color:#eb6772;">focusedWindow</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#cd74e8;">local </span><span style="color:#eb6772;">screen </span><span style="color:#adb7c9;">= </span><span style="color:#eb6772;">win</span><span style="color:#abb2bf;">:</span><span style="color:#eb6772;">screen</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#cd74e8;">local </span><span style="color:#eb6772;">frame </span><span style="color:#adb7c9;">= </span><span style="color:#eb6772;">screen</span><span style="color:#abb2bf;">:</span><span style="color:#eb6772;">frame</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">
+</span><span style="color:#abb2bf;">	</span><span style="color:#cd74e8;">local </span><span style="color:#eb6772;">newFrame </span><span style="color:#adb7c9;">= </span><span style="color:#abb2bf;">{
+</span><span style="color:#abb2bf;">		</span><span style="color:#9acc76;">x </span><span style="color:#abb2bf;">= </span><span style="color:#eb6772;">frame</span><span style="color:#abb2bf;">.x </span><span style="color:#adb7c9;">+ </span><span style="color:#abb2bf;">(</span><span style="color:#eb6772;">grid</span><span style="color:#abb2bf;">[</span><span style="color:#eb6772;">location</span><span style="color:#abb2bf;">].x </span><span style="color:#adb7c9;">* </span><span style="color:#eb6772;">frame</span><span style="color:#abb2bf;">.w),
+</span><span style="color:#abb2bf;">		</span><span style="color:#9acc76;">y </span><span style="color:#abb2bf;">= </span><span style="color:#eb6772;">frame</span><span style="color:#abb2bf;">.y </span><span style="color:#adb7c9;">+ </span><span style="color:#abb2bf;">(</span><span style="color:#eb6772;">grid</span><span style="color:#abb2bf;">[</span><span style="color:#eb6772;">location</span><span style="color:#abb2bf;">].y </span><span style="color:#adb7c9;">* </span><span style="color:#eb6772;">frame</span><span style="color:#abb2bf;">.h),
+</span><span style="color:#abb2bf;">		</span><span style="color:#9acc76;">w </span><span style="color:#abb2bf;">= </span><span style="color:#eb6772;">grid</span><span style="color:#abb2bf;">[</span><span style="color:#eb6772;">location</span><span style="color:#abb2bf;">].w </span><span style="color:#adb7c9;">* </span><span style="color:#eb6772;">frame</span><span style="color:#abb2bf;">.w,
+</span><span style="color:#abb2bf;">		</span><span style="color:#9acc76;">h </span><span style="color:#abb2bf;">= </span><span style="color:#eb6772;">grid</span><span style="color:#abb2bf;">[</span><span style="color:#eb6772;">location</span><span style="color:#abb2bf;">].h </span><span style="color:#adb7c9;">* </span><span style="color:#eb6772;">frame</span><span style="color:#abb2bf;">.h,
+</span><span style="color:#abb2bf;">	}
+</span><span style="color:#abb2bf;">
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">win</span><span style="color:#abb2bf;">:</span><span style="color:#eb6772;">setFrame</span><span style="color:#abb2bf;">(</span><span style="color:#eb6772;">newFrame</span><span style="color:#abb2bf;">)
+</span><span style="color:#cd74e8;">end
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">-- Window movement keybinds
+</span><span style="font-style:italic;color:#5f697a;">-- NOTE: &quot;alt&quot; is the Option key on mac
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">({ </span><span style="color:#9acc76;">&quot;cmd&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;alt&quot; </span><span style="color:#abb2bf;">}, </span><span style="color:#9acc76;">&quot;left&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">moveWindowToGrid</span><span style="color:#abb2bf;">(</span><span style="color:#db9d63;">1</span><span style="color:#abb2bf;">)
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">) </span><span style="font-style:italic;color:#5f697a;">-- Move window to left half
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">({ </span><span style="color:#9acc76;">&quot;cmd&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;alt&quot; </span><span style="color:#abb2bf;">}, </span><span style="color:#9acc76;">&quot;right&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">moveWindowToGrid</span><span style="color:#abb2bf;">(</span><span style="color:#db9d63;">2</span><span style="color:#abb2bf;">)
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">) </span><span style="font-style:italic;color:#5f697a;">-- Move window to right half
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">({ </span><span style="color:#9acc76;">&quot;cmd&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;alt&quot; </span><span style="color:#abb2bf;">}, </span><span style="color:#9acc76;">&quot;up&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">moveWindowToGrid</span><span style="color:#abb2bf;">(</span><span style="color:#db9d63;">3</span><span style="color:#abb2bf;">)
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">) </span><span style="font-style:italic;color:#5f697a;">-- Move window to top half
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">({ </span><span style="color:#9acc76;">&quot;cmd&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;alt&quot; </span><span style="color:#abb2bf;">}, </span><span style="color:#9acc76;">&quot;down&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">moveWindowToGrid</span><span style="color:#abb2bf;">(</span><span style="color:#db9d63;">4</span><span style="color:#abb2bf;">)
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">) </span><span style="font-style:italic;color:#5f697a;">-- Move window to bottom half
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">-- quarter of screen
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">({ </span><span style="color:#9acc76;">&quot;shift&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;alt&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;cmd&quot; </span><span style="color:#abb2bf;">}, </span><span style="color:#9acc76;">&quot;left&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.window.</span><span style="color:#eb6772;">focusedWindow</span><span style="color:#abb2bf;">():</span><span style="color:#eb6772;">moveToUnit</span><span style="color:#abb2bf;">({ </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0.5 </span><span style="color:#abb2bf;">})
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">)
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">({ </span><span style="color:#9acc76;">&quot;shift&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;alt&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;cmd&quot; </span><span style="color:#abb2bf;">}, </span><span style="color:#9acc76;">&quot;right&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.window.</span><span style="color:#eb6772;">focusedWindow</span><span style="color:#abb2bf;">():</span><span style="color:#eb6772;">moveToUnit</span><span style="color:#abb2bf;">({ </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0.5 </span><span style="color:#abb2bf;">})
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">)
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">({ </span><span style="color:#9acc76;">&quot;shift&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;alt&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;cmd&quot; </span><span style="color:#abb2bf;">}, </span><span style="color:#9acc76;">&quot;up&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.window.</span><span style="color:#eb6772;">focusedWindow</span><span style="color:#abb2bf;">():</span><span style="color:#eb6772;">moveToUnit</span><span style="color:#abb2bf;">({ </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0.5 </span><span style="color:#abb2bf;">})
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">)
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">({ </span><span style="color:#9acc76;">&quot;shift&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;alt&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;cmd&quot; </span><span style="color:#abb2bf;">}, </span><span style="color:#9acc76;">&quot;down&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.window.</span><span style="color:#eb6772;">focusedWindow</span><span style="color:#abb2bf;">():</span><span style="color:#eb6772;">moveToUnit</span><span style="color:#abb2bf;">({ </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0.5</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0.5 </span><span style="color:#abb2bf;">})
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">)
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">-- full screen
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">({ </span><span style="color:#9acc76;">&quot;alt&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;cmd&quot; </span><span style="color:#abb2bf;">}, </span><span style="color:#9acc76;">&quot;f&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.window.</span><span style="color:#eb6772;">focusedWindow</span><span style="color:#abb2bf;">():</span><span style="color:#eb6772;">moveToUnit</span><span style="color:#abb2bf;">({ </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">0</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">1</span><span style="color:#abb2bf;">, </span><span style="color:#db9d63;">1 </span><span style="color:#abb2bf;">})
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">)
+</span></code></pre>
+<p>To actually include the this window script, add the following to
+<code>~/.hammerspoon/init.lua</code>:</p>
+<pre data-lang="lua" style="background-color:#2b303b;color:#6c7079;" class="language-lua "><code class="language-lua" data-lang="lua"><span style="font-style:italic;color:#5f697a;">-- ~/.hammerspoon/init.lua
+</span><span style="color:#5ebfcc;">require</span><span style="color:#abb2bf;">(</span><span style="color:#9acc76;">&quot;window&quot;</span><span style="color:#abb2bf;">)
+</span></code></pre>
+<p>Save the file and reload your Hammerspoon configuration (you can do this by
+clicking on the Hammerspoon icon in the menu bar and selecting "Reload Config").</p>
+<p>Now try using the keybinds you set up to move your windows around. Use <code>Alt + CMD + &lt;arrow&gt;</code> to move the active window to one of the four halves (vertically
+and horizontally split) of the screen. You can also use <code>Alt + CMD + SHIFT + &lt;arrow&gt;</code> to move the window to one of the window quarters.</p>
+<h3 id="window-switching"><a class="zola-anchor" href="#window-switching" aria-label="Anchor link for: window-switching">Window Switching</a></h3>
+<p>While macOS has a provided <code>CMD + Tab</code> shortcut for context switching windows,
+there aren't previews for the windows and hidden/minimized windows are not
+available. Hammerspoon's <a href="https://www.hammerspoon.org/docs/hs.window.switcher.html">window.switcher</a>
+API allows for overcoming both of these shortcomings.</p>
+<p>Add the following to the end of your <code>~/.hammerspoon/window.lua</code> file:</p>
+<pre data-lang="lua" style="background-color:#2b303b;color:#6c7079;" class="language-lua "><code class="language-lua" data-lang="lua"><span style="font-style:italic;color:#5f697a;">-- window.lua
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">-- Window switching
+</span><span style="font-style:italic;color:#5f697a;">-- better than cmd + tab:
+</span><span style="font-style:italic;color:#5f697a;">--  * preview of the window
+</span><span style="font-style:italic;color:#5f697a;">--  * can switch between minimized windows
+</span><span style="font-style:italic;color:#5f697a;">-- adapted from: https://www.hammerspoon.org/docs/hs.window.switcher.html
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">-- set up windowfilter
+</span><span style="font-style:italic;color:#5f697a;">-- include minimized/hidden windows, current Space only
+</span><span style="color:#eb6772;">switcher_space </span><span style="color:#adb7c9;">= </span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.window.switcher.</span><span style="color:#eb6772;">new</span><span style="color:#abb2bf;">(</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.window.filter.</span><span style="color:#eb6772;">new</span><span style="color:#abb2bf;">():</span><span style="color:#eb6772;">setCurrentSpace</span><span style="color:#abb2bf;">(</span><span style="color:#db9d63;">true</span><span style="color:#abb2bf;">):</span><span style="color:#eb6772;">setDefaultFilter</span><span style="color:#abb2bf;">({}))
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">-- Other example options:
+</span><span style="font-style:italic;color:#5f697a;">-- -- default windowfilter: only visible windows, all Spaces
+</span><span style="font-style:italic;color:#5f697a;">-- switcher = hs.window.switcher.new()
+</span><span style="font-style:italic;color:#5f697a;">--
+</span><span style="font-style:italic;color:#5f697a;">-- specialized switcher for your dozens of browser windows
+</span><span style="font-style:italic;color:#5f697a;">-- switcher_browsers = hs.window.switcher.new({ &quot;Brave&quot;, &quot;Safari&quot;, &quot;Google Chrome&quot; })
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">-- Adjust default window switcher UI
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.window.switcher.ui.showTitles </span><span style="color:#adb7c9;">= </span><span style="color:#db9d63;">false </span><span style="font-style:italic;color:#5f697a;">-- no titles on preview panes
+</span><span style="color:#abb2bf;">
+</span><span style="font-style:italic;color:#5f697a;">-- bind to hotkeys; WARNING: at least one modifier key is required!
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">(</span><span style="color:#9acc76;">&quot;alt&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;tab&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;Next window&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">switcher_space</span><span style="color:#abb2bf;">:</span><span style="color:#eb6772;">next</span><span style="color:#abb2bf;">()
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">)
+</span><span style="color:#eb6772;">hs</span><span style="color:#abb2bf;">.hotkey.</span><span style="color:#eb6772;">bind</span><span style="color:#abb2bf;">(</span><span style="color:#9acc76;">&quot;alt-shift&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;tab&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#9acc76;">&quot;Prev window&quot;</span><span style="color:#abb2bf;">, </span><span style="color:#cd74e8;">function</span><span style="color:#abb2bf;">()
+</span><span style="color:#abb2bf;">	</span><span style="color:#eb6772;">switcher_space</span><span style="color:#abb2bf;">:</span><span style="color:#eb6772;">previous</span><span style="color:#abb2bf;">()
+</span><span style="color:#cd74e8;">end</span><span style="color:#abb2bf;">)
+</span></code></pre>
+<p>Now with these key bindings I can quickly switch windows using <code>Alt + Tab</code> and
+have previews! Try them out yourself. <code>Alt + Tab</code> will iterate through the
+windows in order, and <code>Alt + Shift + Tab</code> will iterate through the windows in
+reverse order.</p>
+<hr />
+<h2 id="bringing-it-all-together-crafting-a-powerful-personalized-workflow"><a class="zola-anchor" href="#bringing-it-all-together-crafting-a-powerful-personalized-workflow" aria-label="Anchor link for: bringing-it-all-together-crafting-a-powerful-personalized-workflow">Bringing It All Together: Crafting a Powerful, Personalized Workflow</a></h2>
+<p>Up to this point, we’ve looked at individual tools and scripting techniques—Bash
+basics, command-line utilities like <code>fzf</code> and <code>rg</code>, terminal multiplexing with
+<code>tmux</code>, text manipulation with <code>sed</code> and <code>awk</code>, and system automation via
+Hammerspoon. While each tool stands on its own, the true power emerges when
+you combine them to fit the way you work.</p>
+<p><strong>Imagine this scenario:</strong> You’re working on a large codebase and need to
+quickly find a function definition. Instead of manually poking around
+directories, you can run a single command:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">nvim </span><span style="color:#abb2bf;">$(</span><span style="color:#eb6772;">rg </span><span style="color:#9acc76;">&quot;myFunctionName&quot;</span><span style="color:#eb6772;"> --files-with-matches </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fzf --preview</span><span style="color:#adb7c9;">=</span><span style="color:#9acc76;">&quot;bat --color=always {}&quot;</span><span style="color:#abb2bf;">)
+</span></code></pre>
+<p>With this pipeline, you’ve integrated multiple tools at once:</p>
+<ul>
+<li><code>rg</code> searches your codebase blazingly fast.</li>
+<li><code>fzf</code> lets you quickly narrow down results interactively.</li>
+<li><code>bat</code> provides syntax-highlighted previews as you navigate files.</li>
+<li><code>nvim</code> opens the selected file immediately in your preferred editor.</li>
+</ul>
+<p>Need to juggle multiple projects and keep different tasks compartmentalized?
+Use <code>tmux-sessionizer</code> to jump into dedicated tmux sessions for each
+directory you’re working in—no more manually cd’ing and setting up your
+environment each time. Once inside <code>tmux</code>, you can split panes to run <code>htop</code>
+and monitor processes on one side, while coding on the other. If you’re on
+macOS, you can rearrange or tile your windows effortlessly with Hammerspoon
+keybindings. Each tool handles a specific part of your workflow, and together
+they create a frictionless environment where you move seamlessly between
+searching, editing, monitoring, and organizing.</p>
+<p><strong>In short:</strong> The point of learning these tools and techniques isn’t just to
+have a bag of fancy tricks. It’s about building a workflow that’s tailored to
+your needs—reducing repetitive actions, speeding up navigation, and keeping
+you focused on your real work rather than on the mechanics of your environment.
+As you become comfortable with these tools, you’ll naturally discover even
+more combinations, customizing your setup to become a personal productivity
+powerhouse.</p>
+<p>If there's any tool or script that you found particularly useful or interesting,
+I recommend exploring it further and seeing how you can integrate it into your
+workflow. And if you have a favorite tool or script that I didn't cover here,
+feel free to share it in the comments!</p>
+<h2 id="references-and-resources"><a class="zola-anchor" href="#references-and-resources" aria-label="Anchor link for: references-and-resources">References and Resources</a></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Unix_philosophy">Unix Philosophy Wikipedia page</a></li>
+<li><a href="https://www.youtube.com/watch?v=oTNRvnQLLLs&amp;list=WL&amp;index=1">typescraft: This may be my favorite CLI tool ever</a></li>
+<li><a href="https://www.youtube.com/watch?v=mmqDYw9C30I&amp;t=248s">Josean Martinez: 7 Amazing CLI Tools You Need To Try</a></li>
+<li><a href="https://linuxconfig.org/bash-scripting-tutorial">Bash Scripting Tutorial: How to Write a Bash Script</a></li>
+<li><a href="https://www.youtube.com/watch?v=tK9Oc6AEnR4">Bash Scripting Tutorial for Beginners</a></li>
+<li><a href="https://github.com/junegunn/fzf"><code>fzf</code> GitHub Repository</a></li>
+<li><a href="https://github.com/PatrickF1/fzf.fish"><code>fzf.fish</code> GitHub Repository</a></li>
+<li><a href="https://github.com/BurntSushi/ripgrep"><code>ripgrep</code> GitHub Repository</a></li>
+</ul>
+
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by Micah Kepe
+                
+                
+                    
+                    in <a href="https://micahkepe.com/blog/categories/productivity/">productivity</a>
+                
+                
+                    and
+                    tagged
+                    
+                        <a href="https://micahkepe.com/blog/tags/unix/">unix</a>
+                        
+                            
+                                
+                                    ,
+                                
+                            
+                        
+                    
+                        <a href="https://micahkepe.com/blog/tags/tools/">tools</a>
+                        
+                            
+                                
+                                    ,
+                                
+                            
+                        
+                    
+                        <a href="https://micahkepe.com/blog/tags/cli/">cli</a>
+                        
+                            
+                                
+                                    and
+                                
+                            
+                        
+                    
+                        <a href="https://micahkepe.com/blog/tags/bash/">bash</a>
+                        
+                            
+                        
+                    
+                
+            </p>
+            
+            
+        </footer>
+    
+</article>
+
+
+
+    <!-- optional scripts -->
+     
+    <script src="https://micahkepe.com/blog/js/codeblock.js"></script>
+     
+    <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+     
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+ 
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+ 
+  </body>
+</html>
