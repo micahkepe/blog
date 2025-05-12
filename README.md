@@ -16,9 +16,8 @@ generator written in Rust, and its theme is a custom theme I developed called
 
 If you find any issues or typos in the blog, feel free to open a pull request or
 an issue. Additionally, if you have any ideas or topics you'd like me to write
-about, please let me know by opening an issue (refer to the
-[features template](.github/ISSUE_TEMPLATE/feature_request.md). I'd love to hear
-your suggestions!
+about, please let me know by opening an issue. I'd love to hear your
+suggestions!
 
 # License
 
