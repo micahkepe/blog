@@ -39,7 +39,7 @@ to do the configuration yourself, you can run these commands to add my setup as 
 
 **If you're interested in the nerdy details of my setup, keep reading!**
 
-{{ gif(sources=["./demos/nvdash.mp4"]
+{{ gif(sources=["demos/nvdash.mp4"]
 width=80) }}
 
 ---
@@ -232,8 +232,6 @@ plugins that come by default from NVChad and the plugins that I have added on.
 > **Note:** If you are curious about all of my plugins, you can see them
 > [here](https://github.com/micahkepe/dotfiles/tree/main/nvim/lua/plugins).
 
-<br>
-
 #### NVChad Plugins
 
 NVChad comes with a carefully curated set of plugins that provide a solid
@@ -275,9 +273,7 @@ These plugins work together to provide a fully-featured IDE-like experience
 right out of the box. NVChad's setup ensures that these plugins are configured
 to work well together, providing a smooth and cohesive editing experience.
 
-{{ gif(sources=["./demos/nvchad-demo.mp4"], width=80)}}
-
-<br>
+{{ gif(sources=["demos/nvchad-demo.mp4"], width=80)}}
 
 #### Added Plugins "Musts"
 
@@ -286,7 +282,7 @@ NVChad's base.
 
 ##### [`gelguy/wilder.nvim`](https://github.com/gelguy/wilder.nvim)
 
-{{ gif(sources=["./demos/wilder-cmds.mp4"], width=80)}}
+{{ gif(sources=["demos/wilder-cmds.mp4"], width=80)}}
 
 Makes navigating the Neovim command line much faster with fuzzy search
 capabilities, providing instant suggestions as you type commands.
@@ -353,7 +349,7 @@ return {
 
 ##### [`3rd/image.nvim`](https://github.com/3rd/image.nvim)
 
-{{ gif(sources=["./demos/image-nvim.mp4"], width=80)}}
+{{ gif(sources=["demos/image-nvim.mp4"], width=80)}}
 
 Enables image rendering in Neovim, essential for tasks like markdown previews
 and documentation editing. When editing markdown files or any other file format
@@ -490,11 +486,9 @@ return {
 }
 ```
 
-<br>
-
 ##### [`rmagatti/autosession`](https://github.com/rmagatti/auto-session)
 
-{{ gif(sources=["./demos/autosession.mp4"], width=80)}}
+{{ gif(sources=["demos/autosession.mp4"], width=80)}}
 
 Automatically saves and restores Neovim sessions, allowing you to pick up your
 work right where you left off. If you close Neovim and reopen it later,
@@ -529,11 +523,9 @@ map("n", "<leader>ws", "<cmd>SessionSave<CR>", { desc = "Save session for auto s
 map("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for cwd" })
 ```
 
-<br>
-
 ##### [`christoomey/vim-tmux-navigator`](https://github.com/christoomey/vim-tmux-navigator)
 
-{{ gif(sources=["./demos/navigator.mp4"], width=80)}}
+{{ gif(sources=["demos/navigator.mp4"], width=80)}}
 
 Enables smooth navigation between Neovim windows and
 [tmux](https://github.com/tmux/tmux/wiki) panes, making it feel like a unified
@@ -715,7 +707,7 @@ These are the mappings I use for GitSigns, which I believe are fairly standard.
 `gitsigns` works in "hunks" of code, hence all of these mappings begin with an
 `h` after the leader.
 
-{{ gif(sources=["./demos/gitsigns.mp4"], width=80)}}
+{{ gif(sources=["demos/gitsigns.mp4"], width=80)}}
 
 ```lua
 map("n", "<leader>hn", "<cmd>lua require'gitsigns'.next_hunk()<CR>", { desc = "Next hunk" })
