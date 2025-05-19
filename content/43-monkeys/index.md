@@ -139,7 +139,7 @@ width=60
 
 This can be handled in the `start_menu.gd` script programmatically:
 
-```python
+```gd
 ## Handles the press event for the start button. Navigates to intro cutscene.
 func _on_start_button_pressed() -> void:
 	theme_player.stop()
@@ -182,7 +182,7 @@ character can collide with the world.
 
 When we create a script for the scene, it will follow this format:
 
-```python
+```gd
 extends CharacterBody2D
 
 ## any signals, state variables, and onready references
@@ -205,7 +205,7 @@ func _physics_process(_delta: float) -> void:
 Filling in more implementation, our final `player.gd` can be boiled down to
 this:
 
-```python
+```gd
 extends CharacterBody2D
 
 @onready var _animated_sprite = $AnimatedSprite2D
@@ -292,7 +292,7 @@ The `boid.gd` script implements these behaviors for enemy or NPC characters,
 with additional features like wall avoidance and attacking. Below are key
 snippets capturing the essence of the flocking logic:
 
-```python
+```gd
 extends CharacterBody2D
 
 @export var max_speed: float = 125.0
@@ -455,7 +455,7 @@ dynamic. The player can hide behind walls to temporarily escape the boids' line
 sight, but the player has to now fend off the boids while trying to solve
 puzzles.
 
-```python
+```gd
 ## Returns the closest target node within the boid's view radius.
 ## @returns Node2D - The closest target node within the boid's view radius.
 func _get_closest_target() -> Node2D:
