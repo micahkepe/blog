@@ -161,7 +161,7 @@ Arguments: ["-la"]
 ```
 
 Obviously, this is very basic parsing, and it doesn't handle multiple commands
-and/or parsing, but we will fix that later. For now, we have a basic shell that
+and/or piping, but we will fix that later. For now, we have a basic shell that
 can read input from the user and parse that input into a command and its
 arguments.
 
