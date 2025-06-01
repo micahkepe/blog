@@ -364,7 +364,7 @@ Relaunch your shell to source the new configuration. Now we can use the provided
 shell functionality.
 
 {{ note(
-header="Note for fish shell"
+header="Note for `fish` shell"
 body="
 I use Fish shell, and while `fzf` has a fish plugin, but it doesn't seem well
 maintained and I had issues, use [fzf.fish](https://github.com/PatrickF1/fzf.fish)

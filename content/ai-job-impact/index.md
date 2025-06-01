@@ -5,7 +5,7 @@ draft = false
 
 [taxonomies]
 categories = ["opinion"]
-tags = ["opinion", "future", "technology"]
+tags = ["opinion", "ai"]
 
 [extra]
 toc = true
