@@ -212,17 +212,17 @@ combination:
 
 **Left hand modifiers:**
 
-- A: Ctrl when held
-- S: Alt when held
-- D: GUI (Command) when held
-- F: Shift when held
+- `A`: Ctrl when held
+- `S`: Alt when held
+- `D`: GUI (Command) when held
+- `F`: Shift when held
 
 **Right hand modifiers:**
 
-- J: Shift when held
-- K: GUI (Command) when held
-- L: Alt when held
-- ;: Ctrl when held
+- `J`: Shift when held
+- `K`: GUI (Command) when held
+- `L`: Alt when held
+- `;`: Ctrl when held
 
 This setup provides several advantages:
 
