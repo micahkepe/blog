@@ -122,7 +122,7 @@ out of the box.
 > node, with its internal structure hidden in the editor.
 
 Nodes and scene are scriptable and can be changed to function programmatically.
-Godot has it's own scripting language called GDScript that can be used; C++ is
+Godot has its own scripting language called GDScript that can be used; C++ is
 another option as well.
 
 The last major thing to mention is **signals**. Signals allow for nodes to alert

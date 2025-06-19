@@ -718,6 +718,8 @@ shell just displays `"minishell: Error: Eof"`.
 To fix this, we'll adjust our match arms for matching the line input to handle
 these signals more gracefully. Specifically, we want to exit the shell when
 the user presses `Ctrl+C` or `Ctrl+D`, and we want to save the command history.
+Similarly, when the user `exit`, we also want to save the command history before
+exiting.
 
 ```rust
 use rustyline::error::ReadlineError;
@@ -730,12 +732,22 @@ fn main() -> Result<(), Box<dyn Error>> {
     loop {
         match line {
             Ok(line) => {
-                // unchanged
+                // ...
+                while let Some(command) = commands.next() {
+                    // ...
+                    match command {
+                        // ...
+                        "exit" => {
+                            rl.save_history(history_path)?;
+                            return Ok(());
+                        }
+                        // ...
+                    }
+
             }
             Err(ReadlineError::Interrupted) | Err(ReadlineError::Eof) => {
                 // Handle Ctrl-C or Ctrl-D gracefully
                 println!("\nExiting minishell...");
-                rl.save_history(history_path)?;
                 break;
             }
             Err(e) => {
@@ -745,14 +757,16 @@ fn main() -> Result<(), Box<dyn Error>> {
         }
     }
 
+    // Save history and return Ok variant
+    rl.save_history(history_path)?;
     Ok(())
 }
 ```
 
 Now, when the user presses `Ctrl+C` or `Ctrl-D`, the shell will print a message
-and exit gracefully, saving the command history to the specified file. We added
-a `Ok(())` return type to the `main` function to indicate that the shell exited
-successfully.
+and exit gracefully, saving the command history to the specified file. Outside
+of the main REPL loop, we added an `Ok(())` return type to the `main` function
+to indicate that the shell exited successfully.
 
 {{note(
 header="`rustyline` as a _line editor_",
@@ -906,7 +920,10 @@ fn main() -> Result<(), Boxdyn Error> {
 
                             prev_stdout = None;
                         }
-                        "exit" => return Ok(()),
+                        "exit" => {
+                            rl.save_history(history_path)?;
+                            return Ok(());
+                        }
                         command => {
                             let stdin = match prev_stdout.take() {
                                 Some(output) => Stdio::from(output),
@@ -945,7 +962,6 @@ fn main() -> Result<(), Boxdyn Error> {
             }
             Err(ReadlineError::Interrupted) | Err(ReadlineError::Eof) => {
                 println!("\nExiting minishell...");
-                rl.save_history(history_path)?;
                 break;
             }
             Err(e) => {
@@ -954,6 +970,7 @@ fn main() -> Result<(), Boxdyn Error> {
         }
     }
 
+    rl.save_history(history_path)?;
     Ok(())
 }
 ```
