@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="A different type of AI tool for command line junkies." />
+        <meta property="og:description" content="A different type of AI tool for command line junkies." />
+        <meta property="twitter:description" content="A different type of AI tool for command line junkies." />
+      
+    
+
+    <!-- Title -->
+      
+
+    <title>
+    
+    Fabric: The Best AI CLI Tool You Aren&#x27;t Using (Probably)
+    
+</title>
+    <meta property="og:title" content="Micah&#x27;s Secret Blog" />
+    <meta name="twitter:title" content="Micah&#x27;s Secret Blog" />
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;fabric&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="Fabric: The Best AI CLI Tool You Aren&#x27;t Using (Probably)" />
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/web-app-manifest-512x512.png"
+    />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;fabric&#x2F;"
+    />
+    <meta name="twitter:title" content="Fabric: The Best AI CLI Tool You Aren&#x27;t Using (Probably)" />
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Fabric: The Best AI CLI Tool You Aren&#x27;t Using (Probably)" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    <link
+      rel="stylesheet"
+      href="https://micahkepe.com/blog/site.css"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <body class="hack main container">
+    
+    
+         
+    <header class="nav-header">
+      <nav
+        itemscope
+        itemtype="http://schema.org/SiteNavigationElement"
+        class="navbar"
+      >
+        <section class="nav-links">
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/"
+          >
+            <span itemprop="name">Home</span>
+          </a>
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/categories"
+          >
+            <span itemprop="name">Categories</span>
+          </a>
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/blog/tags"
+          >
+            <span itemprop="name">Tags</span>
+          </a>
+          
+          <a
+            itemprop="url"
+            class=""
+            href="https://micahkepe.com/"
+          >
+            <span itemprop="name">Main Site</span>
+          </a>
+          
+        </section>
+      </nav>
+      <aside class="user-actions-container">
+        
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          class="search-icon"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+          />
+        </svg>
+        <input type="text" id="search" placeholder="Search..." />
+        <section class="search-results" aria-live="polite">
+          <article class="search-results__items" role="list"></article>
+        </section>
+         
+        <a id="dark-mode-toggle" href="#">
+          <img
+            src="https://micahkepe.com/blog/icons/sun.svg"
+            id="sun-icon"
+            style="filter: invert(1)"
+            alt="Light mode"
+          />
+          <img
+            src="https://micahkepe.com/blog/icons/moon.svg"
+            id="moon-icon"
+            alt="Dark mode"
+          />
+        </a>
+         
+        <a
+          href="https://micahkepe.com/blog/atom.xml"
+          class="feed-icon"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/rss.svg"
+            id="rss-icon"
+            alt="RSS feed"
+            class="social-icon"
+          />
+        </a>
+         
+        <a
+          href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+          class="feed-icon"
+          rel="noopener noreferrer"
+        >
+          <img
+            src="https://micahkepe.com/blog/icons/github.svg"
+            id="github-icon"
+            alt="GitHub"
+            class="social-icon"
+          />
+        </a>
+        
+      </aside>
+    </header>
+     
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Fabric: The Best AI CLI Tool You Aren&#x27;t Using (Probably)</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>4 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2025-04-23
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>A different type of AI tool for command line junkies.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/fabric/#introduction">Introduction</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/fabric/#why-fabric">Why Fabric?</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/fabric/#real-workflows-that-show-the-power">Real Workflows That Show the Power</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/fabric/#the-philosophy-behind-it">The Philosophy Behind It</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/fabric/#patterns-are-the-secret-sauce">&quot;Patterns&quot; Are the Secret Sauce</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/fabric/#human-centric-design">Human-Centric Design</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/fabric/#basic-setup-in-60-seconds">Basic Setup (in 60 seconds)</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/fabric/#final-word">Final Word</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/fabric/#references">References</a>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span><h2 id="introduction"><a class="zola-anchor" href="#introduction" aria-label="Anchor link for: introduction">Introduction</a></h2>
+<p>Fabric isn't just another AI CLI tool, I have been using it over the past few
+months to accelerate my grasp over research papers, media, and content of all
+sorts. Fabric is a tool by <a href="https://danielmiessler.com/">Daniel Miessler</a> that
+offers a <strong>Unix-native command-line interface</strong> allowing you to directly
+to AI through a growing library of "Patterns"— curated, open-source system
+prompts engineered to solve real problems with minimal "friction."</p>
+<p>If you're someone who works with text and/or consumes a lot of content, or just
+wants to streamline repetitive tasks like summarizing videos, extracting
+insights, or analyzing messy logs, <strong>Fabric is a force multiplier</strong>.</p>
+<h2 id="why-fabric"><a class="zola-anchor" href="#why-fabric" aria-label="Anchor link for: why-fabric">Why Fabric?</a></h2>
+<p>At it's core, Fabric serves as a proxy from users to different LLM services so
+that users can get things done with less cognitive overhead, fewer clicks, and
+more composability via traditional command pipelines.</p>
+<p>For me, here’s why it stands out:</p>
+<ul>
+<li>
+<p><strong>Frictionless AI Access</strong>: Fabric removes the need to visit web
+interfaces, load custom GPTs, or rephrase prompts manually. Everything is
+piped directly through the terminal, your clipboard, or even local APIs.</p>
+</li>
+<li>
+<p><strong>Patterns</strong>: Every Pattern is a reproducible, editable Markdown file that
+provided tried and tested prompts and instructions for models for common
+actions like composing emails, summarizing content, or analyzing a study, as
+some examples. Patterns are specified using the <code>-p</code> flag, and the below
+example demonstrates the piping of Fabric commands, using Markdown as a common
+stream:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#5f697a;"># YouTube transcript -&gt; &quot;extract insights&quot; -&gt; &quot;format as LaTeX&quot; -&gt; Compile PDF
+</span><span style="color:#eb6772;">yt </span><span style="color:#9acc76;">&quot;https://youtu.be/example&quot; </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fabric -p</span><span style="color:#abb2bf;"> extract_wisdom </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fabric -p</span><span style="color:#abb2bf;"> write_latex </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">to_pdf
+</span></code></pre>
+</li>
+<li>
+<p><strong>Text as the Interface</strong>: Embrace the "world of text" paradigm. Fabric
+works best when everything is treatable as text: podcasts become
+transcripts, notes become markdown, and logs become structured data.</p>
+</li>
+<li>
+<p><strong>Ollama Integration</strong>: Fabric offers integration with local models through
+<a href="https://github.com/ollama/ollama">Ollama</a>. This means that I can use the
+tool in an offline, private manner if I'd like.</p>
+</li>
+</ul>
+<h2 id="real-workflows-that-show-the-power"><a class="zola-anchor" href="#real-workflows-that-show-the-power" aria-label="Anchor link for: real-workflows-that-show-the-power">Real Workflows That Show the Power</a></h2>
+<p>Here are some examples that I have used that demonstrate Fabric’s raw utility:</p>
+<ol>
+<li>
+<p><strong>Research Synthesis</strong>
+Extract key points from academic papers and create tweet-length takeaways:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">pbpaste </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fabric -p</span><span style="color:#abb2bf;"> extract_wisdom </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fabric -p</span><span style="color:#abb2bf;"> create_micro_summary
+</span></code></pre>
+</li>
+<li>
+<p><strong>Understand Foreign Codebases Quickly</strong>
+Instantly grok unfamiliar C or Python blocks:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">pbpaste </span><span style="color:#adb7c9;">| </span><span style="color:#eb6772;">fabric -p</span><span style="color:#abb2bf;"> explain_code
+</span></code></pre>
+</li>
+<li>
+<p><strong>Summarize Long YouTube Videos in Seconds</strong>
+Stop wasting time scrubbing through 2-hour interviews:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">fabric -y </span><span style="color:#9acc76;">&quot;https://www.youtube.com/watch?v=uXs-zPc63kM&quot;</span><span style="color:#eb6772;"> -p</span><span style="color:#abb2bf;"> extract_wisdom
+</span></code></pre>
+</li>
+<li>
+<p><strong>Log Analysis for Developers and Sysadmins</strong>
+Triage messy logs and find root causes without writing a regex:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">fabric -p</span><span style="color:#abb2bf;"> analyze_logs </span><span style="color:#adb7c9;">&lt;</span><span style="color:#abb2bf;"> /var/log/syslog
+</span></code></pre>
+</li>
+</ol>
+<h2 id="the-philosophy-behind-it"><a class="zola-anchor" href="#the-philosophy-behind-it" aria-label="Anchor link for: the-philosophy-behind-it">The Philosophy Behind It</a></h2>
+<h3 id="patterns-are-the-secret-sauce"><a class="zola-anchor" href="#patterns-are-the-secret-sauce" aria-label="Anchor link for: patterns-are-the-secret-sauce">"Patterns" Are the Secret Sauce</a></h3>
+<p>A Pattern is essentially a prompt distilled into a repeatable tool. Want to
+inspect or improve a Pattern? Just open the Markdown:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">~/.config/fabric/patterns/extract_wisdom/system.md
+</span></code></pre>
+<p>And if you're unsure how to craft one, there's a Pattern for that too:
+<a href="https://github.com/danielmiessler/fabric/blob/main/patterns/improve_prompt/system.md"><code>improve_prompt</code></a>.</p>
+<h3 id="human-centric-design"><a class="zola-anchor" href="#human-centric-design" aria-label="Anchor link for: human-centric-design">Human-Centric Design</a></h3>
+<p>In interviews, Miessler has said that he didn’t build Fabric to automate
+life—he built it to <strong>make space for more meaningful work</strong>. His idea of a
+"world of text" means anything that can be turned into text is fair game for
+Fabric—and AI. Transcripts, logs, journals, notes, lecture recordings—turn
+them into signal, not noise.</p>
+<p>Fabric helps you decide:</p>
+<ul>
+<li>What’s worth reading?</li>
+<li>What deserves deep thought?</li>
+<li>What should be distilled and filed?</li>
+</ul>
+<h2 id="basic-setup-in-60-seconds"><a class="zola-anchor" href="#basic-setup-in-60-seconds" aria-label="Anchor link for: basic-setup-in-60-seconds">Basic Setup (in 60 seconds)</a></h2>
+<p>To install, follow the <a href="https://github.com/danielmiessler/fabric">GitHub instructions</a>,
+or if you're in a hurry:</p>
+<pre data-lang="bash" style="background-color:#2b303b;color:#6c7079;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#eb6772;">brew</span><span style="color:#abb2bf;"> install fabric-ai </span><span style="font-style:italic;color:#5f697a;"># macOS
+</span><span style="color:#eb6772;">yay -S</span><span style="color:#abb2bf;"> fabric-ai        </span><span style="font-style:italic;color:#5f697a;"># Arch Linux
+</span><span style="color:#eb6772;">go</span><span style="color:#abb2bf;"> install github.com/danielmiessler/fabric@latest
+</span></code></pre>
+<p>Run <code>fabric --setup</code> to add your API keys for OpenAI, Anthropic, Grok, or a
+local LLM server:</p>
+<section
+  style="width: 100%; max-width: 70%; margin: 0 auto; text-align: center;">
+  <img src="./images/fabric-setup.png"  alt="Setup prompt for Fabric CLI tool" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">The setup window for Fabric to integrate with your LLM service of
+choice.</p>
+  </caption>
+  
+</section>
+<blockquote>
+<p><strong>NOTE</strong>: Use <code>alias fabric='fabric-ai'</code> if installed via package manager.</p>
+</blockquote>
+<h2 id="final-word"><a class="zola-anchor" href="#final-word" aria-label="Anchor link for: final-word">Final Word</a></h2>
+<p>Fabric has personally saved me lots of time in digesting content and concepts
+faster, from analyzing research papers to extracting the best ideas from long
+YouTube videos. With already so much of my workflow being from the command line,
+Fabric has been a great addition to my tool belt that keeps me close to my work.</p>
+<p>If your workflow involves summarizing, extracting, transforming, or
+interacting with anything in text form—and you like the CLI—you owe it to
+yourself to try Fabric.</p>
+<h2 id="references"><a class="zola-anchor" href="#references" aria-label="Anchor link for: references">References</a></h2>
+<ul>
+<li><a href="https://github.com/danielmiessler/fabric">Fabric GitHub Repository</a></li>
+<li><a href="https://youtu.be/UbDyjIIGaxQ">Daniel Miessler on AI Design Philosophy</a></li>
+<li><a href="https://github.com/danielmiessler/fabric/blob/main/README.md">Fabric CLI Docs</a></li>
+</ul>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+  data-theme="preferred_color_scheme"
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/tools/">tools</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/ai/">ai</a>
+                    
+                        
+                            
+                                and
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/cli/">cli</a>
+                    
+                        
+                    
+                
+            
+        </p>
+        
+        
+    </footer>
+
+
+</article>
+
+
+  </body>
+</html>
