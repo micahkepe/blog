@@ -686,8 +686,23 @@ In English: When you have resolved a conflict in the past, `git rerere` will
 keep track of the resolution and apply it to future conflicts.
 
 Resolve a conflict once, and `rerere` saves it. Same conflict later? It’s
-auto-fixed, but you still check with `git diff` and `git add` to make sure
+auto-fixed, but you can still check with `git diff` and `git add` to make sure
 everything is okay.
+
+Add the following to your `.gitconfig`:
+
+```ini
+[rerere]
+    enabled = true
+    autoUpdate = true
+```
+
+Or run:
+
+```bash
+git config --global rerere.enabled true
+git config --global rerere.autoUpdate true
+```
 
 ### Whitespace
 
