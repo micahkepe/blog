@@ -28,7 +28,7 @@ most to improving my experience with Git.
 When you run `git commit` with no message specified, Git will open an editor
 with a template that looks like this:
 
-```gitcommit
+```COMMIT_EDITMSG
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
 #
@@ -73,7 +73,7 @@ Two flaws in the default sorting of branches:
 
 1. Branches are sorted alphabetically
 
-2. Branches are listed as a row (no matter how many branches you have)
+2. Branches are listed as a single column (no matter how many branches you have)
 
    So if we have a ton of branches, we'll get output like this on `git branch`:
 

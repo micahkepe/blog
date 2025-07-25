@@ -596,6 +596,54 @@ directory as the working directory.
 
 ---
 
+## Bringing It All Together: Crafting a Powerful, Personalized Workflow
+
+Up to this point, we’ve looked at individual tools and scripting techniques—Bash
+basics, command-line utilities like `fzf` and `rg`, terminal multiplexing with
+`tmux`, text manipulation with `sed` and `awk`, and system automation via
+Hammerspoon. While each tool stands on its own, the true power emerges when
+you combine them to fit the way you work.
+
+**Imagine this scenario:** You’re working on a large codebase and need to
+quickly find a function definition. Instead of manually poking around
+directories, you can run a single command:
+
+```bash
+nvim $(rg "myFunctionName" --files-with-matches | fzf --preview="bat --color=always {}")
+```
+
+With this pipeline, you’ve integrated multiple tools at once:
+
+- `rg` searches your codebase blazingly fast.
+- `fzf` lets you quickly narrow down results interactively.
+- `bat` provides syntax-highlighted previews as you navigate files.
+- `nvim` opens the selected file immediately in your preferred editor.
+
+Need to juggle multiple projects and keep different tasks compartmentalized?
+Use `tmux-sessionizer` to jump into dedicated tmux sessions for each
+directory you’re working in—no more manually cd’ing and setting up your
+environment each time. Once inside `tmux`, you can split panes to run `htop`
+and monitor processes on one side, while coding on the other. If you’re on
+macOS, you can rearrange or tile your windows effortlessly with Hammerspoon
+keybindings. Each tool handles a specific part of your workflow, and together
+they create a frictionless environment where you move seamlessly between
+searching, editing, monitoring, and organizing.
+
+**In short:** The point of learning these tools and techniques isn’t just to
+have a bag of fancy tricks. It’s about building a workflow that’s tailored to
+your needs—reducing repetitive actions, speeding up navigation, and keeping
+you focused on your real work rather than on the mechanics of your environment.
+As you become comfortable with these tools, you’ll naturally discover even
+more combinations, customizing your setup to become a personal productivity
+powerhouse.
+
+If there's any tool or script that you found particularly useful or interesting,
+I recommend exploring it further and seeing how you can integrate it into your
+workflow. And if you have a favorite tool or script that I didn't cover here,
+feel free to share it in the comments!
+
+---
+
 ## **EXTRA**: Automating with Hammerspoon **(MacOS)**
 
 > **NOTE:** Sorry Windows and Linux users, this section is MacOS-specific. If you
@@ -612,9 +660,7 @@ I use it for is window management. I have a script that I use to manage my
 windows that I will share below. These make it easy to move windows around,
 resize them, and switch between them without ever having to touch the mouse.
 
-## Getting Started with Hammerspoon
-
-### Installation and Getting Started
+### Getting Started with Hammerspoon
 
 With Homebrew, you can install Hammerspoon with the following command:
 
@@ -756,52 +802,6 @@ windows in order, and `Alt + Shift + Tab` will iterate through the windows in
 reverse order.
 
 ---
-
-## Bringing It All Together: Crafting a Powerful, Personalized Workflow
-
-Up to this point, we’ve looked at individual tools and scripting techniques—Bash
-basics, command-line utilities like `fzf` and `rg`, terminal multiplexing with
-`tmux`, text manipulation with `sed` and `awk`, and system automation via
-Hammerspoon. While each tool stands on its own, the true power emerges when
-you combine them to fit the way you work.
-
-**Imagine this scenario:** You’re working on a large codebase and need to
-quickly find a function definition. Instead of manually poking around
-directories, you can run a single command:
-
-```bash
-nvim $(rg "myFunctionName" --files-with-matches | fzf --preview="bat --color=always {}")
-```
-
-With this pipeline, you’ve integrated multiple tools at once:
-
-- `rg` searches your codebase blazingly fast.
-- `fzf` lets you quickly narrow down results interactively.
-- `bat` provides syntax-highlighted previews as you navigate files.
-- `nvim` opens the selected file immediately in your preferred editor.
-
-Need to juggle multiple projects and keep different tasks compartmentalized?
-Use `tmux-sessionizer` to jump into dedicated tmux sessions for each
-directory you’re working in—no more manually cd’ing and setting up your
-environment each time. Once inside `tmux`, you can split panes to run `htop`
-and monitor processes on one side, while coding on the other. If you’re on
-macOS, you can rearrange or tile your windows effortlessly with Hammerspoon
-keybindings. Each tool handles a specific part of your workflow, and together
-they create a frictionless environment where you move seamlessly between
-searching, editing, monitoring, and organizing.
-
-**In short:** The point of learning these tools and techniques isn’t just to
-have a bag of fancy tricks. It’s about building a workflow that’s tailored to
-your needs—reducing repetitive actions, speeding up navigation, and keeping
-you focused on your real work rather than on the mechanics of your environment.
-As you become comfortable with these tools, you’ll naturally discover even
-more combinations, customizing your setup to become a personal productivity
-powerhouse.
-
-If there's any tool or script that you found particularly useful or interesting,
-I recommend exploring it further and seeing how you can integrate it into your
-workflow. And if you have a favorite tool or script that I didn't cover here,
-feel free to share it in the comments!
 
 ## References and Resources
 
