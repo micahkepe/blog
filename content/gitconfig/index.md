@@ -590,6 +590,33 @@ Here’s the basic flow to get going:
 
    Pick the defaults unless you know what you’re doing.
 
+   {{ note(
+   header="Installing GPG on macOS",
+   body="
+
+   If you're on macOS, you'll want to install `gpg` with Homebrew:
+
+   ```bash
+   brew install gnupg
+   ```
+
+   After installing, we'll need to let Git know which GPG binary to use.
+   In your `.gitconfig`, add this:
+
+   ```ini
+   [gpg]
+     program = /opt/homebrew/bin/gpg
+   ```
+
+   Or run:
+
+   ```bash
+   git config --global gpg.program /opt/homebrew/bin/gpg
+   ```
+
+   "
+   )}}
+
 2. **List your GPG key ID**
    Run:
 
