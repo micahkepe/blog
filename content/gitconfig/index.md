@@ -513,7 +513,7 @@ Everything is a mneumonic so it's easy to remember:
 - ...
 
 I'll admit, "gu" for `git pull` breaks this pattern since "gp" is already taken
-by `git pull`, but I think of it as '**g**it **u**pdate'.
+by `git push`, but I think of it as '**g**it **u**pdate'.
 
 The alias for `git status --short` is something I stole from the [codingjerk
 YouTube channel](https://www.youtube.com/@codingjerk)[^3]. What I like about
