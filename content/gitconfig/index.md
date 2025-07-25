@@ -259,8 +259,10 @@ specified, it will open an editor (default is usually `vi`, which is fine
 if you're stuck in 1975).
 
 {{ note(
+header="Note on Editor Variable Precedence",
+hidden=true,
 body='
-You can set the editor to use with the `GIT_EDITOR` environment variable, which
+You can also set the editor with the `GIT_EDITOR` environment variable, which
 has greater precedence than the `core.editor` configuration option:
 
 From the `git-var(1)` man page:
@@ -272,6 +274,11 @@ From the `git-var(1)` man page:
 >    --nofork. The order of preference is $GIT_EDITOR, then core.editor configuration value, then
 >    $VISUAL, then $EDITOR, and then the default chosen at compile time, which is usually vi.
 > ```
+
+However, it probably makes more sense if for whatever reason you do not want to
+set the editor in your `.gitconfig`, you could set it with the `VISUAL`
+environment variable instead since it will work with most other programs as
+well.
 
 ') }}
 
@@ -418,7 +425,7 @@ gi() {
 };
 ```
 
-The `$@` variable is a special variable in Bash that expands to all of the
+The `$@` variable is a special variable in Bash that expands to all the
 arguments/ fields passed. However, the fields are separated by spaces, which
 means that for the original script, the language list necessarily had to
 strictly comma-separated without spaces like this:
@@ -430,19 +437,18 @@ git ignore python,node
 This because it passes the arguments to the `curl` command and the request
 expects them to be separated by commas.
 
-However, I didn't like this inflexibility, so I changed the script to use
-`$*` instead of `$@`. `$*` is another special variable that expands to all the
-fields passed BUT with a special field separator variable, `IFS`, which is space
-by default. So, if we locally set `IFS` to a comma, we can pass the language
-list as a comma-separated list:
+However, I didn't like this inflexibility, so I changed the script to use `$*`
+instead of `$@`. `$*` is another special variable that expands to all the fields
+passed BUT with a special internal field separator variable, `IFS`, which is
+space by default. So, if we locally set `IFS` to a comma, we can pass the
+language list as a space-separated list as well and get the same result:
 
 ```
 git ignore python node
 ```
 
-Now, the request will be sent with the language list as a comma-separated list
-instead of a space-separated list, AS WELL AS the original comma-separated
-list.
+Now we have the same request sent but with the flexibility to pass a space-
+separated list and/or a comma-separated list.
 "
 )}}
 
@@ -496,7 +502,7 @@ function gr; git restore $argv; end
 
 </details>
 
-Everything is a pneumonic so it's easy to remember:
+Everything is a mneumonic so it's easy to remember:
 
 - `ga` for '**g**it **a**dd'
 - `gc` for '**g**it **c**ommit'
@@ -537,6 +543,20 @@ With `git status --short`:
 ## main
  M README.md
  M sample.txt
+```
+
+I also recommend setting `status.branch = true` to show the branch name in the
+status output, even if you are using the `--short` flag:
+
+```ini
+[status]
+  branch = true
+```
+
+Or run:
+
+```bash
+git config --global status.branch true
 ```
 
 ---
@@ -685,7 +705,14 @@ The most similar command is
 So you retry again (in my case probably making another typo or two) until you
 get the right command you were going for.
 
-Instead, just adjust your config to prompt you:
+Instead, just adjust your `.gitconfig` to prompt you:
+
+```ini
+[help]
+  autocorrect = prompt
+```
+
+Or run:
 
 ```bash
 git config --global help.autocorrect prompt
