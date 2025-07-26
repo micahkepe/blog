@@ -44,7 +44,7 @@ and what branch you're on, but we can make it more verbose by adding a
 
 ```ini
 [commit]
-  verbose = true
+    verbose = true
 ```
 
 Or run:
@@ -102,7 +102,7 @@ are sorted by their commit date:
 
 ```ini
 [branch]
-sort = -committerdate
+    sort = -committerdate
 ```
 
 Or run `git config --global branch.sort -committerdate`.
@@ -115,7 +115,7 @@ column:
 
 ```ini
 [column]
-  ui = auto
+    ui = auto
 ```
 
 Or run `git config --global column.ui auto`.
@@ -149,7 +149,7 @@ their version number:
 
 ```ini
 [tag]
-  sort = -version:refname
+    sort = -version:refname
 ```
 
 Or run `git config --global tag.sort -version:refname`.
@@ -224,7 +224,7 @@ Or add the following to your `.gitconfig`:
 
 ```ini
 [diff]
-  algorithm = histogram
+    algorithm = histogram
 ```
 
 The difference is not huge, but it's worth it if you're looking for a more
@@ -240,7 +240,7 @@ We can enable rebase on pull conflicts with:
 
 ```ini
 [pull]
-  rebase = true
+    rebase = true
 ```
 
 Or run:
@@ -295,7 +295,7 @@ In your `.gitconfig`, add the following:
 
 ```ini
 [push]
-autoSetupRemote = true
+    autoSetupRemote = true
 ```
 
 Or run:
@@ -322,8 +322,8 @@ maintenance to run in the background:
 
 ```ini
 [maintenance]
-  auto = true
-  strategy = incremental
+    auto = true
+    strategy = incremental
 ```
 
 Or run:
@@ -373,9 +373,9 @@ In `.gitconfig`:
 
 ```ini
 [alias]
-  graph = log --all --graph --decorate --oneline
-  l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-  ignore = "!gi() { local IFS=','; curl -sL https://www.toptal.com/developers/gitignore/api/\"$*\"; }; gi"
+    graph = log --all --graph --decorate --oneline
+    l = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    ignore = "!gi() { local IFS=','; curl -sL https://www.toptal.com/developers/gitignore/api/\"$*\"; }; gi"
 ```
 
 - `graph`is a Git alias that shows a graph of your commit history with one
@@ -550,7 +550,7 @@ status output, even if you are using the `--short` flag:
 
 ```ini
 [status]
-  branch = true
+    branch = true
 ```
 
 Or run:
@@ -605,7 +605,7 @@ Here’s the basic flow to get going:
 
    ```ini
    [gpg]
-     program = /opt/homebrew/bin/gpg
+       program = /opt/homebrew/bin/gpg
    ```
 
    Or run:
@@ -714,7 +714,7 @@ flag in diffs with a comma-separated list:
 
 ```ini
 [core]
-  whitespace = trailing-space
+    whitespace = trailing-space
 ```
 
 Or run:
@@ -751,7 +751,7 @@ Instead, just adjust your `.gitconfig` to prompt you:
 
 ```ini
 [help]
-  autocorrect = prompt
+    autocorrect = prompt
 ```
 
 Or run:
