@@ -1,0 +1,10 @@
+/* Custom styling */
+.shring-webring {
+  display: block;
+  width: 100%;
+  text-align: right;
+
+  a::after {
+    content: none !important;
+  }
+}

@@ -1,0 +1,30 @@
+{% extends "radion/templates/index.html" %}
+
+{% block styles %}
+
+{{ super() }}
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="{{ get_url(path='custom.css', trailing_slash=false) | safe }}"
+/>
+
+{% endblock styles %}
+
+{% block content %}
+{{ super() }}
+
+{% if not page %}
+  <!-- Append shring.sh webring in home pages -->
+  <hr />
+  {% block shring %}
+  <section class="shring-webring">
+    <span>
+      <a href="https://shring.sh/ficd/previous">&laquo; prev</a> | <a href="https://shring.sh">shring</a> | <a href="https://shring.sh/ficd/next">next &raquo;</a>
+    </span>
+  </section>
+  {% endblock shring %}
+{% endif %}
+
+{% endblock content %}

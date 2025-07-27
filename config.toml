@@ -13,7 +13,7 @@ taxonomies = [
 
 # When set to "true", the Sass files in the `sass` directory in the site root are compiled.
 # Sass files in theme directories are always compiled.
-compile_sass = false
+compile_sass = true
 
 # When set to "true", a search index is built from the pages and section
 # content for `default_language`.
