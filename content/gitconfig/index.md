@@ -727,8 +727,8 @@ For me, I just highlight trailing whitespace in diffs, but some other options
 you could try:
 
 - `space-before-tab`
-- `space-before-tab,space-in-empty-line`
-- `space-before-tab,space-in-empty-line,indent-with-non-tab`
+- `space-before-tab,indent-with-non-tab`
+- `space-before-tab,indent-with-non-tab,cr-at-eol`
 
 ### Help Prompts for Command Misspellings
 
