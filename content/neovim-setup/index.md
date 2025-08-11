@@ -4,7 +4,7 @@ date = 2024-10-13
 draft = false
 
 [taxonomies]
-categories = ["tools"]
+categories = ["config", "tools"]
 tags = ["neovim", "lua", "vim", "productivity"]
 
 [extra]

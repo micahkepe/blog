@@ -4,7 +4,7 @@ date = 2025-07-23
 draft = false
 
 [taxonomies]
-categories = ["programming"]
+categories = ["programming", "config"]
 tags = ["tools", "git"]
 
 [extra]
