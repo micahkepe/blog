@@ -1,7 +1,7 @@
 +++
 title = "Setting Up a Better tmux Configuration"
-date = 2025-08-24
-draft = true
+date = 2025-08-26
+draft = false
 
 [taxonomies]
 categories = ["programming", "config"]
@@ -44,7 +44,6 @@ between. This quickly grows unwieldy.
 src="./assets/non-tmux-workflow.png"
 alt="Traditional non-tmux Workflow"
 caption="Yikes"
-width=80
 ) }}
 
 Instead, with a multiplexer, you can simply create a new "session" in `tmux`
@@ -55,7 +54,6 @@ multiple panes ("splits"/ views, such as vertical splits).
 src="./assets/tmux-interactive-windows.png",
 alt="Interactive window switching in tmux",
 caption="Interactive window switching in tmux"
-width=80
 ) }}
 
 ### Benefits
@@ -76,11 +74,11 @@ Some of my favorite aspects of a terminal multiplexer workflow are:
    have to do is reattach to `tmux` and resume my work, exactly how I left it
    before.
 
-   {{ responsive(
-   src="change-me",
-   alt="change-me",
-   caption="change-me"
-   width=80
+   {{ gif(
+   sources=["./assets/tmux-resume-cmp.mp4"],
+   alt="Example of resuming work with `tmux`",
+   caption="Example of resuming work with `tmux`"
+   width=100
    ) }}
 
    The benefit of this is most obvious in my opinion when working on remote
@@ -125,19 +123,19 @@ proficiency with `tmux` and its terminology (sessions, panes, windows, etc.).
 In this post we'll take your setup from the out-of-the-box experience...
 
 {{ responsive(
-src="change-me",
-alt="change-me",
-caption="change-me"
-width=80
+src="./assets/default-tmux.png",
+alt="Out of the box tmux configuration.",
+caption="Out-of-the-box tmux configuration."
+width=100
 ) }}
 
 to this:
 
 {{ responsive(
-src="change-me",
-alt="change-me",
-caption="change-me"
-width=80
+src="./assets/end-product-tmux.png",
+alt="End product tmux setup from this post.",
+caption="End product tmux setup from this post."
+width=100
 ) }}
 
 We'll also change some of the stock options and keys to make using `tmux` more
@@ -215,7 +213,10 @@ This is a script that I adapted from the
 [dedicated GitHub repository](https://github.com/ThePrimeagen/tmux-sessionizer)
 for the script with additional support for configuration files and more, but for
 me, I just like the basic core workflow of fuzzy-finding a project directory
-with `fzf` and then instantiating a new `tmux` session.
+with [`fzf`](https://github.com/junegunn/fzf) and then instantiating a new
+`tmux` session.
+
+> **Note**: Make sure you have `fzf` installed on your machine. [Install instructions](https://github.com/junegunn/fzf?tab=readme-ov-file#installation)
 
 The entire script (`tmux-sessionizer.sh`) is < 50 lines of code:
 
@@ -277,11 +278,11 @@ bind f run-shell "tmux neww ~/dotfiles/tmux/tmux-sessionizer.sh"
 
 Now we can do `prefix` + `f` to invoke the script:
 
-{{ responsive(
-src="change-me",
+{{ gif(
+sources=["./assets/tmux-sessionizer-fzf-cmp.mp4"],
 alt="tmux-sessionizer script in action"
 caption="tmux-sessionizer script in action"
-width=80
+width=100
 ) }}
 
 {{ note(
@@ -437,15 +438,20 @@ mode, and `y` to "yank" to the system clipboard.
 
 ## Making Use of Popup Menus
 
-`tmux` allows you to create and popup menus with the `display-popup` command. I
+`tmux` allows you to create popup menus with the `display-popup` command. I
 usually don't see this `tmux` command mentioned a lot but I have found these
 popup windows useful in some limited ways, but you could easily tailor them to
 your use cases.
 
 ### Spotify Player
 
-- Use `spotify-player` as CLI Spotify client
-- Close with `prefix d` like another other `tmux` window
+One of my favorite uses of popup menus in `tmux` has been using them to access
+my favorite Spotify TUI,
+[`spotify-player`](https://github.com/aome510/spotify-player/tree/master), which
+acts as a CLI Spotify client.
+
+We can define a keybind to create a new display popup running `spotify-player`
+and then close with `prefix` + `d` like any other `tmux` window:
 
 ```conf
 # Spotify Player w/ `spotify_player`
@@ -458,18 +464,34 @@ else
 fi'
 ```
 
-{{ gif(
-sources=["change-me"],
-width=80,
-caption="change-me"
+The script with create a new `tmux` session called "spotify" if it doesn't exist
+already, else it will reattach to the existing. The first check is to avoid
+session nesting in the case you accidentally hit the defined Spotify keybind
+within the "spotify" session.
+
+{{ responsive(
+src="./assets/spotify-player-popup.png",
+caption="Spotify Player TUI display popup."
+alt="Spotify Player TUI display popup."
 )}}
 
-> **Note** Unfortunately, `spotify-player` is [a little broken at the
-> moment](https://github.com/aome510/spotify-player/issues/802) due to a change
-> in Spotify's authentication API, but this should hopefully be resolved
-> soonish.
+{{ note(
+header="spotify_player v0.20.7 Authentication Error"
+body="
+Unfortunately, `spotify-player` is [a little broken at the
+moment](https://github.com/aome510/spotify-player/issues/802) (v0.20.7)
+due to a change in Spotify's authentication API, but this should hopefully be
+resolved soonish in the next release. I was able to get around this with a
+band aid fix for now with installing from the latest on the `main` branch:
 
-### Navigating Sessions with `fzf`
+```bash
+cargo install --git https://github.com/aome510/spotify-player.git --features image
+```
+
+"
+)}}
+
+### Navigating Sessions with fzf
 
 We can add the following to create a popup to let us fuzzy-find our available
 sessions and switch to the one we select:
@@ -490,26 +512,29 @@ tmux list-sessions |
   xargs tmux switch-client -t
 ```
 
+The long list of options to `fzf`
+
 > **Note**: I define I the script in a separate file because my Treesitter
 > highlighting always goes haywire with the quote escaping and it is easier to
 > just define the script separate and just specify the script path for `tmux`
 > using the `-E` flag for `display-popup`.
 
-{{ gif(
-sources=["change-me"],
-width=80,
-caption="change-me"
+{{ responsive(
+src="./assets/session-fzf.png",
+alt="Using fzf to fuzzy-find sessions in a display"
+caption="Using fzf to fuzzy-find sessions in a display"
 )}}
 
 ---
 
 ## `tpm` Package Manager
 
-- This is up to you if you don't care about the extra overhead of a package
-  manager
-- Perfectly fine to stop with the suggestions above and stick with `tmux` by
-  itself, but I like the aesthetic enhancements and I keep my plugins minimal to
-  avoid dependency lasagna with my setup
+If you don't care about the extra overhead of a package manager, I would
+recommend [`tpm`](https://github.com/tmux-plugins/tpm) for the extra
+configuration and aesthetic options it allows. However, it is perfectly fine to
+stop with the suggestions above and stick with `tmux` by itself and skip the
+rest of this section. I do limit myself to a very limit set of plugins to keep
+my dependencies minimal.
 
 ### Setting Up `tpm`
 
@@ -554,26 +579,21 @@ set -g @plugin 'tmux-plugins/tmux-continuum'
 
 Now install with `prefix` + `I` (capital `I`, not lowercase).
 
-Now in a case of restarts, you can use `prefix <C-R>` to restore all my old
-`tmux` sessions, windows, and panes. Of course, I don't use these often, but I
-am glad that I have them in these situations.
-
-{{ gif(
-sources=["change-me"],
-width=80,
-caption="change-me"
-)}}
+Now in a case of restarts, you can use `prefix` + `<C-R>` to restore all of our
+previous `tmux` sessions, windows, and panes. Of course, I don't use these
+often, but I am glad that I have them in these situations.
 
 ### Catppuccin-Themed Status Line with Add-ons
 
 I am a Catppuccin theme man all the way and I like having the unified look
-across all my developer tools.
+across all my developer tools, which I do in `tmux` with [catppuccin/tmux](https://github.com/catppuccin/tmux).
 
 Due to a naming conflict, the recommended way is to clone the Catppuccin theme
 locally:
 
 ```bash
-change-me
+mkdir -p ~/.config/tmux/plugins/catppuccin
+git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
 ```
 
 Once we do this, let's set up the status line and theme in `~/.tmux.conf`:
@@ -608,13 +628,13 @@ Notice the extra plugins `tmux-plugins/tmux-battery` and
 also shown on the `tmux` status line.
 
 Install the additional plugins with the `prefix` + `I` binding like we used
-before.
+before and check out our Catppuccin-themed status line:
 
 {{ responsive(
-src="change-me",
-alt="change-me",
-caption="change-me"
-width=80
+src="./assets/catppuccin-status-line.png",
+alt="Catppuccin tmux status line.",
+caption="Catppuccin tmux status line."
+width=100
 ) }}
 
 ---
