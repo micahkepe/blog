@@ -12,7 +12,7 @@ toc = true
 +++
 
 `tmux` is a beast of a tool that I found to be indispensable for my personal
-developer workflow, but there's a few things that I have added to my `tmux`
+developer workflow, but there are a few things that I have added to my `tmux`
 configuration to enhance the out-of-the-box experience.
 
 <!-- more -->
@@ -29,16 +29,16 @@ single application (your terminal emulator).
 ### An Example
 
 For example, let's say you are working on a project and you want to have a few
-processes going: a code editor like Vim for editing the source files, a separate
-shell for running `git` commands, and an arbitrary amount of other jobs for
-opening up documentation/ checking system resources/ etc.
+processes going: (1) a code editor like Vim for editing the source files, (2) a
+separate shell for running `git` commands, (3-) and an arbitrary amount of other
+jobs for opening up documentation/ checking system resources/ etc.
 
-Without a terminal multiplexer, you could open a lot of tabs in your
-emulator and just navigate between them, which might work fine if you just need
-to quickly work on something and not go back to it. But what if you need then
-switch to another project? Do you close all of your tabs now, or open an
-entirely new terminal window? What if you have many projects you are switching
-between. This quickly grows unwieldy.
+Without a terminal multiplexer, you _could_ open a lot of tabs in your emulator
+and just navigate between them, which might work fine if you just need to
+quickly work on something and not go back to it. But what if you need to switch
+to another project? Do you close all of your tabs now, or open an entirely new
+terminal window? What if you have many projects you are switching between? This
+quickly grows unwieldy and disorganized.
 
 {{ responsive(
 src="./assets/non-tmux-workflow.png"
@@ -46,8 +46,8 @@ alt="Traditional non-tmux Workflow"
 caption="Yikes"
 ) }}
 
-Instead, with a multiplexer, you can simply create a new "session" in `tmux`
-that can have an arbitrary amount of windows ("tabs"), which themselves can have
+Instead, with a multiplexer, you can simply create a new session in `tmux` that
+can have an arbitrary amount of windows ("tabs"), which themselves can have
 multiple panes ("splits"/ views, such as vertical splits).
 
 {{ responsive(
@@ -70,8 +70,8 @@ Some of my favorite aspects of a terminal multiplexer workflow are:
    strokes).
    ```
 
-   Even if I close my computer or exit my terminal emulator application, all I
-   have to do is reattach to `tmux` and resume my work, exactly how I left it
+   So, even if I close my computer or exit my terminal emulator application, all
+   I have to do is reattach to `tmux` and resume my work, exactly how I left it
    before.
 
    {{ gif(
@@ -83,13 +83,13 @@ Some of my favorite aspects of a terminal multiplexer workflow are:
 
    The benefit of this is most obvious in my opinion when working on remote
    machines. With a `tmux` server running on a remote server, I can SSH into the
-   server, run `tmux attach` to reattach to my sessions, and then when I am
-   done, simply detach and log off the machine. If there's some long running
+   server, run `tmux attach` to reattach to my sessions, and then simply detach
+   when I am done and log off the machine. If there's some long running
    processing like a logger, I can just keep it running in a `tmux` window and
    detach and it will continue running even when I exit from the remote machine.
 
 2. **Organized** &rarr; keep all your different projects organized with their
-   own state.
+   own state and labeled with their respective directories or custom names.
 
 {{note(
 header="Note: `tmux` Alternative: GNU Screen"
@@ -177,7 +177,7 @@ This is especially nice if you have homerow mods like me[^1] as it also
 conveniently keeps `prefix` on the homerow as well (in my case my right pinky
 for `Ctrl` and then my left pinky for `a`)
 
-For this to take affect, detach from your `tmux` session if you are in one, and
+For this to take effect, detach from your `tmux` session if you are in one, and
 run `tmux source ~/.tmux.conf`. You can also stay in `tmux` and run `source
 ~/.tmux.conf` from the `tmux` command line prompt (accessed with `prefix` +
 `:`).
@@ -197,7 +197,7 @@ bind r source-file ~/.tmux.conf
 
 Source the `~/.tmux.conf` once last time, but from now on, when we make a
 configuration change in this post, simply use `prefix` + `r` to reload the
-current `tmux` session. Ahh much better, let's continue.
+current `tmux` session. Much better! Let's continue.
 
 ### Interactive Session Handling with `tmux-sessionizer`
 
@@ -269,8 +269,8 @@ chmod +x path/to/tmux-sessionizer.sh
 cp path/to/tmux-sessionizer.sh ~/.local/bin/tmux-sessionizer
 ```
 
-Now let's make a key bind to make this script accessible in both any running
-`tmux` instance:
+Now let's make a key bind to make this script accessible in any running `tmux`
+instance:
 
 ```conf
 bind f run-shell "tmux neww ~/dotfiles/tmux/tmux-sessionizer.sh"
@@ -288,7 +288,7 @@ width=100
 {{ note(
 header="Making `tmux-sessionizer` Available in Neovim"
 body='
-For Neovim, in `init.lua` or which every module you define your keymaps:
+For Neovim, in `init.lua` or which ever module you define your keymaps:
 
 ```lua
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
@@ -450,6 +450,20 @@ my favorite Spotify TUI,
 [`spotify-player`](https://github.com/aome510/spotify-player/tree/master), which
 acts as a CLI Spotify client.
 
+To install with Homebrew, run:
+
+```bash
+brew install spotify_player
+```
+
+With `cargo`:
+
+```bash
+cargo install spotify_player --locked
+```
+
+> **NOTE**: For other installation options, see the [spotify-player README](https://github.com/aome510/spotify-player?tab=readme-ov-file#installation).
+
 We can define a keybind to create a new display popup running `spotify-player`
 and then close with `prefix` + `d` like any other `tmux` window:
 
@@ -464,7 +478,7 @@ else
 fi'
 ```
 
-The script with create a new `tmux` session called "spotify" if it doesn't exist
+The script will create a new `tmux` session called "spotify" if it doesn't exist
 already, else it will reattach to the existing. The first check is to avoid
 session nesting in the case you accidentally hit the defined Spotify keybind
 within the "spotify" session.
@@ -473,22 +487,6 @@ within the "spotify" session.
 src="./assets/spotify-player-popup.png",
 caption="Spotify Player TUI display popup."
 alt="Spotify Player TUI display popup."
-)}}
-
-{{ note(
-header="spotify_player v0.20.7 Authentication Error"
-body="
-Unfortunately, `spotify-player` is [a little broken at the
-moment](https://github.com/aome510/spotify-player/issues/802) (v0.20.7)
-due to a change in Spotify's authentication API, but this should hopefully be
-resolved soonish in the next release. I was able to get around this with a
-band aid fix for now with installing from the latest on the `main` branch:
-
-```bash
-cargo install --git https://github.com/aome510/spotify-player.git --features image
-```
-
-"
 )}}
 
 ### Navigating Sessions with fzf
@@ -533,7 +531,7 @@ If you don't care about the extra overhead of a package manager, I would
 recommend [`tpm`](https://github.com/tmux-plugins/tpm) for the extra
 configuration and aesthetic options it allows. However, it is perfectly fine to
 stop with the suggestions above and stick with `tmux` by itself and skip the
-rest of this section. I do limit myself to a very limit set of plugins to keep
+rest of this section. I do limit myself to a very limited set of plugins to keep
 my dependencies minimal.
 
 ### Setting Up `tpm`
@@ -613,7 +611,6 @@ run ~/.config/tmux/plugins/catppuccin/tmux/catppuccin.tmux
 
 # Ensure that everything on the right side of the status line
 # is included.
-set -g status-right-length 100
 set -g status-right-length 100
 set -g status-left-length 100
 set -g status-left "#{E:@catppuccin_status_user}"
