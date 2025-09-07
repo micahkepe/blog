@@ -194,7 +194,7 @@ being used instead of the function keys.
 
 ### Home Row Mods: Making the Most Out of 42 keyboards
 
-Returing to those `TD` keys, these refer to "tap dance" keys, which are keys
+Returning to those `TD` keys, these refer to "tap dance" keys, which are keys
 that can be configured to do different things depending on how long you hold
 them down. In my case, I've configured them to be home row modifiers.
 

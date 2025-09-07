@@ -166,7 +166,7 @@ Memory Usage: 1.14 MB
 Here's the results I got when running the hash set simulation:
 
 {{ note(
-header="Hash Set Simulation Resuls"
+header="Hash Set Simulation Results"
 body="
 Hash Set Insertion Time: 0.6073956489562988 seconds
 

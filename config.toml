@@ -28,7 +28,7 @@ highlight_theme = "one-dark"
 insert_anchor_links = "heading"
 
 [search]
-# Wether to produce the search index as a javascript file or as a JSON file
+# Whether to produce the search index as a javascript file or as a JSON file
 # Accepted values:
 # - "elasticlunr_javascript", "elasticlunr_json"
 # - "fuse_javascript", "fuse_json"

@@ -190,7 +190,7 @@ to make your `git diff` look like it deserves a frame.
 
 Here's how to set it up:
 
-1. Install `diff-so-fancy` with the pakcage manager of your choice. For example,
+1. Install `diff-so-fancy` with the package manager of your choice. For example,
    if you're using Homebrew, run `brew install diff-so-fancy`. Check the GitHub
    repo for other installation options.
 

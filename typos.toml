@@ -1,0 +1,11 @@
+[default]
+extend-ignore-re = [
+  # intentional spelling mistakes for demonstration
+  '"teh"',
+  "'psuh'",
+  "\\$ git psuh",
+  "\\*\\*c\\*\\*ommit",
+]
+
+[default.extend-words]
+Gud = "Gud"

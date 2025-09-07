@@ -51,7 +51,7 @@ scripts of our own.
 
 ### Variables
 
-Just like you would expect, varibles are assigned using the `=` operator. Here
+Just like you would expect, variables are assigned using the `=` operator. Here
 is an example:
 
 ```bash
@@ -282,7 +282,7 @@ have linked at the end of this post or this Youtube video:
 
 Before diving into Unix tools, it is important to understand the Unix philosophy,
 not only because it is the foundation of Unix tools, but also because it is a
-design philosphy that leads to the powerful combinations and versatility of Unix
+design philosophy that leads to the powerful combinations and versatility of Unix
 tools.
 
 This philosophy can be summarized as follows:
@@ -479,7 +479,7 @@ rg --hidden main
 rg main --glob '*.py'
 ```
 
-### Practial Examples of Combining Unix-like Tools
+### Practical Examples of Combining Unix-like Tools
 
 #### Finding Files with a Certain Keyword
 
