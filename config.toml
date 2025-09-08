@@ -65,3 +65,6 @@ giscus_repo = "micahkepe/blog"
 giscus_repo_id = "R_kgDONfHznQ"
 giscus_data_category_id = "DIC_kwDONfHznc4CnQJ4"
 
+# Post revision histories
+revision_history = true
+blog_github_repo_url = "https://github.com/micahkepe/blog"
