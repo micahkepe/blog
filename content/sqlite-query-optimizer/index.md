@@ -409,14 +409,14 @@ Since the data isn’t naturally ordered in this way, SQLite must perform
 additional work to achieve this sort order.
 
 - **Temporary B-Tree**: To sort the results efficiently, SQLite creates a
-  temporary B-tree structure. A B-tree is a self-balancing tree data
-  structure that maintains sorted data and allows for efficient insertion,
-  deletion, and lookup operations. By inserting the result set into this B-
-  tree, SQLite can quickly and efficiently retrieve the data in the desired order.
+  temporary B-tree structure. A B-tree is a self-balancing tree data structure
+  that maintains sorted data and allows for efficient insertion, deletion, and
+  lookup operations. By inserting the result set into this B- tree, SQLite can
+  quickly and efficiently retrieve the data in the desired order.
 
 - **Why Not an Index?**: The need for a temporary B-tree indicates that there
-  isn’t an existing index that supports the required sort order. This extra
-  step adds overhead, which is why creating an appropriate index can be beneficial.
+  isn’t an existing index that supports the required sort order. This extra step
+  adds overhead, which is why creating an appropriate index can be beneficial.
 
 Combining all these steps, we get the expected output:
 
@@ -442,14 +442,14 @@ CREATE INDEX idx_likes_drinker_pref ON LIKES(DRINKER_ID, PREFERENCE);
 
 By creating this multi-column index, SQLite can:
 
-- **Avoid Full Table Scans**: With this index, SQLite can avoid a full scan
-  of the `LIKES` table. Instead, it can directly jump to the relevant rows
-  using the index, which is more efficient.
+- **Avoid Full Table Scans**: With this index, SQLite can avoid a full scan of
+  the `LIKES` table. Instead, it can directly jump to the relevant rows using
+  the index, which is more efficient.
 
 - **Optimize Sorting**: The index also covers the `PREFERENCE` column, which
   means the results can be retrieved in the correct order directly from the
-  index. This eliminates the need for a temporary B-tree, reducing the
-  query’s overall execution time.
+  index. This eliminates the need for a temporary B-tree, reducing the query’s
+  overall execution time.
 
 {{ responsive(
     src="multicolumn-idx.png",
@@ -487,42 +487,42 @@ This new execution plan reflects several optimizations made by SQLite:
 
 1. **SCAN DRINKER**:
 
-   - SQLite starts by scanning the `DRINKER` table. Since this is a full
-     table scan, it reads each row from the `DRINKER` table sequentially.
-     This step makes sense as it’s the starting point of our query, and no
-     filters or constraints are applied to `DRINKER` that would allow an
-     index to be used here.
+   SQLite starts by scanning the `DRINKER` table. Since this is a full table
+   scan, it reads each row from the `DRINKER` table sequentially. This step
+   makes sense as it’s the starting point of our query, and no filters or
+   constraints are applied to `DRINKER` that would allow an index to be used
+   here.
 
 2. **SEARCH LIKES USING INDEX `idx_likes_drinker_pref` (DRINKER_ID=?)**:
 
-   - Here’s where the optimization kicks in. SQLite uses the newly created
-     index `idx_likes_drinker_pref` on the `LIKES` table. This index is likely
-     created on the `DRINKER_ID` and `PREFERENCE` columns, allowing SQLite to
-     efficiently find the rows in `LIKES` where `DRINKER_ID` matches the
-     current row from the `DRINKER` table. This dramatically reduces the amount
-     of data SQLite needs to sift through compared to a full table scan.
+   Here’s where the optimization kicks in. SQLite uses the newly created index
+   `idx_likes_drinker_pref` on the `LIKES` table. This index is likely created
+   on the `DRINKER_ID` and `PREFERENCE` columns, allowing SQLite to efficiently
+   find the rows in `LIKES` where `DRINKER_ID` matches the current row from the
+   `DRINKER` table. This dramatically reduces the amount of data SQLite needs to
+   sift through compared to a full table scan.
 
 3. **SEARCH BEER USING INTEGER PRIMARY KEY (rowid=?)**:
 
-- For the `BEER` table, SQLite utilizes the primary key index, which is an
-  automatically created index on the `ID` column (which acts as the `rowid`).
-  Since this is the most efficient way to retrieve specific rows from `BEER`,
-  SQLite uses this index to quickly find the beer names corresponding to the
-  `BEER_ID` values from the `LIKES` table.
+   For the `BEER` table, SQLite utilizes the primary key index, which is an
+   automatically created index on the `ID` column (which acts as the `rowid`).
+   Since this is the most efficient way to retrieve specific rows from `BEER`,
+   SQLite uses this index to quickly find the beer names corresponding to the
+   `BEER_ID` values from the `LIKES` table.
 
 4. **USE TEMP B-TREE FOR ORDER BY**:
-   - Finally, SQLite notes that it will use a temporary B-Tree to sort the
-     results according to the `ORDER BY` clause (`DRINKER.NAME` and
-     `LIKES.PREFERENCE`). Even though indexes can often help with sorting, in
-     this case, SQLite decides to use a temporary B-Tree structure to ensure
-     that the results are returned in the correct order. This step can be a bit
-     more resource-intensive, but it guarantees that the results will be sorted
-     as requested.
+
+   Finally, SQLite notes that it will use a temporary B-Tree to sort the results
+   according to the `ORDER BY` clause (`DRINKER.NAME` and `LIKES.PREFERENCE`).
+   Even though indexes can often help with sorting, in this case, SQLite decides
+   to use a temporary B-Tree structure to ensure that the results are returned
+   in the correct order. This step can be a bit more resource-intensive, but it
+   guarantees that the results will be sorted as requested.
 
 The use of the `idx_likes_drinker_pref` index significantly improves the
 efficiency of the query. By avoiding a full table scan on `LIKES`, SQLite
-reduces the amount of data it needs to process, which speeds up query
-execution, especially on larger datasets.
+reduces the amount of data it needs to process, which speeds up query execution,
+especially on larger datasets.
 
 The final `ORDER BY` clause requires SQLite to sort the results, and since
 the current indexes do not cover both `DRINKER.NAME` and `LIKES.PREFERENCE`,
@@ -538,19 +538,19 @@ By peeking under the hood at how SQL queries are executed, you can gain some
 intuition on why certain queries are faster than others. Here are a few tips
 to keep in mind:
 
-1. **Index Your Foreign Keys**: Always create indexes on columns used in
-   `JOIN` conditions. This speeds up the process of matching rows between tables.
+1. **Index Your Foreign Keys**: Always create indexes on columns used in `JOIN`
+   conditions. This speeds up the process of matching rows between tables.
 
 2. **Use Covering Indexes**: If possible, create indexes that cover all the
-   columns your query needs, so SQLite doesn’t need to access the main table
-   at all.
+   columns your query needs, so SQLite doesn’t need to access the main table at
+   all.
 
 3. **Write Selective WHERE Clauses**: If your `WHERE` clause can quickly
    eliminate rows from consideration, your query will run faster. The fewer rows
    SQLite has to process, the better.
 
-4. **Avoid Redundant Sorting**: If you know your data is already sorted in
-   the way you want, avoid using `ORDER BY`. It just adds unnecessary processing
+4. **Avoid Redundant Sorting**: If you know your data is already sorted in the
+   way you want, avoid using `ORDER BY`. It just adds unnecessary processing
    time.
 
 5. **Optimize Subqueries**: Subqueries can sometimes be rewritten as joins,
@@ -563,10 +563,10 @@ to keep in mind:
 
 Learning to write efficient SQL queries is a valuable skill that translates
 across all database systems and can make a significant difference in your
-application’s performance, scalability, and resource usage. Like most things,
-it takes practice and experimentation and this post just scratches the
-surface of optimizing queries. If you have any tips or tricks for optimizing
-SQL queries, feel free to share them in the comments!
+application’s performance, scalability, and resource usage. Like most things, it
+takes practice and experimentation and this post just scratches the surface of
+optimizing queries. If you have any tips or tricks for optimizing SQL queries,
+feel free to share them in the comments!
 
 ## References
 
