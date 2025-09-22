@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - opinion</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/categories/opinion/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-07-19T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/categories/opinion/atom.xml</id>
+    <entry xml:lang="en">
+        <title>An Optimistic Take: AI&#x27;s Augmentation of Software Professionals</title>
+        <published>2024-07-19T00:00:00+00:00</published>
+        <updated>2024-07-19T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/ai-job-impact/"/>
+        <id>https://micahkepe.com/blog/ai-job-impact/</id>
+        
+        <summary type="html">&lt;p&gt;No doubt you&#x27;ve heard it before: &quot;AI will make programmers obsolete&quot; or &quot;AI
+will take your job.&quot; But is this narrative accurate? News stories like
+Cognition AI&#x27;s &lt;a href=&quot;https:&#x2F;&#x2F;www.cognition.ai&#x2F;blog&#x2F;introducing-devin&quot;&gt;Devin&lt;&#x2F;a&gt;,
+albeit found to be &lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=tNmgmwEtoWE&amp;amp;t=611s&quot;&gt;categorically a
+hoax&lt;&#x2F;a&gt;, have nonetheless
+fueled fears among software professionals about the future of their careers.
+However, the most current look at the state of AI in software development
+suggests a more nuanced and hopeful future.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>
