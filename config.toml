@@ -5,6 +5,9 @@ theme = "radion"
 description = "An assortment of my ramblings and random adventures."
 generate_feeds = true
 
+# Default author for pages
+author = "Micah Kepe"
+
 taxonomies = [
     # You can enable/disable RSS
     {name = "categories", feed = true},
@@ -37,7 +40,6 @@ index_format = "elasticlunr_json"
 [extra]
 # Put all your custom variables here
 radion_title = "Micah's Secret Blog"
-author = "Micah Kepe"
 github = "https://github.com/micahkepe"
 radion_menu = [
     {url = "$BASE_URL/", name = "Home"},
