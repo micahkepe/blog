@@ -22,18 +22,98 @@ log into affected machines as any user.
 
 {{ youtube(id="OmVHkL0IWk4") }}
 
-Thompson didn't want to write about the usual things that Turing
-award winners write about— in fact, according to him,[^1] he didn't want to write a
-paper at all. However, when he did finally write a paper (after putting it off
-for a year past the original deadline)
+## Overview
+
+Thompson didn't want to write about the usual things that Turing award winners
+write about— in fact, according to him,[^1] he didn't want to write a paper at
+all. However, when he did finally write a paper (after putting it off for a year
+past the original deadline), he describes at a high level how the C compiler
+(itself a program written in C) parses and compiles C source code into machine
+code to set the stage for how the "Trojan horse" would be injected into the
+generated machine code while leaving the original input C source code seemingly
+unmodified.
+
+He explains that while in college at UC Berkeley, him and colleagues would
+"amused [themselves] by posing programming exercises," one of which was "to
+write the shortest self-reproducing program":
+
+> More precisely stated, the problem is to write a source program that, when
+> compiled and executed, will produce as output an exact copy of its source ...
+> The part about "shortest" was just an incentive to demonstrate skill and
+> determine a winner.
 
 ## The Trojan Horse
 
-<!-- TODO -->
+In this section, I'll try to illustrate the "Trojan horse" originally presented
+by Thompson through the original quasi-C pseudocode.
+
+```c
+/* Figure 1 */
+char s[] = {
+  '\t',
+  '0',
+  // TODO: fill in the rest of the string
+};
+
+/*
+  * The string s is a representation of the body of this program from `0` to the
+  * end.
+*/
+
+main()
+{
+  int i;
+
+  printf("char\ts[ ] = {\n");
+  for (i = 0; s[i]; i++) {
+    printf("\t%d,\n", s[i]);
+  }
+  printf("%s", s);
+}
+```
+
+```c
+/* Figure 2 */
+compile(s);
+char *s;
+{
+  // Trojan horse
+  if (match(s, "pattern")) {
+    compile("bug");
+    return;
+  }
+
+  // ...
+}
+```
+
+```c
+/* Figure 3.3 */
+
+compile(s);
+char *s;
+{
+  // Trojan horse 1
+  if (match(s, "pattern 1")) {
+    compile("bug 1");
+    return;
+  }
+
+  // Trojan horse 2
+  if (match(s, "pattern 2")) {
+    compile("bug 2");
+    return;
+  }
+
+  // ...
+}
+```
 
 ## Closing
 
 _What this actually ever distributed in the C compiler?_
+
+In an email from Thompson to an inquirer[^3], Thompson writes:
 
 <pre>
 From: Ken Thompson <ken@google.com>
@@ -97,3 +177,7 @@ However he also does leave this humorous line in the ACM paper:
     McDermott, J. (1988, October). A technique for removing an important class
     of Trojan horses from high order languages. In Proc. 11th National Computer
     Security Conference (pp. 114-117). [https://apps.dtic.mil/sti/tr/pdf/ADA462303.pdf](https://apps.dtic.mil/sti/tr/pdf/ADA462303.pdf)
+
+    This paper, published in 1988, demonstrates a means of preventing the
+    "Trojan horse," as well as outlining some practical issues of implementing
+    such a system.
