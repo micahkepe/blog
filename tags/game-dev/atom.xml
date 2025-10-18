@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - game-dev</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/tags/game-dev/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-04-23T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/tags/game-dev/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;</title>
+        <published>2024-11-26T00:00:00+00:00</published>
+        <updated>2025-04-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/43-monkeys/"/>
+        <id>https://micahkepe.com/blog/43-monkeys/</id>
+        
+        <summary type="html">&lt;p&gt;As part of my design course requirements at Rice University, I will be creating
+a game in a &lt;a href=&quot;https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;43-monkeys&#x2F;#contributors&quot;&gt;group of 4 (&lt;em&gt;and more!&lt;&#x2F;em&gt;)&lt;&#x2F;a&gt; using the Godot engine
+over the upcoming semester. This blog post will serve as a progress log for
+the game&#x27;s development and hopefully provide some good insights into the game
+development process from someone who has never made a game before.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>
