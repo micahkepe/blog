@@ -468,7 +468,7 @@ To actually deploy this attack, Thompson had to "train" the compiler in stages:
 
 ## Closing
 
-_What this actually ever distributed in the C compiler?_
+_Was this actually ever distributed in the C compiler?_
 
 In an email from Thompson to an inquirer[^6], Thompson writes:
 
