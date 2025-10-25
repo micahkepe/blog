@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-10-23T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/atom.xml</id>
+    <entry xml:lang="en">
+        <title>That Time Ken Thompson Wrote a Backdoor into the C Compiler</title>
+        <published>2025-10-23T00:00:00+00:00</published>
+        <updated>2025-10-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/thompson-trojan-horse/"/>
+        <id>https://micahkepe.com/blog/thompson-trojan-horse/</id>
+        
+        <summary type="html">&lt;p&gt;When Ken Thompson won the Turing Award jointly with Dennis Ritchie for their
+work in UNIX, he was expected like other Turing winners to write a paper that
+would be published in the ACM Computer Journal. What he ended up submitting was
+a paper about &quot;the cutest program [he] ever wrote&quot;-- a sneaky undetectable
+self-reproducing &quot;Trojan horse&quot; backdoor in the C compiler that would allow him
+to log into affected machines as any user.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Setting Up a Better tmux Configuration</title>
+        <published>2025-08-26T00:00:00+00:00</published>
+        <updated>2025-08-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/tmux-config/"/>
+        <id>https://micahkepe.com/blog/tmux-config/</id>
+        
+        <summary type="html">&lt;p&gt;&lt;code&gt;tmux&lt;&#x2F;code&gt; is a beast of a tool that I found to be indispensable for my personal
+developer workflow, but there are a few things that I have added to my &lt;code&gt;tmux&lt;&#x2F;code&gt;
+configuration to enhance the out-of-the-box experience.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Git Gud: Setting Up a Better Git Config</title>
+        <published>2025-07-23T00:00:00+00:00</published>
+        <updated>2025-07-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/gitconfig/"/>
+        <id>https://micahkepe.com/blog/gitconfig/</id>
+        
+        <summary type="html">&lt;p&gt;There&#x27;s tons of little goodies you can add to your &lt;code&gt;.gitconfig&lt;&#x2F;code&gt; to make your
+life easier. From hidden gems in the git Man pages to aliases and shell
+functions, here&#x27;s a few things I&#x27;ve found useful to reduce friction in my Git
+workflow.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Let&#x27;s Build a (Mini)Shell in Rust</title>
+        <published>2025-05-31T00:00:00+00:00</published>
+        <updated>2025-05-31T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/minishell/"/>
+        <id>https://micahkepe.com/blog/minishell/</id>
+        
+        <summary type="html">&lt;p&gt;In a little over 100 lines of Rust code, we can build a simple shell program
+that can execute commands, supports piping, handles signals, and maintains
+command history. This tutorial will guide you through the process of creating
+a minimal shell, which we will call &quot;minishell&quot;, using Rust&#x27;s powerful standard
+library and some external crates.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>I Switched to a Split Keyboard: Here&#x27;s Why</title>
+        <published>2025-01-21T00:00:00+00:00</published>
+        <updated>2025-01-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/piantor-keyboard/"/>
+        <id>https://micahkepe.com/blog/piantor-keyboard/</id>
+        
+        <summary type="html">&lt;p&gt;I&#x27;ve ditched my traditional keyboard for a split keyboard. Here&#x27;s why I made the
+switch and how I&#x27;m finding it so far.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow</title>
+        <published>2024-12-13T00:00:00+00:00</published>
+        <updated>2024-12-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/workflow-automation/"/>
+        <id>https://micahkepe.com/blog/workflow-automation/</id>
+        
+        <summary type="html">&lt;p&gt;With just a basic working knowledge of writing Bash scripts and understanding
+Unix tools and their design philosophy, you can easily create scripts to
+automate your workflow and improve your productivity. In this post, we&#x27;ll get
+our feet wet in writing Bash scripts and combine them with some powerful Unix
+tools to create a powerful and versatile toolset. We&#x27;ll also explore how you can
+use Hammerspoon, a macOS automation tool, to take your automation to the next
+level.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;</title>
+        <published>2024-11-26T00:00:00+00:00</published>
+        <updated>2025-04-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/43-monkeys/"/>
+        <id>https://micahkepe.com/blog/43-monkeys/</id>
+        
+        <summary type="html">&lt;p&gt;As part of my design course requirements at Rice University, I will be creating
+a game in a &lt;a href=&quot;https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;43-monkeys&#x2F;#contributors&quot;&gt;group of 4 (&lt;em&gt;and more!&lt;&#x2F;em&gt;)&lt;&#x2F;a&gt; using the Godot engine
+over the upcoming semester. This blog post will serve as a progress log for
+the game&#x27;s development and hopefully provide some good insights into the game
+development process from someone who has never made a game before.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Setting Up a Supercharged Neovim Configuration</title>
+        <published>2024-10-13T00:00:00+00:00</published>
+        <updated>2024-10-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/neovim-setup/"/>
+        <id>https://micahkepe.com/blog/neovim-setup/</id>
+        
+        <summary type="html">&lt;p&gt;Over the summer, after finally getting around to learning Vim motions (see blog
+post &lt;a href=&quot;https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;vimtutor-sequel&quot;&gt;#9&lt;&#x2F;a&gt;), I quickly fell down the
+Neovim rabbithole and have been procrastinating work by tinkering away at my
+configurations ever since! This post will be sharing setup that I have currently
+landed at to turn my Neovim editor into a supercharged workhorse.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>A Deep Dive into SQLite&#x27;s Query Optimizer</title>
+        <published>2024-08-27T00:00:00+00:00</published>
+        <updated>2024-08-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/sqlite-query-optimizer/"/>
+        <id>https://micahkepe.com/blog/sqlite-query-optimizer/</id>
+        
+        <summary type="html">&lt;p&gt;I &lt;strong&gt;love&lt;&#x2F;strong&gt; databases, but they are still largely a magical black box to me, so
+in this post, I&#x27;m going to explore how SQLite&#x27;s query optimizer works. We&#x27;ll
+delve together into the process of how SQL queries are parsed, optimized, and
+executed, with a particular focus on the optimization phase. By the end of this
+post, you&#x27;ll have a better understanding of how SQLite&#x27;s query optimizer works
+and how it can help you write more efficient queries.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>vimtutor-sequel: The Extended vimtutor</title>
+        <published>2024-08-04T00:00:00+00:00</published>
+        <updated>2024-08-04T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/vimtutor-sequel/"/>
+        <id>https://micahkepe.com/blog/vimtutor-sequel/</id>
+        
+        <summary type="html">&lt;p&gt;The vimtutor program is the essential starting point for anyone looking to learn
+the basics of using Vim. In as little as a half hour, you can learn 90% of what
+you&#x27;ll ever need for vim, however, there are many useful motions and commands
+that are left out of the program. This article details the simple software
+package I wrote to address this limitation, &lt;code&gt;vimtutor-sequel&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>An Optimistic Take: AI&#x27;s Augmentation of Software Professionals</title>
+        <published>2024-07-19T00:00:00+00:00</published>
+        <updated>2024-07-19T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/ai-job-impact/"/>
+        <id>https://micahkepe.com/blog/ai-job-impact/</id>
+        
+        <summary type="html">&lt;p&gt;No doubt you&#x27;ve heard it before: &quot;AI will make programmers obsolete&quot; or &quot;AI
+will take your job.&quot; But is this narrative accurate? News stories like
+Cognition AI&#x27;s &lt;a href=&quot;https:&#x2F;&#x2F;www.cognition.ai&#x2F;blog&#x2F;introducing-devin&quot;&gt;Devin&lt;&#x2F;a&gt;,
+albeit found to be &lt;a href=&quot;https:&#x2F;&#x2F;www.youtube.com&#x2F;watch?v=tNmgmwEtoWE&amp;amp;t=611s&quot;&gt;categorically a
+hoax&lt;&#x2F;a&gt;, have nonetheless
+fueled fears among software professionals about the future of their careers.
+However, the most current look at the state of AI in software development
+suggests a more nuanced and hopeful future.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>How Do Software Packages Work?</title>
+        <published>2024-06-04T00:00:00+00:00</published>
+        <updated>2024-06-04T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/software-packages/"/>
+        <id>https://micahkepe.com/blog/software-packages/</id>
+        
+        <summary type="html">&lt;p&gt;How do software packages work behind the scenes? How are they created,
+distributed, and installed? In this post, we&#x27;ll explore the lifecycle of
+software packages, from creation to installation, using the Node Package
+Manager (NPM) and the Autoprefixer package as real-world examples.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Bloom Filters: Space-Efficient Probabilistic Data Structures</title>
+        <published>2024-05-25T00:00:00+00:00</published>
+        <updated>2024-05-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/bloom-filters/"/>
+        <id>https://micahkepe.com/blog/bloom-filters/</id>
+        
+        <summary type="html">&lt;p&gt;In the realm of computer science, efficiency is often the key to solving complex
+problems. One elegant solution that stands out for its efficiency is the Bloom
+filter. Despite being relatively lesser-known, Bloom filters offer a powerful
+method for determining set membership while using minimal space. This post
+explores what Bloom filters are, how they work, their applications in various
+fields, and compares them with other data structures.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>WebP: A Case Study in the Hidden Vulnerabilities of Image Formats</title>
+        <published>2024-05-13T00:00:00+00:00</published>
+        <updated>2024-05-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/webp-vulnerability/"/>
+        <id>https://micahkepe.com/blog/webp-vulnerability/</id>
+        
+        <summary type="html">&lt;p&gt;Hacked by an image? How could that be possible? This is the story of how a
+seemingly innocuous image format, WebP, was discovered to have a critical
+vulnerability that could be exploited to execute arbitrary code on a victim&#x27;s
+machine.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Ingenious Algorithms We Take for Granted: PageRank, Spell Checkers, and Shazam</title>
+        <published>2024-05-06T00:00:00+00:00</published>
+        <updated>2024-05-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/ingenious-algorithms/"/>
+        <id>https://micahkepe.com/blog/ingenious-algorithms/</id>
+        
+        <summary type="html">&lt;p&gt;Algorithms are all around us. They are the invisible forces that power our
+modern world, from the search engines we use to find information to the social
+networks we use to connect with friends and family. In this post, I share some
+ingenious algorithms that I have learned about both in courses and through my
+own research.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Biggest Takeaways from The Missing Semester of Your CS Education</title>
+        <published>2024-05-05T00:00:00+00:00</published>
+        <updated>2024-05-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/missing-semester/"/>
+        <id>https://micahkepe.com/blog/missing-semester/</id>
+        
+        <summary type="html">&lt;p&gt;Nearly a year ago, I took an online course called
+&lt;a href=&quot;https:&#x2F;&#x2F;missing.csail.mit.edu&#x2F;&quot;&gt;The Missing Semester of Your CS Education&lt;&#x2F;a&gt;. The
+course was created by a group of MIT students and covers a wide range of topics
+that are often overlooked in traditional computer science curriculums. The
+course is designed to help students become more productive and efficient
+programmers by teaching them essential skills that are not typically taught in
+school.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Congrats! You&#x27;ve found my hidden blog!</title>
+        <published>2024-05-01T00:00:00+00:00</published>
+        <updated>2024-10-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/welcome/"/>
+        <id>https://micahkepe.com/blog/welcome/</id>
+        
+        <summary type="html">&lt;p&gt;Congratulations! You have found my &quot;secret&quot; blog- you must have been snooping
+around. It is a hidden gem that only the most curious and adventurous visitors
+will discover.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>

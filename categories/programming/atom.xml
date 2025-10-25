@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - programming</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/categories/programming/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-10-23T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/categories/programming/atom.xml</id>
+    <entry xml:lang="en">
+        <title>That Time Ken Thompson Wrote a Backdoor into the C Compiler</title>
+        <published>2025-10-23T00:00:00+00:00</published>
+        <updated>2025-10-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/thompson-trojan-horse/"/>
+        <id>https://micahkepe.com/blog/thompson-trojan-horse/</id>
+        
+        <summary type="html">&lt;p&gt;When Ken Thompson won the Turing Award jointly with Dennis Ritchie for their
+work in UNIX, he was expected like other Turing winners to write a paper that
+would be published in the ACM Computer Journal. What he ended up submitting was
+a paper about &quot;the cutest program [he] ever wrote&quot;-- a sneaky undetectable
+self-reproducing &quot;Trojan horse&quot; backdoor in the C compiler that would allow him
+to log into affected machines as any user.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Setting Up a Better tmux Configuration</title>
+        <published>2025-08-26T00:00:00+00:00</published>
+        <updated>2025-08-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/tmux-config/"/>
+        <id>https://micahkepe.com/blog/tmux-config/</id>
+        
+        <summary type="html">&lt;p&gt;&lt;code&gt;tmux&lt;&#x2F;code&gt; is a beast of a tool that I found to be indispensable for my personal
+developer workflow, but there are a few things that I have added to my &lt;code&gt;tmux&lt;&#x2F;code&gt;
+configuration to enhance the out-of-the-box experience.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Git Gud: Setting Up a Better Git Config</title>
+        <published>2025-07-23T00:00:00+00:00</published>
+        <updated>2025-07-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/gitconfig/"/>
+        <id>https://micahkepe.com/blog/gitconfig/</id>
+        
+        <summary type="html">&lt;p&gt;There&#x27;s tons of little goodies you can add to your &lt;code&gt;.gitconfig&lt;&#x2F;code&gt; to make your
+life easier. From hidden gems in the git Man pages to aliases and shell
+functions, here&#x27;s a few things I&#x27;ve found useful to reduce friction in my Git
+workflow.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>How Do Software Packages Work?</title>
+        <published>2024-06-04T00:00:00+00:00</published>
+        <updated>2024-06-04T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/software-packages/"/>
+        <id>https://micahkepe.com/blog/software-packages/</id>
+        
+        <summary type="html">&lt;p&gt;How do software packages work behind the scenes? How are they created,
+distributed, and installed? In this post, we&#x27;ll explore the lifecycle of
+software packages, from creation to installation, using the Node Package
+Manager (NPM) and the Autoprefixer package as real-world examples.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Biggest Takeaways from The Missing Semester of Your CS Education</title>
+        <published>2024-05-05T00:00:00+00:00</published>
+        <updated>2024-05-05T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/missing-semester/"/>
+        <id>https://micahkepe.com/blog/missing-semester/</id>
+        
+        <summary type="html">&lt;p&gt;Nearly a year ago, I took an online course called
+&lt;a href=&quot;https:&#x2F;&#x2F;missing.csail.mit.edu&#x2F;&quot;&gt;The Missing Semester of Your CS Education&lt;&#x2F;a&gt;. The
+course was created by a group of MIT students and covers a wide range of topics
+that are often overlooked in traditional computer science curriculums. The
+course is designed to help students become more productive and efficient
+programmers by teaching them essential skills that are not typically taught in
+school.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>
