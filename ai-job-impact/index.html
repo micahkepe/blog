@@ -1,0 +1,721 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="No doubt you&#x27;ve heard it before: &quot;AI will make programmers obsolete&quot; or &quot;AI
+will take your job.&quot; But is this narrative accurate? News stories like
+Cognition AI&#x27;s Devin,
+albeit found to be categorically a
+hoax, have nonetheless
+fueled fears among software professionals about the future of their careers.
+However, the most current look at the state of AI in software development
+suggests a more nuanced and hopeful future." />
+        <meta property="og:description" content="No doubt you&#x27;ve heard it before: &quot;AI will make programmers obsolete&quot; or &quot;AI
+will take your job.&quot; But is this narrative accurate? News stories like
+Cognition AI&#x27;s Devin,
+albeit found to be categorically a
+hoax, have nonetheless
+fueled fears among software professionals about the future of their careers.
+However, the most current look at the state of AI in software development
+suggests a more nuanced and hopeful future." />
+        <meta property="twitter:description" content="No doubt you&#x27;ve heard it before: &quot;AI will make programmers obsolete&quot; or &quot;AI
+will take your job.&quot; But is this narrative accurate? News stories like
+Cognition AI&#x27;s Devin,
+albeit found to be categorically a
+hoax, have nonetheless
+fueled fears among software professionals about the future of their careers.
+However, the most current look at the state of AI in software development
+suggests a more nuanced and hopeful future." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    An Optimistic Take: AI&#x27;s Augmentation of Software Professionals
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;ai-job-impact&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="An Optimistic Take: AI&#x27;s Augmentation of Software Professionals" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;ai-job-impact&#x2F;"
+    />
+    <meta name="twitter:title" content="An Optimistic Take: AI&#x27;s Augmentation of Software Professionals" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="An Optimistic Take: AI&#x27;s Augmentation of Software Professionals" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">An Optimistic Take: AI&#x27;s Augmentation of Software Professionals</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>10 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-07-19
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>No doubt you've heard it before: "AI will make programmers obsolete" or "AI
+will take your job." But is this narrative accurate? News stories like
+Cognition AI's <a href="https://www.cognition.ai/blog/introducing-devin">Devin</a>,
+albeit found to be <a href="https://www.youtube.com/watch?v=tNmgmwEtoWE&amp;t=611s">categorically a
+hoax</a>, have nonetheless
+fueled fears among software professionals about the future of their careers.
+However, the most current look at the state of AI in software development
+suggests a more nuanced and hopeful future.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/ai-job-impact/#the-ai-job-impact-narrative">The AI Job Impact Narrative</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/ai-job-impact/#the-data-is-in">The Data is In</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/ai-job-impact/#historical-precedent-the-rise-of-spreadsheets">Historical Precedent: The Rise of Spreadsheets</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/ai-job-impact/#opinion-enthusiasm-for-the-future">Opinion: Enthusiasm for the Future</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/ai-job-impact/#references">References</a>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span><h2 id="the-ai-job-impact-narrative"><a class="zola-anchor" href="#the-ai-job-impact-narrative" aria-label="Anchor link for: the-ai-job-impact-narrative">The AI Job Impact Narrative</a></h2>
+<p>The narrative that AI will replace programmers is not new. This idea has
+pervaded movies, books, and news stories for decades dating back to the
+beginnings of the first wave of AI research in the 1950s following the
+Dartmouth Conference in 1956 (the event where the term "artificial
+intelligence" was first coined). In 1984, the Australian newspaper The Age
+published an article entitled <a href="https://books.google.com/books?id=eTRVAAAAIBAJ&amp;pg=PA38&amp;dq=artificial+intelligence+jobs&amp;article_id=6556,2471720&amp;hl=en&amp;sa=X&amp;ved=2ahUKEwit047aoLSHAxV-JkQIHSGAAHUQ6AF6BAgIEAI#v=onepage&amp;q=artificial%20intelligence%20jobs&amp;f=false">"Researchers coming with some provocative
+hi-tech findings"</a>, in which the author details the opinions of two Stanford University professors, Henry Levin and Russell Rumberger, who studied employment statistics and concluded that "high technology is no panacea for unemployment... high technology will reduce the skills required by workers in the next decade because <strong>machines will do the work</strong>. Creativity and innovation by many individual workers will suffer." The article goes on to quote another Stanford computer science professor, <a href="https://en.wikipedia.org/wiki/Edward_Feigenbaum">Edward Feigenbaum</a>, a prominent artificial intelligence researcher who at the time said:</p>
+<blockquote>
+<p>"One of the worst pieces of advice you can give youngsters today is to
+become a computer programmer. Automation of software development will
+take place in this decade and the 1990s."</p>
+</blockquote>
+<p>Obviously, the likes of Bill Gates, Linus Torvalds, and countless other
+software professionals who have made their careers in the decades since would
+beg to differ. More recently, in 2018, McKinsey &amp; Company, a global
+management consulting firm, predicted that <a href="https://www.mckinsey.com/featured-insights/future-of-work/ai-automation-and-the-future-of-work-ten-things-to-solve-for">800 million jobs would be
+lost</a>
+to automation by 2030. In countless media outlets since, the narrative has
+been repeated and amplified.</p>
+<section
+  style="width: 100%; max-width: 75%; margin: 0 auto; text-align: center;">
+  <img src="1984-the-age-article.png"  alt="1984 The Age Article on Artificial Intelligence" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: 1984 The Age Article on Artificial Intelligence</p>
+  </caption>
+  
+</section>
+<p>The proliferation of this narrative has led to widespread fear and
+uncertainty among software professionals. In 2019, Forbes published an
+<a href="https://www.forbes.com/sites/gilpress/2019/07/15/is-ai-going-to-be-a-jobs-killer-new-reports-about-the-future-of-work/">article</a>
+that cites a ZipRecruiter survey finding that "One in five job seekers (one
+in three for those between the ages of 18 and 22) fear they will one day lose
+their job to AI." Fast forward to 2023, and a representative Gallup web poll
+of over 5,400 Americans found that 75% of respondents believe AI will reduce
+the total number of jobs in the United States in the next 10 years.</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="2023-gallup-survey.png"  alt="2023 Gallup Poll on AI Job Impact" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: The 2023 Gallup Poll on AI Job Impact</p>
+  </caption>
+  
+</section>
+<p>However, we don't have to accept this narrative based solely on projections
+and surveys—- the data is in and the results are more optimistic than you
+might think.</p>
+<h2 id="the-data-is-in"><a class="zola-anchor" href="#the-data-is-in" aria-label="Anchor link for: the-data-is-in">The Data is In</a></h2>
+<p>Annually, Stanford University's Human-Centered Artificial Intelligence (HAI)
+Institute releases a report called the <a href="https://aiindex.stanford.edu/report/">AI
+Index</a>. The AI Index is a comprehensive
+report that tracks and measures the progress of AI research and development
+across a variety of metrics. Here are some of the key takeaways from the 2024
+report:</p>
+<ul>
+<li><strong>AI makes workers more productive and leads to higher quality work.</strong></li>
+</ul>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="copilot-productive.jpg"  alt="Cross-study comparison of AI's impact on task completion speed of
+        Copilot users" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Cross-study comparison of AI's impact on task completion
+        speed of Copilot users</p>
+  </caption>
+  
+</section>
+<p>"AI has been shown to enable workers to complete tasks more quickly and
+<strong>produce higher quality work</strong>. A meta-review by Microsoft, which
+aggregated studies comparing the performance of workers using Microsoft
+Copilot or GitHub’s Copilot LLM-based productivity-enhancing tools with those
+who did not, found that Copilot users completed tasks in <strong>26% to 73% less
+time</strong> than their counterparts without AI access" (AI Index, 2024, p. 272)</p>
+<ul>
+<li><strong>AI is creating new jobs.</strong></li>
+</ul>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="ai-private-investment.png"  alt="Private investment in AI by geographic area, 2023" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Private investment in AI by geographic area, 2023</p>
+  </caption>
+  
+</section>
+<p>"The United States once again led the world in terms of total AI private
+investment. In 2023, the <strong>$67.2 billion invested</strong> in the United States was
+roughly 8.7 times greater than the amount invested in the next highest country,
+China (\$7.8 billion), and 17.8 times the amount invested in the United Kingdom
+(\$3.8 billion)" (AI Index, 2024, p. 247)</p>
+<p>"Consistent with trends in private investment, the United States leads all
+regions with <strong>897 new AI companies</strong>, followed by China with 122, and the
+United Kingdom with 104." (AI Index, 2024, p. 251)</p>
+<p>A great recent blog post from Builder.io, a company that builds AI-powered
+tools for developers, also provides a <a href="https://www.builder.io/blog/ai-jobs-truth">comprehensive look</a>
+at the current state of AI in the software industry and also seeks to dispel
+the myth that AI will replace software professionals. The post states:</p>
+<blockquote>
+<p>By automating routine tasks and augmenting human capabilities,
+AI tools are ushering in a new golden age of software engineering.</p>
+<p>Developers who adapt and leverage these tools will find themselves
+more productive, more creative, and more valuable than ever before.
+The future of software engineering isn't about competing with AI —
+it's about orchestrating it to build amazing things.</p>
+</blockquote>
+<p>The U.S. Bureau of Labor Statistics also provides a <a href="https://www.bls.gov/ooh/computer-and-information-technology/home.htm">positive
+outlook</a>
+for the future of software development jobs, stating, "Overall employment in
+computer and information technology occupations is projected to grow much
+faster than the average for all occupations from 2022 to 2032. About
+<strong>377,500 openings are projected each year</strong>, on average, in these
+occupations due to employment growth and the need to replace workers who
+leave the occupations permanently."</p>
+<p>The U.S. Bureau of Labor Statistics data for employees in "custom computer
+programming services" from the Current Employment Statistics survey also
+shows a steady increase in employment over the past 10 years:</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="bls-programming.png"  alt="Employment, Hours, and Earnings from the Current Employment
+        Statistics survey (National)" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Employment, Hours, and Earnings from the Current Employment
+        Statistics survey (National)</p>
+  </caption>
+  
+</section>
+<h2 id="historical-precedent-the-rise-of-spreadsheets"><a class="zola-anchor" href="#historical-precedent-the-rise-of-spreadsheets" aria-label="Anchor link for: historical-precedent-the-rise-of-spreadsheets">Historical Precedent: The Rise of Spreadsheets</a></h2>
+<p>In the late 1970s, the accounting industry was on the brink of a
+technological revolution. Before the advent of electronic spreadsheets, the
+accounting industry relied heavily on manual calculations and paper-based
+record-keeping. Accountants, clerks, and bookkeepers spent countless hours
+poring over ledgers, meticulously ensuring every number added up. This
+labor-intensive process was the norm for decades.</p>
+<p>Then came VisiCalc, the first spreadsheet program, launched in 1979. At
+first, many accountants were skeptical, even fearful. The idea that a piece
+of software could perform calculations and automate tasks traditionally done
+by hand was both revolutionary and terrifying. They worried about job
+security and the potential devaluation of their skills.</p>
+<p>In the book Leading Projects with Data, author Marcus Glowasz writes:</p>
+<blockquote>
+<p>Nowadays, no accountant would imagine doing their work by hand, but back
+then [in the late 1970s and early 1980s], many accountants were hesitant,
+fearing that these tools would make their jobs obsolete. And, to some
+extent, their fears were well-founded. Since 1980, around 400,000 accounting
+clerks have become obsolete as spreadsheets took over their role. But
+spreadsheets made accounting more effective and easier, which resulted in
+600,000 new jobs in the accounting industry. (Glowasz, 2022, p. 138-139)</p>
+</blockquote>
+<p>The introduction of spreadsheets did indeed lead to the automation of many
+tasks previously done manually. However, it also created new opportunities
+and job roles that didn't exist before. By no longer having to spend hours on
+calculations, accountants could focus on higher-level analysis, strategy, and
+decision-making, leading to the emergent and lucrative roles of financial
+analysts, controllers, and CFOs. The fear of job loss was replaced by a
+newfound optimism and excitement for the future.</p>
+<h2 id="opinion-enthusiasm-for-the-future"><a class="zola-anchor" href="#opinion-enthusiasm-for-the-future" aria-label="Anchor link for: opinion-enthusiasm-for-the-future">Opinion: Enthusiasm for the Future</a></h2>
+<p>Personally, one of the more exciting pieces of news surrounding AI in the
+past year was the announcement of a new project from GitHub called <a href="https://github.blog/2024-04-29-github-copilot-workspace/">GitHub
+Copilot Workspace</a>.
+This project aims to allow developers to write their tasks in natural
+language and have Copilot generate the code systematically for them. As the
+blog post explains, the workflow for Copilot Workspace is as follows:</p>
+<ol>
+<li><strong>Write a task</strong>: Describe the task you want to accomplish in natural
+language in a GitHub issue or new GitHub repository.</li>
+<li><strong>Workspace creates the plan</strong>: Copilot Workspace generates a step-by-step
+plan to accomplish the task. The plan is entirely editable and can be
+tweaked to fit your needs.</li>
+<li><strong>Execute the plan</strong>: Copilot Workspace generates the code for each step
+in the plan. You can run the code in the workspace and edit it as needed
+until you are satisfied with the results. You can then create a pull
+request to merge the code into your project.</li>
+</ol>
+<p>The implications of this project are vast in my mind. Using this tool
+drastically lowers the barrier to entry for new developers-- you don't even
+need to use an IDE as GitHub already has a web-based code editor. As the
+article states, "With Copilot Workspace we will empower more experienced
+developers to operate as systems thinkers, and materially lower the barrier
+of entry for who can build software... we are accelerating to <strong>a near future
+where one billion people on GitHub will control a machine just as easily as
+they ride a bicycle.</strong>" If writing code becomes as easy as writing a natural
+language description of the task, the possibilities for what can be built are
+endless. In the same vein as VisiCalc and the rise of spreadsheets, imagine
+the lucrative new job roles that could emerge as programming's skill focus
+shifts from low-level syntax to high-level problem-solving and creativity.</p>
+<p>As of the time of writing, Copilot Workspace is still only in limited
+technical preview, but projects like this serve to heighten my optimism and
+enthusiasm for the years to come in the software industry and the
+augmentation of our jobs as software professionals to greater creative
+freedom and productivity.</p>
+<h2 id="references"><a class="zola-anchor" href="#references" aria-label="Anchor link for: references">References</a></h2>
+<ul>
+<li><a href="https://books.google.com/books?id=eTRVAAAAIBAJ&amp;pg=PA38&amp;dq=artificial+intelligence+jobs&amp;article_id=6556,2471720&amp;hl=en&amp;sa=X&amp;ved=2ahUKEwit047">1984 The Age Article on Artificial Intelligence</a></li>
+<li><a href="https://www.mckinsey.com/featured-insights/future-of-work/ai-automation-and-the-future-of-work-ten-things-to-solve-for#part2">McKinsey &amp; Company 2018 AI Automation Post</a></li>
+<li><a href="https://www.forbes.com/sites/gilpress/2019/07/15/is-ai-going-to-be-a-jobs-killer-new-reports-about-the-future-of-work/">Forbes 2019 AI Job Impact Article</a></li>
+<li><a href="https://news.gallup.com/opinion/gallup/510635/three-four-americans-believe-reduce-jobs.aspx">2023 Gallup Poll on AI Job Impact</a></li>
+<li><a href="https://aiindex.stanford.edu/report/">Stanford HAI's 2024 AI Index Report</a></li>
+<li><a href="https://github.blog/2024-04-29-github-copilot-workspace/">GitHub Copilot Workspace Announcement</a></li>
+<li><a href="https://www.builder.io/blog/ai-jobs-truth">Builder.io Blog Post on AI Job Impact</a></li>
+<li><a href="https://www.bls.gov/ooh/computer-and-information-technology/home.htm">U.S. Bureau of Labor Statistics</a></li>
+<li><a href="https://www.google.com/books/edition/Leading_Projects_with_Data/VQKeEAAAQBAJ?hl=en&amp;gbpv=1&amp;dq=visicalc+accountants+jobs+obsolete&amp;pg=PA138&amp;printsec=frontcover">Leading Projects with Data</a></li>
+</ul>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/opinion/">opinion</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/opinion/">opinion</a>
+                    
+                        
+                            
+                                and
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/ai/">ai</a>
+                    
+                        
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;ai-job-impact&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>

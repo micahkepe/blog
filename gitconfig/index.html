@@ -1,0 +1,1228 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="There&#x27;s tons of little goodies you can add to your .gitconfig to make your
+life easier. From hidden gems in the git Man pages to aliases and shell
+functions, here&#x27;s a few things I&#x27;ve found useful to reduce friction in my Git
+workflow." />
+        <meta property="og:description" content="There&#x27;s tons of little goodies you can add to your .gitconfig to make your
+life easier. From hidden gems in the git Man pages to aliases and shell
+functions, here&#x27;s a few things I&#x27;ve found useful to reduce friction in my Git
+workflow." />
+        <meta property="twitter:description" content="There&#x27;s tons of little goodies you can add to your .gitconfig to make your
+life easier. From hidden gems in the git Man pages to aliases and shell
+functions, here&#x27;s a few things I&#x27;ve found useful to reduce friction in my Git
+workflow." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    Git Gud: Setting Up a Better Git Config
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;gitconfig&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="Git Gud: Setting Up a Better Git Config" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;gitconfig&#x2F;"
+    />
+    <meta name="twitter:title" content="Git Gud: Setting Up a Better Git Config" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Git Gud: Setting Up a Better Git Config" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Git Gud: Setting Up a Better Git Config</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>14 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2025-07-23
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>There's tons of little goodies you can add to your <code>.gitconfig</code> to make your
+life easier. From hidden gems in the git Man pages to aliases and shell
+functions, here's a few things I've found useful to reduce friction in my Git
+workflow.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/gitconfig/#quality-of-life-improvements">Quality of Life Improvements</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#verbose-commit-context">Verbose Commit Context</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#intuitive-sorting-and-listings-of-branches-and-tags">Intuitive Sorting and Listings of Branches and Tags</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/gitconfig/#sorting-out-branches">Sorting Out Branches</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/gitconfig/#sorting-out-tags">Sorting Out Tags</a>
+          </li>
+          
+        </ul>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#prettier-diffs-with-diff-so-fancy">Prettier Diffs with diff-so-fancy</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/gitconfig/#bonus-change-the-diff-algorithm">Bonus: Change the Diff Algorithm</a>
+          </li>
+          
+        </ul>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#rebasing-on-pull-conflicts">Rebasing on Pull Conflicts</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#setting-your-editor">Setting Your Editor</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#automatically-setup-remote-repositories">Automatically Setup Remote Repositories</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/gitconfig/#optimizations-and-maintenance">Optimizations and Maintenance</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#maintenance-scheduling">Maintenance Scheduling</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#compression">Compression</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/gitconfig/#git-shortcuts-with-aliases">Git Shortcuts with Aliases</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#git-aliases">Git Aliases</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#shell-aliases">Shell Aliases</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/gitconfig/#gpg-signing-verifying-you-and-your-commits">GPG Signing: Verifying You and Your Commits</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#signing-commits-with-gpg">Signing Commits with GPG</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#bonus-email-signing">Bonus: Email Signing</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/gitconfig/#miscellaneous-goodies">Miscellaneous Goodies</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#rerere">Rerere</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#whitespace">Whitespace</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/gitconfig/#help-prompts-for-command-misspellings">Help Prompts for Command Misspellings</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/gitconfig/#conclusion">Conclusion</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/gitconfig/#references">References</a>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span><h2 id="quality-of-life-improvements"><a class="zola-anchor" href="#quality-of-life-improvements" aria-label="Anchor link for: quality-of-life-improvements">Quality of Life Improvements</a></h2>
+<p>These are some of the little things I've done that I think have contributed the
+most to improving my experience with Git.</p>
+<h3 id="verbose-commit-context"><a class="zola-anchor" href="#verbose-commit-context" aria-label="Anchor link for: verbose-commit-context">Verbose Commit Context</a></h3>
+<p>When you run <code>git commit</code> with no message specified, Git will open an editor
+with a template that looks like this:</p>
+<pre data-lang="COMMIT_EDITMSG" class="language-COMMIT_EDITMSG z-code"><code class="language-COMMIT_EDITMSG" data-lang="COMMIT_EDITMSG"><span class="z-text z-git z-commit"><span class="z-comment z-line z-git z-commit"><span class="z-punctuation z-definition z-comment z-git z-commit">#</span> Please enter the commit message for your changes. Lines starting
+</span></span><span class="z-text z-git z-commit"><span class="z-comment z-line z-git z-commit"><span class="z-punctuation z-definition z-comment z-git z-commit">#</span> with &#39;#&#39; will be ignored, and an empty message aborts the commit.
+</span></span><span class="z-text z-git z-commit"><span class="z-comment z-line z-git z-commit"><span class="z-punctuation z-definition z-comment z-git z-commit">#</span>
+</span></span><span class="z-text z-git z-commit"><span class="z-comment z-line z-git z-commit"><span class="z-punctuation z-definition z-comment z-git z-commit">#</span> <span class="z-markup z-heading z-on-branch z-git z-commit">On branch</span> <span class="z-constant z-language z-branch-name z-git z-commit">main</span>
+</span></span><span class="z-text z-git z-commit"><span class="z-comment z-line z-git z-commit"><span class="z-punctuation z-definition z-comment z-git z-commit">#</span> Your branch is up to date with &#39;origin/main&#39;.
+</span></span><span class="z-text z-git z-commit"><span class="z-comment z-line z-git z-commit"><span class="z-punctuation z-definition z-comment z-git z-commit">#</span> ...
+</span></span></code></pre>
+<p>All lines starting with <code>#</code> will be ignored, so Git will not include them in
+your commit message. By default, Git will just list what files you've changed
+and what branch you're on, but we can make it more verbose by adding a
+<code>commit.verbose</code> setting to our <code>.gitconfig</code>:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[commit]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">verbose</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-constant z-language z-genconfig">true</span>
+</span></code></pre>
+<p>Or run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> commit.verbose true</span>
+</span></code></pre>
+<p>Now, when you run <code>git commit</code>, Git will include the file diffs as well at the
+end of the template so that you can see what exactly you're committing:</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="images/verbose-commit.png"  alt="Example of a Git commit with verbose output" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Example of a Git commit with verbose output</p>
+  </caption>
+  
+</section>
+<h3 id="intuitive-sorting-and-listings-of-branches-and-tags"><a class="zola-anchor" href="#intuitive-sorting-and-listings-of-branches-and-tags" aria-label="Anchor link for: intuitive-sorting-and-listings-of-branches-and-tags">Intuitive Sorting and Listings of Branches and Tags</a></h3>
+<p>By default, Git comes with some not-so-sane defaults in my opinion for
+displaying branches and tags. But we can fix them!</p>
+<h4 id="sorting-out-branches"><a class="zola-anchor" href="#sorting-out-branches" aria-label="Anchor link for: sorting-out-branches">Sorting Out Branches</a></h4>
+<p>Two flaws in the default sorting of branches:</p>
+<ol>
+<li>
+<p>Branches are sorted alphabetically</p>
+</li>
+<li>
+<p>Branches are listed as a single column (no matter how many branches you have)</p>
+<p>So if we have a ton of branches, we'll get output like this on <code>git branch</code>:</p>
+</li>
+</ol>
+<pre class="z-code"><code><span class="z-text z-plain">  and-so-on
+</span><span class="z-text z-plain">  another-branch-1
+</span><span class="z-text z-plain">  another-branch-2
+</span><span class="z-text z-plain">  another-branch-3
+</span><span class="z-text z-plain">  another-branch-4
+</span><span class="z-text z-plain">  another-branch-5
+</span><span class="z-text z-plain">  i-think-you-get-the-point
+</span><span class="z-text z-plain">  i-think-you-get-the-point-1
+</span><span class="z-text z-plain">  i-think-you-get-the-point-2
+</span><span class="z-text z-plain">  i-think-you-get-the-point-3
+</span><span class="z-text z-plain">  list
+</span><span class="z-text z-plain">* main
+</span><span class="z-text z-plain">  yet-another-branch-1
+</span><span class="z-text z-plain">  yet-another-branch-2
+</span><span class="z-text z-plain">  yet-another-branch-3
+</span><span class="z-text z-plain">  yet-another-branch-4
+</span><span class="z-text z-plain">  yet-another-branch-5
+</span></code></pre>
+<p>To fix <strong>(1)</strong> let's set <code>branch.sort</code> to <code>-committerdate</code> so that branches
+are sorted by their commit date:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[branch]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">sort</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-keyword z-operator z-genconfig">-</span>committerdate
+</span></code></pre>
+<p>Or run <code>git config --global branch.sort -committerdate</code>.</p>
+<p>Now, when you run <code>git branch</code>, we'll get our branches sorted with the most
+recently modified at the top.</p>
+<p>To fix <strong>(2)</strong>, let's set <code>column.ui</code> to <code>auto</code> so that branches are listed as a
+column:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[column]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">ui</span> <span class="z-keyword z-operator z-genconfig">=</span></span> auto
+</span></code></pre>
+<p>Or run <code>git config --global column.ui auto</code>.</p>
+<p>Now, when you run <code>git branch</code>, we'll get our branches listed as a column:</p>
+<pre class="z-code"><code><span class="z-text z-plain">and-so-on                     another-branch-3              i-think-you-get-the-point     i-think-you-get-the-point-3   yet-another-branch-1          yet-another-branch-4
+</span><span class="z-text z-plain">another-branch-1              another-branch-4              i-think-you-get-the-point-1   list                          yet-another-branch-2          yet-another-branch-5
+</span><span class="z-text z-plain">another-branch-2              another-branch-5              i-think-you-get-the-point-2 * main                          yet-another-branch-3
+</span></code></pre>
+<h4 id="sorting-out-tags"><a class="zola-anchor" href="#sorting-out-tags" aria-label="Anchor link for: sorting-out-tags">Sorting Out Tags</a></h4>
+<p>Since tags are also sorted alphabetically by default, if you run <code>git tag</code>
+you'll get non intuitive listings for your tags:</p>
+<pre class="z-code"><code><span class="z-text z-plain">v1.0.0
+</span><span class="z-text z-plain">v1.1.1
+</span><span class="z-text z-plain">v1.1.10
+</span><span class="z-text z-plain">v1.1.2
+</span><span class="z-text z-plain">.
+</span><span class="z-text z-plain">.
+</span><span class="z-text z-plain">.
+</span><span class="z-text z-plain">v1.0.9
+</span></code></pre>
+<p>Instead, let's set <code>tag.sort</code> to <code>version:refname</code> so that tags are sorted by
+their version number:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[tag]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">sort</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-keyword z-operator z-genconfig">-</span>version<span class="z-keyword z-operator z-genconfig">:</span>refname
+</span></code></pre>
+<p>Or run <code>git config --global tag.sort -version:refname</code>.</p>
+<blockquote>
+<p>Note: The <code>-</code> in front of <code>version:refname</code> is to reverse the sort order so
+that the most recent tags are listed first. You can omit it if you want the
+tags to be sorted in ascending order.</p>
+</blockquote>
+<p>Now, when you run <code>git tag</code>, you'll get a nicely sorted list of tags:</p>
+<pre class="z-code"><code><span class="z-text z-plain">v1.0.10
+</span><span class="z-text z-plain">v1.0.9
+</span><span class="z-text z-plain">.
+</span><span class="z-text z-plain">.
+</span><span class="z-text z-plain">.
+</span><span class="z-text z-plain">v1.1.2
+</span><span class="z-text z-plain">v1.1.1
+</span><span class="z-text z-plain">v1.0.0
+</span></code></pre>
+<hr />
+<h3 id="prettier-diffs-with-diff-so-fancy"><a class="zola-anchor" href="#prettier-diffs-with-diff-so-fancy" aria-label="Anchor link for: prettier-diffs-with-diff-so-fancy">Prettier Diffs with <a href="https://github.com/so-fancy/diff-so-fancy"><code>diff-so-fancy</code></a></a></h3>
+<p>By default, Git will show you diffs in a very compact form chalk full of @#$%!
+symbols that are hard to read, especially when you have a lot of cross file
+changes:</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="images/diff-default.png"  alt="Example of a Git diff with a lot of cross file changes" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Example of a Git diff with a lot of cross file changes</p>
+  </caption>
+  
+</section>
+<p>Instead, let's use <a href="https://github.com/so-fancy/diff-so-fancy"><code>diff-so-fancy</code></a>
+to make your <code>git diff</code> look like it deserves a frame.</p>
+<p>Here's how to set it up:</p>
+<ol>
+<li>
+<p>Install <code>diff-so-fancy</code> with the package manager of your choice. For example,
+if you're using Homebrew, run <code>brew install diff-so-fancy</code>. Check the GitHub
+repo for other installation options.</p>
+</li>
+<li>
+<p>Update your <code>core.pager</code> and <code>interactive.diffFilter</code> settings to use
+<code>diff-so-fancy</code> instead of the default <code>less</code> pager:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> core.pager <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>diff-so-fancy | less --tabs=4 -RF<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> interactive.diffFilter <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>diff-so-fancy --patch<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span></code></pre>
+</li>
+</ol>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="images/diff-so-fancy-sample.png"  alt="Example of a Git diff with a lot of cross file changes using diff-so-fancy" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Example of a Git diff with a lot of cross file changes using diff-so-fancy</p>
+  </caption>
+  
+</section>
+<h4 id="bonus-change-the-diff-algorithm"><a class="zola-anchor" href="#bonus-change-the-diff-algorithm" aria-label="Anchor link for: bonus-change-the-diff-algorithm"><strong>Bonus</strong>: Change the Diff Algorithm</a></h4>
+<p>By default, Git uses a diff algorithm called patience diff, but it's not the
+only algorithm out there. Personally, I have changed my default diff algorithm
+to <code>histogram</code>, which in some cases leads to a more readable diff.</p>
+<p>To change the diff algorithm, run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> diff.algorithm histogram</span>
+</span></code></pre>
+<p>Or add the following to your <code>.gitconfig</code>:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[diff]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">algorithm</span> <span class="z-keyword z-operator z-genconfig">=</span></span> histogram
+</span></code></pre>
+<p>The difference is not huge, but it's worth it if you're looking for a more
+readable diff on certain edge cases.</p>
+<h3 id="rebasing-on-pull-conflicts"><a class="zola-anchor" href="#rebasing-on-pull-conflicts" aria-label="Anchor link for: rebasing-on-pull-conflicts">Rebasing on Pull Conflicts</a></h3>
+<p>This one might be a smidge controversial, but I personally like rebasing on pull
+conflicts as it keeps the commit history clean without all the extra "Merge
+branch 'main' into 'main'" commits.</p>
+<p>We can enable rebase on pull conflicts with:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[pull]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">rebase</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-constant z-language z-genconfig">true</span>
+</span></code></pre>
+<p>Or run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> pull.rebase true</span>
+</span></code></pre>
+<p>Now, instead of a messy merge commit, <code>git pull</code> rewrites your local changes on
+top of the updated upstream branch.</p>
+<h3 id="setting-your-editor"><a class="zola-anchor" href="#setting-your-editor" aria-label="Anchor link for: setting-your-editor">Setting Your Editor</a></h3>
+<p>When you run a command that opens an editor, like <code>git commit</code> with no message
+specified, it will open an editor (default is usually <code>vi</code>, which is fine
+if you're stuck in 1975).</p>
+<article class="note-container">
+  <details  class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Note on Editor Variable Precedence</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>You can also set the editor with the <code>GIT_EDITOR</code> environment variable, which
+has greater precedence than the <code>core.editor</code> configuration option:</p>
+<p>From the <code>git-var(1)</code> man page:</p>
+<blockquote>
+<pre class="z-code"><code><span class="z-text z-plain">GIT_EDITOR
+</span><span class="z-text z-plain">   Text editor for use by Git commands. The value is meant to be interpreted by the shell when
+</span><span class="z-text z-plain">   it is used. Examples: ~/bin/vi, $SOME_ENVIRONMENT_VARIABLE, &quot;C:\Program Files\Vim\gvim.exe&quot;
+</span><span class="z-text z-plain">   --nofork. The order of preference is $GIT_EDITOR, then core.editor configuration value, then
+</span><span class="z-text z-plain">   $VISUAL, then $EDITOR, and then the default chosen at compile time, which is usually vi.
+</span></code></pre>
+</blockquote>
+<p>However, it probably makes more sense if for whatever reason you do not want to
+set the editor in your <code>.gitconfig</code>, you could set it with the <code>VISUAL</code>
+environment variable instead since it will work with most other programs as
+well.</p>
+
+    </section>
+  </details>
+</article>
+<p>Go ahead and set your editor to <code>nvim</code> (or <code>emacs</code> if you're a weirdo).</p>
+<h3 id="automatically-setup-remote-repositories"><a class="zola-anchor" href="#automatically-setup-remote-repositories" aria-label="Anchor link for: automatically-setup-remote-repositories">Automatically Setup Remote Repositories</a></h3>
+<p>How many times have you been pushing a new branch to a remote resository and you
+are hit with a wall of text telling you to run <code>git push --set-upstream origin &lt;branch&gt;</code> and then <code>git push</code> again? Let's make it so that you never have to
+see this again:</p>
+<p>In your <code>.gitconfig</code>, add the following:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[push]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">autoSetupRemote</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-constant z-language z-genconfig">true</span>
+</span></code></pre>
+<p>Or run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> push.autoSetupRemote true</span>
+</span></code></pre>
+<p>Now, when you run <code>git push</code>, Git will automatically set up the remote
+repository for you.</p>
+<hr />
+<h2 id="optimizations-and-maintenance"><a class="zola-anchor" href="#optimizations-and-maintenance" aria-label="Anchor link for: optimizations-and-maintenance">Optimizations and Maintenance</a></h2>
+<p>With very little effort, we can cash in on performance boosts and disk space
+savings.</p>
+<h3 id="maintenance-scheduling"><a class="zola-anchor" href="#maintenance-scheduling" aria-label="Anchor link for: maintenance-scheduling">Maintenance Scheduling</a></h3>
+<p>Git’s maintenance tasks optimize repository size and performance by running
+tasks like garbage collection and repacking.<sup class="footnote-reference"><a href="#1">1</a></sup>,<sup class="footnote-reference"><a href="#2">2</a></sup> You can enable automatic
+maintenance to run in the background:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[maintenance]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">auto</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-constant z-language z-genconfig">true</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">strategy</span> <span class="z-keyword z-operator z-genconfig">=</span></span> incremental
+</span></code></pre>
+<p>Or run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> maintenance.auto true</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> maintenance.strategy incremental</span>
+</span></code></pre>
+<p>This sets up a cron-like job to periodically optimize your repositories,
+reducing disk usage and improving performance. It’s a "set it and forget it"
+feature, perfect for keeping your repositories lean without manual intervention.</p>
+<h3 id="compression"><a class="zola-anchor" href="#compression" aria-label="Anchor link for: compression">Compression</a></h3>
+<p>To reduce repository size, I set Git’s compression to the maximum level (9):</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[core]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">compression</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-constant z-numeric z-genconfig">9</span>
+</span></code></pre>
+<p>Or run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> core.compression 9</span>
+</span></code></pre>
+<p>Values range from -1 (default, platform-dependent) to 9 (maximum compression).
+Higher compression saves space but takes slightly longer. Since my worktrees are
+small, the tradeoff is worth it.</p>
+<hr />
+<h2 id="git-shortcuts-with-aliases"><a class="zola-anchor" href="#git-shortcuts-with-aliases" aria-label="Anchor link for: git-shortcuts-with-aliases">Git Shortcuts with Aliases</a></h2>
+<p>There's two types of aliases that I use: Git-defined and shell-defined. Git
+aliases are defined in the <code>.gitconfig</code> file, while shell aliases are defined
+in the shell's configuration file.</p>
+<h3 id="git-aliases"><a class="zola-anchor" href="#git-aliases" aria-label="Anchor link for: git-aliases">Git Aliases</a></h3>
+<p>Git aliases are defined in the <code>.gitconfig</code> file and are prefixed with <code>git &lt;alias&gt;</code>.</p>
+<p>In <code>.gitconfig</code>:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[alias]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">graph</span> <span class="z-keyword z-operator z-genconfig">=</span></span> log <span class="z-keyword z-operator z-genconfig">-</span><span class="z-keyword z-operator z-genconfig">-</span>all <span class="z-keyword z-operator z-genconfig">-</span><span class="z-keyword z-operator z-genconfig">-</span>graph <span class="z-keyword z-operator z-genconfig">-</span><span class="z-keyword z-operator z-genconfig">-</span>decorate <span class="z-keyword z-operator z-genconfig">-</span><span class="z-keyword z-operator z-genconfig">-</span>oneline
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">l</span> <span class="z-keyword z-operator z-genconfig">=</span></span> log <span class="z-keyword z-operator z-genconfig">-</span><span class="z-keyword z-operator z-genconfig">-</span>graph <span class="z-keyword z-operator z-genconfig">-</span><span class="z-keyword z-operator z-genconfig">-</span>pretty<span class="z-keyword z-operator z-genconfig">=</span>format<span class="z-keyword z-operator z-genconfig">:</span><span class="z-string z-quoted z-signle z-genconfig">&#39;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#39;</span> <span class="z-keyword z-operator z-genconfig">-</span><span class="z-keyword z-operator z-genconfig">-</span>abbrev<span class="z-keyword z-operator z-genconfig">-</span>commit
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">ignore</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-string z-quoted z-double z-genconfig">&quot;!gi() { local IFS=&#39;,&#39;; curl -sL https://www.toptal.com/developers/gitignore/api/<span class="z-constant z-character z-genconfig">\&quot;</span>$*<span class="z-constant z-character z-genconfig">\&quot;</span>; }; gi&quot;</span>
+</span></code></pre>
+<ul>
+<li>
+<p><code>graph</code>is a Git alias that shows a graph of your commit history with one
+commit per line instead of the default, which I think is very cluttered. Run
+with<code>git graph</code> to see it in action.</p>
+</li>
+<li>
+<p><code>l</code> will pretty print your commit history with a custom format. I stole this
+one from a coworker and never looked back. Run with <code>git l</code>.</p>
+</li>
+<li>
+<p><code>ignore</code> is so I can quickly add a bunch of files to my <code>.gitignore</code> file. I
+already was using <a href="https://www.toptal.com/developers/gitignore"><code>gitignore.io</code></a>
+all the time to generate my <code>.gitignore</code> files, so I figured I'd just add a
+little helper function to my <code>.gitconfig</code> to make it easier. This one does
+require an internet connection since it fetches the response via <code>curl</code>.</p>
+<blockquote>
+<p>The <code>!</code> at the beginning of the function tells Git to run it as a shell
+command rather than a Git built-in command.</p>
+</blockquote>
+<p>Now I can run <code>ignore</code> and it will fetch the response from <code>gitignore.io</code>:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> In new Java project</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> ignore java <span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> .gitignore</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Append to existing .gitignore</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> ignore python node <span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;&gt;</span> .gitignore</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Languages can be comma-separated and/or space-separated because of the</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> `$*` expansion</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> ignore python,node <span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;&gt;</span> .gitignore <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> same as above</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></span></code></pre>
+</li>
+</ul>
+<article class="note-container">
+  <details  class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Note on <code>$*</code> Expansion</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>This is not directly related to Git, but I had fun figuring out how to do
+this with my <code>ignore</code> alias.</p>
+<p>This script originally came from the <a href="https://docs.gitignore.io/install/command-line">gitignore.io Command Line
+Docs</a>,
+but they use the <code>$@</code> variable instead of <code>$*</code> for the language list:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function z-shell"><span class="z-entity z-name z-function z-shell">gi</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-punctuation z-section z-parens z-end z-shell">)</span> <span class="z-punctuation z-section z-braces z-begin z-shell">{</span>
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function z-shell">    <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">curl</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>sL</span> https://www.toptal.com/developers/gitignore/api/<span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-language z-shell">@</span></span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function z-shell"><span class="z-punctuation z-section z-braces z-end z-shell">}</span></span><span class="z-meta z-function-call z-shell"></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span>
+</span></code></pre>
+<p>The <code>$@</code> variable is a special variable in Bash that expands to all the
+arguments/ fields passed. However, the fields are separated by spaces, which
+means that for the original script, the language list necessarily had to
+strictly comma-separated without spaces like this:</p>
+<pre class="z-code"><code><span class="z-text z-plain">git ignore python,node
+</span></code></pre>
+<p>This because it passes the arguments to the <code>curl</code> command and the request
+expects them to be separated by commas.</p>
+<p>However, I didn't like this inflexibility, so I changed the script to use <code>$*</code>
+instead of <code>$@</code>. <code>$*</code> is another special variable that expands to all the fields
+passed BUT with a special internal field separator variable, <code>IFS</code>, which is
+space by default. So, if we locally set <code>IFS</code> to a comma, we can pass the
+language list as a space-separated list as well and get the same result:</p>
+<pre class="z-code"><code><span class="z-text z-plain">git ignore python node
+</span></code></pre>
+<p>Now we have the same request sent but with the flexibility to pass a space-
+separated list and/or a comma-separated list.</p>
+
+    </section>
+  </details>
+</article>
+<h3 id="shell-aliases"><a class="zola-anchor" href="#shell-aliases" aria-label="Anchor link for: shell-aliases">Shell Aliases</a></h3>
+<p>Next up are all of my Git-related shell aliases. While you could define these
+in your <code>.gitconfig</code>, I prefer to define them in my shell's configuration file
+to make them shorter since we can forgo the <code>git</code> prefix and use two or three
+letters instead.</p>
+<details open>
+<summary>Bash/Zsh</summary>
+<p>In <code>~/.bashrc</code> or <code>~/.zshrc</code>:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gs</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git status --short<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gc</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git commit<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gi</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git init<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gcl</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git clone<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">ga</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git add<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gap</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git add --patch<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gd</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git diff<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gr</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git restore<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gp</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git push<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gu</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git pull<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span></code></pre>
+</details>
+<p>And for my fellow Fish users:</p>
+<details open>
+<summary>Fish</summary>
+<p><code>~/.config/fish/config.fish</code>:</p>
+<pre data-lang="fish" class="language-fish z-code"><code class="language-fish" data-lang="fish"><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">gs</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">status</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-option z-long z-fish"><span class="z-variable z-parameter z-fish"><span class="z-punctuation z-definition z-option z-long z-begin z-fish"><span class="z-meta z-string z-unquoted z-fish">--</span></span><span class="z-meta z-string z-unquoted z-fish">short</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">ga</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">add</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">gap</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">add</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-option z-long z-fish"><span class="z-variable z-parameter z-fish"><span class="z-punctuation z-definition z-option z-long z-begin z-fish"><span class="z-meta z-string z-unquoted z-fish">--</span></span><span class="z-meta z-string z-unquoted z-fish">patch</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">gi</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">init</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">gc</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">commit</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">gl</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">log</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">gcl</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">clone</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">gp</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">push</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">gu</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">pull</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">gd</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">diff</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span><span class="z-source z-shell z-fish"><span class="z-meta z-block z-function z-fish"><span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">function</span></span> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-entity z-name z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">gr</span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-variable z-function z-fish"><span class="z-meta z-string z-unquoted z-fish">git</span></span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-path z-fish"><span class="z-meta z-string z-unquoted z-fish">restore</span></span><span class="z-meta z-function-call z-fish"> </span><span class="z-meta z-function-call z-parameter z-argument z-fish"><span class="z-meta z-string z-unquoted z-fish"><span class="z-meta z-variable-expansion z-fish"><span class="z-variable z-other z-fish"><span class="z-punctuation z-definition z-variable z-fish">$</span>argv</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish"><span class="z-keyword z-operator z-control z-fish">;</span></span> <span class="z-meta z-function-call z-name z-fish"><span class="z-keyword z-control z-conditional z-fish"><span class="z-meta z-string z-unquoted z-fish">end</span></span></span></span><span class="z-meta z-function-call z-operator z-control z-fish">
+</span></span></code></pre>
+</details>
+<p>Everything is a mneumonic so it's easy to remember:</p>
+<ul>
+<li><code>ga</code> for '<strong>g</strong>it <strong>a</strong>dd'</li>
+<li><code>gc</code> for '<strong>g</strong>it <strong>c</strong>ommit'</li>
+<li><code>gd</code> for '<strong>g</strong>it <strong>d</strong>iff'</li>
+<li><code>gl</code> for '<strong>g</strong>it <strong>l</strong>og'</li>
+<li><code>gp</code> for '<strong>g</strong>it <strong>p</strong>ush'</li>
+<li><code>gcl</code> for '<strong>g</strong>it <strong>cl</strong>one'</li>
+<li>...</li>
+</ul>
+<p>I'll admit, "gu" for <code>git pull</code> breaks this pattern since "gp" is already taken
+by <code>git push</code>, but I think of it as '<strong>g</strong>it <strong>u</strong>pdate'.</p>
+<p>The alias for <code>git status --short</code> is something I stole from the <a href="https://www.youtube.com/@codingjerk">codingjerk
+YouTube channel</a><sup class="footnote-reference"><a href="#3">3</a></sup>. What I like about
+this is that the normal <code>git status</code> command just gives too much information and
+when I just want to quickly see modified files, it fills up nearly the entire
+vertical space of my terminal.</p>
+<p>Default <code>git status</code> output:</p>
+<pre class="z-code"><code><span class="z-text z-plain">On branch main
+</span><span class="z-text z-plain">Changes not staged for commit:
+</span><span class="z-text z-plain">  (use &quot;git add &lt;file&gt;...&quot; to update what will be committed)
+</span><span class="z-text z-plain">  (use &quot;git restore &lt;file&gt;...&quot; to discard changes in working directory)
+</span><span class="z-text z-plain">	modified:   README.md
+</span><span class="z-text z-plain">	modified:   sample.txt
+</span><span class="z-text z-plain">
+</span><span class="z-text z-plain">no changes added to commit (use &quot;git add&quot; and/or &quot;git commit -a&quot;)
+</span></code></pre>
+<p>(I think after the thousandth time I've used <code>git status</code>, I got the point that
+I can add files to the staging area with <code>git add</code>.)</p>
+<p>With <code>git status --short</code>:</p>
+<pre class="z-code"><code><span class="z-text z-plain">## main
+</span><span class="z-text z-plain"> M README.md
+</span><span class="z-text z-plain"> M sample.txt
+</span></code></pre>
+<p>I also recommend setting <code>status.branch = true</code> to show the branch name in the
+status output, even if you are using the <code>--short</code> flag:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[status]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">branch</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-constant z-language z-genconfig">true</span>
+</span></code></pre>
+<p>Or run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> status.branch true</span>
+</span></code></pre>
+<hr />
+<h2 id="gpg-signing-verifying-you-and-your-commits"><a class="zola-anchor" href="#gpg-signing-verifying-you-and-your-commits" aria-label="Anchor link for: gpg-signing-verifying-you-and-your-commits">GPG Signing: Verifying You and Your Commits</a></h2>
+<p>Want that sweet little “Verified” badge on your commits? You’ll need to set up
+GPG signing.</p>
+<p><strong>GPG</strong> (GNU Privacy Guard) is an open-source implementation of the PGP (Pretty
+Good Privacy) standard. It lets you encrypt, decrypt, and—most relevant
+here—<strong>sign</strong> things to prove they came from you.</p>
+<p>When you generate a GPG key, you get two keys:</p>
+<ul>
+<li><strong>Public key</strong> — Share this with the world. Others use it to verify your
+signature or send you encrypted messages.</li>
+<li><strong>Private key</strong> — Keep this secret. It proves your identity when signing
+things (like commits). Don’t lose it. Don’t leak it.</li>
+</ul>
+<h3 id="signing-commits-with-gpg"><a class="zola-anchor" href="#signing-commits-with-gpg" aria-label="Anchor link for: signing-commits-with-gpg">Signing Commits with GPG</a></h3>
+<p>Here’s the basic flow to get going:</p>
+<ol>
+<li>
+<p><strong>Generate a key</strong>
+Run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">gpg</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>full-generate-key</span></span>
+</span></code></pre>
+<p>Pick the defaults unless you know what you’re doing.</p>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Installing GPG on macOS</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>If you're on macOS, you'll want to install <code>gpg</code> with Homebrew:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">brew</span></span><span class="z-meta z-function-call z-arguments z-shell"> install gnupg</span>
+</span></code></pre>
+<p>After installing, we'll need to let Git know which GPG binary to use.
+In your <code>.gitconfig</code>, add this:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[gpg]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">program</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-keyword z-operator z-genconfig">/</span>opt<span class="z-keyword z-operator z-genconfig">/</span>homebrew<span class="z-keyword z-operator z-genconfig">/</span>bin<span class="z-keyword z-operator z-genconfig">/</span>gpg
+</span></code></pre>
+<p>Or run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> gpg.program /opt/homebrew/bin/gpg</span>
+</span></code></pre>
+
+    </section>
+  </details>
+</article>
+</li>
+<li>
+<p><strong>List your GPG key ID</strong>
+Run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">gpg</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>list-secret-keys</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>keyid-format</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span>long</span>
+</span></code></pre>
+<p>Grab the long key ID (<code>XXXXXXXXYYYYZZZZ</code>) for the next step.</p>
+</li>
+<li>
+<p><strong>Tell Git to use it</strong>
+Add this to your Git config:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> user.signingkey <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>your-key-id<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> commit.gpgsign true</span>
+</span></code></pre>
+</li>
+<li>
+<p><strong>Add your public key to GitHub</strong>
+Export your public key:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">gpg</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>armor</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>export</span> <span class="z-keyword z-operator z-assignment z-redirection z-shell">&lt;</span>your-key-id<span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>
+</span></span></code></pre>
+<p>Then go to <a href="https://github.com/settings/gpg/new">https://github.com/settings/gpg/new</a>,
+paste it in, and you’re set.</p>
+</li>
+</ol>
+<p>Now when you commit and push, GitHub will show a "Verified" badge if everything
+lines up.</p>
+<blockquote>
+<p>On macOS, you might want to install <a href="https://gpgtools.org/">GPG Suite</a> for
+better integration.</p>
+</blockquote>
+<h3 id="bonus-email-signing"><a class="zola-anchor" href="#bonus-email-signing" aria-label="Anchor link for: bonus-email-signing">Bonus: Email Signing</a></h3>
+<p>GPG isn’t just for Git—you can use it to sign emails too. Clients like NeoMutt
+or Mutt support this, though fair warning: it’ll attach your public key to every
+message, which might not be your vibe. I don’t use this personally, but it’s
+there if you want it.</p>
+<hr />
+<h2 id="miscellaneous-goodies"><a class="zola-anchor" href="#miscellaneous-goodies" aria-label="Anchor link for: miscellaneous-goodies">Miscellaneous Goodies</a></h2>
+<p>Here's a collection of some small tweaks that you can brag to your coworkers
+about.</p>
+<h3 id="rerere"><a class="zola-anchor" href="#rerere" aria-label="Anchor link for: rerere">Rerere</a></h3>
+<p>I know what you're thinking, "What the hell does that even mean?"</p>
+<p>"Rerere" stands for "<strong>re</strong>use <strong>re</strong>corded <strong>re</strong>solution". Again this is still
+a little mysterious, but we can see from the <code>git-rerere(1)</code> man page:</p>
+<blockquote>
+<pre class="z-code"><code><span class="z-text z-plain">DESCRIPTION
+</span><span class="z-text z-plain">       In a workflow employing relatively long lived topic branches, the developer sometimes needs to
+</span><span class="z-text z-plain">       resolve the same conflicts over and over again until the topic branches are done (either merged to
+</span><span class="z-text z-plain">       the &quot;release&quot; branch, or sent out and accepted upstream).
+</span><span class="z-text z-plain">
+</span><span class="z-text z-plain">       This command assists the developer in this process by recording conflicted automerge results and
+</span><span class="z-text z-plain">       corresponding hand resolve results on the initial manual merge, and applying previously recorded
+</span><span class="z-text z-plain">       hand resolutions to their corresponding automerge results.
+</span></code></pre>
+</blockquote>
+<p>In English: When you have resolved a conflict in the past, <code>git rerere</code> will
+keep track of the resolution and apply it to future conflicts.</p>
+<p>Resolve a conflict once, and <code>rerere</code> saves it. Same conflict later? It’s
+auto-fixed, but you can still check with <code>git diff</code> and <code>git add</code> to make sure
+everything is okay.</p>
+<p>Add the following to your <code>.gitconfig</code>:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[rerere]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">enabled</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-constant z-language z-genconfig">true</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">autoUpdate</span> <span class="z-keyword z-operator z-genconfig">=</span></span> <span class="z-constant z-language z-genconfig">true</span>
+</span></code></pre>
+<p>Or run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> rerere.enabled true</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> rerere.autoUpdate true</span>
+</span></code></pre>
+<h3 id="whitespace"><a class="zola-anchor" href="#whitespace" aria-label="Anchor link for: whitespace">Whitespace</a></h3>
+<p>I already have whitespace highlighted in my editor, but if some were to slip
+through, I'd like to highlight them in diffs so I can strip them out.</p>
+<p>In your <code>.gitconfig</code>, we can specify what types of whitespace we want Git to
+flag in diffs with a comma-separated list:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[core]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">whitespace</span> <span class="z-keyword z-operator z-genconfig">=</span></span> trailing<span class="z-keyword z-operator z-genconfig">-</span>space
+</span></code></pre>
+<p>Or run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> core.whitespace trailing-space</span>
+</span></code></pre>
+<p>For me, I just highlight trailing whitespace in diffs, but some other options
+you could try:</p>
+<ul>
+<li><code>space-before-tab</code></li>
+<li><code>space-before-tab,indent-with-non-tab</code></li>
+<li><code>space-before-tab,indent-with-non-tab,cr-at-eol</code></li>
+</ul>
+<h3 id="help-prompts-for-command-misspellings"><a class="zola-anchor" href="#help-prompts-for-command-misspellings" aria-label="Anchor link for: help-prompts-for-command-misspellings">Help Prompts for Command Misspellings</a></h3>
+<p>If you are typing out a git command in full and you make a typo, by default
+you'll get a message like this:</p>
+<pre class="z-code"><code><span class="z-text z-plain">$ git psuh
+</span><span class="z-text z-plain">
+</span><span class="z-text z-plain">git: &#39;psuh&#39; is not a git command. See &#39;git --help&#39;.
+</span><span class="z-text z-plain">
+</span><span class="z-text z-plain">The most similar command is
+</span><span class="z-text z-plain">        push
+</span></code></pre>
+<p>So you retry again (in my case probably making another typo or two) until you
+get the right command you were going for.</p>
+<p>Instead, just adjust your <code>.gitconfig</code> to prompt you:</p>
+<pre data-lang="ini" class="language-ini z-code"><code class="language-ini" data-lang="ini"><span class="z-source z-genconfig"><span class="z-storage z-type z-genconfig">[help]
+</span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig">    <span class="z-variable z-parameter z-genconfig">autocorrect</span> <span class="z-keyword z-operator z-genconfig">=</span></span> prompt
+</span></code></pre>
+<p>Or run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> config<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>global</span> help.autocorrect prompt</span>
+</span></code></pre>
+<p>Now, when you make a typo, you'll get a prompt instead:</p>
+<pre class="z-code"><code><span class="z-text z-plain">$ git psuh
+</span><span class="z-text z-plain">
+</span><span class="z-text z-plain">WARNING: You called a Git command named &#39;psuh&#39;, which
+</span><span class="z-text z-plain"> does not exist.
+</span><span class="z-text z-plain">Run &#39;push&#39; instead [y/N]?
+</span></code></pre>
+<p>Ahh, much better! Now you can just type <code>y</code> and you're good to go.</p>
+<p>There's also more options for <code>autocorrect</code> that you can read about in the
+<a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-helpautocorrect">git-config man page</a>,
+such as running the suggested command immediately without prompting.</p>
+<hr />
+<h2 id="conclusion"><a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">Conclusion</a></h2>
+<p>I hope this post sheds some light on the configurability of Git and a small
+subset of the options available. For such a ubiquitous tool, I think it's worth
+it to spend the time to tailor it to your needs instead of just rolling with the
+basic setup of configuring your username and email.</p>
+<p>My full <code>.gitconfig</code> can be found <a href="https://github.com/micahkepe/dotfiles/blob/main/.gitconfig">here</a>.</p>
+<p>If you have any questions, or if there's something I've missed, feel free to
+comment below!</p>
+<hr />
+<h2 id="references"><a class="zola-anchor" href="#references" aria-label="Anchor link for: references">References</a></h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>YouTube: <a href="https://www.youtube.com/watch?v=aolI_Rz0ZqY">So You Think You Know Git - FOSDEM 2024</a></p>
+<p>Scott Chacon (one of the founders of GitHub) goes over a lot hidden tricks
+and tips for Git.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>YouTube: <a href="https://www.youtube.com/watch?v=38iySnesryU">Scott Chacon - So you think you know Git. Advanced Git Tips and
+Tricks - DevWorld 2024</a></p>
+<p>A follow up to the above video, this one goes over some more advanced
+configurations and tips.</p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>YouTube: <a href="https://youtu.be/G3NJzFX6XhY?si=lP3bDIBIim1W0_Ve">Configure your Git</a></p>
+<p>A video by <a href="https://www.youtube.com/@codingjerk">codingjerk</a> going over his
+personal <code>.gitconfig</code> and how he uses it, and a large inspiration for me to
+make this post.</p>
+</div>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/programming/">programming</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/tools/">tools</a>
+                    
+                        
+                            
+                                and
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/git/">git</a>
+                    
+                        
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;gitconfig&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - neovim</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/tags/neovim/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-10-13T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/tags/neovim/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Setting Up a Supercharged Neovim Configuration</title>
+        <published>2024-10-13T00:00:00+00:00</published>
+        <updated>2024-10-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/neovim-setup/"/>
+        <id>https://micahkepe.com/blog/neovim-setup/</id>
+        
+        <summary type="html">&lt;p&gt;Over the summer, after finally getting around to learning Vim motions (see blog
+post &lt;a href=&quot;https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;vimtutor-sequel&quot;&gt;#9&lt;&#x2F;a&gt;), I quickly fell down the
+Neovim rabbithole and have been procrastinating work by tinkering away at my
+configurations ever since! This post will be sharing setup that I have currently
+landed at to turn my Neovim editor into a supercharged workhorse.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>

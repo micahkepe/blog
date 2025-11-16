@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="In the realm of computer science, efficiency is often the key to solving complex
+problems. One elegant solution that stands out for its efficiency is the Bloom
+filter. Despite being relatively lesser-known, Bloom filters offer a powerful
+method for determining set membership while using minimal space. This post
+explores what Bloom filters are, how they work, their applications in various
+fields, and compares them with other data structures." />
+        <meta property="og:description" content="In the realm of computer science, efficiency is often the key to solving complex
+problems. One elegant solution that stands out for its efficiency is the Bloom
+filter. Despite being relatively lesser-known, Bloom filters offer a powerful
+method for determining set membership while using minimal space. This post
+explores what Bloom filters are, how they work, their applications in various
+fields, and compares them with other data structures." />
+        <meta property="twitter:description" content="In the realm of computer science, efficiency is often the key to solving complex
+problems. One elegant solution that stands out for its efficiency is the Bloom
+filter. Despite being relatively lesser-known, Bloom filters offer a powerful
+method for determining set membership while using minimal space. This post
+explores what Bloom filters are, how they work, their applications in various
+fields, and compares them with other data structures." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    Bloom Filters: Space-Efficient Probabilistic Data Structures
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;bloom-filters&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="Bloom Filters: Space-Efficient Probabilistic Data Structures" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;bloom-filters&#x2F;"
+    />
+    <meta name="twitter:title" content="Bloom Filters: Space-Efficient Probabilistic Data Structures" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Bloom Filters: Space-Efficient Probabilistic Data Structures" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Bloom Filters: Space-Efficient Probabilistic Data Structures</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>8 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-05-25
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>In the realm of computer science, efficiency is often the key to solving complex
+problems. One elegant solution that stands out for its efficiency is the Bloom
+filter. Despite being relatively lesser-known, Bloom filters offer a powerful
+method for determining set membership while using minimal space. This post
+explores what Bloom filters are, how they work, their applications in various
+fields, and compares them with other data structures.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/bloom-filters/#what-is-a-bloom-filter">What is a Bloom Filter?</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/bloom-filters/#how-bloom-filters-work">How Bloom Filters Work</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/bloom-filters/#insertion">Insertion</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/bloom-filters/#querying">Querying</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/bloom-filters/#false-positives">False Positives</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/bloom-filters/#mathematical-insight">Mathematical Insight</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/bloom-filters/#comparing-a-bloom-filter-with-a-hash-set-in-python">Comparing a Bloom Filter with a Hash Set in Python</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/bloom-filters/#mock-scenario-checking-malicious-urls">Mock Scenario: Checking Malicious URLs</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/bloom-filters/#setup-and-explanation">Setup and Explanation</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/bloom-filters/#bloom-filter">Bloom Filter</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/bloom-filters/#hash-set">Hash Set</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/bloom-filters/#pros-and-cons-of-bloom-filters">Pros and Cons of Bloom Filters</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/bloom-filters/#pros">Pros</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/bloom-filters/#cons">Cons</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/bloom-filters/#real-world-case-studies">Real-World Case Studies</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/bloom-filters/#conclusion">Conclusion</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/bloom-filters/#references">References</a>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span><h2 id="what-is-a-bloom-filter"><a class="zola-anchor" href="#what-is-a-bloom-filter" aria-label="Anchor link for: what-is-a-bloom-filter">What is a Bloom Filter?</a></h2>
+<p>A Bloom filter is a probabilistic data structure designed to efficiently test
+whether an element is a member of a set. It can tell you if an element is
+definitely not in the set or that it might be in the set. This probabilistic
+nature makes Bloom filters incredibly space-efficient, but it also means they
+come with a small chance of false positives.</p>
+<section
+  style="width: 100%; max-width: 70%; margin: 0 auto; text-align: center;">
+  <img src="bloom-filter.webp"  alt="Bloom Filter Example" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+</section>
+<br>
+<p>A Bloom filter consists of:</p>
+<ul>
+<li>A bit array of size $m$ (initially all bits are set to 0).</li>
+<li>$k$ independent hash functions, each of which maps an element to one of the
+$m$ array positions.</li>
+</ul>
+<h2 id="how-bloom-filters-work"><a class="zola-anchor" href="#how-bloom-filters-work" aria-label="Anchor link for: how-bloom-filters-work">How Bloom Filters Work</a></h2>
+<h3 id="insertion"><a class="zola-anchor" href="#insertion" aria-label="Anchor link for: insertion">Insertion</a></h3>
+<p>To add an element to the Bloom filter, the element is passed through each of the
+$k$ hash functions, resulting in $k$ array positions. The bits at these
+positions in the bit array are set to 1. If any of these bits are already set to
+1, they remain unchanged.</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="insertion.png"  alt="Inserting an element into a Bloom filter" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Inserting an element into a Bloom filter</p>
+  </caption>
+  
+</section>
+<br>
+<h3 id="querying"><a class="zola-anchor" href="#querying" aria-label="Anchor link for: querying">Querying</a></h3>
+<p>To check if an element is in the Bloom filter, the element is hashed using the
+same $k$ hash functions to find the $k$ array positions. If all the
+corresponding bits in the bit array are 1, the Bloom filter reports that the
+element might be in the set. If any of the bits are 0, the element is definitely
+not in the set.</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="bloom-filter-membership.png"  alt="Querying an element in a Bloom filter" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Querying an element in a Bloom filter</p>
+  </caption>
+  
+</section>
+<br>
+<h3 id="false-positives"><a class="zola-anchor" href="#false-positives" aria-label="Anchor link for: false-positives">False Positives</a></h3>
+<p>Bloom filters do not store the actual elements, so they can never have false
+negatives (i.e., reporting an element is not in the set when it actually is).
+However, they can have false positives (i.e., reporting an element is in the set
+when it is not). The probability of false positives depends on the size of the
+bit array $m$, the number of hash functions $k$, and the number of elements
+inserted $n$.</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="bloom-filter-example.png"  alt="Example of a false positive in a Bloom filter" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Example of a false positive in a Bloom filter</p>
+  </caption>
+  
+</section>
+<br>
+<h2 id="mathematical-insight"><a class="zola-anchor" href="#mathematical-insight" aria-label="Anchor link for: mathematical-insight">Mathematical Insight</a></h2>
+<p>The false positive probability $p$ can be approximated by:</p>
+<p>\[ p \approx \left(1 - \left(1 - \frac{1}{m}\right)^{kn}\right)^k \]</p>
+<p>For practical use, choosing the optimal number of hash functions $k$ and the bit
+array size $m$ is crucial to minimize the false positive rate.</p>
+<h2 id="comparing-a-bloom-filter-with-a-hash-set-in-python"><a class="zola-anchor" href="#comparing-a-bloom-filter-with-a-hash-set-in-python" aria-label="Anchor link for: comparing-a-bloom-filter-with-a-hash-set-in-python">Comparing a Bloom Filter with a Hash Set in Python</a></h2>
+<p>To demonstrate the practical use of Bloom filters, let's consider a mock
+scenario where a Bloom filter is used to check if a URL is malicious. We will
+compare Bloom filters and hash sets in terms of space efficiency and the ability
+to quickly determine if a URL is in the blacklist.</p>
+<h3 id="mock-scenario-checking-malicious-urls"><a class="zola-anchor" href="#mock-scenario-checking-malicious-urls" aria-label="Anchor link for: mock-scenario-checking-malicious-urls">Mock Scenario: Checking Malicious URLs</a></h3>
+<p>In this scenario, we simulate a web browser that checks if a URL is malicious
+using a locally stored Bloom filter or list. The Bloom filter offers a
+space-efficient solution, reducing the need for frequent network calls.</p>
+<ul>
+<li><strong>Bloom Filter</strong>: Efficient in terms of space, but can have false positives.</li>
+<li><strong>Hash Set</strong>: No false positives, but can be memory-intensive.</li>
+</ul>
+<h3 id="setup-and-explanation"><a class="zola-anchor" href="#setup-and-explanation" aria-label="Anchor link for: setup-and-explanation">Setup and Explanation</a></h3>
+<p>We will simulate a scenario where we have 1 million URLs in a blacklist and
+check a large number of URLs to see if they are malicious. This will highlight
+the space efficiency of Bloom filters compared to hash sets.</p>
+<h3 id="bloom-filter"><a class="zola-anchor" href="#bloom-filter" aria-label="Anchor link for: bloom-filter">Bloom Filter</a></h3>
+<div style="display: flex; justify-content: center;">
+    <iframe 
+        height="500px" 
+        width="80%" 
+        src="https://repl.it/@MicahKepe/BloomFilterMaliciousURLs?lite=true" 
+        frameborder="0" 
+        allowfullscreen>
+    </iframe>
+</div>
+<p>Here's the results I got when running the Bloom filter simulation:</p>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Bloom Filter Simulation Results</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>Bloom Filter Insertion Time: 3.457702159881592 seconds</p>
+<p>Bloom Filter Query Time: 0.10877871513366699 seconds</p>
+<p>False Positives: 121</p>
+<p>Memory Usage: 1.14 MB</p>
+
+    </section>
+  </details>
+</article>
+<h3 id="hash-set"><a class="zola-anchor" href="#hash-set" aria-label="Anchor link for: hash-set">Hash Set</a></h3>
+<div style="display: flex; justify-content: center;">
+    <iframe 
+        height="500px" 
+        width="80%" 
+        src="https://repl.it/@MicahKepe/HashSetMaliciousURLs?lite=true" 
+        frameborder="0" 
+        allowfullscreen>
+    </iframe>
+</div>
+<p>Here's the results I got when running the hash set simulation:</p>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Hash Set Simulation Results</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>Hash Set Insertion Time: 0.6073956489562988 seconds</p>
+<p>Hash Set Query Time: 0.03299856185913086 seconds</p>
+<p>False Positives: 0</p>
+<p>Memory Usage: 30.15 MB</p>
+
+    </section>
+  </details>
+</article>
+<p>As you can see, the hash set is significantly more memory-intensive compared to
+the Bloom filter (<strong>30.15 MB</strong> vs. <strong>1.14 MB</strong>). However, it does not have any
+false positives and is faster in terms of insertion and querying times. But,
+imagine a scenario where the blacklist is much larger, and the memory usage
+becomes a critical factor. This is where Bloom filters shine:</p>
+<ul>
+<li><strong>Memory Efficiency</strong>: Bloom filters use a fixed amount of space regardless of
+the number of items inserted, making them ideal for applications with limited
+memory resources.</li>
+<li><strong>Scalability</strong>: As the size of the data set grows, the memory usage of a hash
+set grows linearly, whereas a Bloom filter's memory usage remains constant.
+This makes Bloom filters suitable for very large data sets.</li>
+<li><strong>Network Latency</strong>: By storing the Bloom filter locally, we can quickly
+determine if a URL might be malicious without frequent network calls, reducing
+latency and improving user experience.</li>
+</ul>
+<h2 id="pros-and-cons-of-bloom-filters"><a class="zola-anchor" href="#pros-and-cons-of-bloom-filters" aria-label="Anchor link for: pros-and-cons-of-bloom-filters">Pros and Cons of Bloom Filters</a></h2>
+<h3 id="pros"><a class="zola-anchor" href="#pros" aria-label="Anchor link for: pros">Pros</a></h3>
+<ul>
+<li><strong>Space Efficiency</strong>: Bloom filters use minimal space compared to other data
+structures.</li>
+<li><strong>Fast Set Membership Tests</strong>: Bloom filters offer constant-time set
+membership tests.</li>
+<li><strong>Scalability</strong>: The memory usage of a Bloom filter remains constant
+regardless of the number of elements inserted.</li>
+<li><strong>Reduced I/O Operations</strong>: Bloom filters can reduce disk reads and network
+calls by quickly filtering out non-existent elements.</li>
+</ul>
+<br>
+<h3 id="cons"><a class="zola-anchor" href="#cons" aria-label="Anchor link for: cons">Cons</a></h3>
+<ul>
+<li><strong>False Positives</strong>: Bloom filters can produce false positives, which may not
+be acceptable in certain applications.</li>
+<li><strong>Optimal Parameters</strong>: Choosing the optimal number of hash functions and bit
+array size is crucial for minimizing false positives.</li>
+<li><strong>Limited Applications</strong>: Bloom filters are best suited for scenarios where
+false positives are acceptable and space efficiency is critical.</li>
+</ul>
+<br>
+<h3 id="real-world-case-studies"><a class="zola-anchor" href="#real-world-case-studies" aria-label="Anchor link for: real-world-case-studies">Real-World Case Studies</a></h3>
+<p><strong>Case Study: Using Bloom Filters in Google Bigtable</strong></p>
+<p>Google Bigtable, a distributed storage system for managing structured data, uses
+Bloom filters to reduce disk lookups for non-existent rows or columns. By using
+Bloom filters, Bigtable can quickly determine if a row or column is absent
+without accessing the disk, thereby improving read performance significantly.
+This application of Bloom filters showcases their efficiency in handling
+large-scale data storage and retrieval systems.</p>
+<p><strong>Case Study: Akamai's Content Delivery Network (CDN)</strong></p>
+<p>Akamai, one of the largest CDNs in the world, uses Bloom filters to quickly
+determine if content is cached on their edge servers. By using Bloom filters,
+Akamai can minimize the number of cache misses and reduce the latency of serving
+content to users. This helps in delivering content more efficiently and improves
+the overall performance of the CDN.</p>
+<p><strong>Case Study: Medium Duplicate Story Detection</strong></p>
+<p>Medium, a popular online publishing platform, uses Bloom filters to detect
+duplicate stories. When a user submits a new story, Medium checks if the story
+is a duplicate by querying a Bloom filter that stores the hashes of previously
+submitted stories. This helps in identifying and preventing the publication of
+duplicate content, ensuring a better user experience for readers.</p>
+<p><strong>Case Study: Bitcoin's SPV Nodes</strong></p>
+<p>In Bitcoin, Simplified Payment Verification (SPV) nodes use Bloom filters to
+track transactions relevant to them without downloading the entire blockchain.
+By using Bloom filters, SPV nodes can operate more efficiently with limited
+resources, making it feasible for lightweight clients to participate in the
+Bitcoin network.</p>
+<h2 id="conclusion"><a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">Conclusion</a></h2>
+<p>Bloom filters are a prime example of how probabilistic data structures can offer
+powerful solutions to space and time efficiency challenges. By understanding and
+implementing Bloom filters, you can enhance the performance of your applications
+in scenarios where quick set membership tests are critical. Despite their
+simplicity, Bloom filters have found their way into various sophisticated
+systems and continue to be a valuable tool in a programmer's toolkit.</p>
+<h2 id="references"><a class="zola-anchor" href="#references" aria-label="Anchor link for: references">References</a></h2>
+<ul>
+<li><a href="https://tara-annison.medium.com/bloom-filters-and-spv-nodes-within-the-bitcoin-blockchain-66c36ea673f2">Bloom Filters and SPV nodes within the bitcoin blockchain</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Bloom_filter">Bloom Filter Wikipedia Page</a></li>
+<li><a href="https://cloud.google.com/blog/products/databases/cloud-bigtable-improves-single-row-read-throughput-by-up-to-50-percent/">Cloud Bigtable under the hood: How we improved single-row read throughput by 20-50%</a></li>
+<li><a href="https://courses.cs.washington.edu/courses/cse312/22wi/files/student_drive/9.4.pdf">University of Washington Lecture Slides on Bloom Filter Applications</a></li>
+<li><a href="https://www.geeksforgeeks.org/bloom-filters-introduction-and-python-implementation/">Bloom Filters – Introduction and Implementation</a></li>
+<li><a href="https://towardsdatascience.com/system-design-bloom-filter-a2e19dcd4810">System Design: Bloom Filter</a></li>
+<li><a href="https://www.enjoyalgorithms.com/blog/bloom-filter">Bloom Filter Data Structure: Implementation and Application</a></li>
+</ul>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/theory/">theory</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/data-structures/">data structures</a>
+                    
+                        
+                            
+                                ,
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/algorithms/">algorithms</a>
+                    
+                        
+                            
+                                and
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/theory/">theory</a>
+                    
+                        
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;bloom-filters&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>

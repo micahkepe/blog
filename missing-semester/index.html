@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="Nearly a year ago, I took an online course called
+The Missing Semester of Your CS Education. The
+course was created by a group of MIT students and covers a wide range of topics
+that are often overlooked in traditional computer science curriculums. The
+course is designed to help students become more productive and efficient
+programmers by teaching them essential skills that are not typically taught in
+school." />
+        <meta property="og:description" content="Nearly a year ago, I took an online course called
+The Missing Semester of Your CS Education. The
+course was created by a group of MIT students and covers a wide range of topics
+that are often overlooked in traditional computer science curriculums. The
+course is designed to help students become more productive and efficient
+programmers by teaching them essential skills that are not typically taught in
+school." />
+        <meta property="twitter:description" content="Nearly a year ago, I took an online course called
+The Missing Semester of Your CS Education. The
+course was created by a group of MIT students and covers a wide range of topics
+that are often overlooked in traditional computer science curriculums. The
+course is designed to help students become more productive and efficient
+programmers by teaching them essential skills that are not typically taught in
+school." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    Biggest Takeaways from The Missing Semester of Your CS Education
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;missing-semester&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="Biggest Takeaways from The Missing Semester of Your CS Education" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;missing-semester&#x2F;"
+    />
+    <meta name="twitter:title" content="Biggest Takeaways from The Missing Semester of Your CS Education" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Biggest Takeaways from The Missing Semester of Your CS Education" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Biggest Takeaways from The Missing Semester of Your CS Education</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>7 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-05-05
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>Nearly a year ago, I took an online course called
+<a href="https://missing.csail.mit.edu/">The Missing Semester of Your CS Education</a>. The
+course was created by a group of MIT students and covers a wide range of topics
+that are often overlooked in traditional computer science curriculums. The
+course is designed to help students become more productive and efficient
+programmers by teaching them essential skills that are not typically taught in
+school.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/missing-semester/#1-version-control-with-git">1. Version Control with Git</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/missing-semester/#1-1-using-switch-instead-of-checkout">1.1 Using switch instead of checkout</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/missing-semester/#1-2-learning-to-use-rebase">1.2 Learning to use rebase</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/missing-semester/#1-3-stashing-changes">1.3 Stashing changes</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/missing-semester/#2-hammerspoon">2. Hammerspoon</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/missing-semester/#3-dotfiles">3. Dotfiles</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/missing-semester/#3-1-helpful-aliases">3.1 Helpful aliases</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/missing-semester/#3-2-setting-up-a-dotfiles-repository">3.2 Setting up a dotfiles repository</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/missing-semester/#conclusion">Conclusion</a>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span>
+<p>Still to this day, I find myself using many of the tools and techniques that I
+learned in the course. In this post, I will share some of the biggest takeaways
+from The Missing Semester of Your CS Education and how they have helped me
+become a better, more productive programmer.</p>
+<h2 id="1-version-control-with-git"><a class="zola-anchor" href="#1-version-control-with-git" aria-label="Anchor link for: 1-version-control-with-git">1. Version Control with Git</a></h2>
+<p>For such a widely used tool, it is surprising how little formal education is
+given on Git beyond perhaps a brief introduction to <code>git clone</code>, <code>git add</code>,
+<code>git commit</code>, and <code>git push</code>. Personally, it wasn't until I began my first
+internship how little I knew about Git and how much I had to learn on the job.
+The course provides a greater overview of Git and its capabilities, including
+some of the more advanced features that can help you become a more efficient and
+effective programmer.</p>
+<p>Below are some of the less common but very useful commands that I learned from
+the course and through my own exploration:</p>
+<h3 id="1-1-using-switch-instead-of-checkout"><a class="zola-anchor" href="#1-1-using-switch-instead-of-checkout" aria-label="Anchor link for: 1-1-using-switch-instead-of-checkout">1.1 Using switch instead of checkout</a></h3>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Using `switch` instead of `checkout`</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> switch<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>c</span> new-branch</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Switching to the previous branch</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> switch -</span>
+</span></code></pre>
+<p><code>switch</code> is a newer command that was introduced in Git 2.23. It is meant to be a
+more user-friendly alternative to <code>checkout</code> for switching branches. The
+<code>switch</code> command is more intuitive and easier to use than <code>checkout</code>, especially
+for beginners. It is also more consistent with other Git commands, such as
+<code>git branch</code> and <code>git merge</code>.</p>
+<h3 id="1-2-learning-to-use-rebase"><a class="zola-anchor" href="#1-2-learning-to-use-rebase" aria-label="Anchor link for: 1-2-learning-to-use-rebase">1.2 Learning to use rebase</a></h3>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Rebasing a feature branch on top of the main branch to keep the commit</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> history clean</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> switch main</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> pull</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> switch feature-branch</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> rebase main</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> After resolving any conflicts, switch back to the main branch and merge the</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> feature branch</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> switch main</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> merge feature-branch</span>
+</span></code></pre>
+<p>A diagram of the rebase process:</p>
+<p>1. Initial State</p>
+<pre>
+main:       A---B---C
+                 \
+feature-branch:   D---E
+</pre>
+<p>As you can see, the feature branch has diverged from the main branch with
+commits <code>D</code> and <code>E</code>, which are behind commit <code>C</code> on the main branch.</p>
+<p>2. After running <code>git rebase main</code> on the feature branch</p>
+<pre>
+main:       A---B---C
+                     \
+feature-branch:       D'---E'
+</pre>
+<p>After rebasing, two <strong>new</strong> commits <code>D'</code> and <code>E'</code> are created on the feature
+branch, which have new commit hashes from the original commits <code>D</code> and <code>E</code>.
+If there are any conflicts during the rebase process, you will need to resolve
+them before continuing.</p>
+<p>3. After running <code>git switch main</code> and <code>git merge feature-branch</code></p>
+<pre>
+main: A---B---C---D'---E'
+</pre>
+<p>Finally, the feature branch is merged back into the main branch. Now we have a
+<strong>linear commit history</strong>!</p>
+<p>A key benefit of rebasing is that it keeps the commit history clean and linear,
+making it easier to understand and navigate.</p>
+<blockquote>
+<p><strong>NOTE</strong> It is important to note that rebasing rewrites commit history, so
+it should be used <em>with caution</em>, especially when working on shared
+branches with collaborators. If working with others, use the
+<code>--force-with-lease</code> flag when pushing rebased commits to a shared branch.
+This flag ensures that if your changes conflict with the remote branch, you
+will not overwrite someone else's work.</p>
+</blockquote>
+<h3 id="1-3-stashing-changes"><a class="zola-anchor" href="#1-3-stashing-changes" aria-label="Anchor link for: 1-3-stashing-changes">1.3 Stashing changes</a></h3>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Stashing changes before switching branches</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> stash</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Applying the stashed changes</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> stash apply</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Listing all stashes</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> stash list</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Applying a specific stash</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> stash apply stash@<span class="z-meta z-group z-expansion z-brace z-shell"><span class="z-punctuation z-section z-expansion z-brace z-begin z-shell">{</span>2<span class="z-punctuation z-section z-expansion z-brace z-end z-shell">}</span></span></span>
+</span></code></pre>
+<p>There are many other useful Git commands and techniques, but these are some of
+the ones that I use most frequently in my day-to-day work. The best way to learn
+Git is by actually using it, struggling with it, and learning from others.
+Again, Git can be tricky and it takes practice— Linus Torvalds, the creator of
+Git, wrote in the initial commit message of Git that it stands for:</p>
+<blockquote>
+<ul>
+<li>'global information tracker': you're in a good mood, and it actually
+works for you. Angels sing, and a light suddenly fills the room.</li>
+<li>'goddamn idiotic truckload of sh*t': when it breaks</li>
+</ul>
+</blockquote>
+<h2 id="2-hammerspoon"><a class="zola-anchor" href="#2-hammerspoon" aria-label="Anchor link for: 2-hammerspoon">2. Hammerspoon</a></h2>
+<p>Hammerspoon is an automation tool available for macOS that runs on custom Lua
+scripts. The greatest use case that I found for it was for writing scripts to
+allow me to use custom keyboard bindings to control the sizing and location of
+my windows without having to use the mouse.</p>
+<p>While this seems like it a relatively small enhancement, the seconds saved from
+every time I need to resize a window compound into minutes and hours saved over
+time. Here's a snippet of the <code>window.lua</code> script I wrote to do this:</p>
+<pre data-lang="lua" class="language-lua z-code"><code class="language-lua" data-lang="lua"><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Bind Option+Command+Arrow keys to move windows
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span><span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>left<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span> <span class="z-variable z-function z-lua">moveWindowToGrid</span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-constant z-numeric z-integer z-decimal z-lua">1</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span> <span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>   <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Move window to left half
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span><span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>right<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span> <span class="z-variable z-function z-lua">moveWindowToGrid</span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-constant z-numeric z-integer z-decimal z-lua">2</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span> <span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>  <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Move window to right half
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span><span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>up<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span> <span class="z-variable z-function z-lua">moveWindowToGrid</span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-constant z-numeric z-integer z-decimal z-lua">3</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span> <span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>     <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Move window to top half
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span><span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>down<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span> <span class="z-variable z-function z-lua">moveWindowToGrid</span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-constant z-numeric z-integer z-decimal z-lua">4</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span> <span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>   <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Move window to bottom half
+</span></span></code></pre>
+<p>I have not yet explored all the capabilities of Hammerspoon, but this one
+feature alone has made it a valuable tool for me. I highly recommend checking it
+out if you are a macOS user and are looking to automate repetitive tasks or
+create custom keyboard shortcuts. For more information on Hammerspoon, check out
+the <a href="https://www.hammerspoon.org/">official documentation</a>.</p>
+<h2 id="3-dotfiles"><a class="zola-anchor" href="#3-dotfiles" aria-label="Anchor link for: 3-dotfiles">3. Dotfiles</a></h2>
+<p>Dotfiles are configuration files that are used to customize the settings of
+various programs and tools. They are typically stored in the home directory of a
+user and are prefixed with a <code>.</code> (e.g., <code>.bashrc</code>, <code>.vimrc</code>, <code>.gitconfig</code>). The
+course introduced me to the concept of dotfiles and the benefits of storing them
+in a version-controlled repository. Additionally, setting up aliases dotfiles
+can help you streamline your workflow and make your development environment more
+efficient.</p>
+<p>By storing your dotfiles in a version-controlled repository, you can easily
+synchronize your configurations across multiple machines and share them with
+others. Additionally, you can keep track of changes to your configurations over
+time and revert to previous versions if needed. If you ever switch to a new
+machine or need to set up a new environment, you can quickly install your
+dotfiles and have your familiar configurations ready to go, especially if you
+write a bootstrap script to automate the process.</p>
+<h3 id="3-1-helpful-aliases"><a class="zola-anchor" href="#3-1-helpful-aliases" aria-label="Anchor link for: 3-1-helpful-aliases">3.1 Helpful aliases</a></h3>
+<p>Aliases are shortcuts that you can define in your dotfiles to make common
+commands easier to type and remember. Here are some examples of aliases that you
+can add to your <code>.bashrc</code> or <code>.zshrc</code> file to make your life easier:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Example aliases</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">ll</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>ls -la<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gs</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git status<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gc</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git commit<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gp</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git push<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gco</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git checkout<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gb</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git branch<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">gl</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>git log<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span></span>
+</span></code></pre>
+<p>In my <code>.gitconfig</code> file, I have also set up aliases to enhance the <code>graph</code> and
+<code>log</code> commands:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> .gitconfig</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">[alias]</span></span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">graph</span></span><span class="z-meta z-function-call z-arguments z-shell"> = log<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>all</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>graph</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>decorate</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>oneline</span></span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">l</span></span><span class="z-meta z-function-call z-arguments z-shell"> = log<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>graph</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>pretty</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span>format:<span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>abbrev-commit</span></span>
+</span></code></pre>
+<h3 id="3-2-setting-up-a-dotfiles-repository"><a class="zola-anchor" href="#3-2-setting-up-a-dotfiles-repository" aria-label="Anchor link for: 3-2-setting-up-a-dotfiles-repository">3.2 Setting up a dotfiles repository</a></h3>
+<p>To set up a dotfiles repository, you can follow these steps:</p>
+<p>1. Create a new directory for your dotfiles repository in your home directory:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">mkdir</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.dotfiles <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> or any other name you prefer</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></span></code></pre>
+<p>2. Initialize a new Git repository in the directory:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-cd z-shell">cd</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.dotfiles</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> init</span>
+</span></code></pre>
+<p>3. Move your dotfiles into the repository and create symbolic links to them in
+your home directory:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">mv</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.bashrc <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.dotfiles</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">ln</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>s</span> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.dotfiles/.bashrc <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.bashrc</span>
+</span></code></pre>
+<p>You can view all of your configuration files with the following command:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">ls</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>a</span> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span></span>
+</span></code></pre>
+<p>Configuration files that are prefixed with a <code>.</code> are typically hidden by
+default, so you may need to use the <code>-a</code> flag to display them.</p>
+<p>If you have set up the symbolic links correctly, running the <code>ls -a ~</code> command
+should show the symbolic links in your home directory pointing to the dotfiles
+in your repository like so:</p>
+<section
+  style="width: 100%; max-width: 90%; margin: 0 auto; text-align: center;">
+  <img src="symlinks.png"  alt="Dotfiles in home directory" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: My dotfiles in my home directory symlinked to my dotfiles
+        repository.</p>
+  </caption>
+  
+</section>
+<p>4. Add, commit, and push your dotfiles to your remote repository (e.g.,
+GitHub):</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> add .</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> commit<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>m</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Initial commit<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> remote add origin</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> push<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>u</span> origin master</span>
+</span></code></pre>
+<p>By following these steps, you can create a centralized repository for your
+dotfiles and easily manage your configurations across multiple machines. You can
+also share your dotfiles with others and benefit from the productivity
+enhancements that they provide.</p>
+<p>The great thing about dotfiles repositories is that doing a simple search on
+GitHub will yield many examples of how others have set up their dotfiles. You
+can learn from their configurations and customize them to suit your own
+preferences. If you're interested in seeing an example of a dotfiles repository,
+you can check out <a href="https://github.com/micahkepe/dotfiles">mine</a>.</p>
+<h2 id="conclusion"><a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">Conclusion</a></h2>
+<p>The Missing Semester of Your CS Education is a fantastic course that covers a
+wide range of topics that are essential for becoming a more productive and
+efficient programmer. The course has helped me improve my skills in version
+control, automation, and configuration management, and I continue to use many of
+the tools and techniques that I learned in my day-to-day work.</p>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/programming/">programming</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/productivity/">productivity</a>
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;missing-semester&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>

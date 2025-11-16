@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - git</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/tags/git/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-07-23T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/tags/git/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Git Gud: Setting Up a Better Git Config</title>
+        <published>2025-07-23T00:00:00+00:00</published>
+        <updated>2025-07-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/gitconfig/"/>
+        <id>https://micahkepe.com/blog/gitconfig/</id>
+        
+        <summary type="html">&lt;p&gt;There&#x27;s tons of little goodies you can add to your &lt;code&gt;.gitconfig&lt;&#x2F;code&gt; to make your
+life easier. From hidden gems in the git Man pages to aliases and shell
+functions, here&#x27;s a few things I&#x27;ve found useful to reduce friction in my Git
+workflow.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>

@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="tmux is a beast of a tool that I found to be indispensable for my personal
+developer workflow, but there are a few things that I have added to my tmux
+configuration to enhance the out-of-the-box experience." />
+        <meta property="og:description" content="tmux is a beast of a tool that I found to be indispensable for my personal
+developer workflow, but there are a few things that I have added to my tmux
+configuration to enhance the out-of-the-box experience." />
+        <meta property="twitter:description" content="tmux is a beast of a tool that I found to be indispensable for my personal
+developer workflow, but there are a few things that I have added to my tmux
+configuration to enhance the out-of-the-box experience." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    Setting Up a Better tmux Configuration
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;tmux-config&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="Setting Up a Better tmux Configuration" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;tmux-config&#x2F;"
+    />
+    <meta name="twitter:title" content="Setting Up a Better tmux Configuration" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Setting Up a Better tmux Configuration" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Setting Up a Better tmux Configuration</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>13 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2025-08-26
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p><code>tmux</code> is a beast of a tool that I found to be indispensable for my personal
+developer workflow, but there are a few things that I have added to my <code>tmux</code>
+configuration to enhance the out-of-the-box experience.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/tmux-config/#context-what-is-tmux-and-why-should-i-use-it">Context: What is tmux and Why Should I Use It?</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#an-example">An Example</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#benefits">Benefits</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#further-learning">Further Learning</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/tmux-config/#preview-of-changes">Preview of Changes</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/tmux-config/#key-bindings">Key Bindings</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#rebinding-prefix-key">Rebinding Prefix Key</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#re-source-configuration">Re-Source Configuration</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#interactive-session-handling-with-tmux-sessionizer">Interactive Session Handling with tmux-sessionizer</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/tmux-config/#tmux-sessionizer">tmux-sessionizer</a>
+          </li>
+          
+        </ul>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/tmux-config/#quality-of-life-options">Quality of Life Options</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#mouse-support">Mouse Support</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#tmux-neo-vim-navigation">tmux + (Neo)Vim Navigation</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#system-clipboard">System Clipboard</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#1-based-indexing-of-panes-and-auto-renumbering">1-Based Indexing of Panes and Auto-Renumbering</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#vi-like-selection-in-copy-mode">Vi-Like Selection in Copy Mode</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/tmux-config/#making-use-of-popup-menus">Making Use of Popup Menus</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#spotify-player">Spotify Player</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#navigating-sessions-with-fzf">Navigating Sessions with fzf</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/tmux-config/#tpm-package-manager">tpm Package Manager</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#setting-up-tpm">Setting Up tpm</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#tmux-continuum-and-tmux-resurrect">tmux-continuum and tmux-resurrect</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/tmux-config/#catppuccin-themed-status-line-with-add-ons">Catppuccin-Themed Status Line with Add-ons</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/tmux-config/#wrapping-up">Wrapping Up</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/tmux-config/#references">References</a>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span><h2 id="context-what-is-tmux-and-why-should-i-use-it"><a class="zola-anchor" href="#context-what-is-tmux-and-why-should-i-use-it" aria-label="Anchor link for: context-what-is-tmux-and-why-should-i-use-it">Context: What is <code>tmux</code> and Why Should I Use It?</a></h2>
+<blockquote>
+<p><strong>NOTE</strong>: feel free to <a href="https://micahkepe.com/blog/tmux-config/#preview-of-changes">skip ahead</a> if you are familiar
+with <code>tmux</code></p>
+</blockquote>
+<p><code>tmux</code> is a <a href="https://en.wikipedia.org/wiki/Terminal_multiplexer">terminal multiplexer</a>
+— essentially a way to manage the state of multiple terminal sessions in a
+single application (your terminal emulator).</p>
+<h3 id="an-example"><a class="zola-anchor" href="#an-example" aria-label="Anchor link for: an-example">An Example</a></h3>
+<p>For example, let's say you are working on a project and you want to have a few
+processes going: (1) a code editor like Vim for editing the source files, (2) a
+separate shell for running <code>git</code> commands, (3-) and an arbitrary amount of other
+jobs for opening up documentation/ checking system resources/ etc.</p>
+<p>Without a terminal multiplexer, you <em>could</em> open a lot of tabs in your emulator
+and just navigate between them, which might work fine if you just need to
+quickly work on something and not go back to it. But what if you need to switch
+to another project? Do you close all of your tabs now, or open an entirely new
+terminal window? What if you have many projects you are switching between? This
+quickly grows unwieldy and disorganized.</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="./assets/non-tmux-workflow.png"  alt="Traditional non-tmux Workflow" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Yikes</p>
+  </caption>
+  
+</section>
+<p>Instead, with a multiplexer, you can simply create a new session in <code>tmux</code> that
+can have an arbitrary amount of windows ("tabs"), which themselves can have
+multiple panes ("splits"/ views, such as vertical splits).</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="./assets/tmux-interactive-windows.png"  alt="Interactive window switching in tmux" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Interactive window switching in tmux</p>
+  </caption>
+  
+</section>
+<h3 id="benefits"><a class="zola-anchor" href="#benefits" aria-label="Anchor link for: benefits">Benefits</a></h3>
+<p>Some of my favorite aspects of a terminal multiplexer workflow are:</p>
+<ol>
+<li>
+<p><strong>Persistent sessions</strong> → Don't lose your setup or running processes.</p>
+<p>From the <code>tmux</code> man page<sup class="footnote-reference"><a href="#2">1</a></sup>:</p>
+<pre class="z-code"><code><span class="z-text z-plain">Each session is persistent and will survive accidental disconnection (such as
+</span><span class="z-text z-plain">ssh(1) connection timeout) or intentional detaching (with the ‘C-b d’ key
+</span><span class="z-text z-plain">strokes).
+</span></code></pre>
+<p>So, even if I close my computer or exit my terminal emulator application, all
+I have to do is reattach to <code>tmux</code> and resume my work, exactly how I left it
+before.</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <video autoplay loop muted playsinline
+    style="max-width: 100%; height: auto; display: inline-block;">
+    <source src="https://micahkepe.com/blog/tmux-config/./assets/tmux-resume-cmp.mp4" type="video/mp4">
+    Your browser doesn't support the video tag, which I use in place of .gifs, and/or the video formats in use here
+    – sorry!
+  </video>
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Example of resuming work with `tmux`</p>
+  </caption>
+  
+</section>
+<p>The benefit of this is most obvious in my opinion when working on remote
+machines. With a <code>tmux</code> server running on a remote server, I can SSH into the
+server, run <code>tmux attach</code> to reattach to my sessions, and then simply detach
+when I am done and log off the machine. If there's some long running
+processing like a logger, I can just keep it running in a <code>tmux</code> window and
+detach and it will continue running even when I exit from the remote machine.</p>
+</li>
+<li>
+<p><strong>Organized</strong> → keep all your different projects organized with their
+own state and labeled with their respective directories or custom names.</p>
+</li>
+</ol>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Note: <code>tmux</code> Alternative: GNU Screen</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>Another terminal multiplexer you might have heard about is <a href="https://www.gnu.org/software/screen/manual/screen.html">GNU
+Screen</a> (<code>screen</code>). I
+have used <code>screen</code> in the past but personally I prefer <code>tmux</code>, however, the core
+of both programs is essentially the same multiplexing workflow.</p>
+
+    </section>
+  </details>
+</article>
+<h3 id="further-learning"><a class="zola-anchor" href="#further-learning" aria-label="Anchor link for: further-learning">Further Learning</a></h3>
+<p>Going over getting started using <code>tmux</code> is outside of the scope of this blog
+post, but I recommend the following resources to help you get started if you are
+interested:</p>
+<ul>
+<li>YouTube <a href="https://youtu.be/e8BO_dYxk5c?si=6ZiTpqfHfw4usXTv&amp;t=846">MIT Missing Semester - Lecture 5: Command-line Environment
+(2020)</a></li>
+<li>Website <a href="https://linuxhandbook.com/tmux/">Linux Handbook - Getting Started with Tmux</a></li>
+<li>Reference <a href="https://tmuxcheatsheet.com/">Tmux Cheatsheet</a></li>
+<li>Man Page <a href="https://linux.die.net/man/1/tmux">tmux(1)</a></li>
+</ul>
+<p>With that said, the rest of this post will assume at least a minimum working
+proficiency with <code>tmux</code> and its terminology (sessions, panes, windows, etc.).</p>
+<hr />
+<h2 id="preview-of-changes"><a class="zola-anchor" href="#preview-of-changes" aria-label="Anchor link for: preview-of-changes">Preview of Changes</a></h2>
+<p>In this post we'll take your setup from the out-of-the-box experience...</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="./assets/default-tmux.png"  alt="Out of the box tmux configuration." 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Out-of-the-box tmux configuration.</p>
+  </caption>
+  
+</section>
+<p>to this:</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="./assets/end-product-tmux.png"  alt="End product tmux setup from this post." 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">End product tmux setup from this post.</p>
+  </caption>
+  
+</section>
+<p>We'll also change some of the stock options and keys to make using <code>tmux</code> more
+ergonomic (IMHO). Feel free to jump around with the Table of Contents to any
+sections that interest you!</p>
+<blockquote>
+<p><strong>Note</strong>: All <code>tmux</code> configuration snippets will live in <code>~/.tmux.conf</code> unless
+otherwise noted.</p>
+</blockquote>
+<hr />
+<h2 id="key-bindings"><a class="zola-anchor" href="#key-bindings" aria-label="Anchor link for: key-bindings">Key Bindings</a></h2>
+<p>Just for context, <code>tmux</code> defines two "tables" for key binds, essentially
+mappings of bindings to actions. The default table is the prefix table, where
+binds are prefaced with the <code>prefix</code> key (think the common <code>tmux</code> controls like
+<code>prefix</code> + <code>%</code> or <code>prefix</code> + <code>d</code>). The other table is called the root table and
+doesn't require the <code>prefix</code> preface in the binds. By default, <code>bind-key</code> adds
+the mapping to the prefix table, but we can change this to add to the root table
+with the <code>-T</code> option.</p>
+<h3 id="rebinding-prefix-key"><a class="zola-anchor" href="#rebinding-prefix-key" aria-label="Anchor link for: rebinding-prefix-key">Rebinding Prefix Key</a></h3>
+<p>This is the most basic configuration option that I would suggest. By default,
+<code>tmux</code> defines the <code>prefix</code> key to be <code>Ctrl</code> + <code>b</code>, which I think is really
+awkward to type.</p>
+<p>First things first, let's start a new <code>tmux</code> session and edit <code>~/.tmux.conf</code> in
+your text editor of choice:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># remap prefix from &#39;C-b&#39; to &#39;C-a&#39;
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">unbind</span> </span><span class="z-support z-constant z-genconfig">C</span><span class="z-keyword z-operator z-genconfig">-</span>b
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set-option</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g prefix <span class="z-support z-constant z-genconfig">C</span><span class="z-keyword z-operator z-genconfig">-</span>a
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind-key</span> </span><span class="z-support z-constant z-genconfig">C</span><span class="z-keyword z-operator z-genconfig">-</span>a send<span class="z-keyword z-operator z-genconfig">-</span>prefix
+</span></code></pre>
+<p>This is especially nice if you have homerow mods like me<sup class="footnote-reference"><a href="#1">2</a></sup> as it also
+conveniently keeps <code>prefix</code> on the homerow as well (in my case my right pinky
+for <code>Ctrl</code> and then my left pinky for <code>a</code>)</p>
+<p>For this to take effect, detach from your <code>tmux</code> session if you are in one, and
+run <code>tmux source ~/.tmux.conf</code>. You can also stay in <code>tmux</code> and run <code>source ~/.tmux.conf</code> from the <code>tmux</code> command line prompt (accessed with <code>prefix</code> +
+<code>:</code>).</p>
+<h3 id="re-source-configuration"><a class="zola-anchor" href="#re-source-configuration" aria-label="Anchor link for: re-source-configuration">Re-Source Configuration</a></h3>
+<p>Even with only having done one configuration change and I already am tired of
+having to manually source our updated configuration every time. Let's fix that
+with a key bind.</p>
+<p>We can quickly resource our updated configuration file within an active <code>tmux</code>
+session with <code>prefix</code> + <code>r</code>:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind</span> </span>r source<span class="z-keyword z-operator z-genconfig">-</span>file <span class="z-keyword z-operator z-genconfig">~</span><span class="z-keyword z-operator z-genconfig">/</span><span class="z-keyword z-operator z-genconfig">.</span>tmux<span class="z-keyword z-operator z-genconfig">.</span>conf
+</span></code></pre>
+<p>Source the <code>~/.tmux.conf</code> once last time, but from now on, when we make a
+configuration change in this post, simply use <code>prefix</code> + <code>r</code> to reload the
+current <code>tmux</code> session. Much better! Let's continue.</p>
+<h3 id="interactive-session-handling-with-tmux-sessionizer"><a class="zola-anchor" href="#interactive-session-handling-with-tmux-sessionizer" aria-label="Anchor link for: interactive-session-handling-with-tmux-sessionizer">Interactive Session Handling with <code>tmux-sessionizer</code></a></h3>
+<h4 id="tmux-sessionizer"><a class="zola-anchor" href="#tmux-sessionizer" aria-label="Anchor link for: tmux-sessionizer"><code>tmux-sessionizer</code></a></h4>
+<p>Creating new sessions in <code>tmux</code> with the <code>new-session</code> command and having to
+manually specify the session directory with the <code>-c</code> flag gets old quick. We can
+instead write a little shell script to let use fuzzy find the start directory
+for the session and switch to it when it is created.</p>
+<p>This is a script that I adapted from the
+<a href="https://www.youtube.com/c/theprimeagen">ThePrimeagen</a>. He now maintains a
+<a href="https://github.com/ThePrimeagen/tmux-sessionizer">dedicated GitHub repository</a>
+for the script with additional support for configuration files and more, but for
+me, I just like the basic core workflow of fuzzy-finding a project directory
+with <a href="https://github.com/junegunn/fzf"><code>fzf</code></a> and then instantiating a new
+<code>tmux</code> session.</p>
+<blockquote>
+<p><strong>Note</strong>: Make sure you have <code>fzf</code> installed on your machine. <a href="https://github.com/junegunn/fzf?tab=readme-ov-file#installation">Install instructions</a></p>
+</blockquote>
+<p>The entire script (<code>tmux-sessionizer.sh</code>) is &lt; 50 lines of code:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">!/usr/bin/env bash</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Usage:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">   tmux-sessionizer.sh [directory]</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-meta z-function-call z-arguments z-shell"><span class="z-support z-function z-double-brace z-begin z-shell">[[</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-language z-shell">#</span></span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>eq</span> 1 <span class="z-support z-function z-double-brace z-end z-shell">]]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-variable z-other z-readwrite z-assignment z-shell">selected</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">1</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-else z-shell">else</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> if no directory is passed in, use fzf to select one</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">  <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> NOTE: change the directories to search in the find command as you wish</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">  <span class="z-variable z-other z-readwrite z-assignment z-shell">selected</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-variable z-other z-readwrite z-assignment z-shell">FZF_TMUX</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">1</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">find</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/coding <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/vislang/ <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/rice/<span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>mindepth</span> 1<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>maxdepth</span> 1<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>type</span> d</span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> exit if no directory is selected from fzf</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-meta z-function-call z-arguments z-shell"><span class="z-support z-function z-double-brace z-begin z-shell">[[</span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>z</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected</span></span> <span class="z-support z-function z-double-brace z-end z-shell">]]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-exit z-shell">exit</span></span><span class="z-meta z-function-call z-arguments z-shell"> 0</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">selected_name</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">basename</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tr</span></span><span class="z-meta z-function-call z-arguments z-shell"> . _</span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">tmux_running</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">pgrep</span></span><span class="z-meta z-function-call z-arguments z-shell"> tmux</span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> create new session if not in tmux</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-meta z-function-call z-arguments z-shell"><span class="z-support z-function z-double-brace z-begin z-shell">[[</span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>z</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">TMUX</span></span> <span class="z-support z-function z-double-brace z-end z-shell">]]</span></span> <span class="z-keyword z-operator z-logical z-and z-shell">&amp;&amp;</span> <span class="z-meta z-function-call z-arguments z-shell"><span class="z-support z-function z-double-brace z-begin z-shell">[[</span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>z</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">tmux_running</span></span> <span class="z-support z-function z-double-brace z-end z-shell">]]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> new-session<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>s</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected_name</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>c</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-exit z-shell">exit</span></span><span class="z-meta z-function-call z-arguments z-shell"> 0</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> create new session if name doesn&#39;t exist</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-keyword z-operator z-logical z-shell">!</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> has-session<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>t</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected_name</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span> <span class="z-constant z-numeric z-integer z-decimal z-file-descriptor z-shell">2</span><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span>/dev/null</span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> new-session<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>ds</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected_name</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>c</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-meta z-function-call z-arguments z-shell"><span class="z-support z-function z-double-brace z-begin z-shell">[[</span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>n</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">TMUX</span></span> <span class="z-support z-function z-double-brace z-end z-shell">]]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> switch-client<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>t</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected_name</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-else z-shell">else</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> if running outside of tmux, attach to the new session</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> attach-session<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>t</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected_name</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span></code></pre>
+<p>To make the script executable and available, change the file permissions and
+copy the it to your local binary folder:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">mkdir</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>p</span> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.local/bin</span>
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Note: change to match your script&#39;s file path</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">chmod</span></span><span class="z-meta z-function-call z-arguments z-shell"> +x path/to/tmux-sessionizer.sh</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">cp</span></span><span class="z-meta z-function-call z-arguments z-shell"> path/to/tmux-sessionizer.sh <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.local/bin/tmux-sessionizer</span>
+</span></code></pre>
+<p>Now let's make a key bind to make this script accessible in any running <code>tmux</code>
+instance:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind</span> </span>f run<span class="z-keyword z-operator z-genconfig">-</span>shell <span class="z-string z-quoted z-double z-genconfig">&quot;tmux neww ~/dotfiles/tmux/tmux-sessionizer.sh&quot;</span>
+</span></code></pre>
+<p>Now we can do <code>prefix</code> + <code>f</code> to invoke the script:</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <video autoplay loop muted playsinline
+    style="max-width: 100%; height: auto; display: inline-block;">
+    <source src="https://micahkepe.com/blog/tmux-config/./assets/tmux-sessionizer-fzf-cmp.mp4" type="video/mp4">
+    Your browser doesn't support the video tag, which I use in place of .gifs, and/or the video formats in use here
+    – sorry!
+  </video>
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">tmux-sessionizer script in action</p>
+  </caption>
+  
+</section>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Making <code>tmux-sessionizer</code> Available in Neovim</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>For Neovim, in <code>init.lua</code> or which ever module you define your keymaps:</p>
+<pre data-lang="lua" class="language-lua z-code"><code class="language-lua" data-lang="lua"><span class="z-source z-lua"><span class="z-variable z-other z-lua">vim</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">keymap</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">set</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>n<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;C-f&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;cmd&gt;silent !tmux neww tmux-sessionizer&lt;CR&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></code></pre>
+<p>Now while in Normal mode, I can hit <code>Ctrl</code> + <code>f</code> to execute the script in a new
+<code>tmux</code> window.</p>
+
+    </section>
+  </details>
+</article>
+<p>You can easily extend this script to make it your own. For example, you could do
+further setup of the session with some starter windows or support configuration
+files, etc.</p>
+<hr />
+<h2 id="quality-of-life-options"><a class="zola-anchor" href="#quality-of-life-options" aria-label="Anchor link for: quality-of-life-options">Quality of Life Options</a></h2>
+<p>There are a few quality of life options that I have set to make my <code>tmux</code>
+experience easier and more interoperable with my other CLI tools.</p>
+<h3 id="mouse-support"><a class="zola-anchor" href="#mouse-support" aria-label="Anchor link for: mouse-support">Mouse Support</a></h3>
+<p>By default, <code>tmux</code> controls are purely keyboard-based. To enable using your
+mouse:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Enable mouse control (clickable windows, panes, resizable panes)
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g mouse <span class="z-constant z-language z-genconfig">on</span>
+</span></code></pre>
+<h3 id="tmux-neo-vim-navigation"><a class="zola-anchor" href="#tmux-neo-vim-navigation" aria-label="Anchor link for: tmux-neo-vim-navigation"><code>tmux</code> + <code>(Neo)Vim</code> Navigation</a></h3>
+<p>If you also use Vim/Neovim in <code>tmux</code>, I highly recommend
+<a href="https://github.com/christoomey/vim-tmux-navigator"><code>christoomey/vim-tmux-navigator</code></a>,
+which allows you to navigate between tmux panes and Neovim splits using the same
+keybindings (like <code>&lt;C-h&gt;</code>,<code>&lt;C-j&gt;</code>, <code>&lt;C-k&gt;</code>, and <code>&lt;C-l&gt;</code>).</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># vim-tmux-naviator plug related stuff
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Smart pane switching with awareness of Vim splits.
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># See: https://github.com/christoomey/vim-tmux-navigator
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">is_vim</span><span class="z-keyword z-operator z-genconfig">=</span></span><span class="z-string z-quoted z-double z-genconfig">&quot;ps -o state= -o comm= -t &#39;#{pane_tty}&#39; \
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-double z-genconfig">    | grep -iqE &#39;^[^TXZ ]+ +(\\S+\\/)?g?(view|l?n?vim?x?|fzf)(diff)?$&#39;&quot;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind</span> </span><span class="z-keyword z-operator z-genconfig">-</span>n <span class="z-string z-quoted z-signle z-genconfig">&#39;C-h&#39;</span> if<span class="z-keyword z-operator z-genconfig">-</span>shell <span class="z-string z-quoted z-double z-genconfig">&quot;$is_vim&quot;</span> <span class="z-string z-quoted z-double z-genconfig">&quot;send-keys C-h&quot;</span> <span class="z-string z-quoted z-double z-genconfig">&quot;select-pane -L&quot;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind</span> </span><span class="z-keyword z-operator z-genconfig">-</span>n <span class="z-string z-quoted z-signle z-genconfig">&#39;C-j&#39;</span> if<span class="z-keyword z-operator z-genconfig">-</span>shell <span class="z-string z-quoted z-double z-genconfig">&quot;$is_vim&quot;</span> <span class="z-string z-quoted z-double z-genconfig">&quot;send-keys C-j&quot;</span> <span class="z-string z-quoted z-double z-genconfig">&quot;select-pane -D&quot;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind</span> </span><span class="z-keyword z-operator z-genconfig">-</span>n <span class="z-string z-quoted z-signle z-genconfig">&#39;C-k&#39;</span> if<span class="z-keyword z-operator z-genconfig">-</span>shell <span class="z-string z-quoted z-double z-genconfig">&quot;$is_vim&quot;</span> <span class="z-string z-quoted z-double z-genconfig">&quot;send-keys C-k&quot;</span> <span class="z-string z-quoted z-double z-genconfig">&quot;select-pane -U&quot;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind</span> </span><span class="z-keyword z-operator z-genconfig">-</span>n <span class="z-string z-quoted z-signle z-genconfig">&#39;C-l&#39;</span> if<span class="z-keyword z-operator z-genconfig">-</span>shell <span class="z-string z-quoted z-double z-genconfig">&quot;$is_vim&quot;</span> <span class="z-string z-quoted z-double z-genconfig">&quot;send-keys C-l&quot;</span> <span class="z-string z-quoted z-double z-genconfig">&quot;select-pane -R&quot;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind</span> </span><span class="z-keyword z-operator z-genconfig">-</span>n <span class="z-string z-quoted z-signle z-genconfig">&#39;C-<span class="z-constant z-character z-genconfig">\&#39;</span> if-shell &quot;$is_vim&quot; &quot;send-keys C-\\&quot; &quot;select-pane -l&quot;
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-signle z-genconfig">tmux_version=&#39;</span>$(tmux <span class="z-keyword z-operator z-genconfig">-</span><span class="z-support z-constant z-genconfig">V</span> <span class="z-keyword z-operator z-genconfig">|</span> sed <span class="z-keyword z-operator z-genconfig">-</span>En <span class="z-string z-quoted z-double z-genconfig">&quot;s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p&quot;</span>)<span class="z-string z-quoted z-signle z-genconfig">&#39;
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-signle z-genconfig">if-shell -b &#39;</span>[ <span class="z-string z-quoted z-double z-genconfig">&quot;$(echo &quot;</span><span class="z-storage z-source z-genconfig">$tmux_version</span> <span class="z-keyword z-operator z-genconfig">&lt;</span> <span class="z-constant z-numeric z-genconfig">3</span><span class="z-keyword z-operator z-genconfig">.</span><span class="z-constant z-numeric z-genconfig">0</span><span class="z-string z-quoted z-double z-genconfig">&quot; | bc)&quot;</span> <span class="z-keyword z-operator z-genconfig">=</span> <span class="z-constant z-numeric z-genconfig">1</span> ]<span class="z-string z-quoted z-signle z-genconfig">&#39; \
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-signle z-genconfig">    &quot;bind-key -n &#39;</span><span class="z-support z-constant z-genconfig">C</span><span class="z-keyword z-operator z-genconfig">-</span><span class="z-keyword z-operator z-genconfig">\</span><span class="z-string z-quoted z-qsignle z-genconfig">\&#39; if-shell \&quot;$is_vim\&quot; &#39;send-keys C-\\&#39;</span>  <span class="z-string z-quoted z-signle z-genconfig">&#39;select-pane -l&#39;</span><span class="z-string z-quoted z-double z-genconfig">&quot;
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-double z-genconfig">if-shell -b &#39;[ &quot;</span>$(echo <span class="z-string z-quoted z-double z-genconfig">&quot;$tmux_version &gt;= 3.0&quot;</span> <span class="z-keyword z-operator z-genconfig">|</span> bc)<span class="z-string z-quoted z-double z-genconfig">&quot; = 1 ]&#39; \
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-double z-genconfig">    &quot;</span>bind<span class="z-keyword z-operator z-genconfig">-</span>key <span class="z-keyword z-operator z-genconfig">-</span>n <span class="z-string z-quoted z-signle z-genconfig">&#39;C-\<span class="z-constant z-character z-genconfig">\&#39;</span> if-shell \&quot;$is_vim\&quot; &#39;</span>send<span class="z-keyword z-operator z-genconfig">-</span>keys <span class="z-support z-constant z-genconfig">C</span><span class="z-keyword z-operator z-genconfig">-</span><span class="z-keyword z-operator z-genconfig">\</span><span class="z-keyword z-operator z-genconfig">\</span><span class="z-keyword z-operator z-genconfig">\</span><span class="z-string z-quoted z-qsignle z-genconfig">\&#39;  &#39;select-pane -l&#39;&quot;
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-qsignle z-genconfig">
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-qsignle z-genconfig">bind-key -T copy-mode-vi &#39;C-h&#39; select-pane -L
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-qsignle z-genconfig">bind-key -T copy-mode-vi &#39;C-j&#39; select-pane -D
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-qsignle z-genconfig">bind-key -T copy-mode-vi &#39;C-k&#39; select-pane -U
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-qsignle z-genconfig">bind-key -T copy-mode-vi &#39;C-l&#39; select-pane -R
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-qsignle z-genconfig">bind-key -T copy-mode-vi C-\\ select-pane -l
+</span></span></code></pre>
+<p>Then you will also need to install the plugin in Vim/Neovim:</p>
+<details open>
+<summary>Installing with lazy.nvim</summary>
+<p><strong>lazy.nvim</strong>:</p>
+<pre data-lang="lua" class="language-lua z-code"><code class="language-lua" data-lang="lua"><span class="z-source z-lua">  <span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span>
+</span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-lua">    <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>christoomey/vim-tmux-navigator<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-lua">    </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">lazy</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-language z-boolean z-true z-lua">false</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> load on start up to immediately enable
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-lua">    </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">cmd</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">      <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>TmuxNavigateLeft<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">      <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>TmuxNavigateDown<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">      <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>TmuxNavigateUp<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">      <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>TmuxNavigateRight<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">      <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>TmuxNavigatePrevious<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">    <span class="z-punctuation z-section z-block z-end z-lua">}</span></span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-lua">    </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">keys</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">      <span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;C-h&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;cmd&gt;&lt;C-U&gt;TmuxNavigateLeft&lt;cr&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">desc</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>Navigate left<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">      <span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;C-j&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;cmd&gt;&lt;C-U&gt;TmuxNavigateDown&lt;cr&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">desc</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>Navigate down<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">      <span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;C-k&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;cmd&gt;&lt;C-U&gt;TmuxNavigateUp&lt;cr&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">desc</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>Navigate up<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">      <span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;C-l&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;cmd&gt;&lt;C-U&gt;TmuxNavigateRight&lt;cr&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">desc</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>Navigate right<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">      <span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;C-<span class="z-constant z-character z-escape z-lua">\\</span>&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>&lt;cmd&gt;&lt;C-U&gt;TmuxNavigatePrevious&lt;cr&gt;<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">desc</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>Navigate previous<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-value z-lua"><span class="z-meta z-mapping z-lua">    <span class="z-punctuation z-section z-block z-end z-lua">}</span></span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-lua">  <span class="z-punctuation z-section z-block z-end z-lua">}</span></span>,
+</span></code></pre>
+</details>
+<h3 id="system-clipboard"><a class="zola-anchor" href="#system-clipboard" aria-label="Anchor link for: system-clipboard">System Clipboard</a></h3>
+<p>By default, <code>tmux</code> will not copy to the system clipboard when you yank in copy
+mode (accessible with <code>prefix</code> + <code>[</code>):</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Allow tmux clipboard to copy to system clipboard
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>s set<span class="z-keyword z-operator z-genconfig">-</span>clipboard <span class="z-constant z-language z-genconfig">on</span>
+</span></code></pre>
+<h3 id="1-based-indexing-of-panes-and-auto-renumbering"><a class="zola-anchor" href="#1-based-indexing-of-panes-and-auto-renumbering" aria-label="Anchor link for: 1-based-indexing-of-panes-and-auto-renumbering">1-Based Indexing of Panes and Auto-Renumbering</a></h3>
+<p>Panes and windows are normally 0-indexed, which does make it a little awkward
+when you want to switch to specific window index (<code>prefix</code> + <code>&lt;index #&gt;</code>) since
+the <code>0</code> key is usually on the far right side of the number row. Additionally,
+just from aesthetic point of view, I think starting window at 1 is more
+intuitive and looks nicer.</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Start windows and panes at 1, not 0
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g base<span class="z-keyword z-operator z-genconfig">-</span>index <span class="z-constant z-numeric z-genconfig">1</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">setw</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g pane<span class="z-keyword z-operator z-genconfig">-</span>base<span class="z-keyword z-operator z-genconfig">-</span>index <span class="z-constant z-numeric z-genconfig">1</span>
+</span></code></pre>
+<p>Additionally, say we have three windows (now indexed 1-3), and we delete the
+second window. By default, <code>tmux</code> will keep the original numbering of the
+windows, leaving you a gap with windows labeled 1 and 3. This is annoying, so
+let's make <code>tmux</code> renumber the windows to 1 and 2 like we would expect:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Auto renumber windows on close
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g renumber<span class="z-keyword z-operator z-genconfig">-</span>windows <span class="z-constant z-language z-genconfig">on</span>
+</span></code></pre>
+<h3 id="vi-like-selection-in-copy-mode"><a class="zola-anchor" href="#vi-like-selection-in-copy-mode" aria-label="Anchor link for: vi-like-selection-in-copy-mode">Vi-Like Selection in Copy Mode</a></h3>
+<p>We can set <code>vi</code> bindings in copy mode (accessed with <code>prefix</code> + <code>[</code>) for more
+crossover with Vim/Neovim:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span>mode<span class="z-keyword z-operator z-genconfig">-</span>keys vi
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind-key</span> </span><span class="z-keyword z-operator z-genconfig">-</span><span class="z-support z-constant z-genconfig">T</span> copy<span class="z-keyword z-operator z-genconfig">-</span>mode<span class="z-keyword z-operator z-genconfig">-</span>vi v send <span class="z-keyword z-operator z-genconfig">-</span><span class="z-support z-constant z-genconfig">X</span> begin<span class="z-keyword z-operator z-genconfig">-</span>selection
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind-key</span> </span><span class="z-keyword z-operator z-genconfig">-</span><span class="z-support z-constant z-genconfig">T</span> copy<span class="z-keyword z-operator z-genconfig">-</span>mode<span class="z-keyword z-operator z-genconfig">-</span>vi <span class="z-support z-constant z-genconfig">V</span> send <span class="z-keyword z-operator z-genconfig">-</span><span class="z-support z-constant z-genconfig">X</span> select<span class="z-keyword z-operator z-genconfig">-</span>line
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind-key</span> </span><span class="z-keyword z-operator z-genconfig">-</span><span class="z-support z-constant z-genconfig">T</span> copy<span class="z-keyword z-operator z-genconfig">-</span>mode<span class="z-keyword z-operator z-genconfig">-</span>vi y send <span class="z-keyword z-operator z-genconfig">-</span><span class="z-support z-constant z-genconfig">X</span> copy<span class="z-keyword z-operator z-genconfig">-</span>pipe<span class="z-keyword z-operator z-genconfig">-</span>and<span class="z-keyword z-operator z-genconfig">-</span>cancel <span class="z-string z-quoted z-signle z-genconfig">&#39;pbcopy&#39;</span>
+</span></code></pre>
+<p>Now in copy mode you can you use the normal <code>H</code>/<code>J</code>/<code>K</code>/<code>L</code> navigation keys to
+get around the buffer, <code>v</code> to enter "Visual" mode, <code>V</code> to enter "Visual-Line"
+mode, and <code>y</code> to "yank" to the system clipboard.</p>
+<blockquote>
+<p><strong>Note</strong>: I use <code>pbcopy</code> to copy to the system clipboard since I am on Mac, so
+you may have to change this command to your system accordingly.</p>
+</blockquote>
+<hr />
+<h2 id="making-use-of-popup-menus"><a class="zola-anchor" href="#making-use-of-popup-menus" aria-label="Anchor link for: making-use-of-popup-menus">Making Use of Popup Menus</a></h2>
+<p><code>tmux</code> allows you to create popup menus with the <code>display-popup</code> command. I
+usually don't see this <code>tmux</code> command mentioned a lot but I have found these
+popup windows useful in some limited ways, but you could easily tailor them to
+your use cases.</p>
+<h3 id="spotify-player"><a class="zola-anchor" href="#spotify-player" aria-label="Anchor link for: spotify-player">Spotify Player</a></h3>
+<p>One of my favorite uses of popup menus in <code>tmux</code> has been using them to access
+my favorite Spotify TUI,
+<a href="https://github.com/aome510/spotify-player/tree/master"><code>spotify-player</code></a>, which
+acts as a CLI Spotify client.</p>
+<p>To install with Homebrew, run:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">brew</span></span><span class="z-meta z-function-call z-arguments z-shell"> install spotify_player</span>
+</span></code></pre>
+<p>With <code>cargo</code>:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">cargo</span></span><span class="z-meta z-function-call z-arguments z-shell"> install spotify_player<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>locked</span></span>
+</span></code></pre>
+<blockquote>
+<p><strong>NOTE</strong>: For other installation options, see the <a href="https://github.com/aome510/spotify-player?tab=readme-ov-file#installation">spotify-player README</a>.</p>
+</blockquote>
+<p>We can define a keybind to create a new display popup running <code>spotify-player</code>
+and then close with <code>prefix</code> + <code>d</code> like any other <code>tmux</code> window:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Spotify Player w/ `spotify_player`
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind</span> </span><span class="z-support z-constant z-genconfig">C</span><span class="z-keyword z-operator z-genconfig">-</span>p run<span class="z-keyword z-operator z-genconfig">-</span>shell <span class="z-string z-quoted z-signle z-genconfig">&#39;
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-signle z-genconfig">if [ &quot;#{session_name}&quot; = &quot;spotify&quot; ]; then
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-signle z-genconfig">  tmux display-message &quot;Already in spotify session - use prefix d to detach&quot;
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-signle z-genconfig">else
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-signle z-genconfig">  tmux has-session -t spotify 2&gt;/dev/null || tmux new-session -d -s spotify spotify_player
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-signle z-genconfig">  tmux display-popup -E &quot;tmux attach -t spotify&quot;
+</span></span><span class="z-source z-genconfig"><span class="z-string z-quoted z-signle z-genconfig">fi&#39;</span>
+</span></code></pre>
+<p>The script will create a new <code>tmux</code> session called "spotify" if it doesn't exist
+already, else it will reattach to the existing. The first check is to avoid
+session nesting in the case you accidentally hit the defined Spotify keybind
+within the "spotify" session.</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="./assets/spotify-player-popup.png"  alt="Spotify Player TUI display popup." 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Spotify Player TUI display popup.</p>
+  </caption>
+  
+</section>
+<h3 id="navigating-sessions-with-fzf"><a class="zola-anchor" href="#navigating-sessions-with-fzf" aria-label="Anchor link for: navigating-sessions-with-fzf">Navigating Sessions with fzf</a></h3>
+<p>We can add the following to create a popup to let us fuzzy-find our available
+sessions and switch to the one we select:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Session jumping with `fzf`
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">bind</span> </span><span class="z-support z-constant z-genconfig">C</span><span class="z-keyword z-operator z-genconfig">-</span>j display<span class="z-keyword z-operator z-genconfig">-</span>popup <span class="z-keyword z-operator z-genconfig">-</span><span class="z-support z-constant z-genconfig">E</span> <span class="z-string z-quoted z-double z-genconfig">&quot;~/dotfiles/tmux/session-fzf.sh&quot;</span>
+</span></code></pre>
+<p><code>~/dotfiles/tmux/session-fzf.sh</code>:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">!/bin/bash</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> list-sessions</span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sed</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>E</span> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>s/:.*$//<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">grep</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>v</span> <span class="z-constant z-character z-escape z-shell">\&quot;</span>^<span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> display-message<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>p</span> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>#S<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span><span class="z-constant z-character z-escape z-shell">\$</span><span class="z-constant z-character z-escape z-shell">\&quot;</span></span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>reverse</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>ghost</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Session name<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>header</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Available Sessions:<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>height</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span>10<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>border</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>border</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span>rounded<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>border-label</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span> Switch Tmux Session <span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>color</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span>label:italic:black</span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">xargs</span></span><span class="z-meta z-function-call z-arguments z-shell"> tmux switch-client<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>t</span></span>
+</span></code></pre>
+<p>The long list of options to <code>fzf</code></p>
+<blockquote>
+<p><strong>Note</strong>: I define I the script in a separate file because my Treesitter
+highlighting always goes haywire with the quote escaping and it is easier to
+just define the script separate and just specify the script path for <code>tmux</code>
+using the <code>-E</code> flag for <code>display-popup</code>.</p>
+</blockquote>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="./assets/session-fzf.png"  alt="Using fzf to fuzzy-find sessions in a display" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Using fzf to fuzzy-find sessions in a display</p>
+  </caption>
+  
+</section>
+<hr />
+<h2 id="tpm-package-manager"><a class="zola-anchor" href="#tpm-package-manager" aria-label="Anchor link for: tpm-package-manager"><code>tpm</code> Package Manager</a></h2>
+<p>If you don't care about the extra overhead of a package manager, I would
+recommend <a href="https://github.com/tmux-plugins/tpm"><code>tpm</code></a> for the extra
+configuration and aesthetic options it allows. However, it is perfectly fine to
+stop with the suggestions above and stick with <code>tmux</code> by itself and skip the
+rest of this section. I do limit myself to a very limited set of plugins to keep
+my dependencies minimal.</p>
+<h3 id="setting-up-tpm"><a class="zola-anchor" href="#setting-up-tpm" aria-label="Anchor link for: setting-up-tpm">Setting Up <code>tpm</code></a></h3>
+<p>The first thing we are going to do is clone <code>tpm</code> to our machine:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> clone https://github.com/tmux-plugins/tpm <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.tmux/plugins/tpm</span>
+</span></code></pre>
+<p>At the <strong>bottom</strong> of your <code>.tmux.conf</code>, add the following as a starting point:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># List of plugins
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g <span class="z-storage z-source z-genconfig">@plugin</span> <span class="z-string z-quoted z-signle z-genconfig">&#39;tmux-plugins/tpm&#39;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># more plugins will go here
+</span></span></span><span class="z-source z-genconfig">
+</span><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">run</span> </span><span class="z-string z-quoted z-signle z-genconfig">&#39;~/.tmux/plugins/tpm/tpm&#39;</span>
+</span></code></pre>
+<p>Then, re-source your updated configuration by running using our handy reload
+keybind from earlier (<code>prefix</code> + <code>r</code>) and that's it for the basic setup! Now we
+have the TPM plugin installed and we can start adding plugins under <code># List of plugins</code>.</p>
+<h3 id="tmux-continuum-and-tmux-resurrect"><a class="zola-anchor" href="#tmux-continuum-and-tmux-resurrect" aria-label="Anchor link for: tmux-continuum-and-tmux-resurrect"><code>tmux-continuum</code> and <code>tmux-resurrect</code></a></h3>
+<p>While <code>tmux</code> sessions are persistent, they do not persist in the case that the
+<code>tmux</code> server itself is killed, such as in the case of a computer restart.
+However, we can fix this with the
+<a href="https://github.com/tmux-plugins/tmux-continuum"><code>tmux-continuum</code></a> and
+<a href="https://github.com/tmux-plugins/tmux-resurrect"><code>tmux-resurrect</code></a> plugins.</p>
+<p>Add them to our list of TPM plugins:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># List of plugins
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># ...
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g <span class="z-storage z-source z-genconfig">@plugin</span> <span class="z-string z-quoted z-signle z-genconfig">&#39;tmux-plugins/tmux-resurrect&#39;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g <span class="z-storage z-source z-genconfig">@plugin</span> <span class="z-string z-quoted z-signle z-genconfig">&#39;tmux-plugins/tmux-continuum&#39;</span>
+</span></code></pre>
+<p>Now install with <code>prefix</code> + <code>I</code> (capital <code>I</code>, not lowercase).</p>
+<p>Now in a case of restarts, you can use <code>prefix</code> + <code>&lt;C-R&gt;</code> to restore all of our
+previous <code>tmux</code> sessions, windows, and panes. Of course, I don't use these
+often, but I am glad that I have them in these situations.</p>
+<h3 id="catppuccin-themed-status-line-with-add-ons"><a class="zola-anchor" href="#catppuccin-themed-status-line-with-add-ons" aria-label="Anchor link for: catppuccin-themed-status-line-with-add-ons">Catppuccin-Themed Status Line with Add-ons</a></h3>
+<p>I am a Catppuccin theme man all the way and I like having the unified look
+across all my developer tools, which I do in <code>tmux</code> with <a href="https://github.com/catppuccin/tmux">catppuccin/tmux</a>.</p>
+<p>Due to a naming conflict, the recommended way is to clone the Catppuccin theme
+locally:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">mkdir</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>p</span> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.config/tmux/plugins/catppuccin</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">git</span></span><span class="z-meta z-function-call z-arguments z-shell"> clone<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>b</span> v2.1.3 https://github.com/catppuccin/tmux.git <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/.config/tmux/plugins/catppuccin/tmux</span>
+</span></code></pre>
+<p>Once we do this, let's set up the status line and theme in <code>~/.tmux.conf</code>:</p>
+<pre data-lang="conf" class="language-conf z-code"><code class="language-conf" data-lang="conf"><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># List of plugins
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># ...
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g <span class="z-storage z-source z-genconfig">@plugin</span> <span class="z-string z-quoted z-signle z-genconfig">&#39;tmux-plugins/tmux-battery&#39;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g <span class="z-storage z-source z-genconfig">@plugin</span> <span class="z-string z-quoted z-signle z-genconfig">&#39;tmux-plugins/tmux-cpu&#39;</span>
+</span><span class="z-source z-genconfig">
+</span><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Configure the Catppuccin plugin
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g <span class="z-storage z-source z-genconfig">@catppuccin_flavor</span> <span class="z-string z-quoted z-double z-genconfig">&quot;mocha&quot;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g <span class="z-storage z-source z-genconfig">@catppuccin_window_status_style</span> <span class="z-string z-quoted z-double z-genconfig">&quot;rounded&quot;</span>
+</span><span class="z-source z-genconfig">
+</span><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Load Catppuccin (no TPM due to naming conflicts)
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">run</span> </span><span class="z-keyword z-operator z-genconfig">~</span><span class="z-keyword z-operator z-genconfig">/</span><span class="z-keyword z-operator z-genconfig">.</span>config<span class="z-keyword z-operator z-genconfig">/</span>tmux<span class="z-keyword z-operator z-genconfig">/</span>plugins<span class="z-keyword z-operator z-genconfig">/</span>catppuccin<span class="z-keyword z-operator z-genconfig">/</span>tmux<span class="z-keyword z-operator z-genconfig">/</span>catppuccin<span class="z-keyword z-operator z-genconfig">.</span>tmux
+</span><span class="z-source z-genconfig">
+</span><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># Ensure that everything on the right side of the status line
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-comment z-genconfig"><span class="z-comment z-line z-number-sign z-genconfig"># is included.
+</span></span></span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g status<span class="z-keyword z-operator z-genconfig">-</span>right<span class="z-keyword z-operator z-genconfig">-</span>length <span class="z-constant z-numeric z-genconfig">100</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g status<span class="z-keyword z-operator z-genconfig">-</span>left<span class="z-keyword z-operator z-genconfig">-</span>length <span class="z-constant z-numeric z-genconfig">100</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g status<span class="z-keyword z-operator z-genconfig">-</span>left <span class="z-string z-quoted z-double z-genconfig">&quot;#{E:@catppuccin_status_user}&quot;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>g status<span class="z-keyword z-operator z-genconfig">-</span>right <span class="z-string z-quoted z-double z-genconfig">&quot;#{E:@catppuccin_status_directory}&quot;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>ag status<span class="z-keyword z-operator z-genconfig">-</span>right <span class="z-string z-quoted z-double z-genconfig">&quot;#{E:@catppuccin_status_session}&quot;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>agF status<span class="z-keyword z-operator z-genconfig">-</span>right <span class="z-string z-quoted z-double z-genconfig">&quot;#{E:@catppuccin_status_cpu}&quot;</span>
+</span><span class="z-source z-genconfig"><span class="z-meta z-param z-genconfig"><span class="z-variable z-parameter z-genconfig">set</span> </span><span class="z-keyword z-operator z-genconfig">-</span>agF status<span class="z-keyword z-operator z-genconfig">-</span>right <span class="z-string z-quoted z-double z-genconfig">&quot;#{E:@catppuccin_status_battery}&quot;</span>
+</span></code></pre>
+<p>Notice the extra plugins <code>tmux-plugins/tmux-battery</code> and
+<code>tmux-plugins/tmux-cpu</code>, which I like so that my battery and CPU percentage is
+also shown on the <code>tmux</code> status line.</p>
+<p>Install the additional plugins with the <code>prefix</code> + <code>I</code> binding like we used
+before and check out our Catppuccin-themed status line:</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="./assets/catppuccin-status-line.png"  alt="Catppuccin tmux status line." 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Catppuccin tmux status line.</p>
+  </caption>
+  
+</section>
+<hr />
+<h2 id="wrapping-up"><a class="zola-anchor" href="#wrapping-up" aria-label="Anchor link for: wrapping-up">Wrapping Up</a></h2>
+<p>My full <code>.tmux.conf</code> file can be found <a href="https://github.com/micahkepe/dotfiles/blob/main/tmux/.tmux.conf">here</a>.
+If there's some low-hanging fruit of <code>tmux</code> quality of life options I missed, or
+you have some nifty configuration yourself, I'd love to hear about it below!</p>
+<hr />
+<h2 id="references"><a class="zola-anchor" href="#references" aria-label="Anchor link for: references">References</a></h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">2</sup>
+<p>Blog: <a href="https://micahkepe.com/blog/piantor-keyboard/#home-row-mods-making-the-most-out-of-42-keyboards">https://micahkepe.com/blog/piantor-keyboard/#home-row-mods-making-the-most-out-of-42-keyboards</a></p>
+<p>More information about my homerow modifiers setup using QMK on my Piantor
+42-key keyboard.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">1</sup>
+<p>Man Page: <a href="https://www.man7.org/linux/man-pages/man1/tmux.1.html">tmux(1)</a></p>
+</div>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/programming/">programming</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/tools/">tools</a>
+                    
+                        
+                            
+                                and
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/tmux/">tmux</a>
+                    
+                        
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;tmux-config&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>

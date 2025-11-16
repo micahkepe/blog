@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="As part of my design course requirements at Rice University, I will be creating
+a game in a group of 4 (and more!) using the Godot engine
+over the upcoming semester. This blog post will serve as a progress log for
+the game&#x27;s development and hopefully provide some good insights into the game
+development process from someone who has never made a game before." />
+        <meta property="og:description" content="As part of my design course requirements at Rice University, I will be creating
+a game in a group of 4 (and more!) using the Godot engine
+over the upcoming semester. This blog post will serve as a progress log for
+the game&#x27;s development and hopefully provide some good insights into the game
+development process from someone who has never made a game before." />
+        <meta property="twitter:description" content="As part of my design course requirements at Rice University, I will be creating
+a game in a group of 4 (and more!) using the Godot engine
+over the upcoming semester. This blog post will serve as a progress log for
+the game&#x27;s development and hopefully provide some good insights into the game
+development process from someone who has never made a game before." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;43-monkeys&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;43-monkeys&#x2F;"
+    />
+    <meta name="twitter:title" content="Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>12 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-11-26
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>As part of my design course requirements at Rice University, I will be creating
+a game in a <a href="https://micahkepe.com/blog/43-monkeys/#contributors">group of 4 (<em>and more!</em>)</a> using the Godot engine
+over the upcoming semester. This blog post will serve as a progress log for
+the game's development and hopefully provide some good insights into the game
+development process from someone who has never made a game before.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/43-monkeys/#initial-project-proposal">Initial Project Proposal</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/43-monkeys/#game-description">Game Description</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/43-monkeys/#game-mechanics">Game Mechanics</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/43-monkeys/#progress-log">Progress Log</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/43-monkeys/#pre-class-work">Pre-Class Work</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/43-monkeys/#overview-of-godot">Overview of Godot</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/43-monkeys/#handling-basic-movement">Handling Basic Movement</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/43-monkeys/#music">Music</a>
+          </li>
+          
+        </ul>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/43-monkeys/#making-an-mvp-demo-weeks-1-2">Making an MVP Demo: Weeks 1-2</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/43-monkeys/#some-more-teasers">Some more teasers</a>
+          </li>
+          
+        </ul>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/43-monkeys/#work-until-midterm-demo-weeks-3-7">Work Until Midterm Demo: Weeks 3-7</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/43-monkeys/#shaders">Shaders</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/43-monkeys/#added-animations">Added Animations</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/43-monkeys/#boids-revisited">Boids: Revisited</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/43-monkeys/#2025-02-18-progress-video">2025-02-18 Progress Video</a>
+          </li>
+          
+        </ul>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/43-monkeys/#midterm-demo">Midterm Demo</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/43-monkeys/#wrapping-up-work-until-final-demo">Wrapping Up: Work Until Final Demo</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/43-monkeys/#play-the-game-on-itch-io">Play the Game on itch.io!</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/43-monkeys/#contributors">Contributors</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/43-monkeys/#core-developer-team">Core Developer Team</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/43-monkeys/#outside-collaborators">Outside Collaborators</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span><h2 id="initial-project-proposal"><a class="zola-anchor" href="#initial-project-proposal" aria-label="Anchor link for: initial-project-proposal">Initial Project Proposal</a></h2>
+<p>Not to give too much away yet, but our game is called <strong>43 Monkeys</strong> and draws
+a lot of inspiration from this news source:
+<a href="https://www.cbsnews.com/news/south-carolina-escaped-monkeys-what-we-know/">What we know after 43 monkeys escaped a South Carolina research facility</a></p>
+<br>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="images/game-teaser.png"  alt="A teaser image of our game idea from our initial project proposal." 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">A teaser image of our game idea from our initial project proposal.</p>
+  </caption>
+  
+</section>
+<h2 id="game-description"><a class="zola-anchor" href="#game-description" aria-label="Anchor link for: game-description">Game Description</a></h2>
+<p>In <strong>43 Monkeys</strong>, the player controls a group of monkeys that have escaped from
+a research facility. The monkeys must navigate through a series of puzzles and
+obstacles to escape the facility and make it to freedom on the outside. Along
+the way they can save more monkeys to add to their troop and use their unique
+abilities to solve puzzles and defeat enemies.</p>
+<h2 id="game-mechanics"><a class="zola-anchor" href="#game-mechanics" aria-label="Anchor link for: game-mechanics">Game Mechanics</a></h2>
+<p>The game is a keyboard-controlled top down 2D roguelike where the player
+controls both the main monkey and the troop that can follow the player or move
+independently. Through 5 different levels/floors, the player must solve puzzles,
+defeat enemies, and avoid traps to escape the facility. The player can also
+collect power ups and new monkeys to add to their troop. Begin a rogue-like, the
+game will have perma-death, but the player can unlock shortcuts and new
+abilities to make future runs easier.</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="./images/teaser1.png"  alt="A teaser image of gameplay from the final game" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">A snapshot of gameplay from the finished second level of the game.</p>
+  </caption>
+  
+</section>
+<hr />
+<h2 id="progress-log"><a class="zola-anchor" href="#progress-log" aria-label="Anchor link for: progress-log">Progress Log</a></h2>
+<p>The following sections document the incremental progress we made over the
+semester from a small MVP from winter break to the complete game at the end of
+the spring semester.</p>
+<h3 id="pre-class-work"><a class="zola-anchor" href="#pre-class-work" aria-label="Anchor link for: pre-class-work">Pre-Class Work</a></h3>
+<p>Before the class officially starts, we are taking time to familiarize ourselves
+with the Godot engine and the basics of game development. My first thoughts on
+working with GDScript is that it like a blend of Python and TypeScript, which is
+pretty cool. I'm excited to see how it works in practice. I've also been
+watching some tutorials on the Godot engine and game development in general
+to get a feel for the process.</p>
+<p>As of now, we have basic character sprites and background tiles ready to go.
+We are also working getting a basic scene set up in Godot to start testing
+out movement and interactions. Godot's
+<a href="https://docs.godotengine.org/en/stable/index.html">documentation</a> is very
+good and has been a great resource for getting started.</p>
+<h4 id="overview-of-godot"><a class="zola-anchor" href="#overview-of-godot" aria-label="Anchor link for: overview-of-godot">Overview of Godot</a></h4>
+<p>At the most basic level, creating games in Godot revolves around four major
+concepts: (1) <strong>scenes</strong>, (2) <strong>nodes</strong>, (3) <strong>the scene tree</strong>, and (4)
+<strong>signals</strong>. As the documentation says:</p>
+<blockquote>
+<p>"In Godot, a game is a tree of nodes that you group together into scenes.
+You can then wire these nodes so they can communicate using signals."</p>
+</blockquote>
+<p>Every component of a Godot game is broken down into reusable assets called
+<strong>scenes</strong>. Even though the name may make you think that a scene is a complete
+level or screen, pretty much any element in your game can be its own scene,
+whether it's a character, button, light source, etc. Godot will store these files
+as <code>*.tscn</code> files containing information about resource dependencies, metadata,
+and more. For example, here's the visual editor view of our game's eventual
+<code>level_1.tscn</code> file:</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="./images/level-1-view.png"  alt="Level 1 scene in the Godot editor" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Level 1 scene in the Godot editor</p>
+  </caption>
+  
+</section>
+<p>This brings us to both the <strong>scene tree</strong> and <strong>nodes</strong>. On the left hand side
+of the image above you can see the scene tree, which has all of the scenes
+in the current scene. At the top is the scene root, in this case "Level1". Each
+scene is composed of one or more nodes, which are the building blocks of every
+scene. Godot defines a <a href="https://docs.godotengine.org/en/stable/classes/class_node.html"><code>Node</code></a>
+base case from which all nodes inherit. All nodes have a name, editable
+properties, callbacks to update every frame, can be extended with new properties
+and values, and they can be added as a child to another node. <strong>Together, nodes
+form a tree</strong>, and this is seen in the scene tree. Godot provides a massive
+list of base node types that you can use and combine to create components
+out of the box.</p>
+<blockquote>
+<p><strong>NOTE</strong>: You might have noticed that nodes and scenes look the same in
+the editor. When you save a tree of nodes as a scene, it then shows as a single
+node, with its internal structure hidden in the editor.</p>
+</blockquote>
+<p>Nodes and scene are scriptable and can be changed to function programmatically.
+Godot has its own scripting language called GDScript that can be used; C++ is
+another option as well.</p>
+<p>The last major thing to mention is <strong>signals</strong>. Signals allow for nodes to alert
+other nodes of an event. For example, in the main menu, we have a start button
+that, when pressed, transitions from the start screen to the level 1 transition:</p>
+<section
+  style="width: 100%; max-width: 60%; margin: 0 auto; text-align: center;">
+  <img src="./images/start-btn-signal.png"  alt="Start button signal emissions" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+</section>
+<p>This can be handled in the <code>start_menu.gd</code> script programmatically:</p>
+<pre data-lang="gd" class="language-gd z-code"><code class="language-gd" data-lang="gd"><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># Handles the press event for the start button. Navigates to intro cutscene.</span>
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_on_start_button_pressed</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-basic z-gdscript">void</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">	theme_player.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">stop</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">	<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">get_tree</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">change_scene_to_file</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-meta z-string z-gdscript"><span class="z-string z-quoted z-double z-gdscript"><span class="z-punctuation z-definition z-string z-begin z-gdscript">&quot;</span>res://cutscenes/intro/intro_cutscene.tscn<span class="z-punctuation z-definition z-string z-end z-gdscript">&quot;</span></span></span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span></code></pre>
+<p>For a more complete breakdown of Godot, check out the documentation's
+<a href="https://docs.godotengine.org/en/stable/getting_started/introduction/key_concepts_overview.html#doc-key-concepts-overview">Overview of Godot's key concepts</a>.</p>
+<h4 id="handling-basic-movement"><a class="zola-anchor" href="#handling-basic-movement" aria-label="Anchor link for: handling-basic-movement">Handling Basic Movement</a></h4>
+<p>Now that we have a big picture idea of how Godot operates, let's break down how
+we achieve something as seemingly simple as a navigating our character sprite
+around the screen like this:</p>
+<section
+  style="width: 100%; max-width: 40%; margin: 0 auto; text-align: center;">
+  <video autoplay loop muted playsinline
+    style="max-width: 100%; height: auto; display: inline-block;">
+    <source src="https://micahkepe.com/blog/43-monkeys/videos/basic-movt.mp4" type="video/mp4">
+    Your browser doesn't support the video tag, which I use in place of .gifs, and/or the video formats in use here
+    – sorry!
+  </video>
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Hurray movement!</p>
+  </caption>
+  
+</section>
+<p>First we have a <strong>spritesheet</strong> for our monkey. A spritesheet an image of
+animation cells arranged into rows and columns that we use to make up the
+individual frames of our animation:</p>
+<section
+  style="width: 100%; max-width: 60%; margin: 0 auto; text-align: center;">
+  <img src="./images/monkey-spritesheet.png"  alt="Base monkey spritesheet image" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Subsection of the spritesheet for the main monkey character.</p>
+  </caption>
+  
+</section>
+<p>We can create a new scene for the player and set the root node to be a
+<code>CharacterBody2D</code>, which is "a 2D physics body specialized for characters
+moved by script"-- perfect! We then can add an <code>AnimatedSprite2D</code> to add our
+animations from our spritesheet, and a <code>CollisionShape2D</code> node so that the
+character can collide with the world.</p>
+<p>When we create a script for the scene, it will follow this format:</p>
+<pre data-lang="gd" class="language-gd z-code"><code class="language-gd" data-lang="gd"><span class="z-source z-gdscript"><span class="z-keyword z-other z-gdscript">extends</span><span class="z-entity z-other z-inherited-class z-gdscript"> CharacterBody2D</span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># any signals, state variables, and onready references</span>
+</span><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># ...</span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># Called when the node enters the scene tree for the first time.</span>
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_ready</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-basic z-gdscript">void</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">pass</span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># Called every frame.</span>
+</span><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># Handles input and updates the player&#39;s position and animation.</span>
+</span><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># @param delta: float - The elapsed time since the previous frame in seconds.</span>
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_physics_process</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-variable z-parameter z-gdscript">_delta</span>: <span class="z-variable z-parameter z-gdscript">float</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-basic z-gdscript">void</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">pass</span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># any number of helper functions or utilities</span>
+</span><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># ...</span>
+</span></code></pre>
+<p>Filling in more implementation, our final <code>player.gd</code> can be boiled down to
+this:</p>
+<pre data-lang="gd" class="language-gd z-code"><code class="language-gd" data-lang="gd"><span class="z-source z-gdscript"><span class="z-keyword z-other z-gdscript">extends</span><span class="z-entity z-other z-inherited-class z-gdscript"> CharacterBody2D</span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript">@<span class="z-keyword z-other z-onready z-gdscript">onready</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">_animated_sprite</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> $AnimatedSprite2D
+</span><span class="z-source z-gdscript">@<span class="z-storage z-modifier z-static z-gdscript">export</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">speed</span>: <span class="z-storage z-type z-basic z-gdscript">float</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-numeric z-float z-gdscript">300.0</span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_ready</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-basic z-gdscript">void</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">pass</span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_physics_process</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-variable z-parameter z-gdscript">delta</span>: <span class="z-variable z-parameter z-gdscript">float</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-basic z-gdscript">void</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span> Handle movement input</span>
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">input_velocity</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> Input.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_action_pressed</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-meta z-string z-gdscript"><span class="z-string z-quoted z-double z-gdscript"><span class="z-punctuation z-definition z-string z-begin z-gdscript">&quot;</span>ui_right<span class="z-punctuation z-definition z-string z-end z-gdscript">&quot;</span></span></span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        input_velocity.x <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> <span class="z-constant z-numeric z-integer z-gdscript">1</span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> Input.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_action_pressed</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-meta z-string z-gdscript"><span class="z-string z-quoted z-double z-gdscript"><span class="z-punctuation z-definition z-string z-begin z-gdscript">&quot;</span>ui_left<span class="z-punctuation z-definition z-string z-end z-gdscript">&quot;</span></span></span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        input_velocity.x <span class="z-keyword z-operator z-arithmetic z-gdscript">-=</span> <span class="z-constant z-numeric z-integer z-gdscript">1</span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> Input.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_action_pressed</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-meta z-string z-gdscript"><span class="z-string z-quoted z-double z-gdscript"><span class="z-punctuation z-definition z-string z-begin z-gdscript">&quot;</span>ui_up<span class="z-punctuation z-definition z-string z-end z-gdscript">&quot;</span></span></span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        input_velocity.y <span class="z-keyword z-operator z-arithmetic z-gdscript">-=</span> <span class="z-constant z-numeric z-integer z-gdscript">1</span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> Input.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_action_pressed</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-meta z-string z-gdscript"><span class="z-string z-quoted z-double z-gdscript"><span class="z-punctuation z-definition z-string z-begin z-gdscript">&quot;</span>ui_down<span class="z-punctuation z-definition z-string z-end z-gdscript">&quot;</span></span></span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        input_velocity.y <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> <span class="z-constant z-numeric z-integer z-gdscript">1</span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript">    <span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span> Normalize diagonal movement to prevent faster diagonal speed</span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> input_velocity <span class="z-keyword z-operator z-comparison z-gdscript">!=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO:
+</span><span class="z-source z-gdscript">        input_velocity <span class="z-keyword z-operator z-assignment z-gdscript">=</span> input_velocity.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">normalized</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript">    <span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span> Set animation based on movement</span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> input_velocity <span class="z-keyword z-operator z-comparison z-gdscript">==</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO:
+</span><span class="z-source z-gdscript">        _animated_sprite.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">play</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-meta z-string z-gdscript"><span class="z-string z-quoted z-double z-gdscript"><span class="z-punctuation z-definition z-string z-begin z-gdscript">&quot;</span>idle<span class="z-punctuation z-definition z-string z-end z-gdscript">&quot;</span></span></span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">else</span>:
+</span><span class="z-source z-gdscript">        _animated_sprite.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">play</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-meta z-string z-gdscript"><span class="z-string z-quoted z-double z-gdscript"><span class="z-punctuation z-definition z-string z-begin z-gdscript">&quot;</span>walk<span class="z-punctuation z-definition z-string z-end z-gdscript">&quot;</span></span></span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">        <span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span> Flip sprite for left/right facing</span>
+</span><span class="z-source z-gdscript">        <span class="z-keyword z-control z-flow z-gdscript">if</span> input_velocity.x <span class="z-keyword z-operator z-comparison z-gdscript">!=</span> <span class="z-constant z-numeric z-integer z-gdscript">0</span>:
+</span><span class="z-source z-gdscript">            _animated_sprite.flip_h <span class="z-keyword z-operator z-assignment z-gdscript">=</span> input_velocity.x <span class="z-keyword z-operator z-comparison z-gdscript">&lt;</span> <span class="z-constant z-numeric z-integer z-gdscript">0</span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript">    <span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span> Apply movement</span>
+</span><span class="z-source z-gdscript">    velocity <span class="z-keyword z-operator z-assignment z-gdscript">=</span> input_velocity <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> speed
+</span><span class="z-source z-gdscript">    <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">move_and_slide</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span></code></pre>
+<p>This script handles WASD/arrow key input, normalizes diagonal movement,
+updates animations, and moves the character with collision handling.</p>
+<p>For a more detailed breakdown of how you can do this yourself, checking out
+this <a href="https://docs.godotengine.org/en/stable/tutorials/2d/2d_sprite_animation.html">official Godot guide</a>
+for animating 2D sprites.</p>
+<h4 id="music"><a class="zola-anchor" href="#music" aria-label="Anchor link for: music">Music</a></h4>
+<p>With a fun little open-source webapp called <a href="https://www.beepbox.co/">BeepBox</a>,
+we were able to make some fun 8-bit music for our game.</p>
+<section style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <audio controls="controls">
+    <source type="audio/mp3" src="https://micahkepe.com/blog/43-monkeys/music/fonky-loop.ogg">
+    </source>
+    <source type="audio/ogg" src="https://micahkepe.com/blog/43-monkeys/music/fonky-loop.ogg">
+    </source>
+    <p>Your browser does not support the audio element.</p>
+  </audio>
+</section>
+<br>
+<h3 id="making-an-mvp-demo-weeks-1-2"><a class="zola-anchor" href="#making-an-mvp-demo-weeks-1-2" aria-label="Anchor link for: making-an-mvp-demo-weeks-1-2">Making an MVP Demo: Weeks 1-2</a></h3>
+<p>With the spring semester now in full swing and our team assembled, we are working
+on getting our MVP (minimum viable product) ready for a demo scheduled at the end
+of week 2 of the course.</p>
+<p>Our big focus is looking at <a href="https://en.wikipedia.org/wiki/Flocking">flocking
+algorithms</a> and
+<a href="https://en.wikipedia.org/wiki/Boids">boids</a>. <strong>Boids</strong> (bird-oid objects) were
+developed by Craig Reynolds in 1986 to simulate coordinated animal motion
+like bird flocks or fish schools. The algorithm is based on three simple
+steering behaviors:</p>
+<ul>
+<li>Separation: Avoid crowding nearby flockmates</li>
+<li>Alignment: Steer towards the average heading of nearby flockmates</li>
+<li>Cohesion: Steer towards the average position of nearby flockmates</li>
+</ul>
+<p>We become interested in this concept because one of the unique features of
+our game is that the player will be able to control a group of monkeys that
+will follow the player around the map or move independently as a swarm.</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <video autoplay loop muted playsinline
+    style="max-width: 100%; height: auto; display: inline-block;">
+    <source src="https://micahkepe.com/blog/43-monkeys/videos/boids-demo.mp4" type="video/mp4">
+    Your browser doesn't support the video tag, which I use in place of .gifs, and/or the video formats in use here
+    – sorry!
+  </video>
+  
+</section>
+<p>The <code>boid.gd</code> script implements these behaviors for enemy or NPC characters,
+with additional features like wall avoidance and attacking. Below are key
+snippets capturing the essence of the flocking logic:</p>
+<pre data-lang="gd" class="language-gd z-code"><code class="language-gd" data-lang="gd"><span class="z-source z-gdscript"><span class="z-keyword z-other z-gdscript">extends</span><span class="z-entity z-other z-inherited-class z-gdscript"> CharacterBody2D</span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript">@<span class="z-storage z-modifier z-static z-gdscript">export</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">max_speed</span>: <span class="z-storage z-type z-basic z-gdscript">float</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-numeric z-float z-gdscript">125.0</span>
+</span><span class="z-source z-gdscript">@<span class="z-storage z-modifier z-static z-gdscript">export</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">max_force</span>: <span class="z-storage z-type z-basic z-gdscript">float</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-numeric z-float z-gdscript">150.0</span>
+</span><span class="z-source z-gdscript">@<span class="z-storage z-modifier z-static z-gdscript">export</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">view_radius</span>: <span class="z-storage z-type z-basic z-gdscript">float</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-numeric z-float z-gdscript">300.0</span>
+</span><span class="z-source z-gdscript">@<span class="z-storage z-modifier z-static z-gdscript">export</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">separation_distance</span>: <span class="z-storage z-type z-basic z-gdscript">float</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-numeric z-float z-gdscript">35.0</span>
+</span><span class="z-source z-gdscript">@<span class="z-storage z-modifier z-static z-gdscript">export</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">weight_separation</span>: <span class="z-storage z-type z-basic z-gdscript">float</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-numeric z-float z-gdscript">15.0</span>
+</span><span class="z-source z-gdscript">@<span class="z-storage z-modifier z-static z-gdscript">export</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">weight_alignment</span>: <span class="z-storage z-type z-basic z-gdscript">float</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-numeric z-float z-gdscript">1.0</span>
+</span><span class="z-source z-gdscript">@<span class="z-storage z-modifier z-static z-gdscript">export</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">weight_cohesion</span>: <span class="z-storage z-type z-basic z-gdscript">float</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-numeric z-float z-gdscript">1.0</span>
+</span><span class="z-source z-gdscript">@<span class="z-storage z-modifier z-static z-gdscript">export</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">weight_avoidance</span>: <span class="z-storage z-type z-basic z-gdscript">float</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-numeric z-float z-gdscript">2.0</span>
+</span><span class="z-source z-gdscript">@<span class="z-storage z-modifier z-static z-gdscript">export</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">raycast_length</span>: <span class="z-storage z-type z-basic z-gdscript">float</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-numeric z-float z-gdscript">75.0</span>
+</span><span class="z-source z-gdscript">@<span class="z-keyword z-other z-onready z-gdscript">onready</span> <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">_anim_sprite</span>: AnimatedSprite2D <span class="z-keyword z-operator z-assignment z-gdscript">=</span> $AnimatedSprite2D
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_physics_process</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-variable z-parameter z-gdscript">delta</span>: <span class="z-variable z-parameter z-gdscript">float</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-basic z-gdscript">void</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> is_dead:
+</span><span class="z-source z-gdscript">        <span class="z-keyword z-control z-flow z-gdscript">return</span>
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">steering</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">neighbors</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">_get_neighbors</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript">    <span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span> Apply flocking behaviors</span>
+</span><span class="z-source z-gdscript">    steering <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">_compute_separation</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>neighbors<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> weight_separation
+</span><span class="z-source z-gdscript">    steering <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">_compute_alignment</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>neighbors<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> weight_alignment
+</span><span class="z-source z-gdscript">    steering <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">_compute_cohesion</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>neighbors<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> weight_cohesion
+</span><span class="z-source z-gdscript">    steering <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">_compute_wall_avoidance</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> weight_avoidance
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript">    <span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span> Limit steering force</span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> steering.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">length</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-comparison z-gdscript">&gt;</span> max_force:
+</span><span class="z-source z-gdscript">        steering <span class="z-keyword z-operator z-assignment z-gdscript">=</span> steering.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">normalized</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> max_force
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript">    velocity <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> steering <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> delta
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> velocity.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">length</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-comparison z-gdscript">&gt;</span> max_speed:
+</span><span class="z-source z-gdscript">        velocity <span class="z-keyword z-operator z-assignment z-gdscript">=</span> velocity.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">normalized</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> max_speed
+</span><span class="z-source z-gdscript">    <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">move_and_slide</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">_update_animation</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_get_neighbors</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-container z-gdscript">Array</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">all_boids</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">get_tree</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">get_nodes_in_group</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-meta z-string z-gdscript"><span class="z-string z-quoted z-double z-gdscript"><span class="z-punctuation z-definition z-string z-begin z-gdscript">&quot;</span>boids<span class="z-punctuation z-definition z-string z-end z-gdscript">&quot;</span></span></span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">neighbors</span> :<span class="z-keyword z-operator z-assignment z-gdscript">=</span> []
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">for</span> b <span class="z-keyword z-operator z-logical z-gdscript">in</span> all_boids:
+</span><span class="z-source z-gdscript">        <span class="z-keyword z-control z-flow z-gdscript">if</span> b <span class="z-keyword z-operator z-comparison z-gdscript">==</span> self:
+</span><span class="z-source z-gdscript">            <span class="z-keyword z-control z-flow z-gdscript">continue</span>
+</span><span class="z-source z-gdscript">        <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">to_other</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> b.global_position <span class="z-keyword z-operator z-arithmetic z-gdscript">-</span> global_position
+</span><span class="z-source z-gdscript">        <span class="z-keyword z-control z-flow z-gdscript">if</span> to_other.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">length</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-comparison z-gdscript">&lt;=</span> view_radius:
+</span><span class="z-source z-gdscript">            neighbors.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">append</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>b<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">return</span> neighbors
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_compute_separation</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-variable z-parameter z-gdscript">neighbors</span>: <span class="z-variable z-parameter z-gdscript">Array</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-vector z-gdscript">Vector2</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> neighbors.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_empty</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        <span class="z-keyword z-control z-flow z-gdscript">return</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">steer</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">for</span> b <span class="z-keyword z-operator z-logical z-gdscript">in</span> neighbors:
+</span><span class="z-source z-gdscript">        <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">diff</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> global_position <span class="z-keyword z-operator z-arithmetic z-gdscript">-</span> b.global_position
+</span><span class="z-source z-gdscript">        <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">dist</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> diff.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">length</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">        <span class="z-keyword z-control z-flow z-gdscript">if</span> dist <span class="z-keyword z-operator z-comparison z-gdscript">&lt;</span> separation_distance <span class="z-keyword z-operator z-logical z-gdscript">and</span> dist <span class="z-keyword z-operator z-comparison z-gdscript">&gt;</span> <span class="z-constant z-numeric z-integer z-gdscript">0</span>:
+</span><span class="z-source z-gdscript">            steer <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> diff.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">normalized</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">/</span> dist
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">return</span> steer.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">normalized</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> max_force <span class="z-keyword z-control z-flow z-gdscript">if</span> steer.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">length</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-comparison z-gdscript">&gt;</span> <span class="z-constant z-numeric z-integer z-gdscript">0</span> <span class="z-keyword z-control z-flow z-gdscript">else</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_compute_alignment</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-variable z-parameter z-gdscript">neighbors</span>: <span class="z-variable z-parameter z-gdscript">Array</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-vector z-gdscript">Vector2</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> neighbors.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_empty</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        <span class="z-keyword z-control z-flow z-gdscript">return</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">avg_vel</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">for</span> b <span class="z-keyword z-operator z-logical z-gdscript">in</span> neighbors:
+</span><span class="z-source z-gdscript">        avg_vel <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> b.velocity
+</span><span class="z-source z-gdscript">    avg_vel <span class="z-keyword z-operator z-arithmetic z-gdscript">/=</span> neighbors.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">size</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">steer</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>avg_vel <span class="z-keyword z-operator z-arithmetic z-gdscript">-</span> velocity<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">normalized</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> max_force
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">return</span> steer
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_compute_cohesion</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-variable z-parameter z-gdscript">neighbors</span>: <span class="z-variable z-parameter z-gdscript">Array</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-vector z-gdscript">Vector2</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> neighbors.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_empty</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        <span class="z-keyword z-control z-flow z-gdscript">return</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">avg_pos</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">for</span> b <span class="z-keyword z-operator z-logical z-gdscript">in</span> neighbors:
+</span><span class="z-source z-gdscript">        avg_pos <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> b.global_position
+</span><span class="z-source z-gdscript">    avg_pos <span class="z-keyword z-operator z-arithmetic z-gdscript">/=</span> neighbors.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">size</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">desired</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>avg_pos <span class="z-keyword z-operator z-arithmetic z-gdscript">-</span> global_position<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">normalized</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> max_speed
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">steer</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>desired <span class="z-keyword z-operator z-arithmetic z-gdscript">-</span> velocity<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">normalized</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> max_force
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">return</span> steer
+</span><span class="z-source z-gdscript">
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_compute_wall_avoidance</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-storage z-type z-vector z-gdscript">Vector2</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">    <span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">avoidance</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> $RayRight.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_colliding</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        avoidance <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.LEFT
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> $RayLeft.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_colliding</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        avoidance <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.RIGHT
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> $RayUp.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_colliding</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        avoidance <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.DOWN
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">if</span> $RayDown.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">is_colliding</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">        avoidance <span class="z-keyword z-operator z-arithmetic z-gdscript">+=</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.UP
+</span><span class="z-source z-gdscript">    <span class="z-keyword z-control z-flow z-gdscript">return</span> avoidance.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">normalized</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-arithmetic z-gdscript">*</span> max_force <span class="z-keyword z-control z-flow z-gdscript">if</span> avoidance.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">length</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-comparison z-gdscript">&gt;</span> <span class="z-constant z-numeric z-integer z-gdscript">0</span> <span class="z-keyword z-control z-flow z-gdscript">else</span> <span class="z-storage z-type z-vector z-gdscript">Vector2</span>.ZERO
+</span></code></pre>
+<p><strong>Update</strong>: Demo MVP is completed. We ended up doing a simple demo level where
+the player has to use their group of monkeys to deactivate lasers with
+coordinated button presses and defeat a boss at the end. I'm pretty proud of
+what we've been able to do some far in only a couple weeks of work, but we
+also have a lot of work ahead of us as we figure out the rest of our levels,
+polished up the art, etc.</p>
+<h4 id="some-more-teasers"><a class="zola-anchor" href="#some-more-teasers" aria-label="Anchor link for: some-more-teasers">Some more teasers</a></h4>
+<p>Little bit of the MVP demo in action:</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <video autoplay loop muted playsinline
+    style="max-width: 100%; height: auto; display: inline-block;">
+    <source src="https://micahkepe.com/blog/43-monkeys/videos/mvp-demo.mp4" type="video/mp4">
+    Your browser doesn't support the video tag, which I use in place of .gifs, and/or the video formats in use here
+    – sorry!
+  </video>
+  
+</section>
+<p>Our pretty epic main theme (if I do say so myself):</p>
+<section style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <audio controls="controls">
+    <source type="audio/mp3" src="https://micahkepe.com/blog/43-monkeys/music/main-theme.ogg">
+    </source>
+    <source type="audio/ogg" src="https://micahkepe.com/blog/43-monkeys/music/main-theme.ogg">
+    </source>
+    <p>Your browser does not support the audio element.</p>
+  </audio>
+</section>
+<br>
+<h3 id="work-until-midterm-demo-weeks-3-7"><a class="zola-anchor" href="#work-until-midterm-demo-weeks-3-7" aria-label="Anchor link for: work-until-midterm-demo-weeks-3-7">Work Until Midterm Demo: Weeks 3-7</a></h3>
+<p>With the initial demo out of the way, we are now working on fleshing out the
+rest of the game. This includes creating more levels, adding more mechanics,
+and polishing up the art and music. While our art was pretty good for the MVP,
+we really want to dial in the aesthetic of the game to be something truly
+impressive. Part of this is diving deeper into writing custom shaders and
+animations to make the game feel more alive.</p>
+<p>Another big thing that we realized post-demo is that our initial conception of
+the game having procedurally generated levels might lead to unintended
+side effects. For example, troops could get stuck in walls or not be able to
+complete a level's required puzzle. Because of this, we are going to lean into
+more curated levels that we can test and refine.</p>
+<h4 id="shaders"><a class="zola-anchor" href="#shaders" aria-label="Anchor link for: shaders">Shaders</a></h4>
+<p>Shaders have been another interesting challenge. The largest conceptual change
+is that the shader coding paradigm is much different than a traditional piece
+of code. Instead of writing a function that takes in some inputs and returns
+some outputs, you are writing a function that takes in some inputs and modifies
+<strong>every pixel</strong> individually. This is a very different way of thinking about
+code and has been a fun challenge to wrap my head around. With just a little
+bit of work, we were able to create a simple VHS monitor-style shader that
+adds a cool wave effect to the screen when we are doing exposition cutscenes.</p>
+<p>For a fantastic introduction to the world of shaders, I highly recommend
+checking out <a href="https://thebookofshaders.com/">The Book of Shaders</a>.
+Additionally, for Godot-specific shader help, the <a href="https://godotshaders.com/">Godot
+Shaders</a> website has been a great resource for
+building off the work of others.</p>
+<h4 id="added-animations"><a class="zola-anchor" href="#added-animations" aria-label="Anchor link for: added-animations">Added Animations</a></h4>
+<p><strong><em>Stayed tuned.</em></strong> I don't want to give away a lot but let's just say that
+we've added some pretty cool animations to the game that make it feel much more
+alive.</p>
+<h4 id="boids-revisited"><a class="zola-anchor" href="#boids-revisited" aria-label="Anchor link for: boids-revisited">Boids: Revisited</a></h4>
+<p>We are making the boids much more interesting by adding targeting behavior to
+them. Now, when the player is within their field of vision, they will target
+the player and move towards them. This makes the game feel much more alive and
+dynamic. The player can hide behind walls to temporarily escape the boids' line
+sight, but the player has to now fend off the boids while trying to solve
+puzzles.</p>
+<pre data-lang="gd" class="language-gd z-code"><code class="language-gd" data-lang="gd"><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># Returns the closest target node within the boid&#39;s view radius.</span>
+</span><span class="z-source z-gdscript"><span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span># @returns Node2D - The closest target node within the boid&#39;s view radius.</span>
+</span><span class="z-source z-gdscript"><span class="z-meta z-function z-gdscript"><span class="z-storage z-type z-function z-gdscript">func</span> <span class="z-entity z-name z-function z-gdscript">_get_closest_target</span></span><span class="z-meta z-function z-parameters z-gdscript"><span class="z-punctuation z-section z-parameters z-begin z-gdscript">(</span><span class="z-meta z-function z-gdscript"><span class="z-punctuation z-section z-parameters z-end z-gdscript">)</span></span></span><span class="z-meta z-function z-gdscript"> <span class="z-meta z-function z-return-type"><span class="z-keyword z-operator z-arrow z-forward z-gdscript">-&gt;</span></span></span><span class="z-meta z-function z-return-type"> <span class="z-support z-class z-gdscript">Node2D</span><span class="z-punctuation z-section z-function z-begin z-gdscript">:</span></span>
+</span><span class="z-source z-gdscript">	<span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">closest_target</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-constant z-language z-gdscript">null</span>
+</span><span class="z-source z-gdscript">	<span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">min_distance</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> INF
+</span><span class="z-source z-gdscript">	<span class="z-keyword z-control z-flow z-gdscript">for</span> group <span class="z-keyword z-operator z-logical z-gdscript">in</span> [<span class="z-meta z-string z-gdscript"><span class="z-string z-quoted z-double z-gdscript"><span class="z-punctuation z-definition z-string z-begin z-gdscript">&quot;</span>player<span class="z-punctuation z-definition z-string z-end z-gdscript">&quot;</span></span></span>, <span class="z-meta z-string z-gdscript"><span class="z-string z-quoted z-double z-gdscript"><span class="z-punctuation z-definition z-string z-begin z-gdscript">&quot;</span>troop<span class="z-punctuation z-definition z-string z-end z-gdscript">&quot;</span></span></span>]:
+</span><span class="z-source z-gdscript">		<span class="z-keyword z-control z-flow z-gdscript">for</span> target <span class="z-keyword z-operator z-logical z-gdscript">in</span> <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">get_tree</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">get_nodes_in_group</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>group<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">			<span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">distance</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> global_position.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">distance_to</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>target.global_position<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">			<span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">direction</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>target.global_position <span class="z-keyword z-operator z-arithmetic z-gdscript">-</span> global_position<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">normalized</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">			<span class="z-comment z-line z-number-sign z-gdscript"><span class="z-punctuation z-definition z-comment z-number-sign z-gdscript">#</span> temporary line of sight raycast for targeting</span>
+</span><span class="z-source z-gdscript">			<span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">space_state</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">get_world_2d</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>.direct_space_state
+</span><span class="z-source z-gdscript">			<span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">query</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> PhysicsRayQueryParameters2D.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">create</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>
+</span></span><span class="z-source z-gdscript"><span class="z-meta z-function-call z-arguments z-gdscript">				global_position<span class="z-punctuation z-separator z-arguments z-gdscript">,</span>
+</span></span><span class="z-source z-gdscript"><span class="z-meta z-function-call z-arguments z-gdscript">				target.global_position<span class="z-punctuation z-separator z-arguments z-gdscript">,</span>
+</span></span><span class="z-source z-gdscript"><span class="z-meta z-function-call z-arguments z-gdscript">				<span class="z-constant z-numeric z-integer z-gdscript">1</span>
+</span></span><span class="z-source z-gdscript"><span class="z-meta z-function-call z-arguments z-gdscript">			<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">			<span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">result</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> space_state.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">intersect_ray</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>query<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">			<span class="z-keyword z-control z-flow z-gdscript">if</span> distance <span class="z-keyword z-operator z-comparison z-gdscript">&lt;</span> view_radius <span class="z-keyword z-operator z-logical z-gdscript">and</span> <span class="z-keyword z-operator z-logical z-gdscript">not</span> result:
+</span><span class="z-source z-gdscript">				<span class="z-storage z-type z-var z-gdscript">var</span> <span class="z-variable z-other z-gdscript">angle_between</span> <span class="z-keyword z-operator z-assignment z-gdscript">=</span> velocity.<span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">angle_to</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>direction<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>
+</span><span class="z-source z-gdscript">				<span class="z-keyword z-control z-flow z-gdscript">if</span> <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">abs</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>angle_between<span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span> <span class="z-keyword z-operator z-comparison z-gdscript">&lt;=</span> <span class="z-meta z-function-call z-gdscript"><span class="z-variable z-function z-gdscript">deg_to_rad</span></span><span class="z-meta z-function-call z-arguments z-gdscript"><span class="z-punctuation z-section z-arguments z-begin z-gdscript">(</span>view_angle_degrees <span class="z-keyword z-operator z-arithmetic z-gdscript">/</span> <span class="z-constant z-numeric z-float z-gdscript">2.0</span><span class="z-punctuation z-section z-arguments z-end z-gdscript">)</span></span>:
+</span><span class="z-source z-gdscript">					<span class="z-keyword z-control z-flow z-gdscript">if</span> distance <span class="z-keyword z-operator z-comparison z-gdscript">&lt;</span> min_distance:
+</span><span class="z-source z-gdscript">						closest_target <span class="z-keyword z-operator z-assignment z-gdscript">=</span> target
+</span><span class="z-source z-gdscript">						min_distance <span class="z-keyword z-operator z-assignment z-gdscript">=</span> distance
+</span><span class="z-source z-gdscript">	<span class="z-keyword z-control z-flow z-gdscript">return</span> closest_target
+</span></code></pre>
+<h4 id="2025-02-18-progress-video"><a class="zola-anchor" href="#2025-02-18-progress-video" aria-label="Anchor link for: 2025-02-18-progress-video">2025-02-18 Progress Video</a></h4>
+
+
+
+
+
+
+
+
+
+
+
+<div class="responsive-iframe"
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <iframe
+    src="https:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;rKcuIBeEa2A"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+</div>
+<br>
+<h3 id="midterm-demo"><a class="zola-anchor" href="#midterm-demo" aria-label="Anchor link for: midterm-demo">Midterm Demo</a></h3>
+<p>As of time of writing this (03/04/2025), we are less than a week away from our
+midterm demo. We have been working on adding a lot of aesthetic features to the
+levels with an expanded tileset and lots of new light elements which have
+dramatically improved the look and feel of the game.</p>
+<p>We're in the middle of polishing up the game for the upcoming demo and ironing
+out lingering bugs and issues. For a little sneak peek, I'll let Zach's trailer
+speak for itself:
+<a href="https://www.youtube.com/watch?v=o46NNVcCdBM">game trailer</a></p>
+<h3 id="wrapping-up-work-until-final-demo"><a class="zola-anchor" href="#wrapping-up-work-until-final-demo" aria-label="Anchor link for: wrapping-up-work-until-final-demo">Wrapping Up: Work Until Final Demo</a></h3>
+<p>Midterm demo went well! We are now focused on creating the finished MVP of the
+game that we can showcase in our final presentation and demo. The major areas of
+focus are:</p>
+<ul>
+<li>Finish complete gameplay</li>
+<li>Add more unique game elements and puzzles</li>
+<li>More unique monkey variants, both in terms of design and their unique
+abilities, attacks, etc.</li>
+</ul>
+<p>We are hoping that by the end of the semester we will have a fully-fledged MVP
+that can be embedded in a browser to allow people to play, so stay tuned!</p>
+<hr />
+<h2 id="play-the-game-on-itch-io"><a class="zola-anchor" href="#play-the-game-on-itch-io" aria-label="Anchor link for: play-the-game-on-itch-io">Play the Game on itch.io!</a></h2>
+<p>The game is now available for play on <a href="https://alpha-prime-studios.itch.io/43-monkeys">itch.io</a>!
+Play directly in your browser with the link below:</p>
+<div align="center">
+    <iframe frameborder="0" src="https://itch.io/embed/3482305?dark=true" width="552" height="167"><a href="https://alpha-prime-studios.itch.io/43-monkeys">43 Monkeys by alpha prime studios | ⍺'</a></iframe>
+</div>
+<hr />
+<h2 id="contributors"><a class="zola-anchor" href="#contributors" aria-label="Anchor link for: contributors">Contributors</a></h2>
+<h3 id="core-developer-team"><a class="zola-anchor" href="#core-developer-team" aria-label="Anchor link for: core-developer-team">Core Developer Team</a></h3>
+<table><thead><tr><th>Name</th><th>Link(s)</th><th>Role</th></tr></thead><tbody>
+<tr><td>Zach Kepe</td><td><a href="https://github.com/zachkepe">GitHub</a> <a href="https://www.zachkepe.com/">Website</a> <a href="https://www.linkedin.com/in/zacharykepe/">LinkedIn</a></td><td>Core Developer</td></tr>
+<tr><td>Grant Thompson</td><td><a href="https://www.linkedin.com/in/grantwthompson/">LinkedIn</a></td><td>Core Developer</td></tr>
+<tr><td>Kevin Lei</td><td><a href="https://www.linkedin.com/in/lei-kevin/">LinkedIn</a></td><td>Core Developer</td></tr>
+<tr><td><em>Micah Kepe (me)</em></td><td><a href="https://github.com/micahkepe">GitHub</a> <a href="https://micahkepe.com/">Website</a> <a href="https://www.linkedin.com/in/micah-kepe/">LinkedIn</a></td><td>Core Developer</td></tr>
+</tbody></table>
+<h3 id="outside-collaborators"><a class="zola-anchor" href="#outside-collaborators" aria-label="Anchor link for: outside-collaborators">Outside Collaborators</a></h3>
+<table><thead><tr><th>Name</th><th>Link(s)</th><th>Role</th></tr></thead><tbody>
+<tr><td>Bospad</td><td><a href="https://open.spotify.com/artist/6Z9DPgoBu600ZbUbdQqZQf?si=x_ITREWSQ_CKJkJmOaWXBQ">Spotify</a></td><td>Music Design</td></tr>
+</tbody></table>
+<div align="center">
+    <em>
+        Interested in contributing? Check the <a href="https://github.com/micahkepe/43-monkeys">GitHub repository</a>
+    </em>
+</div>
+<br>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/projects/">projects</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/godot/">godot</a>
+                    
+                        
+                            
+                                ,
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/game-dev/">game-dev</a>
+                    
+                        
+                            
+                                and
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/rice/">rice</a>
+                    
+                        
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;43-monkeys&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="Algorithms are all around us. They are the invisible forces that power our
+modern world, from the search engines we use to find information to the social
+networks we use to connect with friends and family. In this post, I share some
+ingenious algorithms that I have learned about both in courses and through my
+own research." />
+        <meta property="og:description" content="Algorithms are all around us. They are the invisible forces that power our
+modern world, from the search engines we use to find information to the social
+networks we use to connect with friends and family. In this post, I share some
+ingenious algorithms that I have learned about both in courses and through my
+own research." />
+        <meta property="twitter:description" content="Algorithms are all around us. They are the invisible forces that power our
+modern world, from the search engines we use to find information to the social
+networks we use to connect with friends and family. In this post, I share some
+ingenious algorithms that I have learned about both in courses and through my
+own research." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    Ingenious Algorithms We Take for Granted: PageRank, Spell Checkers, and Shazam
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;ingenious-algorithms&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="Ingenious Algorithms We Take for Granted: PageRank, Spell Checkers, and Shazam" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;ingenious-algorithms&#x2F;"
+    />
+    <meta name="twitter:title" content="Ingenious Algorithms We Take for Granted: PageRank, Spell Checkers, and Shazam" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Ingenious Algorithms We Take for Granted: PageRank, Spell Checkers, and Shazam" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Ingenious Algorithms We Take for Granted: PageRank, Spell Checkers, and Shazam</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>14 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-05-06
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>Algorithms are all around us. They are the invisible forces that power our
+modern world, from the search engines we use to find information to the social
+networks we use to connect with friends and family. In this post, I share some
+ingenious algorithms that I have learned about both in courses and through my
+own research.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/ingenious-algorithms/#1-pagerank">1. PageRank</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/ingenious-algorithms/#history-of-pagerank">History of PageRank</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/ingenious-algorithms/#how-pagerank-works">How PageRank Works</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/ingenious-algorithms/#fun-facts-about-pagerank">Fun Facts about PageRank</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/ingenious-algorithms/#2-spell-checkers">2. Spell Checkers</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/ingenious-algorithms/#history-of-spell-checkers">History of Spell Checkers</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/ingenious-algorithms/#how-spell-checkers-work">How Spell Checkers Work</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/ingenious-algorithms/#fun-facts-about-spell-checkers">Fun Facts about Spell Checkers</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/ingenious-algorithms/#3-shazam">3. Shazam</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/ingenious-algorithms/#history-of-shazam">History of Shazam</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/ingenious-algorithms/#how-shazam-works">How Shazam Works</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/ingenious-algorithms/#fun-facts-about-shazam">Fun Facts about Shazam</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/ingenious-algorithms/#conclusion">Conclusion</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/ingenious-algorithms/#references">References</a>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span><h2 id="1-pagerank"><a class="zola-anchor" href="#1-pagerank" aria-label="Anchor link for: 1-pagerank">1. PageRank</a></h2>
+<p>When Larry Page and Sergey Brin founded Google in 1998, they revolutionized the
+way we search for information on the internet. Their search engine, Google
+Search, used a clever algorithm called PageRank to rank web pages based on their
+importance and relevance to a user's query. While Google has since developed
+more sophisticated algorithms, PageRank remains a fundamental part of their
+search engine and understanding how it works can help you better understand how
+search engines work.</p>
+<h3 id="history-of-pagerank"><a class="zola-anchor" href="#history-of-pagerank" aria-label="Anchor link for: history-of-pagerank">History of PageRank</a></h3>
+<p>The idea for PageRank came to Larry Page in a dream in 1996 while he was a
+graduate student at Stanford University. Page was interested in the problem of
+ranking web pages based on their importance and relevance to a user's query. He
+realized that the structure of the web could be used to infer the importance of
+a page, just like the structure of academic citations could be used to infer the
+importance of a research paper.</p>
+<p>Page and his advisor, Terry Winograd, began working on a prototype search engine
+called BackRub that used a simple version of PageRank to rank web pages. BackRub
+was named after its ability to analyze the "back links" pointing to a given web
+page. Page and Winograd presented their work at the Seventh International World
+Wide Web Conference in 1998, where it was well received by the academic
+community.</p>
+<p>After the conference, Page teamed up with his friend Sergey Brin to turn BackRub
+into a commercial search engine. They renamed the search engine Google (a play
+on the word "googol", which means 1 followed by 100 zeros) and incorporated
+PageRank as a key part of their ranking algorithm. The rest, as they say, is
+history.</p>
+<h3 id="how-pagerank-works"><a class="zola-anchor" href="#how-pagerank-works" aria-label="Anchor link for: how-pagerank-works">How PageRank Works</a></h3>
+<p>PageRank is based on the idea that a web page's importance can be measured by
+the number and quality of other pages that link to it. In other words, if many
+important pages link to a particular page, then that page must also be
+important. Mathematically, PageRank can be expressed as:</p>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>PageRank Formal Definition</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>\[ PR(p_i) = \frac{1-d}{N} + d \sum_{p_j \in M(p_i)} \frac{PR(p_j)}{L(p_j)} \]</p>
+<p>where:</p>
+<ul>
+<li>$PR(p_i)$ is the PageRank of page $p_i$</li>
+<li>$N$ is the total number of pages</li>
+<li>$d$ is a damping factor (usually set to 0.85), which represents the
+probability that a random surfer will continue clicking on links rather than
+jumping to a random page</li>
+<li>$M(p_i)$ is the set of pages that link to $p_i$</li>
+<li>$L(p_j)$ is the number of outgoing links from page $p_j$</li>
+</ul>
+
+    </section>
+  </details>
+</article>
+<br>
+<p>The damping factor $d$ is used to prevent pages with many incoming links
+("sinks") from having disproportionately high PageRank values since they have no
+outgoing links. Without the damping factor, the PageRank values would tend to
+concentrate on a small number of pages, leading to a skewed ranking of search
+results. You can think of the damping factor as a way to model the behavior of a
+random surfer who occasionally jumps to a random page instead of following links
+(after a certain number of clicks, the surfer gets bored and jumps to a random
+page).</p>
+<p>To calculate PageRank, the algorithm starts by assigning an initial PageRank
+value to each page (usually $1/N$). Then, it iteratively updates the PageRank
+values using the above equation until convergence. The final PageRank values
+represent the importance of each page.</p>
+<p>For example, consider a simple network of 4 web pages: A, B, C, and D. Suppose
+page B has a link to page A, page C has a link to page A, and page D has links
+to all three pages like so:</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="simple-network.png"  alt="Simple Network Example" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Simple network of 4 web pages: A, B, C, and D</p>
+  </caption>
+  
+</section>
+<p>Initially, each page is assigned a PageRank of 0.25. After one iteration, page
+A's PageRank is updated as follows:</p>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>PageRank Iteration 1 Update</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>\[ PR(A) = \frac{1-0.85}{4} + \]</p>
+<p>\[0.85 \left( \frac{PR(B)}{1} + \frac{PR(C)}{1} +
+\frac{PR(D)}{3} \right) \]</p>
+<p>\[= 0.0375 + 0.85 \left(\frac{0.25}{1} + \frac{0.25}{1} - \frac{0.25}{3}\right) \]</p>
+<p>\[\boxed{ PR(A) \approx 0.46 }\]</p>
+
+    </section>
+  </details>
+</article>
+<p>After several iterations, the PageRank values converge to stable values that
+reflect the importance of each page in the network. The final PageRank values
+can then be used to rank the pages in search results.</p>
+<section
+  style="width: 100%; max-width: 70%; margin: 0 auto; text-align: center;">
+  <img src="pagerank.gif"  alt="PageRank Calculation Example" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: PageRank GIF showing the iterative calculation of
+        PageRank values for a simple network of web pages</p>
+  </caption>
+  
+</section>
+<p>One interesting property of PageRank is that it is a Markov chain, which means
+that the PageRank values can be interpreted as the probability of a random
+surfer landing on a particular page after clicking on links for a long time.
+This interpretation has led to some interesting applications of PageRank beyond
+web search, such as modeling the spread of disease or analyzing the structure of
+social networks.</p>
+<h3 id="fun-facts-about-pagerank"><a class="zola-anchor" href="#fun-facts-about-pagerank" aria-label="Anchor link for: fun-facts-about-pagerank">Fun Facts about PageRank</a></h3>
+<ul>
+<li>The original PageRank algorithm was inspired by the way academic papers are
+cited by other papers. Just as an academic paper's importance can be measured
+by the number and quality of papers that cite it, a web page's importance can
+be measured by the number and quality of pages that link to it.</li>
+<li>In the early days of Google, the PageRank algorithm was run on a cluster of
+cheap Linux computers. On display at Stanford University is the original
+Google server rack, made from Lego bricks.</li>
+<li>PageRank has been used to rank everything from web pages to scientific papers
+to social media influencers. In fact, there are even "PageRank for people"
+algorithms that try to measure the importance and influence of individuals
+based on their social connections.</li>
+</ul>
+<hr />
+<h2 id="2-spell-checkers"><a class="zola-anchor" href="#2-spell-checkers" aria-label="Anchor link for: 2-spell-checkers">2. Spell Checkers</a></h2>
+<p>Have you ever wondered how spell checkers work? How do they know when you've
+misspelled a word and suggest the correct spelling? The answer lies in a clever
+algorithm called the Levenshtein distance algorithm.</p>
+<h3 id="history-of-spell-checkers"><a class="zola-anchor" href="#history-of-spell-checkers" aria-label="Anchor link for: history-of-spell-checkers">History of Spell Checkers</a></h3>
+<p>The history of spell checkers dates back to the early days of computing. In
+1957, a team of researchers at Bell Labs developed a program called
+"TypoCorrect" that could detect and correct typing errors in text. However,
+TypoCorrect was limited to a small vocabulary and could only correct errors that
+were one letter off from the correct spelling.</p>
+<p>In the 1960s and 1970s, researchers began to develop more sophisticated spell
+checkers that could handle larger vocabularies and more complex errors. One of
+the first practical spell checkers was developed by Ralph Gorin at Stanford
+University in 1971. Gorin's spell checker used a dictionary of 10,000 words and
+could suggest corrections for misspelled words.</p>
+<p>In the 1980s, spell checkers became more widely available as part of word
+processing software. The first spell checker for the IBM PC was developed by
+Mark Skapinker and released in 1981. Microsoft Word, which was first released in
+1983, included a built-in spell checker that quickly became a standard feature
+of word processing software.</p>
+<p>Today, spell checkers are ubiquitous and can be found in everything from email
+clients to social media apps. Modern spell checkers use sophisticated algorithms
+and machine learning techniques to detect and correct spelling errors in
+real-time.</p>
+<h3 id="how-spell-checkers-work"><a class="zola-anchor" href="#how-spell-checkers-work" aria-label="Anchor link for: how-spell-checkers-work">How Spell Checkers Work</a></h3>
+<p>At the core of most spell checkers is the Levenshtein distance algorithm, which
+measures the similarity between two strings. The Levenshtein distance between
+two strings is defined as the minimum number of single-character edits
+(<strong>insertions</strong>, <strong>deletions</strong>, or <strong>substitutions</strong>) required to transform one
+string into the other.</p>
+<p>For example, the Levenshtein distance between "kitten" and "sitting" is 3,
+because we can transform "kitten" into "sitting" with the following edits:</p>
+<ol>
+<li><strong>k</strong>itten → <strong>s</strong>itten (substitution of "s" for "k")</li>
+<li>sitt<strong>e</strong>n → sitt<strong>i</strong>n (substitution of "i" for "e")</li>
+<li>sittin → sittin<strong>g</strong> (insertion of "g" at the end)</li>
+</ol>
+<p>The Levenshtein distance algorithm can be implemented using dynamic programming.
+Let $d(i, j)$ be the Levenshtein distance between the first $i$ characters of
+string $s_1$ and the first $j$ characters of string $s_2$. Then, $d(i, j)$ can
+be calculated using the following recurrence relation:</p>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Levenshetin Distance Recurrence Relation</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>$$
+d(i, j) =
+\begin{cases}
+\max(i, j) &amp; \text{if } \min(i, j) = 0 \newline
+\min \begin{cases}
+d(i-1, j) + 1 \newline
+d(i, j-1) + 1 \newline
+d(i-1, j-1) + 1*{s_1[i] \neq s_2[j]}
+\end{cases} &amp; \text{otherwise}
+\end{cases}
+$$</p>
+<p>where $1*{s_1[i] \neq s_2[j]}$ is an indicator function that is 1 if the $i$-th
+character of $s_1$ is not equal to the $j$-th character of $s_2$, and 0
+otherwise.</p>
+
+    </section>
+  </details>
+</article>
+<p>To check the spelling of a word, a spell checker typically compares the word to
+a dictionary of correctly spelled words using the Levenshtein distance
+algorithm. If the Levenshtein distance between the word and its closest match in
+the dictionary is below a certain threshold, the spell checker assumes the word
+is correctly spelled. Otherwise, it suggests the closest match(es) as possible
+corrections.</p>
+<p>One interesting variant of the Levenshtein distance algorithm is the
+Damerau-Levenshtein distance, which allows for transpositions of adjacent
+characters in addition to insertions, deletions, and substitutions. This variant
+is useful for catching common typing errors like "teh" instead of "the".</p>
+<h3 id="fun-facts-about-spell-checkers"><a class="zola-anchor" href="#fun-facts-about-spell-checkers" aria-label="Anchor link for: fun-facts-about-spell-checkers">Fun Facts about Spell Checkers</a></h3>
+<ul>
+<li>The first spell checker was developed for the Unix operating system and was
+called "spell". It used a simple algorithm that compared each word to a
+dictionary of correctly spelled words.</li>
+<li>Early spell checkers were notoriously bad at handling proper nouns and
+technical jargon. Modern spell checkers use more sophisticated techniques,
+such as machine learning, to improve their accuracy.</li>
+<li>Some spell checkers can even catch homophones (words that sound the same but
+are spelled differently), such as "their" vs. "there" vs. "they're".</li>
+<li>Spell checkers have been used for more than just correcting spelling errors.
+In 2018, researchers at the University of Michigan developed a spell checker
+that could detect signs of Alzheimer's disease in writing samples by looking
+for subtle changes in language use over time.</li>
+<li>The Levenshtein distance algorithm has applications beyond spell checking,
+such as DNA sequence alignment and plagiarism detection.</li>
+</ul>
+<hr />
+<h2 id="3-shazam"><a class="zola-anchor" href="#3-shazam" aria-label="Anchor link for: 3-shazam">3. Shazam</a></h2>
+<p>Have you ever heard a song playing and wondered what it was called or who sang
+it? Shazam is a popular app that can identify songs based on a short audio clip.
+The algorithm behind Shazam is ingenious in its simplicity and effectiveness.</p>
+<h3 id="history-of-shazam"><a class="zola-anchor" href="#history-of-shazam" aria-label="Anchor link for: history-of-shazam">History of Shazam</a></h3>
+<p>The idea for Shazam came to co-founder Chris Barton in 1999 when he was a
+student at the University of California, Berkeley. Barton was at a bar with
+friends and heard a song he liked but didn't know the name of. He thought it
+would be great if there was a way to identify songs using a phone.</p>
+<p>Barton teamed up with Avery Wang, a PhD student in audio signal processing, to
+develop the algorithm behind Shazam. Wang had previously worked on a system for
+identifying bird songs based on their spectrograms, and he realized that a
+similar technique could be used to identify music.</p>
+<p>Barton and Wang founded Shazam in 2000 and launched the first version of the app
+in 2002. At the time, the app could only identify a small number of songs and
+required users to call a special phone number and hold their phone up to the
+music. However, the app quickly gained popularity and began to expand its
+database of songs.</p>
+<p>In 2008, Shazam launched an iPhone app that allowed users to identify songs
+directly from their phone. This version of the app used the phone's built-in
+microphone to capture the audio and send it to Shazam's servers for
+identification. The iPhone app was a huge success and helped to drive Shazam's
+growth.</p>
+<p>Today, Shazam is one of the most popular music recognition apps in the world,
+with over 1 billion downloads and 20 million song identifications per day. In
+2018, Shazam was acquired by Apple for a reported $400 million.</p>
+<h3 id="how-shazam-works"><a class="zola-anchor" href="#how-shazam-works" aria-label="Anchor link for: how-shazam-works">How Shazam Works</a></h3>
+<p>At a high level, Shazam works by converting an audio clip into a "fingerprint"
+that can be compared to a database of known songs. The fingerprint is created
+using a clever algorithm called the spectrogram peak finding algorithm.</p>
+<p>Here's how it works:</p>
+<ol>
+<li>The audio clip is divided into short overlapping segments (called "frames")
+and the frequency spectrum of each frame is calculated using the Fast Fourier
+Transform (FFT).</li>
+<li>The spectrogram (a visual representation of the frequency spectrum over time)
+is analyzed to identify "peaks" (local maxima) in the frequency domain. These
+peaks correspond to the dominant frequencies in the audio clip.</li>
+<li>The time and frequency coordinates of each peak are combined to create a
+"hash" (a unique identifier) for that peak.</li>
+<li>The hashes for all the peaks in the clip are combined to create a fingerprint
+for the clip.</li>
+<li>The fingerprint is compared to a database of fingerprints for known songs
+using a technique called "combinatorial hashing".</li>
+<li>If a match is found, the song is identified and returned to the user.</li>
+</ol>
+<p>The key insight behind Shazam is that the spectrogram peaks are robust to noise
+and distortion, so they can be used to identify songs even in noisy environments
+or when the audio quality is poor.</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="spectrogram.png"  alt="Spectrogram of 'Blurred Lines' by Robin Thicke" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Spectrogram of 'Blurred Lines' by Robin Thicke.</p>
+  </caption>
+  
+</section>
+<p>For example, suppose you're at a noisy bar and hear a song playing that you want
+to identify. You open up Shazam and record a 10-second clip of the song. Shazam
+then converts the clip into a spectrogram and identifies the peaks.</p>
+<p>The peaks are then hashed and combined into a fingerprint, which is compared to
+Shazam's database of over 11 million songs. Even though the clip is noisy and
+distorted, Shazam is still able to find a match and identify the song.</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="signal-match.png"  alt="Signal Matching in Shazam" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Signal matching in Shazam.</p>
+  </caption>
+  
+</section>
+<p>One interesting aspect of Shazam's algorithm is that it uses a technique called
+"combinatorial hashing" to efficiently search its database of song fingerprints.
+Combinatorial hashing works by dividing the fingerprint into smaller
+subfingerprints and searching for matches for each subfingerprint separately.
+This allows Shazam to identify songs quickly even though its database contains
+millions of songs.</p>
+<section
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <img src="shazam.png"  alt="Shazam Process" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Excerpt from Shazam's patent showing the process of
+        identifying a song.</p>
+  </caption>
+  
+</section>
+<br>
+<h3 id="fun-facts-about-shazam"><a class="zola-anchor" href="#fun-facts-about-shazam" aria-label="Anchor link for: fun-facts-about-shazam">Fun Facts about Shazam</a></h3>
+<ul>
+<li>Shazam's database contains over 11 million songs and is growing every day.</li>
+<li>Shazam has been used to identify over 50 billion songs since its launch
+in 2002.</li>
+<li>The most Shazamed song of all time is "Dance Monkey" by Tones and I, which has
+been identified over 36.6 million times.</li>
+<li>Shazam's algorithm can identify a song in as little as 1 second, even if the
+audio quality is poor or there is background noise.</li>
+<li>Shazam's co-founder Avery Wang is also an accomplished classical pianist and
+has performed at Carnegie Hall.</li>
+</ul>
+<hr />
+<h2 id="conclusion"><a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">Conclusion</a></h2>
+<p>These are just a few examples of the many ingenious algorithms that power our
+modern world. From search engines to spell checkers to music recognition apps,
+algorithms are all around us, working behind the scenes to make our lives easier
+and more efficient. As technology continues to advance, we can expect to see
+even more clever algorithms emerge to solve new problems and challenges.</p>
+<p>The next time you use a search engine to find information, correct a spelling
+mistake, or identify a song, take a moment to appreciate the algorithms that
+make it all possible. They may be invisible, but they are the unsung heroes of
+the digital age.</p>
+<h2 id="references"><a class="zola-anchor" href="#references" aria-label="Anchor link for: references">References</a></h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=qFb2rvmrahc">Larry Page's University of Michigan commencement address</a></li>
+<li><a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=33566b740d3cd0c0dde57e13b5da148bef37376f">Google’s PageRank: The Math Behind the Search Engine</a></li>
+<li><a href="http://infolab.stanford.edu/~backrub/google.html">The Anatomy of a Large-Scale Hypertextual Web Search Engine</a></li>
+<li><a href="https://www.youtube.com/watch?v=meonLcN7LD4">PageRank GIF Source</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Damerau%E2%80%93Levenshtein_distance">The Levenshtein-Damerau Distance</a></li>
+<li><a href="https://www.ee.columbia.edu/~dpwe/papers/Wang03-shazam.pdf">Shazam: An Industrial-Strength Audio Search Algorithm</a></li>
+<li><a href="https://youtu.be/ev0Ay1m4MWs?si=C_Bk31NOsUeRVAPN">How on Earth Does Shazam Recognize Songs</a></li>
+<li><a href="https://networkedlifeq21.fandom.com/wiki/How_does_Shazam_Uniquely_Identify_A_Track%3F">How does Shazam Uniquely Identify A Track?</a></li>
+</ul>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/theory/">theory</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/theory/">theory</a>
+                    
+                        
+                            
+                                and
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/algorithms/">algorithms</a>
+                    
+                        
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;ingenious-algorithms&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>

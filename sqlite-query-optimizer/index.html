@@ -1,0 +1,1094 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="I love databases, but they are still largely a magical black box to me, so
+in this post, I&#x27;m going to explore how SQLite&#x27;s query optimizer works. We&#x27;ll
+delve together into the process of how SQL queries are parsed, optimized, and
+executed, with a particular focus on the optimization phase. By the end of this
+post, you&#x27;ll have a better understanding of how SQLite&#x27;s query optimizer works
+and how it can help you write more efficient queries." />
+        <meta property="og:description" content="I love databases, but they are still largely a magical black box to me, so
+in this post, I&#x27;m going to explore how SQLite&#x27;s query optimizer works. We&#x27;ll
+delve together into the process of how SQL queries are parsed, optimized, and
+executed, with a particular focus on the optimization phase. By the end of this
+post, you&#x27;ll have a better understanding of how SQLite&#x27;s query optimizer works
+and how it can help you write more efficient queries." />
+        <meta property="twitter:description" content="I love databases, but they are still largely a magical black box to me, so
+in this post, I&#x27;m going to explore how SQLite&#x27;s query optimizer works. We&#x27;ll
+delve together into the process of how SQL queries are parsed, optimized, and
+executed, with a particular focus on the optimization phase. By the end of this
+post, you&#x27;ll have a better understanding of how SQLite&#x27;s query optimizer works
+and how it can help you write more efficient queries." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    A Deep Dive into SQLite&#x27;s Query Optimizer
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;sqlite-query-optimizer&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="A Deep Dive into SQLite&#x27;s Query Optimizer" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;sqlite-query-optimizer&#x2F;"
+    />
+    <meta name="twitter:title" content="A Deep Dive into SQLite&#x27;s Query Optimizer" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="A Deep Dive into SQLite&#x27;s Query Optimizer" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">A Deep Dive into SQLite&#x27;s Query Optimizer</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>15 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-08-27
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>I <strong>love</strong> databases, but they are still largely a magical black box to me, so
+in this post, I'm going to explore how SQLite's query optimizer works. We'll
+delve together into the process of how SQL queries are parsed, optimized, and
+executed, with a particular focus on the optimization phase. By the end of this
+post, you'll have a better understanding of how SQLite's query optimizer works
+and how it can help you write more efficient queries.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#what-actually-happens-when-you-run-a-query">What Actually Happens When You Run a Query?</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#sqlite-s-approach-to-query-optimization">SQLite&#x27;s Approach to Query Optimization</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#simple-example-query">Simple Example Query</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#analyzing-the-query-breaking-down-sqlite-s-execution-process">Analyzing the Query: Breaking Down SQLite&#x27;s Execution Process</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#1-parsing-the-query">1. Parsing the Query</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#2-generating-the-execution-plan">2. Generating the Execution Plan</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#3-full-table-scan-explained">3. Full Table Scan Explained</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#4-using-rowid-lookups-for-efficiency">4. Using Rowid Lookups for Efficiency</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#5-execution-returning-the-results">5. Execution: Returning the Results</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#6-optimizing-the-query-the-what-if-scenario">6. Optimizing the Query (The What-If Scenario)</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#takeaways-from-the-simple-query-example">Takeaways from the Simple Query Example</a>
+          </li>
+          
+        </ul>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#complex-query-example-getting-to-the-heart-of-the-optimizer">Complex Query Example: Getting to the Heart of the Optimizer</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#understanding-the-query-plan-what-happens-behind-the-scenes">Understanding the Query Plan: What Happens Behind the Scenes</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#1-scan-the-likes-table">1. Scan the LIKES Table</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#2-searching-the-drinker-and-beer-tables">2. Searching the DRINKER and BEER Tables</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#3-using-a-temporary-b-tree-for-sorting">3. Using a Temporary B-Tree for Sorting</a>
+          </li>
+          
+        </ul>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#optimizing-the-query-adding-a-multi-column-index">Optimizing the Query: Adding a Multi-Column Index</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#re-running-the-query-plan">Re-running the Query Plan</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#conclusion-tips-for-writing-efficient-queries">Conclusion: Tips for Writing Efficient Queries</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/sqlite-query-optimizer/#references">References</a>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span>
+<p>This past summer, I got a lot of practice learning the ins and outs of SQLite as
+part of a project that I have been contributing to, which we originally set up
+with a SQLite database. I've been working with SQLite for a while now, and I've
+come to appreciate its simplicity and ease of use.</p>
+<h2 id="what-actually-happens-when-you-run-a-query"><a class="zola-anchor" href="#what-actually-happens-when-you-run-a-query" aria-label="Anchor link for: what-actually-happens-when-you-run-a-query">What Actually Happens When You Run a Query?</a></h2>
+<p>Regardless of the database engine you're using, when you run a query, the
+database engine goes through a series of steps to execute the query. These steps
+include:</p>
+<ol>
+<li><strong>Writing</strong>: The query is written and sent to the database engine.</li>
+<li><strong>Parsing</strong>: The query is parsed to ensure it is syntactically correct.</li>
+<li><strong>Planning</strong>: The query planner generates an execution plan for the query.</li>
+<li><strong>Execution</strong>: The query is actually executed and the results are returned.</li>
+</ol>
+<p>Of course, while these steps are common to all database engines, the way they
+are implemented can vary significantly from one engine to another.</p>
+<section
+  style="width: 100%; max-width: 60%; margin: 0 auto; text-align: center;">
+  <img src="overview.png"  alt="Overview of the query execution process" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Overview of the query execution process</p>
+  </caption>
+  
+</section>
+<h2 id="sqlite-s-approach-to-query-optimization"><a class="zola-anchor" href="#sqlite-s-approach-to-query-optimization" aria-label="Anchor link for: sqlite-s-approach-to-query-optimization">SQLite's Approach to Query Optimization</a></h2>
+<p>Because SQLite is open source and has a small codebase, it’s relatively easy to
+understand how it works. The query optimizer in SQLite might seem like a modest
+engine at first glance, but under the hood, it's a sophisticated piece of
+software that makes smart decisions to ensure your queries run efficiently.</p>
+<p>SQLite's query optimizer uses several different strategies to optimize query
+performance:</p>
+<ol>
+<li>
+<p><strong>Index Selection</strong>: SQLite intelligently selects the best indexes to speed up
+data retrieval. It considers various factors, such as the columns in the <code>WHERE</code>
+clause and the order in which they appear.</p>
+</li>
+<li>
+<p><strong>Join Ordering</strong>: For queries that involve joins, SQLite tries to figure out
+the most efficient order to join the tables. It uses heuristics and statistics
+to make an educated guess that minimizes the computational cost.</p>
+</li>
+<li>
+<p><strong>Subquery Flattening</strong>: SQLite tries to flatten subqueries, meaning it
+attempts to merge subqueries into the main query whenever possible. This
+reduces the overhead of executing multiple queries separately.</p>
+</li>
+<li>
+<p><strong>Covering Indexes</strong>: If an index contains all the columns needed by the
+query, SQLite can retrieve the results directly from the index without
+accessing the actual table, significantly speeding up the query.</p>
+</li>
+<li>
+<p><strong>Cost Estimation</strong>: SQLite uses a cost-based query planner, which estimates
+the cost of different execution plans and chooses the one with the lowest
+estimated cost. The cost is generally a measure of how much disk I/O and CPU
+time will be consumed.</p>
+</li>
+</ol>
+<p>These strategies help SQLite balance efficiency and performance, making it an
+excellent choice for applications where lightweight and quick database
+operations are essential.</p>
+<h2 id="simple-example-query"><a class="zola-anchor" href="#simple-example-query" aria-label="Anchor link for: simple-example-query">Simple Example Query</a></h2>
+<p>Now that we have a basic understanding of how SQLite's query optimizer works,
+let's take a look at a simple example query and see how it's optimized.</p>
+<p>Borrowing from the Rice University legend, Dr. Christopher Jermaine, let's say
+we have the following relational schema:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql"><span class="z-meta z-create z-sql"><span class="z-keyword z-other z-create z-sql">CREATE</span> <span class="z-keyword z-other z-sql">TABLE</span> </span><span class="z-meta z-toc-list z-full-identifier z-sql"><span class="z-entity z-name z-function z-sql">LIKES</span></span> (
+</span><span class="z-source z-sql">    DRINKER <span class="z-storage z-type z-sql">TEXT</span>,
+</span><span class="z-source z-sql">    BEER <span class="z-storage z-type z-sql">TEXT</span>
+</span><span class="z-source z-sql">);
+</span><span class="z-source z-sql">
+</span><span class="z-source z-sql"><span class="z-comment z-line z-double-dash z-sql"><span class="z-punctuation z-definition z-comment z-sql">--</span> Example data
+</span></span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">INSERT INTO</span> LIKES (DRINKER, BEER) <span class="z-keyword z-other z-DML z-II z-sql">VALUES</span>
+</span><span class="z-source z-sql">(<span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Ava<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Bud Light<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Ava<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Pabst<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Ava<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Miller Lite<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Bob<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Bud Light<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Bob<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Coors Light<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Bob<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Miller Lite<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Charlie<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Bud Light<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Charlie<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Coors Light<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Charlie<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Miller Lite<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>);
+</span></code></pre>
+<p>For demonstration, I'll be using the
+<a href="https://sqliteonline.com/">SQLite Online Compiler</a> to run the queries. Suppose
+we want to find all the beers that Ava likes with the following query:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">SELECT</span> BEER <span class="z-keyword z-other z-DML z-sql">FROM</span> LIKES <span class="z-keyword z-other z-DML z-sql">WHERE</span> DRINKER <span class="z-keyword z-operator z-comparison z-sql">=</span> <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Ava<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>;
+</span></code></pre>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="run-simple.png"  alt="Running the simple query" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Results of the simple query</p>
+  </caption>
+  
+</section>
+<p>As we can see, we get the expected results for this query. But how does SQLite's
+query optimizer actually execute this query?</p>
+<h3 id="analyzing-the-query-breaking-down-sqlite-s-execution-process"><a class="zola-anchor" href="#analyzing-the-query-breaking-down-sqlite-s-execution-process" aria-label="Anchor link for: analyzing-the-query-breaking-down-sqlite-s-execution-process">Analyzing the Query: Breaking Down SQLite's Execution Process</a></h3>
+<h4 id="1-parsing-the-query"><a class="zola-anchor" href="#1-parsing-the-query" aria-label="Anchor link for: 1-parsing-the-query">1. <strong>Parsing the Query</strong></a></h4>
+<p>The first thing SQLite does is parse the SQL statement. The parser checks the
+query for any syntax errors and builds a parse tree—a hierarchical
+representation of the query. This step ensures that the SQL statement is valid
+and prepares it for further processing.</p>
+<h4 id="2-generating-the-execution-plan"><a class="zola-anchor" href="#2-generating-the-execution-plan" aria-label="Anchor link for: 2-generating-the-execution-plan">2. <strong>Generating the Execution Plan</strong></a></h4>
+<p>After parsing, SQLite moves on to the query planning phase, where it generates
+an execution plan. An execution plan is a step-by-step roadmap of how SQLite
+will retrieve the data. This involves several key decisions:</p>
+<ul>
+<li>
+<p><strong>Table Access Method</strong>: SQLite needs to decide how to access the <code>LIKES</code>
+table. Since the <code>WHERE</code> clause filters rows based on the <code>DRINKER</code> column,
+SQLite considers whether there's an index on <code>DRINKER</code> that can speed up the
+retrieval.</p>
+</li>
+<li>
+<p><strong>Index Usage</strong>: If there were an index on the <code>DRINKER</code> column, SQLite might
+use it to directly look up rows where <code>DRINKER = 'Ava'</code>. However, in this
+case, there’s no such index, so SQLite will perform a <strong>full table scan</strong>.</p>
+</li>
+</ul>
+<p>We can inspect the execution plan using the <code>EXPLAIN QUERY PLAN</code> command:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql"><span class="z-comment z-line z-double-dash z-sql"><span class="z-punctuation z-definition z-comment z-sql">--</span> Explain query plan
+</span></span><span class="z-source z-sql">EXPLAIN QUERY PLAN
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">SELECT</span> BEER <span class="z-keyword z-other z-DML z-sql">FROM</span> LIKES <span class="z-keyword z-other z-DML z-sql">WHERE</span> DRINKER <span class="z-keyword z-operator z-comparison z-sql">=</span> <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Ava<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>;
+</span></code></pre>
+<p>As expected since there's no index on the <code>DRINKER</code> column, the output is:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql">SCAN LIKES
+</span></code></pre>
+<h4 id="3-full-table-scan-explained"><a class="zola-anchor" href="#3-full-table-scan-explained" aria-label="Anchor link for: 3-full-table-scan-explained">3. <strong>Full Table Scan Explained</strong></a></h4>
+<p>The plan indicates "SCAN LIKES," meaning SQLite will read through the entire
+<code>LIKES</code> table, row by row, to find matches where <code>DRINKER = 'Ava'</code>. Here’s how
+it works:</p>
+<ul>
+<li>SQLite starts at the first row of the <code>LIKES</code> table and checks if the
+<code>DRINKER</code> column equals 'Ava'.</li>
+<li>If it matches, SQLite includes the <code>BEER</code> column from that row in the result
+set.</li>
+<li>This process repeats for every row in the table.</li>
+</ul>
+<p>Even though a full table scan is the least efficient method (especially with
+large tables), it’s the only option when no suitable index is available. For
+small tables like our example, the performance impact is minimal, but with
+larger datasets, this could become a bottleneck.</p>
+<h4 id="4-using-rowid-lookups-for-efficiency"><a class="zola-anchor" href="#4-using-rowid-lookups-for-efficiency" aria-label="Anchor link for: 4-using-rowid-lookups-for-efficiency">4. <strong>Using Rowid Lookups for Efficiency</strong></a></h4>
+<p>While full table scans are sometimes necessary, SQLite often relies on <strong>rowid
+lookups</strong> to speed up queries when no more specific index is available. Each
+table in SQLite has a unique identifier for each row called the <code>rowid</code>. If your
+query involves this <code>rowid</code> directly, SQLite can perform a binary search on this
+identifier, which is significantly faster than a full table scan.</p>
+<p>For example, consider the following query:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">SELECT</span> BEER <span class="z-keyword z-other z-DML z-sql">FROM</span> LIKES <span class="z-keyword z-other z-DML z-sql">WHERE</span> rowid <span class="z-keyword z-operator z-comparison z-sql">=</span> <span class="z-constant z-numeric z-sql">1</span>;
+</span></code></pre>
+<p>In this case, SQLite will directly use the rowid to locate the record, bypassing
+the need to scan every row in the table. This technique can be particularly
+useful when you know the specific <code>rowid</code> of the data you need to retrieve.</p>
+<h4 id="5-execution-returning-the-results"><a class="zola-anchor" href="#5-execution-returning-the-results" aria-label="Anchor link for: 5-execution-returning-the-results">5. <strong>Execution: Returning the Results</strong></a></h4>
+<p>Once the execution plan is ready, SQLite moves to the execution phase. The
+database engine follows the plan, scanning the <code>LIKES</code> table, filtering rows,
+and collecting the <code>BEER</code> values where <code>DRINKER</code> is 'Ava'. The results are then
+returned to the user.</p>
+<p>In this simple case, the query returns:</p>
+<pre style="width: 25%; margin: 0 auto;">
+Bud Light
+Pabst
+Miller Lite
+</pre>
+<p>These results match what we expected because the query is straightforward and
+the table is small.</p>
+<h4 id="6-optimizing-the-query-the-what-if-scenario"><a class="zola-anchor" href="#6-optimizing-the-query-the-what-if-scenario" aria-label="Anchor link for: 6-optimizing-the-query-the-what-if-scenario">6. <strong>Optimizing the Query (The What-If Scenario)</strong></a></h4>
+<p>Let’s imagine we want to optimize this query. The most effective way would be
+to create an index on the <code>DRINKER</code> column. With an index, SQLite could:</p>
+<ul>
+<li><strong>Skip the Full Table Scan</strong>: Instead of scanning the entire table, SQLite
+could directly jump to the rows where <code>DRINKER = 'Ava'</code>, significantly
+speeding up the query.</li>
+</ul>
+<p>Here’s how you could create the index:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql"><span class="z-meta z-create z-sql"><span class="z-keyword z-other z-create z-sql">CREATE</span> <span class="z-keyword z-other z-sql">INDEX</span> </span><span class="z-meta z-toc-list z-full-identifier z-sql">idx_drinker ON </span><span class="z-meta z-toc-list z-full-identifier z-sql"><span class="z-entity z-name z-function z-sql">LIKES</span></span>(DRINKER);
+</span></code></pre>
+<p>With this index, if you run the same query again:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">SELECT</span> BEER <span class="z-keyword z-other z-DML z-sql">FROM</span> LIKES <span class="z-keyword z-other z-DML z-sql">WHERE</span> DRINKER <span class="z-keyword z-operator z-comparison z-sql">=</span> <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Ava<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>;
+</span></code></pre>
+<p>SQLite would use the index to find all rows with <code>DRINKER = 'Ava'</code> directly,
+reducing the amount of work it needs to do.</p>
+<p>Now when we <code>EXPLAIN QUERY PLAN</code> command to inspect how SQLite would handle the
+query now, we see:</p>
+<div align="center">
+    <code>SEARCH LIKES USING INDEX idx_drinker (DRINKER=?)</code> 
+</div>
+<p>This indicates that SQLite is now using the <code>idx_drinker</code> index to perform a
+much faster search. Instead of scanning the entire table, it quickly narrows
+down the relevant rows using the index, demonstrating a significant improvement
+in query performance.</p>
+<h4 id="takeaways-from-the-simple-query-example"><a class="zola-anchor" href="#takeaways-from-the-simple-query-example" aria-label="Anchor link for: takeaways-from-the-simple-query-example">Takeaways from the Simple Query Example</a></h4>
+<p>This simple example highlights how SQLite’s query optimizer works in the
+background to execute SQL queries efficiently. While a full table scan might be
+acceptable in small tables, as your data grows, understanding and utilizing
+indexes can make a world of difference in performance.</p>
+<p>Even in this simple query, we've uncovered the critical role the query planner
+plays in determining how to retrieve your data efficiently, and how small
+changes—like adding an index—can lead to significant performance gains.</p>
+<p>In the next sections, we’ll dive deeper into more complex queries and see how
+SQLite handles more challenging scenarios, giving you the tools to write even
+more efficient SQL code.</p>
+<hr />
+<h2 id="complex-query-example-getting-to-the-heart-of-the-optimizer"><a class="zola-anchor" href="#complex-query-example-getting-to-the-heart-of-the-optimizer" aria-label="Anchor link for: complex-query-example-getting-to-the-heart-of-the-optimizer">Complex Query Example: Getting to the Heart of the Optimizer</a></h2>
+<p>Now that we’ve covered the basics, let’s look at a more complicated query that
+gives SQLite’s optimizer something to chew on.</p>
+<p>Imagine we have two tables, <code>DRINKER</code> and <code>BEER</code>, and we want to perform a query
+that joins them to find out which beers each drinker likes, sorted by their
+preference. The schema might look something like this:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql"><span class="z-meta z-create z-sql"><span class="z-keyword z-other z-create z-sql">CREATE</span> <span class="z-keyword z-other z-sql">TABLE</span> </span><span class="z-meta z-toc-list z-full-identifier z-sql"><span class="z-entity z-name z-function z-sql">DRINKER</span></span> (
+</span><span class="z-source z-sql">    ID <span class="z-storage z-type z-sql">INTEGER</span> <span class="z-storage z-modifier z-sql">PRIMARY KEY</span>,
+</span><span class="z-source z-sql">    NAME <span class="z-storage z-type z-sql">TEXT</span>
+</span><span class="z-source z-sql">);
+</span><span class="z-source z-sql">
+</span><span class="z-source z-sql"><span class="z-meta z-create z-sql"><span class="z-keyword z-other z-create z-sql">CREATE</span> <span class="z-keyword z-other z-sql">TABLE</span> </span><span class="z-meta z-toc-list z-full-identifier z-sql"><span class="z-entity z-name z-function z-sql">BEER</span></span> (
+</span><span class="z-source z-sql">    ID <span class="z-storage z-type z-sql">INTEGER</span> <span class="z-storage z-modifier z-sql">PRIMARY KEY</span>,
+</span><span class="z-source z-sql">    NAME <span class="z-storage z-type z-sql">TEXT</span>,
+</span><span class="z-source z-sql">    TYPE <span class="z-storage z-type z-sql">TEXT</span>
+</span><span class="z-source z-sql">);
+</span><span class="z-source z-sql">
+</span><span class="z-source z-sql"><span class="z-meta z-create z-sql"><span class="z-keyword z-other z-create z-sql">CREATE</span> <span class="z-keyword z-other z-sql">TABLE</span> </span><span class="z-meta z-toc-list z-full-identifier z-sql"><span class="z-entity z-name z-function z-sql">LIKES</span></span> (
+</span><span class="z-source z-sql">    DRINKER_ID <span class="z-storage z-type z-sql">INTEGER</span>,
+</span><span class="z-source z-sql">    BEER_ID <span class="z-storage z-type z-sql">INTEGER</span>,
+</span><span class="z-source z-sql">    PREFERENCE <span class="z-storage z-type z-sql">INTEGER</span>, <span class="z-comment z-line z-double-dash z-sql"><span class="z-punctuation z-definition z-comment z-sql">--</span> Lower numbers indicate higher preference
+</span></span><span class="z-source z-sql">    <span class="z-storage z-modifier z-sql">FOREIGN KEY</span>(DRINKER_ID) <span class="z-storage z-modifier z-sql">REFERENCES</span> DRINKER(ID),
+</span><span class="z-source z-sql">    <span class="z-storage z-modifier z-sql">FOREIGN KEY</span>(BEER_ID) <span class="z-storage z-modifier z-sql">REFERENCES</span> BEER(ID)
+</span><span class="z-source z-sql">);
+</span></code></pre>
+<p>And let's populate the tables with some example data:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql"><span class="z-comment z-line z-double-dash z-sql"><span class="z-punctuation z-definition z-comment z-sql">--</span> Example data
+</span></span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">INSERT INTO</span> DRINKER (ID, NAME) <span class="z-keyword z-other z-DML z-II z-sql">VALUES</span>
+</span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">1</span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Alice<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">2</span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Bob<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">3</span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Charlie<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>);
+</span><span class="z-source z-sql">
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">INSERT INTO</span> BEER (ID, NAME, TYPE) <span class="z-keyword z-other z-DML z-II z-sql">VALUES</span>
+</span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">1</span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Budweiser<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Lager<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">2</span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Coors Light<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Lager<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>),
+</span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">3</span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Miller Lite<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>, <span class="z-string z-quoted z-single z-sql"><span class="z-punctuation z-definition z-string z-begin z-sql">&#39;</span>Pilsner<span class="z-punctuation z-definition z-string z-end z-sql">&#39;</span></span>);
+</span><span class="z-source z-sql">
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">INSERT INTO</span> LIKES (DRINKER_ID, BEER_ID, PREFERENCE) <span class="z-keyword z-other z-DML z-II z-sql">VALUES</span>
+</span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">1</span>, <span class="z-constant z-numeric z-sql">1</span>, <span class="z-constant z-numeric z-sql">1</span>),  <span class="z-comment z-line z-double-dash z-sql"><span class="z-punctuation z-definition z-comment z-sql">--</span> Alice likes Budweiser the most
+</span></span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">1</span>, <span class="z-constant z-numeric z-sql">2</span>, <span class="z-constant z-numeric z-sql">2</span>),  <span class="z-comment z-line z-double-dash z-sql"><span class="z-punctuation z-definition z-comment z-sql">--</span> Alice likes Coors Light second
+</span></span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">2</span>, <span class="z-constant z-numeric z-sql">3</span>, <span class="z-constant z-numeric z-sql">1</span>),  <span class="z-comment z-line z-double-dash z-sql"><span class="z-punctuation z-definition z-comment z-sql">--</span> Bob prefers Miller Lite
+</span></span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">3</span>, <span class="z-constant z-numeric z-sql">1</span>, <span class="z-constant z-numeric z-sql">1</span>),  <span class="z-comment z-line z-double-dash z-sql"><span class="z-punctuation z-definition z-comment z-sql">--</span> Charlie likes Budweiser the most
+</span></span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">3</span>, <span class="z-constant z-numeric z-sql">2</span>, <span class="z-constant z-numeric z-sql">3</span>),  <span class="z-comment z-line z-double-dash z-sql"><span class="z-punctuation z-definition z-comment z-sql">--</span> Charlie&#39;s least favorite is Coors Light
+</span></span><span class="z-source z-sql">(<span class="z-constant z-numeric z-sql">3</span>, <span class="z-constant z-numeric z-sql">3</span>, <span class="z-constant z-numeric z-sql">2</span>);  <span class="z-comment z-line z-double-dash z-sql"><span class="z-punctuation z-definition z-comment z-sql">--</span> Charlie likes Miller Lite second
+</span></span></code></pre>
+<p>Now, suppose we want to find out which beers each drinker likes, sorted by their
+preference:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">SELECT</span> <span class="z-constant z-other z-database-name z-sql">DRINKER</span>.<span class="z-constant z-other z-table-name z-sql">NAME</span>, <span class="z-constant z-other z-database-name z-sql">BEER</span>.<span class="z-constant z-other z-table-name z-sql">NAME</span>, <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">PREFERENCE</span>
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">FROM</span> DRINKER
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">JOIN</span> LIKES ON <span class="z-constant z-other z-database-name z-sql">DRINKER</span>.<span class="z-constant z-other z-table-name z-sql">ID</span> <span class="z-keyword z-operator z-comparison z-sql">=</span> <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">DRINKER_ID</span>
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">JOIN</span> BEER ON <span class="z-constant z-other z-database-name z-sql">BEER</span>.<span class="z-constant z-other z-table-name z-sql">ID</span> <span class="z-keyword z-operator z-comparison z-sql">=</span> <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">BEER_ID</span>
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">ORDER BY</span> <span class="z-constant z-other z-database-name z-sql">DRINKER</span>.<span class="z-constant z-other z-table-name z-sql">NAME</span>, <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">PREFERENCE</span>;
+</span></code></pre>
+<p>This query isn’t as simple as it looks. SQLite’s optimizer has to decide:</p>
+<ol>
+<li><strong>Join Order</strong>: Should it start with the <code>DRINKER</code>, <code>LIKES</code>, or <code>BEER</code> table?</li>
+<li><strong>Index Usage</strong>: Which indexes, if any, can be used to speed up the joins
+and the sorting?</li>
+<li><strong>Sorting</strong>: How should the results be sorted efficiently after the joins?</li>
+</ol>
+<h3 id="understanding-the-query-plan-what-happens-behind-the-scenes"><a class="zola-anchor" href="#understanding-the-query-plan-what-happens-behind-the-scenes" aria-label="Anchor link for: understanding-the-query-plan-what-happens-behind-the-scenes">Understanding the Query Plan: What Happens Behind the Scenes</a></h3>
+<p>When we look at the query plan for the complex query:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql">EXPLAIN QUERY PLAN
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">SELECT</span> <span class="z-constant z-other z-database-name z-sql">DRINKER</span>.<span class="z-constant z-other z-table-name z-sql">NAME</span>, <span class="z-constant z-other z-database-name z-sql">BEER</span>.<span class="z-constant z-other z-table-name z-sql">NAME</span>, <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">PREFERENCE</span>
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">FROM</span> DRINKER
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">JOIN</span> LIKES ON <span class="z-constant z-other z-database-name z-sql">DRINKER</span>.<span class="z-constant z-other z-table-name z-sql">ID</span> <span class="z-keyword z-operator z-comparison z-sql">=</span> <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">DRINKER_ID</span>
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">JOIN</span> BEER ON <span class="z-constant z-other z-database-name z-sql">BEER</span>.<span class="z-constant z-other z-table-name z-sql">ID</span> <span class="z-keyword z-operator z-comparison z-sql">=</span> <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">BEER_ID</span>
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">ORDER BY</span> <span class="z-constant z-other z-database-name z-sql">DRINKER</span>.<span class="z-constant z-other z-table-name z-sql">NAME</span>, <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">PREFERENCE</span>;
+</span></code></pre>
+<p>We get the following output:</p>
+<pre style="width: 80%; margin: 0 auto;">
+SCAN LIKES
+
+SEARCH DRINKER USING INTEGER PRIMARY KEY (rowid=?)
+
+SEARCH BEER USING INTEGER PRIMARY KEY (rowid=?)
+
+USE TEMP B-TREE FOR ORDER BY
+</pre>
+<p>This output provides a high-level overview of how SQLite intends to execute the
+query. Let’s break down each component and understand what’s happening under the
+hood.</p>
+<h4 id="1-scan-the-likes-table"><a class="zola-anchor" href="#1-scan-the-likes-table" aria-label="Anchor link for: 1-scan-the-likes-table">1. <strong>Scan the <code>LIKES</code> Table</strong></a></h4>
+<ul>
+<li><strong>Plan Step</strong>: <code>SCAN LIKES</code></li>
+</ul>
+<p>SQLite begins by scanning the <code>LIKES</code> table. Since <code>LIKES</code> is the central table
+in this query, containing the foreign keys that link <code>DRINKER</code> to <code>BEER</code>, it
+makes sense for SQLite to start here.</p>
+<ul>
+<li><strong>Why a Table Scan?</strong>: The plan shows that SQLite performs a full table scan
+on <code>LIKES</code>, meaning it reads every row in the table. This might seem
+inefficient, but without specific indexes on <code>DRINKER_ID</code> or <code>BEER_ID</code>, a
+full scan is necessary to gather all the relevant data.</li>
+</ul>
+<h4 id="2-searching-the-drinker-and-beer-tables"><a class="zola-anchor" href="#2-searching-the-drinker-and-beer-tables" aria-label="Anchor link for: 2-searching-the-drinker-and-beer-tables">2. <strong>Searching the <code>DRINKER</code> and <code>BEER</code> Tables</strong></a></h4>
+<ul>
+<li><strong>Plan Steps</strong>:
+<ul>
+<li><code>SEARCH DRINKER USING INTEGER PRIMARY KEY (rowid=?)</code></li>
+<li><code>SEARCH BEER USING INTEGER PRIMARY KEY (rowid=?)</code></li>
+</ul>
+</li>
+</ul>
+<p>For each row in <code>LIKES</code>, SQLite needs to find the corresponding <code>DRINKER</code> and
+<code>BEER</code> entries. It uses the primary key indexes (<code>INTEGER PRIMARY KEY</code>) on
+these tables to quickly locate the matching rows.</p>
+<ul>
+<li><strong>Primary Key Lookup</strong>: Because both <code>DRINKER.ID</code> and <code>BEER.ID</code> are defined
+as primary keys, SQLite can perform an efficient lookup using these
+indexes. The query plan indicates that for each <code>LIKES</code> entry, SQLite
+performs a quick search in both <code>DRINKER</code> and <code>BEER</code> tables to retrieve the
+<code>NAME</code> fields.</li>
+</ul>
+<h4 id="3-using-a-temporary-b-tree-for-sorting"><a class="zola-anchor" href="#3-using-a-temporary-b-tree-for-sorting" aria-label="Anchor link for: 3-using-a-temporary-b-tree-for-sorting">3. <strong>Using a Temporary B-Tree for Sorting</strong></a></h4>
+<ul>
+<li><strong>Plan Step</strong>: <code>USE TEMP B-TREE FOR ORDER BY</code></li>
+</ul>
+<p>The final step in the query plan involves sorting the results. The query
+requests that the results be ordered by <code>DRINKER.NAME</code> and <code>LIKES.PREFERENCE</code>.
+Since the data isn’t naturally ordered in this way, SQLite must perform
+additional work to achieve this sort order.</p>
+<ul>
+<li>
+<p><strong>Temporary B-Tree</strong>: To sort the results efficiently, SQLite creates a
+temporary B-tree structure. A B-tree is a self-balancing tree data structure
+that maintains sorted data and allows for efficient insertion, deletion, and
+lookup operations. By inserting the result set into this B- tree, SQLite can
+quickly and efficiently retrieve the data in the desired order.</p>
+</li>
+<li>
+<p><strong>Why Not an Index?</strong>: The need for a temporary B-tree indicates that there
+isn’t an existing index that supports the required sort order. This extra step
+adds overhead, which is why creating an appropriate index can be beneficial.</p>
+</li>
+</ul>
+<p>Combining all these steps, we get the expected output:</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="run-complex.png"  alt="Running the complex query" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Results of the complex query</p>
+  </caption>
+  
+</section>
+<br>
+<h3 id="optimizing-the-query-adding-a-multi-column-index"><a class="zola-anchor" href="#optimizing-the-query-adding-a-multi-column-index" aria-label="Anchor link for: optimizing-the-query-adding-a-multi-column-index">Optimizing the Query: Adding a Multi-Column Index</a></h3>
+<p>As mentioned earlier, one way to improve this query's performance is by adding
+an index on the <code>LIKES</code> table. Specifically, creating a <strong>multi-column
+index</strong> on the combination of <code>DRINKER_ID</code> and <code>PREFERENCE</code> would directly
+support the sorting required by the query:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql"><span class="z-meta z-create z-sql"><span class="z-keyword z-other z-create z-sql">CREATE</span> <span class="z-keyword z-other z-sql">INDEX</span> </span><span class="z-meta z-toc-list z-full-identifier z-sql">idx_likes_drinker_pref ON </span><span class="z-meta z-toc-list z-full-identifier z-sql"><span class="z-entity z-name z-function z-sql">LIKES</span></span>(DRINKER_ID, PREFERENCE);
+</span></code></pre>
+<p>By creating this multi-column index, SQLite can:</p>
+<ul>
+<li>
+<p><strong>Avoid Full Table Scans</strong>: With this index, SQLite can avoid a full scan of
+the <code>LIKES</code> table. Instead, it can directly jump to the relevant rows using
+the index, which is more efficient.</p>
+</li>
+<li>
+<p><strong>Optimize Sorting</strong>: The index also covers the <code>PREFERENCE</code> column, which
+means the results can be retrieved in the correct order directly from the
+index. This eliminates the need for a temporary B-tree, reducing the query’s
+overall execution time.</p>
+</li>
+</ul>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="multicolumn-idx.png"  alt="Example multicolumn index from the SQLite query planner documentation
+    illustrating a lookup using the index" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Example multicolumn index from the SQLite query planner
+        documentation illustrating a lookup using the index.</p>
+  </caption>
+  
+</section>
+<h3 id="re-running-the-query-plan"><a class="zola-anchor" href="#re-running-the-query-plan" aria-label="Anchor link for: re-running-the-query-plan">Re-running the Query Plan</a></h3>
+<p>After creating the index, if we re-run the <code>EXPLAIN QUERY PLAN</code> command, we
+might see a different plan:</p>
+<pre data-lang="sql" class="language-sql z-code"><code class="language-sql" data-lang="sql"><span class="z-source z-sql">EXPLAIN QUERY PLAN
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">SELECT</span> <span class="z-constant z-other z-database-name z-sql">DRINKER</span>.<span class="z-constant z-other z-table-name z-sql">NAME</span>, <span class="z-constant z-other z-database-name z-sql">BEER</span>.<span class="z-constant z-other z-table-name z-sql">NAME</span>, <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">PREFERENCE</span>
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">FROM</span> DRINKER
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">JOIN</span> LIKES ON <span class="z-constant z-other z-database-name z-sql">DRINKER</span>.<span class="z-constant z-other z-table-name z-sql">ID</span> <span class="z-keyword z-operator z-comparison z-sql">=</span> <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">DRINKER_ID</span>
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">JOIN</span> BEER ON <span class="z-constant z-other z-database-name z-sql">BEER</span>.<span class="z-constant z-other z-table-name z-sql">ID</span> <span class="z-keyword z-operator z-comparison z-sql">=</span> <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">BEER_ID</span>
+</span><span class="z-source z-sql"><span class="z-keyword z-other z-DML z-sql">ORDER BY</span> <span class="z-constant z-other z-database-name z-sql">DRINKER</span>.<span class="z-constant z-other z-table-name z-sql">NAME</span>, <span class="z-constant z-other z-database-name z-sql">LIKES</span>.<span class="z-constant z-other z-table-name z-sql">PREFERENCE</span>;
+</span></code></pre>
+<p>The updated plan now reflects the use of the new index:</p>
+<pre style="width: 100%; margin: 0 auto;">
+SCAN DRINKER
+SEARCH LIKES USING INDEX idx_likes_drinker_pref (DRINKER_ID=?)
+SEARCH BEER USING INTEGER PRIMARY KEY (rowid=?)
+USE TEMP B-TREE FOR ORDER BY
+</pre>
+<p>This new execution plan reflects several optimizations made by SQLite:</p>
+<ol>
+<li>
+<p><strong>SCAN DRINKER</strong>:</p>
+<p>SQLite starts by scanning the <code>DRINKER</code> table. Since this is a full table
+scan, it reads each row from the <code>DRINKER</code> table sequentially. This step
+makes sense as it’s the starting point of our query, and no filters or
+constraints are applied to <code>DRINKER</code> that would allow an index to be used
+here.</p>
+</li>
+<li>
+<p><strong>SEARCH LIKES USING INDEX <code>idx_likes_drinker_pref</code> (DRINKER_ID=?)</strong>:</p>
+<p>Here’s where the optimization kicks in. SQLite uses the newly created index
+<code>idx_likes_drinker_pref</code> on the <code>LIKES</code> table. This index is likely created
+on the <code>DRINKER_ID</code> and <code>PREFERENCE</code> columns, allowing SQLite to efficiently
+find the rows in <code>LIKES</code> where <code>DRINKER_ID</code> matches the current row from the
+<code>DRINKER</code> table. This dramatically reduces the amount of data SQLite needs to
+sift through compared to a full table scan.</p>
+</li>
+<li>
+<p><strong>SEARCH BEER USING INTEGER PRIMARY KEY (rowid=?)</strong>:</p>
+<p>For the <code>BEER</code> table, SQLite utilizes the primary key index, which is an
+automatically created index on the <code>ID</code> column (which acts as the <code>rowid</code>).
+Since this is the most efficient way to retrieve specific rows from <code>BEER</code>,
+SQLite uses this index to quickly find the beer names corresponding to the
+<code>BEER_ID</code> values from the <code>LIKES</code> table.</p>
+</li>
+<li>
+<p><strong>USE TEMP B-TREE FOR ORDER BY</strong>:</p>
+<p>Finally, SQLite notes that it will use a temporary B-Tree to sort the results
+according to the <code>ORDER BY</code> clause (<code>DRINKER.NAME</code> and <code>LIKES.PREFERENCE</code>).
+Even though indexes can often help with sorting, in this case, SQLite decides
+to use a temporary B-Tree structure to ensure that the results are returned
+in the correct order. This step can be a bit more resource-intensive, but it
+guarantees that the results will be sorted as requested.</p>
+</li>
+</ol>
+<p>The use of the <code>idx_likes_drinker_pref</code> index significantly improves the
+efficiency of the query. By avoiding a full table scan on <code>LIKES</code>, SQLite
+reduces the amount of data it needs to process, which speeds up query execution,
+especially on larger datasets.</p>
+<p>The final <code>ORDER BY</code> clause requires SQLite to sort the results, and since
+the current indexes do not cover both <code>DRINKER.NAME</code> and <code>LIKES.PREFERENCE</code>,
+SQLite opts to use a temporary B-Tree. If you frequently run this query and
+notice the sorting step is a bottleneck, you could consider creating a
+composite index on these two columns to further optimize performance.</p>
+<hr />
+<h2 id="conclusion-tips-for-writing-efficient-queries"><a class="zola-anchor" href="#conclusion-tips-for-writing-efficient-queries" aria-label="Anchor link for: conclusion-tips-for-writing-efficient-queries">Conclusion: Tips for Writing Efficient Queries</a></h2>
+<p>By peeking under the hood at how SQL queries are executed, you can gain some
+intuition on why certain queries are faster than others. Here are a few tips
+to keep in mind:</p>
+<ol>
+<li>
+<p><strong>Index Your Foreign Keys</strong>: Always create indexes on columns used in <code>JOIN</code>
+conditions. This speeds up the process of matching rows between tables.</p>
+</li>
+<li>
+<p><strong>Use Covering Indexes</strong>: If possible, create indexes that cover all the
+columns your query needs, so SQLite doesn’t need to access the main table at
+all.</p>
+</li>
+<li>
+<p><strong>Write Selective WHERE Clauses</strong>: If your <code>WHERE</code> clause can quickly
+eliminate rows from consideration, your query will run faster. The fewer rows
+SQLite has to process, the better.</p>
+</li>
+<li>
+<p><strong>Avoid Redundant Sorting</strong>: If you know your data is already sorted in the
+way you want, avoid using <code>ORDER BY</code>. It just adds unnecessary processing
+time.</p>
+</li>
+<li>
+<p><strong>Optimize Subqueries</strong>: Subqueries can sometimes be rewritten as joins,
+which might be more efficient, especially if the subquery’s result set is
+large.</p>
+</li>
+<li>
+<p><strong>Understand the Query Planner</strong>: Use tools like <code>EXPLAIN QUERY PLAN</code> to
+understand how SQLite executes your queries. Sometimes, a small change in the
+query structure can lead to a big performance improvement.</p>
+</li>
+</ol>
+<p>Learning to write efficient SQL queries is a valuable skill that translates
+across all database systems and can make a significant difference in your
+application’s performance, scalability, and resource usage. Like most things, it
+takes practice and experimentation and this post just scratches the surface of
+optimizing queries. If you have any tips or tricks for optimizing SQL queries,
+feel free to share them in the comments!</p>
+<h2 id="references"><a class="zola-anchor" href="#references" aria-label="Anchor link for: references">References</a></h2>
+<ul>
+<li><a href="https://gist.github.com/micahkepe/f9035bf308510b11482d1643b07ceaf7">Full SQL Script for the Examples</a></li>
+<li><a href="https://www.sqlite.org/optoverview.html">The SQLite Query Optimizer Overview</a></li>
+<li><a href="https://www.sqlite.org/queryplanner.html">SQLite Query Planner</a></li>
+<li><a href="https://www.sqlite.org/queryplanner-ng.html">The Next-Generation Query Planner</a></li>
+<li><a href="https://www.geeksforgeeks.org/order-of-execution-of-sql-queries/">Order of Execution of SQL Queries</a></li>
+</ul>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/databases/">databases</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/databases/">databases</a>
+                    
+                        
+                            
+                                ,
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/sqlite/">sqlite</a>
+                    
+                        
+                            
+                                and
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/query-optimizer/">query-optimizer</a>
+                    
+                        
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;sqlite-query-optimizer&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>

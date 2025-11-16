@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="With just a basic working knowledge of writing Bash scripts and understanding
+Unix tools and their design philosophy, you can easily create scripts to
+automate your workflow and improve your productivity. In this post, we&#x27;ll get
+our feet wet in writing Bash scripts and combine them with some powerful Unix
+tools to create a powerful and versatile toolset. We&#x27;ll also explore how you can
+use Hammerspoon, a macOS automation tool, to take your automation to the next
+level." />
+        <meta property="og:description" content="With just a basic working knowledge of writing Bash scripts and understanding
+Unix tools and their design philosophy, you can easily create scripts to
+automate your workflow and improve your productivity. In this post, we&#x27;ll get
+our feet wet in writing Bash scripts and combine them with some powerful Unix
+tools to create a powerful and versatile toolset. We&#x27;ll also explore how you can
+use Hammerspoon, a macOS automation tool, to take your automation to the next
+level." />
+        <meta property="twitter:description" content="With just a basic working knowledge of writing Bash scripts and understanding
+Unix tools and their design philosophy, you can easily create scripts to
+automate your workflow and improve your productivity. In this post, we&#x27;ll get
+our feet wet in writing Bash scripts and combine them with some powerful Unix
+tools to create a powerful and versatile toolset. We&#x27;ll also explore how you can
+use Hammerspoon, a macOS automation tool, to take your automation to the next
+level." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;workflow-automation&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;workflow-automation&#x2F;"
+    />
+    <meta name="twitter:title" content="Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>15 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-12-13
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>With just a basic working knowledge of writing Bash scripts and understanding
+Unix tools and their design philosophy, you can easily create scripts to
+automate your workflow and improve your productivity. In this post, we'll get
+our feet wet in writing Bash scripts and combine them with some powerful Unix
+tools to create a powerful and versatile toolset. We'll also explore how you can
+use Hammerspoon, a macOS automation tool, to take your automation to the next
+level.</p>
+
+            
+              <details class="toc-container">
+  <summary class="toc-title">Table of Contents</summary>
+  <ul class="toc-list">
+    
+    <li>
+      <a href="https://micahkepe.com/blog/workflow-automation/#introduction">Introduction</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/workflow-automation/#your-20-minute-intro-to-bash">Your 20 Minute Intro to Bash</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#variables">Variables</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#supported-data-types-in-bash">Supported Data Types in Bash</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#bash-loops-and-comparisons">Bash Loops and Comparisons</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#bash-loops">Bash Loops</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#bash-comparisons">Bash Comparisons</a>
+          </li>
+          
+        </ul>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#reading-user-input-and-trapping">Reading User Input and Trapping</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#executing-bash-files">Executing Bash files</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/workflow-automation/#unix-tools-101">Unix Tools 101</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#unix-philosophy">Unix Philosophy</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#common-unix-like-tools">Common Unix-like Tools</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#tldr-simpler-man-pages">tldr: simpler man pages</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#fzf-powerful-fuzzy-finder">fzf: powerful fuzzy finder</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#tmux-terminal-manager">tmux: terminal manager</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#sed-stream-editor-grep-awk-text-processing">sed (Stream Editor)&#x2F; grep&#x2F; awk: text processing</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#htop-system-processes-management">htop: system processes management</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#bat-cat-but-better">bat: cat, but better</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#rg-faster-grep">rg: faster grep</a>
+          </li>
+          
+        </ul>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#practical-examples-of-combining-unix-like-tools">Practical Examples of Combining Unix-like Tools</a>
+        </li>
+        
+        <ul>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#finding-files-with-a-certain-keyword">Finding Files with a Certain Keyword</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#enhanced-nvim-command">Enhanced nvim Command</a>
+          </li>
+          
+          <li>
+            <a href="https://micahkepe.com/blog/workflow-automation/#theprimeagen-s-tmux-sessionizer-script">ThePrimeagen&#x27;s tmux-sessionizer Script</a>
+          </li>
+          
+        </ul>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/workflow-automation/#bringing-it-all-together-crafting-a-powerful-personalized-workflow">Bringing It All Together: Crafting a Powerful, Personalized Workflow</a>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/workflow-automation/#extra-automating-with-hammerspoon-macos">EXTRA: Automating with Hammerspoon (MacOS)</a>
+      
+      <ul>
+        
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#getting-started-with-hammerspoon">Getting Started with Hammerspoon</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#window-sizing">Window Sizing</a>
+        </li>
+         
+        <li>
+          <a href="https://micahkepe.com/blog/workflow-automation/#window-switching">Window Switching</a>
+        </li>
+         
+      </ul>
+      
+    </li>
+    
+    <li>
+      <a href="https://micahkepe.com/blog/workflow-automation/#references-and-resources">References and Resources</a>
+      
+    </li>
+    
+  </ul>
+</details>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span><h2 id="introduction"><a class="zola-anchor" href="#introduction" aria-label="Anchor link for: introduction">Introduction</a></h2>
+<p>As a college student, I find that most of my peers have little to no experience<br />
+with the command line interface (CLI) and Unix tools. This is unfortunate, as
+personally after discovering Vim, tmux, and other Unix tools, I have found that
+I have become more productive, enjoyed writing code more, and have a better
+understanding of how my machine works. This is not to say that editors like
+Visual Studio Code or IDEs are bad (I myself used Visual Studio Code for a long
+time), but rather that Unix tools provide a different way of working that can
+be more efficient and enjoyable for some people. Even if you don't end up using
+Unix tools in your daily workflow, understanding them can be beneficial, as they
+are the foundation of many modern tools and technologies.</p>
+<p>For Vim users and those trying to minimize their mouse usage, these tools also
+allow you to do everything from file navigation to text manipulation without
+ever leaving the keyboard. Even for non-Vim users, these tools can still be
+useful for automating repetitive tasks, managing files, and more.</p>
+<hr />
+<h2 id="your-20-minute-intro-to-bash"><a class="zola-anchor" href="#your-20-minute-intro-to-bash" aria-label="Anchor link for: your-20-minute-intro-to-bash">Your 20 Minute Intro to Bash</a></h2>
+<p>Bash can be a little intimidating at first, but it is actually quite simple once
+you get the hang of it. In this section, we will cover the basics of Bash
+scripting to get you started. By no means at the end of this will you be an
+expert at writing Bash scripts, but we will know enough to write some useful
+scripts of our own.</p>
+<h3 id="variables"><a class="zola-anchor" href="#variables" aria-label="Anchor link for: variables">Variables</a></h3>
+<p>Just like you would expect, variables are assigned using the <code>=</code> operator. Here
+is an example:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">name</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>John<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">age</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">20</span>
+</span></code></pre>
+<p>Notice that there are no spaces around the <code>=</code> operator. Also, Bash does not
+distinguish between different types of variables, so you can assign a string to
+a variable and then assign an integer to the same variable.</p>
+<p>Here's some basic things we can do with variables:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Print the value of a variable using the echo command</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">name</span></span> <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> access the value of a variable using the $ operator</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Assign the output of a command to a variable</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">files</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">ls</span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span> <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> syntax: $(command)</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Use the value of a variable in a command</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Hello, <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">name</span></span>!<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span> <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> prints &quot;Hello, John!&quot;</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></span></code></pre>
+<h3 id="supported-data-types-in-bash"><a class="zola-anchor" href="#supported-data-types-in-bash" aria-label="Anchor link for: supported-data-types-in-bash">Supported Data Types in Bash</a></h3>
+<p>Bash doesn't strongly differentiate data types the way higher-level languages do.
+All variables are essentially strings. For arithmetic operations, Bash evaluates
+the variable contents as integers if possible. Arrays in Bash are just lists of
+strings. There's no native support for complex data structures out of the box,
+but you can do a lot with what is provided.</p>
+<p>Examples:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">name</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Alice<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>    <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> string</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">count</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">42</span>        <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> integer stored as a string, but usable in arithmetic</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">fruits</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>apple<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>banana<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>cherry<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-expansion z-parameter z-begin z-shell">{</span></span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-variable z-other z-readwrite z-shell">fruits<span class="z-punctuation z-section z-braces z-begin z-shell">[</span><span class="z-constant z-numeric z-integer z-decimal z-shell">0</span><span class="z-punctuation z-section z-braces z-end z-shell">]</span></span></span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-section z-expansion z-parameter z-end z-shell">}</span></span>  <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> prints &quot;apple&quot;</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span></span></code></pre>
+<p>There’s no separate syntax for declaring a variable as an integer vs. a string.
+It’s all context-based.</p>
+<h3 id="bash-loops-and-comparisons"><a class="zola-anchor" href="#bash-loops-and-comparisons" aria-label="Anchor link for: bash-loops-and-comparisons">Bash Loops and Comparisons</a></h3>
+<h4 id="bash-loops"><a class="zola-anchor" href="#bash-loops" aria-label="Anchor link for: bash-loops">Bash Loops</a></h4>
+<p>Bash loops and conditionals have a somewhat unusual syntax when coming from
+languages like Python or Java. The key patterns to remember are:</p>
+<ul>
+<li><code>if ... then ... fi</code> for conditionals</li>
+<li><code>for ... do ... done</code> for loops</li>
+<li><code>while ... do ... done</code> and <code>until ... do ... done</code> for other loop constructs</li>
+</ul>
+<p>Bash uses <code>fi</code> to end an <code>if</code> block, and done to end loops. This might
+feel odd at first, but you’ll get used to it quickly.</p>
+<p><code>for</code> loops:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-loop z-for z-shell">for</span><span class="z-meta z-group z-for z-shell"> file <span class="z-keyword z-control z-in z-shell">in</span> <span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span>.txt</span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-loop z-do z-shell">do</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Processing <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">file</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-loop z-end z-shell">done</span>
+</span></code></pre>
+<p>This loop iterates over all <code>.txt</code> files in the current directory. The <code>do</code>
+keyword starts the loop's body, and <code>done</code> ends it.</p>
+<p><code>while</code> loops:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">count</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">1</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-loop z-while z-shell">while</span> <span class="z-support z-function z-test z-begin z-shell">[</span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">count</span></span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>le</span> 5 <span class="z-support z-function z-test z-end z-shell">]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-loop z-do z-shell">do</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Count: <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">count</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash">    <span class="z-variable z-other z-readwrite z-assignment z-shell">count</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-meta z-group z-expansion z-arithmetic z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">((</span>count<span class="z-keyword z-operator z-arithmetic z-shell">+</span><span class="z-constant z-numeric z-integer z-decimal z-shell">1</span><span class="z-punctuation z-section z-parens z-end z-shell">))</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-loop z-end z-shell">done</span>
+</span></code></pre>
+<p>This loop runs as long as the condition <code>[ $count -le 5 ]</code> is true (we'll go
+over the syntax for comparisons in a bit). The <code>count=$((count+1))</code> line
+increments the value of the <code>count</code> variable by 1.</p>
+<p><code>if</code> statements:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">age</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">20</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-support z-function z-test z-begin z-shell">[</span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">age</span></span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>ge</span> 18 <span class="z-support z-function z-test z-end z-shell">]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>You are an adult.<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-else z-shell">else</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>You are a minor.<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span></code></pre>
+<p>In Bash, <code>if</code> blocks always end with <code>fi</code>. Also notice we use <code>[</code> and <code>]</code>
+around the condition; this is part of Bash's test syntax.</p>
+<h4 id="bash-comparisons"><a class="zola-anchor" href="#bash-comparisons" aria-label="Anchor link for: bash-comparisons">Bash Comparisons</a></h4>
+<p>Bash has wonky syntax for comparisons that you just have to memorize
+unfortunately.</p>
+<p>Bash uses different forms of brackets and parentheses for distinct purposes,
+which can be confusing at first. The single brackets <code>[ ]</code> are essentially a
+shorthand for the <code>test</code> command and are used for conditional checks. The
+double brackets <code>[[ ]]</code> are a Bash-specific enhancement that provides more
+features, like regular expression matching and simplified handling of strings
+without the need for extensive quoting. For arithmetic operations, double
+parentheses <code>(( ))</code> treat variables as integers and allow direct arithmetic
+evaluation, while command substitution uses <code>$( )</code> to run a command and
+capture its output.</p>
+<p><strong>tldr</strong>: <code>[ ]</code> and <code>[[ ]]</code> are for conditionals, with <code>[[ ]]</code> being more
+versatile and safer in many cases; <code>(( ))</code> handles arithmetic cleanly, and
+<code>$( )</code> executes commands and returns their results. Understanding these
+subtle differences will make your Bash scripts more reliable and easier to read.</p>
+<details open>
+<summary>Arithmetic Comparisons</summary>
+<table><thead><tr><th><strong>Bash</strong></th><th><strong>Meaning</strong></th></tr></thead><tbody>
+<tr><td><code>-lt</code></td><td>&lt;</td></tr>
+<tr><td><code>-gt</code></td><td>&gt;</td></tr>
+<tr><td><code>-le</code></td><td>&lt;=</td></tr>
+<tr><td><code>-ge</code></td><td>&gt;=</td></tr>
+<tr><td><code>-eq</code></td><td>==</td></tr>
+<tr><td><code>-ne</code></td><td>!=</td></tr>
+</tbody></table>
+</details>
+<p>Example:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">num</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">10</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-support z-function z-test z-begin z-shell">[</span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">num</span></span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>gt</span> 5 <span class="z-support z-function z-test z-end z-shell">]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">  <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">num</span></span> is greater than 5<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span></code></pre>
+<details open> 
+<summary>String Comparisons</summary>
+<table><thead><tr><th><strong>Bash</strong></th><th><strong>Meaning</strong></th></tr></thead><tbody>
+<tr><td><code>=</code></td><td>equal</td></tr>
+<tr><td><code>!=</code></td><td>not equal</td></tr>
+<tr><td><code>&lt;</code></td><td>less than</td></tr>
+<tr><td><code>&gt;</code></td><td>greater than</td></tr>
+<tr><td><code>-n s1</code></td><td>string <code>s1</code> is not empty</td></tr>
+<tr><td><code>-z s1</code></td><td>string <code>s1</code> is empty</td></tr>
+</tbody></table>
+</details>
+<p>Example:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">str</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>hello<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-support z-function z-test z-begin z-shell">[</span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">str</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span> <span class="z-keyword z-operator z-logical z-shell">=</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>hello<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span> <span class="z-support z-function z-test z-end z-shell">]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>The strings match<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span></code></pre>
+<h3 id="reading-user-input-and-trapping"><a class="zola-anchor" href="#reading-user-input-and-trapping" aria-label="Anchor link for: reading-user-input-and-trapping">Reading User Input and Trapping</a></h3>
+<p>The <code>read</code> command will let us retrieve data from <code>stdin</code>.</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Enter your name:<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-read z-shell">read</span></span><span class="z-meta z-function-call z-arguments z-shell"> user_name</span>
+</span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Hello, <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">user_name</span></span>!<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span></code></pre>
+<p>Next, we can use the <code>trap</code> command to execute another command after an event
+like a sent signal such as <code>SIGINT</code> (Ctrl + C):</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-trap z-shell">trap</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>echo &quot;Caught CTRL+C, exiting...&quot;; exit 1<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span> INT</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-loop z-while z-shell">while</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">true</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-loop z-do z-shell">do</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Press Ctrl+C to stop...<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sleep</span></span><span class="z-meta z-function-call z-arguments z-shell"> 2</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-loop z-end z-shell">done</span>
+</span></code></pre>
+<h3 id="executing-bash-files"><a class="zola-anchor" href="#executing-bash-files" aria-label="Anchor link for: executing-bash-files">Executing Bash files</a></h3>
+<p>To actually be able to run a Bash scripts, we need to do two things: (1) make
+the file executable and (2) add a shebang to the file.</p>
+<p>The shebang is a special line at the beginning of a script that tells the
+operating system what interpreter to use to run the script. The shebang for
+Bash scripts is <code>#!/bin/bash</code>. Here is an example of a simple Bash script:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">!/bin/bash</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-echo z-shell">echo</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>Hello, World!<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span></code></pre>
+<p>Breaking down the shebang, you'll notice that <code>#!</code> is the shebang character
+sequence, and <code>/bin/bash</code> is the path to the Bash interpreter. The shebang line
+<strong>must</strong> be the first line of the script, as it tells your operating system how
+to run the script. Without it, the script will not run since the operating system
+will not know what interpreter to use.</p>
+<p>Now to actually run the script, save it to a file (e.g. <code>hello.sh</code>), make it
+executable using the <code>chmod</code> command, and then run it:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">chmod</span></span><span class="z-meta z-function-call z-arguments z-shell"> +x hello.sh</span>
+</span></code></pre>
+<p>Then to run the script, use <code>./hello.sh</code>.</p>
+<p>That's it for our 20 minute intro to Bash. There is still a lot more to learn,
+but this should be enough to get you started writing some simple scripts.
+If you are interested in learning more, I recommend checking out the resources I
+have linked at the end of this post or this Youtube video:</p>
+
+
+
+
+
+
+
+
+
+
+
+<div class="responsive-iframe"
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <iframe
+    src="https:&#x2F;&#x2F;www.youtube.com&#x2F;embed&#x2F;tK9Oc6AEnR4"
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    referrerpolicy="strict-origin-when-cross-origin"
+    allowfullscreen>
+  </iframe>
+</div>
+<hr />
+<h2 id="unix-tools-101"><a class="zola-anchor" href="#unix-tools-101" aria-label="Anchor link for: unix-tools-101">Unix Tools 101</a></h2>
+<h3 id="unix-philosophy"><a class="zola-anchor" href="#unix-philosophy" aria-label="Anchor link for: unix-philosophy">Unix Philosophy</a></h3>
+<p>Before diving into Unix tools, it is important to understand the Unix philosophy,
+not only because it is the foundation of Unix tools, but also because it is a
+design philosophy that leads to the powerful combinations and versatility of Unix
+tools.</p>
+<p>This philosophy can be summarized as follows:</p>
+<ol>
+<li>Write programs that do one thing and do it well.</li>
+<li>Write programs to work together.</li>
+<li>Write programs to handle text streams, because that is a universal interface.</li>
+</ol>
+<p>These rules are simple but have powerful implications. By writing programs that
+do one thing well, you can create a set of tools that can be combined in
+different ways to accomplish complex tasks. By writing programs to work together,
+you can create powerful tool chains that can accomplish tasks that would be
+difficult or impossible with a single program. By writing programs to handle text
+streams, you can create tools that can be used in a wide variety of contexts,
+since text streams are a universal interface.</p>
+<h3 id="common-unix-like-tools"><a class="zola-anchor" href="#common-unix-like-tools" aria-label="Anchor link for: common-unix-like-tools">Common Unix-like Tools</a></h3>
+<h4 id="tldr-simpler-man-pages"><a class="zola-anchor" href="#tldr-simpler-man-pages" aria-label="Anchor link for: tldr-simpler-man-pages"><code>tldr</code>: simpler man pages</a></h4>
+<p><code>tldr</code> provides simplified man page that provides practical examples of how to
+use a command.</p>
+<p>You can also get platform-specific man pages with the <code>--platform</code> flag like
+this:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> - Print the tldr page for a command from a specific [p]latform:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">     tldr --platform android|common|freebsd|linux|osx|netbsd|openbsd|sunos|windows command</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Example:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tldr</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>platform</span> linux htop</span>
+</span></code></pre>
+<h4 id="fzf-powerful-fuzzy-finder"><a class="zola-anchor" href="#fzf-powerful-fuzzy-finder" aria-label="Anchor link for: fzf-powerful-fuzzy-finder"><code>fzf</code>: powerful fuzzy finder</a></h4>
+<p>For basic use, just running <code>fzf</code> will fuzzy find recursively on all files in
+the present working directory. However, the <code>tldr</code> page for <code>fzf</code> also lists out
+some more complex commands with <code>fzf</code>:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> - Start `fzf` on all files in the specified directory:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">find</span></span><span class="z-meta z-function-call z-arguments z-shell"> path/to/directory<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>type</span> f</span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> - Start `fzf` for running processes:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">ps</span></span><span class="z-meta z-function-call z-arguments z-shell"> aux</span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> - Select multiple files with `Shift + Tab` and write to a file:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">find</span></span><span class="z-meta z-function-call z-arguments z-shell"> path/to/directory<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>type</span> f</span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>multi</span> <span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> path/to/file</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> - Start `fzf` with a specified query:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>query</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>query<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> - Start `fzf` on entries that start with core and end with either go, rb, or py:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>query</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>^core go$ | rb$ | py$<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> - Start `fzf` on entries that not match pyc and match exactly travis:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>query</span> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>!pyc &#39;travis<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span></code></pre>
+<p><code>fzf</code> will list the files in a nicely formatted list that you can navigate using
+either the arrow keys or Vim-like bindings using <code>Ctrl + &lt;hjkl&gt;</code>.</p>
+<p><code>fzf</code> also has shell integration functions that are very helpful. To set up the
+integration you'll need to add the following to your shell's respective
+configuration file:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Zsh</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-source z-shell">source</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-keyword z-operator z-assignment z-redirection z-process z-shell">&lt;</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>zsh</span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Bash</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-eval z-shell">eval</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>bash</span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Fish</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>fish</span></span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-source z-shell">source</span></span>
+</span></code></pre>
+<p>Relaunch your shell to source the new configuration. Now we can use the provided
+shell functionality.</p>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Note for <code>fish</code> shell</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <p>I use Fish shell, and while <code>fzf</code> has a fish plugin, but it doesn't seem well
+maintained and I had issues, use <a href="https://github.com/PatrickF1/fzf.fish">fzf.fish</a>
+instead, which actually has a lot of bonus features as well like finding
+processes and variables.</p>
+
+    </section>
+  </details>
+</article>
+<h4 id="tmux-terminal-manager"><a class="zola-anchor" href="#tmux-terminal-manager" aria-label="Anchor link for: tmux-terminal-manager"><code>tmux</code>: terminal manager</a></h4>
+<p><code>tmux</code> is a terminal multiplexer, in the future I will most likely have a whole
+post dedicated to tmux and how I use it, but for now, just know that it is a
+terminal multiplexer that allows you to split your terminal into multiple panes,
+create sessions, and more. For now, let's just look at some basic commands.</p>
+<p>By default, <code>tmux</code> uses <code>Ctrl + b</code> as a "prefix" key, which means that you press
+<code>Ctrl + b</code> and then another key to execute a command. (You can change this to
+a more convenient keybinding, a common one is <code>Ctrl + a</code>; you can do this by
+adding <code>set -g prefix C-a</code> to your <code>~/.tmux.conf</code> file.)</p>
+<p>Here are some common <code>tmux</code> commands:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Create a new session:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> new-session</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Attach to a session:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> attach-session<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>t</span> session_name</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Create a new window:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Ctrl+b</span></span><span class="z-meta z-function-call z-arguments z-shell"> c</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Split a pane horizontally:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Ctrl+b</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-job z-shell"><span class="z-punctuation z-definition z-variable z-job z-shell">%</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Split a pane vertically:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">Ctrl+b</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>
+</span></span></span></code></pre>
+<p>When you are in a <code>tmux</code> session, you can press <code>Ctrl + b</code> and then <code>?</code> to see
+a list of all the keybindings available to you.</p>
+<h4 id="sed-stream-editor-grep-awk-text-processing"><a class="zola-anchor" href="#sed-stream-editor-grep-awk-text-processing" aria-label="Anchor link for: sed-stream-editor-grep-awk-text-processing"><code>sed</code> (Stream Editor)/ <code>grep</code>/ <code>awk</code>: text processing</a></h4>
+<p><code>sed</code> and <code>awk</code> are text processing tools that allow you to manipulate text
+files in various ways. <code>grep</code> is a tool that allows you to search for specific
+lines in a file.</p>
+<p>Here are some examples:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Replace &quot;old_text&quot; with &quot;new_text&quot; in a file:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">sed</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>s/old_text/new_text/g<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span> file.txt</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Print lines containing &quot;keyword&quot; from a file:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">grep</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>keyword<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span> file.txt</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Extract the second column from a CSV file:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">awk</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>F</span><span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>,<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>{print $2}<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span> file.csv</span>
+</span></code></pre>
+<h4 id="htop-system-processes-management"><a class="zola-anchor" href="#htop-system-processes-management" aria-label="Anchor link for: htop-system-processes-management"><code>htop</code>: system processes management</a></h4>
+<p><code>htop</code> is an interactive process viewer that provides a more user-friendly
+interface than the traditional top command. It allows you to sort, filter,
+and kill processes easily.</p>
+<p>Here are some examples:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Start `htop`:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">htop</span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Start `htop` displaying processes owned by a specific user:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">htop</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>user</span> username</span>
+</span></code></pre>
+<p>I recommend checking out the <code>tldr</code> page for <code>htop</code> for more examples and
+exploring around in <code>htop</code> to see what it can do.</p>
+<h4 id="bat-cat-but-better"><a class="zola-anchor" href="#bat-cat-but-better" aria-label="Anchor link for: bat-cat-but-better"><code>bat</code>: <code>cat</code>, but better</a></h4>
+<p><code>bat</code> is a drop-in replacement for <code>cat</code> that adds syntax highlighting, line
+numbers, and Git integration.</p>
+<p>Examples:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> print a file with syntax highlighting</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">bat</span></span><span class="z-meta z-function-call z-arguments z-shell"> main.py</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> show all supported languages</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">bat</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>list-languages</span></span>
+</span></code></pre>
+<h4 id="rg-faster-grep"><a class="zola-anchor" href="#rg-faster-grep" aria-label="Anchor link for: rg-faster-grep"><code>rg</code>: faster <code>grep</code></a></h4>
+<p><code>rg</code> (ripgrep) a faster alternative to <code>grep</code>, which is optimized for searching
+large files and directories. It is a drop-in replacement for <code>grep</code> and is
+faster than both <code>grep</code> and <code>ag</code> (The Silver Searcher).</p>
+<p>Examples:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> search for &quot;main&quot; in current directory</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">rg</span></span><span class="z-meta z-function-call z-arguments z-shell"> main</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> search including hidden files</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">rg</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>hidden</span> main</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> limit search to certain file types</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">rg</span></span><span class="z-meta z-function-call z-arguments z-shell"> main<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>glob</span> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>*.py<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span>
+</span></code></pre>
+<h3 id="practical-examples-of-combining-unix-like-tools"><a class="zola-anchor" href="#practical-examples-of-combining-unix-like-tools" aria-label="Anchor link for: practical-examples-of-combining-unix-like-tools">Practical Examples of Combining Unix-like Tools</a></h3>
+<h4 id="finding-files-with-a-certain-keyword"><a class="zola-anchor" href="#finding-files-with-a-certain-keyword" aria-label="Anchor link for: finding-files-with-a-certain-keyword">Finding Files with a Certain Keyword</a></h4>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Find all files in the current directory that contain the word &quot;foo&quot;</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> and display the file name and line</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">rg</span></span><span class="z-meta z-function-call z-arguments z-shell"> foo</span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">awk</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>{print $1, $2}<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span>
+</span></code></pre>
+<h4 id="enhanced-nvim-command"><a class="zola-anchor" href="#enhanced-nvim-command" aria-label="Anchor link for: enhanced-nvim-command">Enhanced <code>nvim</code> Command</a></h4>
+<p>By default, we can open a new Neovim session in the current directory by simply
+running <code>nvim</code> in the terminal. This is perfectly fine, but we can fine tune it
+more by adding in some of the tools that we have looked at.</p>
+<p>First, let's add the file selected from <code>fzf</code> to be what we open the Neovim
+session in:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">nvim</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span>
+</span></code></pre>
+<p>Let's also pass a <code>bat</code> command to <code>fzf</code>'s <code>'--preview</code> to let us see the files
+as we navigate them with <code>fzf</code>.</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">nvim</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>preview</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>bat --color=always {}<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span>
+</span></code></pre>
+<p>Another thing we can enable with <code>fzf</code> is the <code>-m</code> flag, which will allow us to
+select multiple files with TAB and then these will be put in open buffers when
+we open Neovim!</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">nvim</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>m</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>preview</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>bat --color=always {}<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span>
+</span></code></pre>
+<p>To make this the default behavior for when we open Neovim, we can save this
+enhanced command as an alias for <code>nvim</code>. Instead your <code>~/.zshrc</code>, <code>~/.bashrc</code>,
+<code>~/.config/fish/config.fish</code>, etc.:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">nvim</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>nvim $(fzf -m --preview=&quot;bat --color=always {}&quot;)<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span></span>
+</span></code></pre>
+<h4 id="theprimeagen-s-tmux-sessionizer-script"><a class="zola-anchor" href="#theprimeagen-s-tmux-sessionizer-script" aria-label="Anchor link for: theprimeagen-s-tmux-sessionizer-script">ThePrimeagen's <code>tmux-sessionizer</code> Script</a></h4>
+<p>Another great example of combining tools is this <code>tmux-sessionizer.sh</code> script
+that I adapted from <a href="https://www.youtube.com/c/theprimeagen">ThePrimeagen</a>:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">!/usr/bin/env bash</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Adapted from: https://github.com/ThePrimeagen/.dotfiles/blob/master/bin/.local/scripts/tmux-sessionizer</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Description:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">   A script to create a new tmux session either by passing in a directory or</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">   selecting one with fzf. For ease of use, add this script to your $PATH and</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">   create an alias in your shell configuration file (e.g. .bashrc, .zshrc) like:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">   alias tmux-sessionizer=&#39;tmux-sessionizer.sh&#39;</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">   Then you can simply run with `tmux-sessionizer`</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> Usage:</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">  tmux-sessionizer.sh [directory]</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell">  tmux-sessionizer.sh</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-meta z-function-call z-arguments z-shell"><span class="z-support z-function z-double-brace z-begin z-shell">[[</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-language z-shell">#</span></span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>eq</span> 1 <span class="z-support z-function z-double-brace z-end z-shell">]]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-variable z-other z-readwrite z-assignment z-shell">selected</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">1</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-else z-shell">else</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> if no directory is passed in, use fzf to select one</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">    <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> NOTE: change the directories to search in the find command as you wish</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">    <span class="z-variable z-other z-readwrite z-assignment z-shell">selected</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-variable z-other z-readwrite z-assignment z-shell">FZF_TMUX</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell">1</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">find</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/coding <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span> <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/vislang/ <span class="z-meta z-group z-expansion z-tilde"><span class="z-variable z-language z-tilde z-shell">~</span></span>/rice/<span class="z-keyword z-operator z-regexp z-quantifier z-shell">*</span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>mindepth</span> 1<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>maxdepth</span> 1<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>type</span> d</span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> exit if no directory is selected from fzf</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-meta z-function-call z-arguments z-shell"><span class="z-support z-function z-double-brace z-begin z-shell">[[</span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>z</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected</span></span> <span class="z-support z-function z-double-brace z-end z-shell">]]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-exit z-shell">exit</span></span><span class="z-meta z-function-call z-arguments z-shell"> 0</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">selected_name</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">basename</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected</span></span><span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tr</span></span><span class="z-meta z-function-call z-arguments z-shell"> . _</span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-variable z-other z-readwrite z-assignment z-shell">tmux_running</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">pgrep</span></span><span class="z-meta z-function-call z-arguments z-shell"> tmux</span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> create new session if not in tmux</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-meta z-function-call z-arguments z-shell"><span class="z-support z-function z-double-brace z-begin z-shell">[[</span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>z</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">TMUX</span></span> <span class="z-support z-function z-double-brace z-end z-shell">]]</span></span> <span class="z-keyword z-operator z-logical z-and z-shell">&amp;&amp;</span> <span class="z-meta z-function-call z-arguments z-shell"><span class="z-support z-function z-double-brace z-begin z-shell">[[</span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>z</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">tmux_running</span></span> <span class="z-support z-function z-double-brace z-end z-shell">]]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> new-session<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>s</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected_name</span></span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>c</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected</span></span></span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-support z-function z-exit z-shell">exit</span></span><span class="z-meta z-function-call z-arguments z-shell"> 0</span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> create new session if name doesn&#39;t exist</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-keyword z-operator z-logical z-shell">!</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> has-session<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>t</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span><span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected_name</span></span> <span class="z-constant z-numeric z-integer z-decimal z-file-descriptor z-shell">2</span><span class="z-keyword z-operator z-assignment z-redirection z-shell">&gt;</span> /dev/null</span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> new-session<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>ds</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected_name</span></span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>c</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span><span class="z-source z-shell z-bash">
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-if z-shell">if</span> <span class="z-meta z-function-call z-arguments z-shell"><span class="z-support z-function z-double-brace z-begin z-shell">[[</span> <span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell">-</span>n</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">TMUX</span></span> <span class="z-support z-function z-double-brace z-end z-shell">]]</span></span><span class="z-keyword z-operator z-logical z-continue z-shell">;</span> <span class="z-keyword z-control z-conditional z-then z-shell">then</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> switch-client<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>t</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected_name</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-else z-shell">else</span>
+</span><span class="z-source z-shell z-bash">    <span class="z-comment z-line z-number-sign z-shell"><span class="z-punctuation z-definition z-comment z-begin z-shell">#</span></span><span class="z-comment z-line z-number-sign z-shell"> if running outside of tmux, attach to the new session</span><span class="z-comment z-line z-number-sign z-shell">
+</span></span><span class="z-source z-shell z-bash">    <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">tmux</span></span><span class="z-meta z-function-call z-arguments z-shell"> attach-session<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> -</span>t</span> <span class="z-meta z-group z-expansion z-parameter z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-variable z-other z-readwrite z-shell">selected_name</span></span></span>
+</span><span class="z-source z-shell z-bash"><span class="z-keyword z-control z-conditional z-end z-shell">fi</span>
+</span></code></pre>
+<p>Add this script to your <code>$PATH</code> and create an alias in your shell configuration
+file (e.g. <code>.bashrc</code>, <code>.zshrc</code>) like:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-support z-function z-alias z-shell">alias</span> <span class="z-entity z-name z-function z-alias z-shell">tmux-sessionizer</span><span class="z-keyword z-operator z-assignment z-shell">=</span><span class="z-string z-unquoted z-shell"><span class="z-string z-quoted z-single z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&#39;</span>tmux-sessionizer.sh<span class="z-punctuation z-definition z-string z-end z-shell">&#39;</span></span></span></span>
+</span></code></pre>
+<p>Then you can simply run with <code>tmux-sessionizer</code>. You'll be prompted to select a
+directory with <code>fzf</code> and then a new <code>tmux</code> session will be created with that
+directory as the working directory.</p>
+<hr />
+<h2 id="bringing-it-all-together-crafting-a-powerful-personalized-workflow"><a class="zola-anchor" href="#bringing-it-all-together-crafting-a-powerful-personalized-workflow" aria-label="Anchor link for: bringing-it-all-together-crafting-a-powerful-personalized-workflow">Bringing It All Together: Crafting a Powerful, Personalized Workflow</a></h2>
+<p>Up to this point, we’ve looked at individual tools and scripting techniques—Bash
+basics, command-line utilities like <code>fzf</code> and <code>rg</code>, terminal multiplexing with
+<code>tmux</code>, text manipulation with <code>sed</code> and <code>awk</code>, and system automation via
+Hammerspoon. While each tool stands on its own, the true power emerges when
+you combine them to fit the way you work.</p>
+<p><strong>Imagine this scenario:</strong> You’re working on a large codebase and need to
+quickly find a function definition. Instead of manually poking around
+directories, you can run a single command:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">nvim</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-meta z-group z-expansion z-command z-parens z-shell"><span class="z-punctuation z-definition z-variable z-shell">$</span><span class="z-punctuation z-section z-parens z-begin z-shell">(</span><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">rg</span></span><span class="z-meta z-function-call z-arguments z-shell"> <span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>myFunctionName<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>files-with-matches</span></span> <span class="z-keyword z-operator z-logical z-pipe z-shell">|</span> <span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">fzf</span></span><span class="z-meta z-function-call z-arguments z-shell"><span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>preview</span><span class="z-keyword z-operator z-assignment z-option z-shell">=</span><span class="z-string z-quoted z-double z-shell"><span class="z-punctuation z-definition z-string z-begin z-shell">&quot;</span>bat --color=always {}<span class="z-punctuation z-definition z-string z-end z-shell">&quot;</span></span></span><span class="z-punctuation z-section z-parens z-end z-shell">)</span></span></span>
+</span></code></pre>
+<p>With this pipeline, you’ve integrated multiple tools at once:</p>
+<ul>
+<li><code>rg</code> searches your codebase blazingly fast.</li>
+<li><code>fzf</code> lets you quickly narrow down results interactively.</li>
+<li><code>bat</code> provides syntax-highlighted previews as you navigate files.</li>
+<li><code>nvim</code> opens the selected file immediately in your preferred editor.</li>
+</ul>
+<p>Need to juggle multiple projects and keep different tasks compartmentalized?
+Use <code>tmux-sessionizer</code> to jump into dedicated tmux sessions for each
+directory you’re working in—no more manually cd’ing and setting up your
+environment each time. Once inside <code>tmux</code>, you can split panes to run <code>htop</code>
+and monitor processes on one side, while coding on the other. If you’re on
+macOS, you can rearrange or tile your windows effortlessly with Hammerspoon
+keybindings. Each tool handles a specific part of your workflow, and together
+they create a frictionless environment where you move seamlessly between
+searching, editing, monitoring, and organizing.</p>
+<p><strong>In short:</strong> The point of learning these tools and techniques isn’t just to
+have a bag of fancy tricks. It’s about building a workflow that’s tailored to
+your needs—reducing repetitive actions, speeding up navigation, and keeping
+you focused on your real work rather than on the mechanics of your environment.
+As you become comfortable with these tools, you’ll naturally discover even
+more combinations, customizing your setup to become a personal productivity
+powerhouse.</p>
+<p>If there's any tool or script that you found particularly useful or interesting,
+I recommend exploring it further and seeing how you can integrate it into your
+workflow. And if you have a favorite tool or script that I didn't cover here,
+feel free to share it in the comments!</p>
+<hr />
+<h2 id="extra-automating-with-hammerspoon-macos"><a class="zola-anchor" href="#extra-automating-with-hammerspoon-macos" aria-label="Anchor link for: extra-automating-with-hammerspoon-macos"><strong>EXTRA</strong>: Automating with Hammerspoon <strong>(MacOS)</strong></a></h2>
+<blockquote>
+<p><strong>NOTE:</strong> Sorry Windows and Linux users, this section is MacOS-specific. If you
+have any suggestions for similar tools on Windows or Linux, please let me know!</p>
+</blockquote>
+<p>Hammerspoon is a powerful macOS automation tool that allows you to write Lua
+scripts to automate your workflow. It is similar to Automator, but with more
+power and flexibility. Hammerspoon can be used to automate window management,
+launch applications, and more.</p>
+<p>To be fair, I there is still so much of Hammerspoon's capabilities that I just
+haven't had the time to look at or don't know about, but the biggest thing that
+I use it for is window management. I have a script that I use to manage my
+windows that I will share below. These make it easy to move windows around,
+resize them, and switch between them without ever having to touch the mouse.</p>
+<h3 id="getting-started-with-hammerspoon"><a class="zola-anchor" href="#getting-started-with-hammerspoon" aria-label="Anchor link for: getting-started-with-hammerspoon">Getting Started with Hammerspoon</a></h3>
+<p>With Homebrew, you can install Hammerspoon with the following command:</p>
+<pre data-lang="bash" class="language-bash z-code"><code class="language-bash" data-lang="bash"><span class="z-source z-shell z-bash"><span class="z-meta z-function-call z-shell"><span class="z-variable z-function z-shell">brew</span></span><span class="z-meta z-function-call z-arguments z-shell"> install<span class="z-variable z-parameter z-option z-shell"><span class="z-punctuation z-definition z-parameter z-shell"> --</span>cask</span> hammerspoon</span>
+</span></code></pre>
+<p>Now with Hammerspoon installed, we can start scripting using Lua. Our scripts
+will live in the <code>~/.hammerspoon</code> directory and and then load the modules in
+<code>~/.hammerspoon/init.lua</code> using <code>require(&lt;modname&gt;)</code> statements.</p>
+<h3 id="window-sizing"><a class="zola-anchor" href="#window-sizing" aria-label="Anchor link for: window-sizing">Window Sizing</a></h3>
+<p>Let's create a file called <code>window.lua</code> in <code>~/.hammerspoon/</code> and add the
+following code:</p>
+<pre data-lang="lua" class="language-lua z-code"><code class="language-lua" data-lang="lua"><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> window.lua
+</span></span><span class="z-source z-lua">
+</span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Window grid layout
+</span></span><span class="z-source z-lua"><span class="z-storage z-modifier z-lua">local</span> <span class="z-variable z-other z-lua">grid</span> <span class="z-keyword z-operator z-assignment z-lua">=</span> <span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span>
+</span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-lua">	<span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">x</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">y</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">w</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">h</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-integer z-decimal z-lua">1</span> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Left half
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-lua">	<span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">x</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">y</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">w</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">h</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-integer z-decimal z-lua">1</span> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Right half
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-lua">	<span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">x</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">y</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">w</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-integer z-decimal z-lua">1</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">h</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Top half
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-lua">	<span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">x</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">y</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">w</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-integer z-decimal z-lua">1</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span> </span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">h</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Bottom half
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-end z-lua">}</span></span>
+</span><span class="z-source z-lua">
+</span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Function to move the current window to a specific screen grid location
+</span></span><span class="z-source z-lua"><span class="z-storage z-modifier z-lua">local</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span> <span class="z-meta z-name z-function"><span class="z-entity z-name z-function z-lua">moveWindowToGrid</span></span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-variable z-parameter z-function z-lua">location</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-storage z-modifier z-lua">local</span> <span class="z-variable z-other z-lua">win</span> <span class="z-keyword z-operator z-assignment z-lua">=</span> <span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">window</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">focusedWindow</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-storage z-modifier z-lua">local</span> <span class="z-variable z-other z-lua">screen</span> <span class="z-keyword z-operator z-assignment z-lua">=</span> <span class="z-variable z-other z-lua">win</span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">screen</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-storage z-modifier z-lua">local</span> <span class="z-variable z-other z-lua">frame</span> <span class="z-keyword z-operator z-assignment z-lua">=</span> <span class="z-variable z-other z-lua">screen</span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">frame</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-storage z-modifier z-lua">local</span> <span class="z-variable z-other z-lua">newFrame</span> <span class="z-keyword z-operator z-assignment z-lua">=</span> <span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span>
+</span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-meta z-mapping z-lua">		</span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">x</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-variable z-other z-lua">frame</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">x</span> <span class="z-keyword z-operator z-arithmetic z-lua">+</span> <span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-variable z-other z-lua">grid</span><span class="z-meta z-brackets z-lua"><span class="z-punctuation z-section z-brackets z-begin z-lua">[</span><span class="z-variable z-other z-lua">location</span><span class="z-punctuation z-section z-brackets z-end z-lua">]</span></span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">x</span> <span class="z-keyword z-operator z-arithmetic z-lua">*</span> <span class="z-variable z-other z-lua">frame</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">w</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-meta z-mapping z-lua">		</span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">y</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-variable z-other z-lua">frame</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">y</span> <span class="z-keyword z-operator z-arithmetic z-lua">+</span> <span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-variable z-other z-lua">grid</span><span class="z-meta z-brackets z-lua"><span class="z-punctuation z-section z-brackets z-begin z-lua">[</span><span class="z-variable z-other z-lua">location</span><span class="z-punctuation z-section z-brackets z-end z-lua">]</span></span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">y</span> <span class="z-keyword z-operator z-arithmetic z-lua">*</span> <span class="z-variable z-other z-lua">frame</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">h</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-meta z-mapping z-lua">		</span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">w</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-variable z-other z-lua">grid</span><span class="z-meta z-brackets z-lua"><span class="z-punctuation z-section z-brackets z-begin z-lua">[</span><span class="z-variable z-other z-lua">location</span><span class="z-punctuation z-section z-brackets z-end z-lua">]</span></span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">w</span> <span class="z-keyword z-operator z-arithmetic z-lua">*</span> <span class="z-variable z-other z-lua">frame</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">w</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-meta z-mapping z-lua">		</span><span class="z-meta z-mapping z-key z-lua"><span class="z-string z-unquoted z-key z-lua">h</span></span><span class="z-meta z-mapping z-lua"> </span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-key-value z-lua">=</span></span><span class="z-meta z-mapping z-value z-lua"> <span class="z-variable z-other z-lua">grid</span><span class="z-meta z-brackets z-lua"><span class="z-punctuation z-section z-brackets z-begin z-lua">[</span><span class="z-variable z-other z-lua">location</span><span class="z-punctuation z-section z-brackets z-end z-lua">]</span></span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">h</span> <span class="z-keyword z-operator z-arithmetic z-lua">*</span> <span class="z-variable z-other z-lua">frame</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">h</span></span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-separator z-field z-lua">,</span>
+</span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-meta z-mapping z-lua">	<span class="z-punctuation z-section z-block z-end z-lua">}</span></span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-other z-lua">win</span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">setFrame</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-variable z-other z-lua">newFrame</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span><span class="z-source z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span>
+</span><span class="z-source z-lua">
+</span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Window movement keybinds
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> NOTE: &quot;alt&quot; is the Option key on mac
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>left<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-function z-lua">moveWindowToGrid</span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-constant z-numeric z-integer z-decimal z-lua">1</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span> <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Move window to left half
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>right<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-function z-lua">moveWindowToGrid</span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-constant z-numeric z-integer z-decimal z-lua">2</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span> <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Move window to right half
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>up<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-function z-lua">moveWindowToGrid</span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-constant z-numeric z-integer z-decimal z-lua">3</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span> <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Move window to top half
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>down<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-function z-lua">moveWindowToGrid</span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-constant z-numeric z-integer z-decimal z-lua">4</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span> <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Move window to bottom half
+</span></span><span class="z-source z-lua">
+</span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> quarter of screen
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>shift<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>left<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">window</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">focusedWindow</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">moveToUnit</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>shift<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>right<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">window</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">focusedWindow</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">moveToUnit</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>shift<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>up<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">window</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">focusedWindow</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">moveToUnit</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>shift<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>down<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">window</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">focusedWindow</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">moveToUnit</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-float z-decimal z-lua">0<span class="z-punctuation z-separator z-decimal z-lua">.</span>5</span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span><span class="z-source z-lua">
+</span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> full screen
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>cmd<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>f<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">window</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">focusedWindow</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">moveToUnit</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-integer z-decimal z-lua">0</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-integer z-decimal z-lua">1</span><span class="z-punctuation z-separator z-field z-lua">,</span> <span class="z-constant z-numeric z-integer z-decimal z-lua">1</span> <span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></code></pre>
+<p>To actually include the this window script, add the following to
+<code>~/.hammerspoon/init.lua</code>:</p>
+<pre data-lang="lua" class="language-lua z-code"><code class="language-lua" data-lang="lua"><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> ~/.hammerspoon/init.lua
+</span></span><span class="z-source z-lua"><span class="z-support z-function z-builtin z-lua">require</span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>window<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></code></pre>
+<p>Save the file and reload your Hammerspoon configuration (you can do this by
+clicking on the Hammerspoon icon in the menu bar and selecting "Reload Config").</p>
+<p>Now try using the keybinds you set up to move your windows around. Use <code>Alt + CMD + &lt;arrow&gt;</code> to move the active window to one of the four halves (vertically
+and horizontally split) of the screen. You can also use <code>Alt + CMD + SHIFT + &lt;arrow&gt;</code> to move the window to one of the window quarters.</p>
+<h3 id="window-switching"><a class="zola-anchor" href="#window-switching" aria-label="Anchor link for: window-switching">Window Switching</a></h3>
+<p>While macOS has a provided <code>CMD + Tab</code> shortcut for context switching windows,
+there aren't previews for the windows and hidden/minimized windows are not
+available. Hammerspoon's <a href="https://www.hammerspoon.org/docs/hs.window.switcher.html">window.switcher</a>
+API allows for overcoming both of these shortcomings.</p>
+<p>Add the following to the end of your <code>~/.hammerspoon/window.lua</code> file:</p>
+<pre data-lang="lua" class="language-lua z-code"><code class="language-lua" data-lang="lua"><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> window.lua
+</span></span><span class="z-source z-lua">
+</span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Window switching
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> better than cmd + tab:
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span>  * preview of the window
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span>  * can switch between minimized windows
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> adapted from: https://www.hammerspoon.org/docs/hs.window.switcher.html
+</span></span><span class="z-source z-lua">
+</span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> set up windowfilter
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> include minimized/hidden windows, current Space only
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">switcher_space</span> <span class="z-keyword z-operator z-assignment z-lua">=</span> <span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">window</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">switcher</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">new</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">window</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">filter</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">new</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">setCurrentSpace</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-constant z-language z-boolean z-true z-lua">true</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">setDefaultFilter</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-meta z-mapping z-lua"><span class="z-punctuation z-section z-block z-begin z-lua">{</span><span class="z-punctuation z-section z-block z-end z-lua">}</span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span><span class="z-source z-lua">
+</span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Other example options:
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> -- default windowfilter: only visible windows, all Spaces
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> switcher = hs.window.switcher.new()
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span>
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> specialized switcher for your dozens of browser windows
+</span></span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> switcher_browsers = hs.window.switcher.new({ &quot;Brave&quot;, &quot;Safari&quot;, &quot;Google Chrome&quot; })
+</span></span><span class="z-source z-lua">
+</span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> Adjust default window switcher UI
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">window</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">switcher</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">ui</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">showTitles</span> <span class="z-keyword z-operator z-assignment z-lua">=</span> <span class="z-constant z-language z-boolean z-true z-lua">false</span> <span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> no titles on preview panes
+</span></span><span class="z-source z-lua">
+</span><span class="z-source z-lua"><span class="z-comment z-line z-lua"><span class="z-punctuation z-definition z-comment z-lua">--</span> bind to hotkeys; WARNING: at least one modifier key is required!
+</span></span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>tab<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>Next window<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-other z-lua">switcher_space</span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">next</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span><span class="z-source z-lua"><span class="z-variable z-other z-lua">hs</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua">hotkey</span><span class="z-punctuation z-accessor z-lua">.</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">bind</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>alt-shift<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>tab<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-string z-quoted z-double z-lua"><span class="z-punctuation z-definition z-string z-begin z-lua">&quot;</span>Prev window<span class="z-punctuation z-definition z-string z-end z-lua">&quot;</span></span><span class="z-punctuation z-separator z-comma z-lua">,</span> <span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-storage z-type z-function z-lua">function</span><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua">	<span class="z-variable z-other z-lua">switcher_space</span><span class="z-punctuation z-accessor z-lua">:</span><span class="z-meta z-property z-lua"><span class="z-variable z-function z-lua">previous</span></span><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-punctuation z-section z-group z-begin z-lua">(</span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></span></span></span></span><span class="z-source z-lua"><span class="z-meta z-function-call z-arguments z-lua"><span class="z-meta z-group z-lua"><span class="z-meta z-function z-lua"><span class="z-meta z-block z-lua"><span class="z-keyword z-control z-end z-lua">end</span></span></span><span class="z-punctuation z-section z-group z-end z-lua">)</span></span></span>
+</span></code></pre>
+<p>Now with these key bindings I can quickly switch windows using <code>Alt + Tab</code> and
+have previews! Try them out yourself. <code>Alt + Tab</code> will iterate through the
+windows in order, and <code>Alt + Shift + Tab</code> will iterate through the windows in
+reverse order.</p>
+<hr />
+<h2 id="references-and-resources"><a class="zola-anchor" href="#references-and-resources" aria-label="Anchor link for: references-and-resources">References and Resources</a></h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Unix_philosophy">Unix Philosophy Wikipedia page</a></li>
+<li><a href="https://www.youtube.com/watch?v=oTNRvnQLLLs&amp;list=WL&amp;index=1">typescraft: This may be my favorite CLI tool ever</a></li>
+<li><a href="https://www.youtube.com/watch?v=mmqDYw9C30I&amp;t=248s">Josean Martinez: 7 Amazing CLI Tools You Need To Try</a></li>
+<li><a href="https://linuxconfig.org/bash-scripting-tutorial">Bash Scripting Tutorial: How to Write a Bash Script</a></li>
+<li><a href="https://www.youtube.com/watch?v=tK9Oc6AEnR4">Bash Scripting Tutorial for Beginners</a></li>
+<li><a href="https://github.com/junegunn/fzf"><code>fzf</code> GitHub Repository</a></li>
+<li><a href="https://github.com/PatrickF1/fzf.fish"><code>fzf.fish</code> GitHub Repository</a></li>
+<li><a href="https://github.com/BurntSushi/ripgrep"><code>ripgrep</code> GitHub Repository</a></li>
+</ul>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/productivity/">productivity</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/unix/">unix</a>
+                    
+                        
+                            
+                                ,
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/tools/">tools</a>
+                    
+                        
+                            
+                                ,
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/cli/">cli</a>
+                    
+                        
+                            
+                                and
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/bash/">bash</a>
+                    
+                        
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;workflow-automation&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>

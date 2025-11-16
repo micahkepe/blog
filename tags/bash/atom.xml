@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - bash</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/tags/bash/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-12-13T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/tags/bash/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Using Bash, Unix Tools, and Hammerspoon to Speed Up Your Workflow</title>
+        <published>2024-12-13T00:00:00+00:00</published>
+        <updated>2024-12-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/workflow-automation/"/>
+        <id>https://micahkepe.com/blog/workflow-automation/</id>
+        
+        <summary type="html">&lt;p&gt;With just a basic working knowledge of writing Bash scripts and understanding
+Unix tools and their design philosophy, you can easily create scripts to
+automate your workflow and improve your productivity. In this post, we&#x27;ll get
+our feet wet in writing Bash scripts and combine them with some powerful Unix
+tools to create a powerful and versatile toolset. We&#x27;ll also explore how you can
+use Hammerspoon, a macOS automation tool, to take your automation to the next
+level.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>

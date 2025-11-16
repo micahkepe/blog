@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <!-- Enable responsiveness on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    
+      
+        
+        <meta name="description" content="The vimtutor program is the essential starting point for anyone looking to learn
+the basics of using Vim. In as little as a half hour, you can learn 90% of what
+you&#x27;ll ever need for vim, however, there are many useful motions and commands
+that are left out of the program. This article details the simple software
+package I wrote to address this limitation, vimtutor-sequel." />
+        <meta property="og:description" content="The vimtutor program is the essential starting point for anyone looking to learn
+the basics of using Vim. In as little as a half hour, you can learn 90% of what
+you&#x27;ll ever need for vim, however, there are many useful motions and commands
+that are left out of the program. This article details the simple software
+package I wrote to address this limitation, vimtutor-sequel." />
+        <meta property="twitter:description" content="The vimtutor program is the essential starting point for anyone looking to learn
+the basics of using Vim. In as little as a half hour, you can learn 90% of what
+you&#x27;ll ever need for vim, however, there are many useful motions and commands
+that are left out of the program. This article details the simple software
+package I wrote to address this limitation, vimtutor-sequel." />
+      
+    
+
+    <!-- Title -->
+    
+      
+    
+    <title>
+    
+    vimtutor-sequel: The Extended vimtutor
+    
+</title>
+
+    <!-- Additional Facebook Meta Tags -->
+    <meta property="og:site_name" content="Micah&#x27;s Secret Blog" />
+    <meta
+      property="og:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;vimtutor-sequel&#x2F;"
+    />
+    <meta
+      property="og:type"
+      content="article"
+    />
+    <meta property="og:title" content="vimtutor-sequel: The Extended vimtutor" />
+
+    <!-- Additional Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;vimtutor-sequel&#x2F;"
+    />
+    <meta name="twitter:title" content="vimtutor-sequel: The Extended vimtutor" />
+
+    <!-- Additional Fediverse Tags -->
+     
+
+    <!-- Cover images -->
+    
+    
+
+    <meta
+      property="og:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <meta
+      name="twitter:image"
+      content="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;icons&#x2F;favicon&#x2F;web-app-manifest-512x512.png"
+    />
+
+    <!-- Favicons -->
+    
+    <link
+      rel="icon"
+      type="image/png"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.svg"
+    />
+    <link
+      rel="shortcut icon"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/favicon.ico"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/apple-touch-icon.png"
+    />
+    <meta name="apple-mobile-web-app-title" content="vimtutor-sequel: The Extended vimtutor" />
+    <link
+      rel="manifest"
+      href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/icons/favicon/site.webmanifest"
+    />
+    
+
+    <!-- RSS Feed -->
+    
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="RSS"
+      href="https://micahkepe.com/blog/atom.xml"
+    />
+    
+
+    <!-- Load Styles -->
+    
+
+
+      <link
+        rel="stylesheet"
+        href="https://micahkepe.com/blog/site.css"
+      />
+    
+
+<!-- Custom styling -->
+<link
+  rel="stylesheet"
+  href="https://micahkepe.com/blog/custom.css"
+/>
+
+
+
+    <!-- Syntax highlighting theming -->
+    
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-dark.css"
+      />
+      <link
+         rel="stylesheet" type="text/css"
+         href="https:&#x2F;&#x2F;micahkepe.com&#x2F;blog/syntax/syntax-theme-light.css"
+      />
+    
+
+    <!-- Load Fonts -->
+    
+
+  
+
+
+
+
+
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+
+
+
+<!-- Forcing Font -->
+<style>
+body {
+  font-family:
+    "JetBrains Mono", Menlo, Monaco, Lucida Console, Liberation Mono,
+    DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New,
+    monospace, serif !important;
+}
+</style>
+
+
+    <!-- Pass Theme Preference as Data Attribute -->
+    <script src="https://micahkepe.com/blog/js/init-theme.js"></script>
+
+    <!-- Reference return to click position script -->
+    <script defer src="https://micahkepe.com/blog/js/reference-return.js"></script>
+
+    <!-- Additional scripts -->
+    
+      
+        <script defer src="https://micahkepe.com/blog/js/codeblock.js"></script>
+      
+      
+        <script src="https://micahkepe.com/blog/js/toggle-theme.js"></script>
+      
+      
+<!-- MathJax script for rendering LaTeX math equations -->
+<script src="https://micahkepe.com/blog/js/mathjax-config.js"></script>
+<script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"
+  async
+></script>
+
+
+      
+<script type="text/javascript" src="https://micahkepe.com/blog/elasticlunr.min.js"></script>
+<script type="text/javascript" src="https://micahkepe.com/blog/js/search.js"></script>
+
+    
+  </head>
+
+  <!-- Body element (contents of the page) -->
+  <body class="hack main container">
+    
+
+  
+    
+    
+      
+  
+  <section class="nav-header">
+    <nav
+      itemscope
+      itemtype="http://schema.org/SiteNavigationElement"
+      class="navbar"
+    >
+      <section class="nav-links">
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/"
+        >
+          <span itemprop="name">Home</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/categories"
+        >
+          <span itemprop="name">Categories</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/blog/tags"
+        >
+          <span itemprop="name">Tags</span>
+        </a>
+        
+        <a
+          itemprop="url"
+          class=""
+          href="https://micahkepe.com/"
+        >
+          <span itemprop="name">Main Site</span>
+        </a>
+        
+      </section>
+    </nav>
+    <aside class="user-actions-container">
+      
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        class="search-icon"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+        />
+      </svg>
+      <input type="text" id="search" placeholder="Search..." />
+      <section class="search-results" aria-live="polite">
+        <article class="search-results__items" role="list"></article>
+      </section>
+       
+      <a id="dark-mode-toggle" href="#">
+        <img
+          src="https://micahkepe.com/blog/icons/sun.svg"
+          id="sun-icon"
+          class="invert-icon"
+          alt="Light mode"
+        />
+        <img
+          src="https://micahkepe.com/blog/icons/moon.svg"
+          id="moon-icon"
+          alt="Dark mode"
+        />
+      </a>
+       
+      <a
+        href="https://micahkepe.com/blog/atom.xml"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/rss.svg"
+          id="rss-icon"
+          alt="RSS feed"
+          class="social-icon"
+        />
+      </a>
+       
+      <a
+        href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe"
+        class="feed-icon"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="https://micahkepe.com/blog/icons/github.svg"
+          id="github-icon"
+          alt="GitHub"
+          class="social-icon"
+        />
+      </a>
+       
+    </aside>
+  </section>
+  
+
+    
+
+
+    <main>
+      
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">vimtutor-sequel: The Extended vimtutor</h1>
+        <data class="muted">
+    <svg class="icon i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <data>4 minute read</data>
+    <svg class="icon i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2024-08-04
+</data>
+    </header>
+
+    <article itemprop="articleBody">
+        
+            <p>The vimtutor program is the essential starting point for anyone looking to learn
+the basics of using Vim. In as little as a half hour, you can learn 90% of what
+you'll ever need for vim, however, there are many useful motions and commands
+that are left out of the program. This article details the simple software
+package I wrote to address this limitation, <code>vimtutor-sequel</code>.</p>
+
+            
+
+            <!-- Render the rest of the content after removing the summary portion -->
+            
+<span id="continue-reading"></span><h2 id="the-journey"><a class="zola-anchor" href="#the-journey" aria-label="Anchor link for: the-journey">The Journey</a></h2>
+<p>I initially created <code>vimtutor-sequel</code> to fill in the gaps left by the original
+vimtutor. After completing the original tutorial, I felt there were many
+advanced features that users could benefit from, which were not covered. Thus,
+<code>vimtutor-sequel</code> was born.</p>
+<section
+  style="width: 100%; max-width: 80%; margin: 0 auto; text-align: center;">
+  <img src="teaser.png"  alt="Screen shot of the vimtutor-sequel v1.0 program on launch." 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+</section>
+<h2 id="featured-lessons-as-of-2024-08-04"><a class="zola-anchor" href="#featured-lessons-as-of-2024-08-04" aria-label="Anchor link for: featured-lessons-as-of-2024-08-04">Featured Lessons (as of 2024-08-04)</a></h2>
+<p>The original vimtutor has 7 lessons, I created 8 additional lessons for
+<code>vimtutor-sequel</code>. Here is a list of the lessons:</p>
+<article class="note-container">
+  <details open class="note-details">
+    <summary class="note-header">
+      
+      <section class="note-icon">
+        <p>Lesson Included</p>
+
+      </section>
+      
+    </summary>
+    <section class="note-content">
+      <ul>
+<li>Lesson 8: Splitting Screens</li>
+<li>Lesson 9: Spellcheck</li>
+<li>Lesson 10: Indenting, Commenting, and Changing Case</li>
+<li>Lesson 11: Advanced Search and Replace</li>
+<li>Lesson 12: Macros</li>
+<li>Lesson 13: Vim Scripting</li>
+<li>Lesson 14: Vim Plugins</li>
+<li>Lesson 15: Vim Sessions and Registers</li>
+</ul>
+
+    </section>
+  </details>
+</article>
+<h2 id="unexpected-popularity"><a class="zola-anchor" href="#unexpected-popularity" aria-label="Anchor link for: unexpected-popularity">Unexpected Popularity</a></h2>
+<p>To promote the project, I wrote posts on Reddit and HackerNews, detailing the
+features and the motivation behind creating <code>vimtutor-sequel</code>. The response was
+overwhelming.</p>
+<p>I woke up the next day to find that the repository had gained 80 stars
+overnight. The popularity continued to surge, and within just two days, the
+project had amassed over 250 stars. It was an incredible and unexpected response.</p>
+<p>At the time of writing, <code>vimtutor-sequel</code> has over 250 stars and has gained
+significant traction, especially on HackerNews where it reached the front page
+and garnered over 200 points. The project also saw a lot of engagement on
+Reddit, particularly in the <a href="https://www.reddit.com/r/vim/">r/vim</a> community.</p>
+<h2 id="community-feedback"><a class="zola-anchor" href="#community-feedback" aria-label="Anchor link for: community-feedback">Community Feedback</a></h2>
+<p>The feedback has been tremendous. I've received valuable input from the issues
+tab on GitHub, as well as from Reddit responses and HackerNews comments. This
+feedback has been instrumental in planning further improvements to the project.</p>
+<section
+  style="width: 100%; max-width: 60%; margin: 0 auto; text-align: center;">
+  <img src="traffic.png"  alt="GitHub Traffic for vimtutor-sequel" 
+    style="max-width: 100%; height: auto; display: inline-block;">
+  
+  <caption style="margin-top: 0.5em;">
+    <p style="font-style: italic;">Above: Snapshot of GitHub traffic for vimtutor-sequel showing the top
+    source of traffic from HackerNews with 2,834 views.</p>
+  </caption>
+  
+</section>
+<h2 id="future-plans"><a class="zola-anchor" href="#future-plans" aria-label="Anchor link for: future-plans">Future Plans</a></h2>
+<p>With the initial success and the community's interest, I plan to continue
+enhancing <code>vimtutor-sequel</code>. Here are a few things on the roadmap:</p>
+<ul>
+<li>Adding more advanced lessons and topics.</li>
+<li>Improving the existing content based on user feedback.</li>
+<li>Exploring ways to make the tutorial even more interactive and engaging.</li>
+</ul>
+<h3 id="how-you-can-help"><a class="zola-anchor" href="#how-you-can-help" aria-label="Anchor link for: how-you-can-help">How You Can Help</a></h3>
+<p>If you haven’t tried <code>vimtutor-sequel</code> yet, I encourage you to give it a go and
+see how it can take your Vim skills to the next level. Your feedback is
+incredibly valuable, and I would love to hear your thoughts on how to make it
+even better.</p>
+<ol>
+<li><strong>Try It Out</strong>: <a href="https://github.com/micahkepe/vimtutor-sequel">Download
+<code>vimtutor-sequel</code></a> and start
+the lessons.</li>
+<li><strong>Provide Feedback</strong>: Use the <a href="https://github.com/micahkepe/vimtutor-sequel/issues">Issues
+tab</a> on GitHub to
+report bugs, suggest new features, or share your experience.</li>
+<li><strong>Contribute</strong>: If you're a developer, feel free to fork the repository
+and submit pull requests. Contributions are always welcome!</li>
+<li><strong>Star the Repository</strong>: If you find <code>vimtutor-sequel</code> useful, consider
+starring the repository on GitHub to help others find it.</li>
+<li><strong>Share the Project</strong>: Spread the word about <code>vimtutor-sequel</code> on social
+media, forums, or with your friends and colleagues who use Vim.</li>
+</ol>
+<p>Thank you for reading, and happy Vimming!</p>
+<p><strong>Update 1</strong>: The project has grown to 475+ stars and continues to receive
+contributions and feedback from the community! Additionally, a new lesson on
+change navigation has been added to the tutorial as Lesson 16.</p>
+<p><strong>Update 2</strong>: <code>vimtutor-sequel</code> is now in Homebrew! You can install it on macOS
+using <code>brew install vimtutor-sequel</code>.</p>
+<p><strong>Links:</strong></p>
+<ul>
+<li><a href="https://github.com/micahkepe/vimtutor-sequel">GitHub Repository</a></li>
+<li><a href="https://github.com/micahkepe/vimtutor-sequel/issues">Issues &amp; Feedback</a></li>
+<li><a href="https://www.reddit.com/r/vim/comments/1eipuan/i_made_an_extended_version_of_vimtutor/">Reddit Post</a></li>
+<li><a href="https://news.ycombinator.com/item?id=41144843">HackerNews Post</a></li>
+</ul>
+
+
+        
+    </article>
+
+    <!-- Comment section -->
+    
+      
+        
+          <script
+  src="https://giscus.app/client.js"
+  data-repo="micahkepe&#x2F;blog"
+  data-repo-id="R_kgDONfHznQ"
+  data-category="General"
+  data-category-id="DIC_kwDONfHznc4CnQJ4"
+  data-mapping="pathname"
+  data-strict="0"
+  data-reactions-enabled="1"
+  data-emit-metadata="0"
+  data-input-position="bottom"
+
+  
+  data-theme="preferred_color_scheme"
+  
+
+  data-lang="en"
+  data-loading="lazy"
+  crossorigin="anonymous"
+  async
+></script>
+
+        
+      
+    
+
+
+    <!-- Page footer -->
+    
+    <footer>
+        <hr>
+        <p>
+            
+                Published by Micah Kepe
+            
+            
+                
+                in <a href="https://micahkepe.com/blog/categories/projects/">projects</a>
+            
+            
+                and
+                tagged
+                
+                    <a href="https://micahkepe.com/blog/tags/vim/">vim</a>
+                    
+                        
+                            
+                                and
+                            
+                        
+                    
+                
+                    <a href="https://micahkepe.com/blog/tags/software-package/">software package</a>
+                    
+                        
+                    
+                
+            
+        </p>
+
+        <!-- Revision history (optional) -->
+        
+          
+            
+              
+                
+                
+                <section class="revision-history">
+                  <a href="https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;blog&#x2F;commits&#x2F;main&#x2F;content&#x2F;vimtutor-sequel&#x2F;index.md" target="_blank" rel="noopener noreferrer">
+                    (revision history)
+                  </a>
+                </section>
+              
+            
+          
+        
+
+        
+        
+    </footer>
+
+
+</article>
+
+
+    </main>
+    
+
+
+
+
+
+  </body>
+</html>
