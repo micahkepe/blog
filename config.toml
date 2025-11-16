@@ -26,7 +26,14 @@ build_search_index = true
 # Whether to do syntax highlighting
 # Theme can be customized by setting the `highlight_theme` variable to a theme supported by Zola
 highlight_code = true
-highlight_theme = "one-dark"
+
+# The theme(s) to use for code highlighting.
+# For more themes, see: https://www.getzola.org/documentation/getting-started/configuration/#syntax-highlighting
+highlight_theme = "css"
+highlight_themes_css = [
+  { theme = "one-dark", filename = "syntax/syntax-theme-dark.css" },
+  { theme = "gruvbox-dark", filename = "syntax/syntax-theme-light.css" },
+]
 
 insert_anchor_links = "heading"
 
