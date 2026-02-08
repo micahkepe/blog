@@ -28,7 +28,7 @@ most to improving my experience with Git.
 When you run `git commit` with no message specified, Git will open an editor
 with a template that looks like this:
 
-```COMMIT_EDITMSG
+```git-commit
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
 #

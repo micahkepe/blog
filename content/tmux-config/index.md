@@ -166,7 +166,7 @@ awkward to type.
 First things first, let's start a new `tmux` session and edit `~/.tmux.conf` in
 your text editor of choice:
 
-```conf
+```ini
 # remap prefix from 'C-b' to 'C-a'
 unbind C-b
 set-option -g prefix C-a
@@ -191,7 +191,7 @@ with a key bind.
 We can quickly resource our updated configuration file within an active `tmux`
 session with `prefix` + `r`:
 
-```conf
+```ini
 bind r source-file ~/.tmux.conf
 ```
 
@@ -272,7 +272,7 @@ cp path/to/tmux-sessionizer.sh ~/.local/bin/tmux-sessionizer
 Now let's make a key bind to make this script accessible in any running `tmux`
 instance:
 
-```conf
+```ini
 bind f run-shell "tmux neww ~/dotfiles/tmux/tmux-sessionizer.sh"
 ```
 
@@ -315,7 +315,7 @@ experience easier and more interoperable with my other CLI tools.
 By default, `tmux` controls are purely keyboard-based. To enable using your
 mouse:
 
-```conf
+```ini
 # Enable mouse control (clickable windows, panes, resizable panes)
 set -g mouse on
 ```
@@ -327,7 +327,7 @@ If you also use Vim/Neovim in `tmux`, I highly recommend
 which allows you to navigate between tmux panes and Neovim splits using the same
 keybindings (like `<C-h>`,`<C-j>`, `<C-k>`, and `<C-l>`).
 
-```conf
+```ini
 # vim-tmux-naviator plug related stuff
 # Smart pane switching with awareness of Vim splits.
 # See: https://github.com/christoomey/vim-tmux-navigator
@@ -386,7 +386,7 @@ Then you will also need to install the plugin in Vim/Neovim:
 By default, `tmux` will not copy to the system clipboard when you yank in copy
 mode (accessible with `prefix` + `[`):
 
-```conf
+```ini
 # Allow tmux clipboard to copy to system clipboard
 set -s set-clipboard on
 ```
@@ -399,7 +399,7 @@ the `0` key is usually on the far right side of the number row. Additionally,
 just from aesthetic point of view, I think starting window at 1 is more
 intuitive and looks nicer.
 
-```conf
+```ini
 # Start windows and panes at 1, not 0
 set -g base-index 1
 setw -g pane-base-index 1
@@ -410,7 +410,7 @@ second window. By default, `tmux` will keep the original numbering of the
 windows, leaving you a gap with windows labeled 1 and 3. This is annoying, so
 let's make `tmux` renumber the windows to 1 and 2 like we would expect:
 
-```conf
+```ini
 # Auto renumber windows on close
 set -g renumber-windows on
 ```
@@ -420,7 +420,7 @@ set -g renumber-windows on
 We can set `vi` bindings in copy mode (accessed with `prefix` + `[`) for more
 crossover with Vim/Neovim:
 
-```conf
+```ini
 set mode-keys vi
 bind-key -T copy-mode-vi v send -X begin-selection
 bind-key -T copy-mode-vi V send -X select-line
@@ -467,7 +467,7 @@ cargo install spotify_player --locked
 We can define a keybind to create a new display popup running `spotify-player`
 and then close with `prefix` + `d` like any other `tmux` window:
 
-```conf
+```ini
 # Spotify Player w/ `spotify_player`
 bind C-p run-shell '
 if [ "#{session_name}" = "spotify" ]; then
@@ -494,7 +494,7 @@ alt="Spotify Player TUI display popup."
 We can add the following to create a popup to let us fuzzy-find our available
 sessions and switch to the one we select:
 
-```conf
+```ini
 # Session jumping with `fzf`
 bind C-j display-popup -E "~/dotfiles/tmux/session-fzf.sh"
 ```
@@ -544,7 +544,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 At the **bottom** of your `.tmux.conf`, add the following as a starting point:
 
-```conf
+```ini
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 # more plugins will go here
@@ -568,7 +568,7 @@ However, we can fix this with the
 
 Add them to our list of TPM plugins:
 
-```conf
+```ini
 # List of plugins
 # ...
 set -g @plugin 'tmux-plugins/tmux-resurrect'
@@ -596,7 +596,7 @@ git clone -b v2.1.3 https://github.com/catppuccin/tmux.git ~/.config/tmux/plugin
 
 Once we do this, let's set up the status line and theme in `~/.tmux.conf`:
 
-```conf
+```ini
 # List of plugins
 # ...
 set -g @plugin 'tmux-plugins/tmux-battery'

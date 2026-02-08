@@ -1,12 +1,9 @@
-# The URL the site will be built for
 base_url = "https://micahkepe.com/blog"
 title = "Micah's Secret Blog"
+author = "Micah Kepe"
 theme = "radion"
 description = "An assortment of my ramblings and random adventures."
 generate_feeds = true
-
-# Default author for pages
-author = "Micah Kepe"
 
 taxonomies = [
     # You can enable/disable RSS
@@ -14,38 +11,35 @@ taxonomies = [
     {name = "tags", feed = true},
  ]
 
-# When set to "true", the Sass files in the `sass` directory in the site root are compiled.
-# Sass files in theme directories are always compiled.
 compile_sass = true
-
-# When set to "true", a search index is built from the pages and section
-# content for `default_language`.
+default_language = "en"
 build_search_index = true
+generate_sitemap = true
+generate_robots_txt = true
+minify_html = true
 
 [markdown]
-# Whether to do syntax highlighting
-# Theme can be customized by setting the `highlight_theme` variable to a theme supported by Zola
-highlight_code = true
-
-# The theme(s) to use for code highlighting.
-# For more themes, see: https://www.getzola.org/documentation/getting-started/configuration/#syntax-highlighting
-highlight_theme = "css"
-highlight_themes_css = [
-  { theme = "one-dark", filename = "syntax/syntax-theme-dark.css" },
-  { theme = "gruvbox-dark", filename = "syntax/syntax-theme-light.css" },
-]
-
+bottom_footnotes = true
+external_links_target_blank = true
+external_links_external = true
+external_links_no_referrer = true
+lazy_async_image = true
+github_alerts = true
 insert_anchor_links = "heading"
 
+[markdown.highlighting]
+style = "class"
+dark_theme = "one-dark-pro"
+light_theme = "everforest-light"
+error_on_missing_language = true
+
 [search]
-# Whether to produce the search index as a javascript file or as a JSON file
-# Accepted values:
-# - "elasticlunr_javascript", "elasticlunr_json"
-# - "fuse_javascript", "fuse_json"
 index_format = "elasticlunr_json"
+include_title = true
+include_description = true
+include_content = true
 
 [extra]
-# Put all your custom variables here
 radion_title = "Micah's Secret Blog"
 github = "https://github.com/micahkepe"
 radion_menu = [
@@ -55,17 +49,9 @@ radion_menu = [
     {url = "https://micahkepe.com/", name = "Main Site"},
 ]
 
-
-# Nicer codeblocks with copy to clipboard
 codeblock = true
-
-# Enable MathJax rendering support
 latex = true
-
-# Enable search bar
 enable_search = true
-
-# Light/Dark Mode set
 theme = "toggle" # options: {light, dark, auto, toggle}
 
 # Comment sections

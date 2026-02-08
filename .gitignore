@@ -1,2 +1,4 @@
-# Zola-generated file
+# Zola-generated files
 public/
+static/*.css
+
