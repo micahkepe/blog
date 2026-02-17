@@ -472,7 +472,7 @@ _Was this actually ever distributed in the C compiler?_
 
 In an email from Thompson to an inquirer[^6], Thompson writes:
 
-<pre>
+```
 From: Ken Thompson <ken@google.com>
 Date: Wed, Sep 28, 2011 at 6:27 PM
 Subject: Re: Was compiler from "Reflections" ever built or distributed?
@@ -494,7 +494,7 @@ On Wed, Sep 28, 2011 at 11:35 AM, Ezra Lalonde <ezra@usefuliftrue.com> wrote:
 >
 > Cheers,
 > Ezra Lalonde
-</pre>
+```
 
 So, at least according to Thompson, this never made it out into the wild.
 However he also does leave this humorous line in the ACM paper:
