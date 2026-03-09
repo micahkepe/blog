@@ -6,7 +6,7 @@ draft = true
 
 [taxonomies]
 categories = ["programming", "cli", "projects"]
-tags = ["tools"]
+tags = ["tools", "rust"]
 
 [extra]
 toc = true
@@ -31,9 +31,54 @@ You can install `jsongrep` from [crates.io](https://crates.io/crates/jsongrep):
 cargo install jsongrep
 ```
 
+Like `ripgrep`, `jsongrep` is cross-platform (binaries available
+[here](https://github.com/micahkepe/jsongrep/releases/)) and written in Rust.
+
 ## Quick Search Examples
 
-## What is `jsongrep` and Why Should I Use It?
+{{ responsive(
+  src="./images/jg-quick-examples.png",
+  alt="Example of some of jsongrep's search query features in practice.",
+  caption="Example of some of jsongrep's search query features in practice."
+) }}
+
+---
+
+## `jsongrep` Pitch
+
+`jsongrep` defines a small, intuitive regular language (think regular
+expressions) for expressing paths through a JSON document. This allows users to
+think in terms of path shapes.
+
+Similar to `ripgrep`, `jsongrep` uses deterministic finite automata (DFA) to
+achieve faster queries than conventional search engines.
+
+As a consequence, `jsongrep` is fast, like **really fast**:
+
+{{ responsive(
+  src="./images/e2e-xlarge.jpg",
+  alt="End-to-end search performance comparison over `xlarge` dataset.",
+  caption="End-to-end search performance comparison over `xlarge` dataset."
+) }}
+
+## `jsongrep` Anti-Pitch
+
+Again borrowing from the `ripgrep` blog post, here's an "anti-pitch" for
+`jsongrep`:
+
+- The biggest considerations in my opinion is that it is not as ubiquitous
+  (_yet_) a tool as say `jq`. `jq` is the go-to for JSON querying, filtering,
+  and [transductions](https://en.wikipedia.org/wiki/Finite-state_transducer).
+
+- `jsongrep` lacks filters and transduction capabilities, (e.g., taking input
+  and transforming via function that maps operations to found values).
+
+- `jsongrep` is new and has not been battle-tested in the wild.
+
+## `jsongrep`'s DFA-Based Query Engine
+
+With the tool overview out of the way, I'd like to go into more detail on the
+underlying engine and automata theory techniques that enable it.
 
 ### A Refresher on JSON
 
@@ -58,10 +103,6 @@ For example, the following is a valid JSON document:
     {
       "name": "Alice",
       "favorite_food": "pizza"
-    },
-    {
-      "name": "Bob",
-      "favorite_food": "burgers"
     }
   ]
 }
@@ -70,33 +111,38 @@ For example, the following is a valid JSON document:
 This document forms the following tree:
 
 $$
-  \text{fill me in}
+  \text{fill me in} \\
+  \textit{need to dust off my LaTeX skills}
 $$
 
-### Performance
+<!-- TODO: make standalone LaTeX artifacts for diagrams -->
 
-Similar to `ripgrep`, `jsongrep` uses deterministic finite automata (DFA) to
-achieve faster queries than conventional search engines.
+The core of the search engine is the following pipeline:
 
-As a consequence, `jsongrep` is fast, like **really fast**:
+1. The input document or stream is serialized as a AST via [`serde_json_borrow`](https://crates.io/crates/serde_json_borrow).
+2. The user's query is parsed as a [`Query`](https://docs.rs/jsongrep/latest/jsongrep/query/ast/enum.Query.html).
+3. From the parsed `Query`, we construct first a **nondeterministic** finite
+   automaton (NFA) via [Glushkov's construction algorithm](https://en.wikipedia.org/wiki/Glushkov%27s_construction_algorithm).
+4. The NFA is determinized into a **deterministic** finite automaton (DFA) via
+   [subset construction](https://en.wikipedia.org/wiki/Powerset_construction).
+5. We walk the JSON AST and take transition states in the DFA when we hit them,
+   accepting the current JSON path/value if the DFA is in an accepting state.
 
-{{ responsive(
-  src="./images/e2e-xlarge.jpg",
-  alt="End-to-end search performance comparison over `xlarge` dataset.",
-  caption="End-to-end search performance comparison over `xlarge` dataset."
-) }}
+That's a lot of words and concepts, so let's work through each one with a
+motivating query example:
 
-## `jsongrep` Anti-Pitch
+With this in mind, let's go through the entire pipeline to see how the engine
+handles this case.
 
-Again borrowing from the `ripgrep` blog post, I would like have an "anti-pitch" for `jsongrep`.
+### Parsing JSON and the User Query
 
-The biggest considerations in my opinion is that it is not as ubiquitous
-(_yet_) a tool as say `jq`.
+### Constructing the NFA
 
-## `jsongrep`'s DFA-Based Query Engine
+### Constructing the DFA from the NFA
 
-Fill in with the debug `#[cfg(test)]` output of the constructed NFAs/DFAs and
-overview of automata theory concepts
+Once the DFA is constructed, searching is trivial-- simply traverse the JSON
+tree and take state transitions on matches. If during the traversal you arrive
+at an accepting state, you have found a match and it can be recorded.
 
 ## Benchmarking Methodology
 
