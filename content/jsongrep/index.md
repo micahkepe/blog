@@ -695,6 +695,10 @@ The full, interactive Criterion report is available at the
 - GitHub: [link](https://github.com/micahkepe/jsongrep)
 - Crates.io: [link](https://crates.io/crates/jsongrep)
 - Benchmarking results: [live site](https://micahkepe.com/jsongrep/report/index.html) | [Criterion output](https://github.com/micahkepe/jsongrep/tree/gh-pages)
+- Docs.rs: [link](https://docs.rs/jsongrep)
+
+`jsongrep` also exposes its DFA-based query engine as a library crate, so you
+can embed fast JSON search directly in your own Rust projects.
 
 ---
 
