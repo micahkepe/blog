@@ -349,21 +349,21 @@ per position). Transitions are wired up from the computed sets:
 For our query, the resulting NFA is:
 
 ```
-Constructed NFA for `roomates[*].name`:
+Constructed NFA for `roommates[*].name`:
 NFA States: 4
 Start State: 0
 Accepting States: [3]
-First set: ["[0] Field(roomates)"]
+First set: ["[0] Field(roommates)"]
 Last set: ["[2] Field(name)"]
 Factors set:
-	[0] Field(roomates) can be followed by:
+	[0] Field(roommates) can be followed by:
 		[1] Range(0, 18446744073709551615)
 	[1] Range(0, 18446744073709551615) can be followed by:
 		[2] Field(name)
 	[2] Field(name) cannot be followed
 Transitions:
 	state 0:
-		on [0] Field(roomates) -> [1]
+		on [0] Field(roommates) -> [1]
 	state 1:
 		on [1] Range(0, 18446744073709551615) -> [2]
 	state 2:
