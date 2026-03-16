@@ -376,13 +376,18 @@ Transitions:
 > (64 bit address space, equal to `2^64 - 1`), which is the maximum value of a
 > 64-bit unsigned integer.
 
-<!-- TODO: state diagram for the NFA -->
+The NFA transition table:
 
-| Column1 | Column2 | Column3 | Accepting? |
-| ------- | ------- | ------- | ---------- |
-| Item1.1 | Item2.1 | Item3.1 | Item4.1    |
-| Item1.2 | Item2.2 | Item3.2 | Item4.2    |
-| Item1.3 | Item2.3 | Item3.3 | Item4.3    |
+| State | `Field("roommates")` | `[*]` | `Field("name")` | Accepting? |
+| ----- | -------------------- | ----- | --------------- | ---------- |
+| $q_0$ | $q_1$                | —     | —               | No         |
+| $q_1$ | —                    | $q_2$ | —               | No         |
+| $q_2$ | —                    | —     | $q_3$           | No         |
+| $q_3$ | —                    | —     | —               | **Yes**    |
+
+The NFA state diagram:
+
+$$q_0 \xrightarrow{\texttt{roommates}} q_1 \xrightarrow{[\ast]} q_2 \xrightarrow{\texttt{name}} q_3$$
 
 This is a simple chain for our simple query, but for queries with `*` or `|`,
 the NFA would have branching and looping edges. For example, `(* | [*])*.name`
@@ -448,14 +453,25 @@ Transitions:
 		on [Range(0, 18446744073709551615)] -> (dead)
 ```
 
-| DFA State | NFA States | Accepting? |
-| --------- | ---------- | ---------- |
+| DFA State | NFA States  | Accepting? |
+| --------- | ----------- | ---------- |
+| 0         | $\set{q_0}$ | No         |
+| 1         | $\set{q_1}$ | No         |
+| 2         | $\set{q_2}$ | No         |
+| 3         | $\set{q_3}$ | **Yes**    |
 
 The transition table:
 
-<!-- TODO: transition table -->
+| State | `Field("roommates")` | `Field("name")` | `Range(0, MAX)` | `Other` | Accepting? |
+| ----- | -------------------- | --------------- | --------------- | ------- | ---------- |
+| 0     | 1                    |                 |                 |         | No         |
+| 1     |                      |                 | 2               |         | No         |
+| 2     |                      | 3               |                 |         | No         |
+| 3     |                      |                 |                 |         | **Yes**    |
 
-<!-- TODO: state diagram for the DFA -->
+So the DFA's state diagram looks like this:
+
+$$q_0 \xrightarrow{\texttt{roommates}} q_1 \xrightarrow{[\ast]} q_2 \xrightarrow{\texttt{name}} q_3$$
 
 In the implementation, the alphabet isn't just the literal symbols from the
 query-- `jsongrep` also adds an `Other` symbol to handle JSON keys that don't
@@ -483,7 +499,37 @@ depth-first traversal of the tree, carrying the DFA state along:
 
 Let's trace our query `roommates[*].name` against the sample document:
 
-<!-- TODO: trace through -->
+**1.** Start at the root object in DFA state $q_0$. Iterate over its three keys:
+
+- Edge `"name"`: $\delta(q_0, \texttt{Field("name")}) \to \text{dead}$.
+  **Prune** this subtree.
+- Edge `"favorite_drinks"`: $\delta(q_0, \texttt{Other}) \to \text{dead}$.
+  **Prune.**
+- Edge `"roommates"`: $\delta(q_0, \texttt{Field("roommates")}) \to q_1$.
+  **Descend.**
+
+**2.** At the `roommates` array in state $q_1$. Iterate over its indices:
+
+- Edge `[0]`: $\delta(q_1, \texttt{Range(0, MAX)}) \to q_2$. **Descend.**
+
+**3.** At the `roommates[0]` object in state $q_2$. Iterate over its keys:
+
+- Edge `"name"`: $\delta(q_2, \texttt{Field("name")}) \to q_3$. State $q_3$ is
+  **accepting**-- record the match: `roommates.[0].name` &rarr; `"Alice"`.
+- Edge `"favorite_food"`: $\delta(q_2, \texttt{Other}) \to \text{dead}$.
+  **Prune.**
+
+**4.** Search complete. One match found:
+
+```
+roommates.[0].name:
+"Alice"
+```
+
+Notice how the DFA let us skip the `"name"` and `"favorite_drinks"` subtrees at
+the root in step 1-- we never even looked at their values. On a large document,
+this pruning is what makes the search fast: entire branches of the JSON tree are
+discarded in $O(1)$ without recursing into them.
 
 Every node is visited **at most once**, and each transition is an O(1) table
 lookup. The total search time is **O(n)** where _n_ is the number of nodes in
@@ -610,8 +656,8 @@ Compare this to the compile time of `jmespath` (an order of magnitude faster):
 
 {{ responsive(
   src="./images/jmespath-query-compile-violin.png",
-  alt="jsongrep query compile time.",
-  caption="jsongrep query compile time."
+  alt="jmespath query compile time.",
+  caption="jmespath query compile time."
 ) }}
 
 [All `query_compile` results](https://micahkepe.com/jsongrep/query_compile/report/index.html)
