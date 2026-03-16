@@ -2,7 +2,7 @@
 title = "jsongrep is faster than:{jq, jmespath, jsonpath-rust, jql}"
 date = 2026-02-28
 description = "An introduction to the jsongrep tool, a technical explanation of its DFA-based search engine, and performance results against popular JSON query tools."
-draft = true
+draft = false
 
 [taxonomies]
 categories = ["programming", "cli", "projects"]
@@ -24,8 +24,8 @@ it (benchmarks).
 
 > Upfront I would like to say that this article is heavily inspired by Andrew
 > Gallant's amazing [`ripgrep`](https://github.com/BurntSushi/ripgrep) tool, and
-> his associated blog post ["ripgrep is faster than {grep, ag, git grep, ucg, pt,
-> sift}"](https://burntsushi.net/ripgrep/).
+> his associated blog post ["ripgrep is faster than {grep, ag, git grep, ucg,
+> pt, sift}"](https://burntsushi.net/ripgrep/).
 
 <!-- more -->
 
@@ -96,8 +96,8 @@ roommates:
 ```
 
 **Recursive descent** uses `*` and `[*]` inside a Kleene star to walk
-arbitrarily deep into the tree. For example, to find every `name` field at
-any depth:
+arbitrarily deep into the tree. For example, to find every `name` field at any
+depth:
 
 ```bash
 $ cat sample.json | jg '(* | [*])*.name'
@@ -198,7 +198,8 @@ Again borrowing from the `ripgrep` blog post, here's an "anti-pitch" for
 
 - The query language is deliberately less expressive than `jq`'s. `jsongrep` is
   a _search_ tool, not a _transformation_ tool-- it finds values but doesn't
-  compute new ones. There are no filters, no arithmetic, no string interpolation.
+  compute new ones. There are no filters, no arithmetic, no string
+  interpolation.
 
 - `jsongrep` is new and has not been battle-tested in the wild.
 
@@ -221,8 +222,8 @@ The core of the search engine is a five-stage pipeline:
 2. **Parse the user's query** into a
    [`Query`](https://docs.rs/jsongrep/latest/jsongrep/query/ast/enum.Query.html)
    AST.
-3. **Construct an NFA** from the query via
-   Glushkov's construction algorithm[^1].
+3. **Construct an NFA** from the query via Glushkov's construction
+   algorithm[^1].
 4. **Determinize the NFA into a DFA** via subset construction[^2]
 5. **Walk the JSON tree**, taking DFA transitions at each edge and collecting
    matches.
@@ -234,8 +235,8 @@ stage. Given our sample document, this query should match `"Alice"` at path
 ### Parsing the Query
 
 The query string `roommates[*].name` is parsed into an AST. `jsongrep` uses a
-[PEG grammar](https://en.wikipedia.org/wiki/Parsing_expression_grammar) (via
-the [pest](https://pest.rs/) library) that maps the query DSL to a tree of
+[PEG grammar](https://en.wikipedia.org/wiki/Parsing_expression_grammar) (via the
+[pest](https://pest.rs/) library) that maps the query DSL to a tree of
 [`Query`](https://docs.rs/jsongrep/latest/jsongrep/query/ast/enum.Query.html)
 enum variants:
 
@@ -255,12 +256,12 @@ Sequence(
 )
 ```
 
-The grammar is intentionally simple. Dots denote concatenation (sequencing),
-`|` denotes alternation (disjunction), postfix `*` denotes Kleene star
-(zero or more repetitions), and postfix `?` denotes optional (zero or one).
-Parentheses group subexpressions. This maps directly to the definition of a
-regular language-- and that's the whole point. Because the query language is
-regular, everything that follows (NFA, DFA, single-pass search) is possible.
+The grammar is intentionally simple. Dots denote concatenation (sequencing), `|`
+denotes alternation (disjunction), postfix `*` denotes Kleene star (zero or more
+repetitions), and postfix `?` denotes optional (zero or one). Parentheses group
+subexpressions. This maps directly to the definition of a regular language-- and
+that's the whole point. Because the query language is regular, everything that
+follows (NFA, DFA, single-pass search) is possible.
 
 The full `Query` AST supports these variants:
 
@@ -279,9 +280,9 @@ The full `Query` AST supports these variants:
 
 ### JSON as a Tree
 
-JSON values form a tree. Object keys and array indices are the **edges**;
-the values they point to are the **nodes**. Scalars (strings, numbers,
-Booleans, null) are leaves.
+JSON values form a tree. Object keys and array indices are the **edges**; the
+values they point to are the **nodes**. Scalars (strings, numbers, Booleans,
+null) are leaves.
 
 Our sample document forms this tree:
 
@@ -301,16 +302,16 @@ With the query parsed into an AST, we need to convert it into an automaton that
 can match paths. The first step is building a **nondeterministic finite
 automaton** (NFA).
 
-`jsongrep` uses **Glushkov's construction**, which has a key advantage over
-the more common Thompson's construction: it produces an **ε-free NFA**. Every
-transition in the resulting NFA consumes a symbol-- no epsilon transitions to
-chase, which simplifies the downstream determinization.
+`jsongrep` uses **Glushkov's construction**, which has a key advantage over the
+more common Thompson's construction: it produces an **$\epsilon$-free NFA**.
+Every transition in the resulting NFA consumes a symbol-- no epsilon transitions
+to chase, which simplifies the downstream determinization.
 
 Glushkov's algorithm works in four steps:
 
 **1. Linearize the query.** Each symbol (field name, wildcard, index range) in
-the query gets a unique position number. Our query `roommates[*].name` has
-three symbols:
+the query gets a unique position number. Our query `roommates[*].name` has three
+symbols:
 
 | Position | Symbol                      |
 | -------- | --------------------------- |
@@ -318,10 +319,10 @@ three symbols:
 | 2        | `ArrayWildcard` (any index) |
 | 3        | `Field("name")`             |
 
-**2. Compute the First and Last sets.** The _First_ set contains positions
-that can appear at the start of a match; the _Last_ set contains positions
-that can appear at the end. For a simple sequence, First = {first element} and
-Last = {last element}:
+**2. Compute the First and Last sets.** The _First_ set contains positions that
+can appear at the start of a match; the _Last_ set contains positions that can
+appear at the end. For a simple sequence, First = {first element} and Last =
+{last element}:
 
 - $\textit{First} = \set{1}$ (`roommates`)
 - $\textit{Last} = \set{3}$ (`name`)
@@ -399,14 +400,14 @@ would produce a state with self-loops on both `FieldWildcard` and
 An NFA can be in **multiple states simultaneously**-- on a given input, it may
 have several valid transitions. This is fine theoretically but bad for
 performance: simulating an NFA means tracking a _set_ of active states at each
-step. A DFA, by contrast, is in exactly **one state** at all times, meaning
-each transition is an O(1) table lookup. Importantly, Rabin and Scott showed
-that every NFA can be turned into an equivalent DFA[^2].
+step. A DFA, by contrast, is in exactly **one state** at all times, meaning each
+transition is an O(1) table lookup. Importantly, Rabin and Scott showed that
+every NFA can be turned into an equivalent DFA[^2].
 
-The standard algorithm for converting an NFA to a DFA is **subset
-construction** (also called the powerset construction). The idea is simple:
-each DFA state corresponds to a _set_ of NFA states. The algorithm explores
-all reachable sets via breadth-first search:
+The standard algorithm for converting an NFA to a DFA is **subset construction**
+(also called the powerset construction). The idea is simple: each DFA state
+corresponds to a _set_ of NFA states. The algorithm explores all reachable sets
+via breadth-first search:
 
 1. Start with the DFA state corresponding to $q_0$ (just the NFA start state).
 2. For each DFA state and each symbol in the alphabet, compute the set of NFA
@@ -531,7 +532,7 @@ the root in step 1-- we never even looked at their values. On a large document,
 this pruning is what makes the search fast: entire branches of the JSON tree are
 discarded in $O(1)$ without recursing into them.
 
-Every node is visited **at most once**, and each transition is an O(1) table
+Every node is visited **at most once**, and each transition is an $O(1)$ table
 lookup. The total search time is **O(n)** where _n_ is the number of nodes in
 the JSON tree. No backtracking, no interpretation overhead.
 
