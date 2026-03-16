@@ -571,13 +571,13 @@ Four datasets of increasing size test scaling behavior:
 
 Five JSON query tools were compared:
 
-| Tool            | Crate                       | Notes                                      |
-| --------------- | --------------------------- | ------------------------------------------ |
-| `jsongrep`      | (this crate)                | DFA-based, `serde_json_borrow` (zero-copy) |
-| `jsonpath-rust` | `jsonpath-rust`             | `serde_json::Value` (allocating)           |
-| `jmespath`      | `jmespath`                  | Custom `jmespath::Variable` type           |
-| `jaq`           | `jaq-core` + `jaq-std`      | `jq`-compatible, `jaq_json::Val`           |
-| `jql`           | `jql-parser` + `jql-runner` | `serde_json::Value` (allocating)           |
+| Tool                                                      | Crate                                                                                                     | Notes                                      |
+| --------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ------------------------------------------ |
+| [`jsongrep`](https://github.com/micahkepe/jsongrep)       | (this crate, [`jsongrep`](https://crates.io/crates/jsongrep))                                             | DFA-based, `serde_json_borrow` (zero-copy) |
+| [`jsonpath-rust`](https://github.com/besok/jsonpath-rust) | [`jsonpath-rust`](https://crates.io/crates/jsonpath-rust)                                                 | `serde_json::Value` (allocating)           |
+| [`jmespath`](https://github.com/jmespath)                 | [`jmespath`](https://crates.io/crates/jmespath)                                                           | Custom `jmespath::Variable` type           |
+| [`jaq`](https://crates.io/crates/jaq)                     | [`jaq-core`](https://crates.io/crates/jaq-core) + [`jaq-std`](https://crates.io/crates/jaq-std)           | `jq`-compatible, `jaq_json::Val`           |
+| [`jql`](https://github.com/yamafaktory/jql)               | [`jql-parser`](https://crates.io/crates/jql-parser) + [`jql-runner`](https://crates.io/crates/jql-runner) | `serde_json::Value` (allocating)           |
 
 ### Benchmark Groups
 
@@ -706,13 +706,12 @@ can embed fast JSON search directly in your own Rust projects.
 ## References
 
 [^1]:
-    Glushkov, V. M. (1961). "The abstract theory of automata." _Russian
-    Mathematical Surveys_, 16(5), 1–53. See also: [Wikipedia -- Glushkov's
-    construction
-    algorithm](https://en.wikipedia.org/wiki/Glushkov%27s_construction_algorithm)
+    Glushkov, V. M. “THE ABSTRACT THEORY OF AUTOMATA.” Russian Mathematical
+    Surveys 16, no. 5 (1961): 1–53.
+    [https://doi.org/10.1070/RM1961v016n05ABEH004112](https://doi.org/10.1070/RM1961v016n05ABEH004112).
 
 [^2]:
-    Rabin, M. O.; Scott, D. (1959). "Finite automata and their decision
-    problems." _IBM Journal of Research and Development_, 3(2), 114–125. See
-    also: [Wikipedia -- Powerset
-    construction](https://en.wikipedia.org/wiki/Powerset_construction)
+    Rabin, M. O., and D. Scott. “Finite Automata and Their Decision Problems.”
+    IBM Journal of Research and Development, vol. 3, no. 2, Apr. 1959, pp.
+    114–25. ACM.org,
+    [https://dl.acm.org/doi/10.1147/rd.32.0114](https://dl.acm.org/doi/10.1147/rd.32.0114).
