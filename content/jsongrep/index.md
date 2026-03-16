@@ -1,5 +1,5 @@
 +++
-title = "jsongrep is faster than:{jq, jmespath, jsonpath-rust, jql}"
+title = "jsongrep is faster than {jq, jmespath, jsonpath-rust, jql}"
 date = 2026-02-28
 description = "An introduction to the jsongrep tool, a technical explanation of its DFA-based search engine, and performance results against popular JSON query tools."
 draft = false
