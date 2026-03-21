@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - rust</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/tags/rust/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-02-28T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/tags/rust/atom.xml</id>
+    <entry xml:lang="en">
+        <title>jsongrep is faster than {jq, jmespath, jsonpath-rust, jql}</title>
+        <published>2026-02-28T00:00:00+00:00</published>
+        <updated>2026-02-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/jsongrep/"/>
+        <id>https://micahkepe.com/blog/jsongrep/</id>
+        
+        <summary type="html">&lt;p&gt;This article is both an introduction to a tool I have been working on called
+&lt;a rel=&quot;noopener noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;jsongrep&quot;&gt;&lt;code&gt;jsongrep&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;, as well as a technical
+explanation of the internal search engine it uses. I also discuss the
+benchmarking strategy used to compare the performance of &lt;code&gt;jsongrep&lt;&#x2F;code&gt; against
+other JSON path-like query tools and implementations.&lt;&#x2F;p&gt;
+&lt;p&gt;In this post I&#x27;ll first show you the tool, then explain &lt;em&gt;why&lt;&#x2F;em&gt; it&#x27;s fast
+(conceptually), then &lt;em&gt;how&lt;&#x2F;em&gt; it&#x27;s fast (the automata theory), and finally &lt;em&gt;prove&lt;&#x2F;em&gt;
+it (benchmarks).&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Upfront I would like to say that this article is heavily inspired by Andrew
+Gallant&#x27;s amazing &lt;a rel=&quot;noopener noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;BurntSushi&#x2F;ripgrep&quot;&gt;&lt;code&gt;ripgrep&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; tool, and
+his associated blog post &lt;a rel=&quot;noopener noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;burntsushi.net&#x2F;ripgrep&#x2F;&quot;&gt;&quot;ripgrep is faster than {grep, ag, git grep, ucg,
+pt, sift}&quot;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Let&#x27;s Build a (Mini)Shell in Rust</title>
+        <published>2025-05-31T00:00:00+00:00</published>
+        <updated>2025-05-31T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/minishell/"/>
+        <id>https://micahkepe.com/blog/minishell/</id>
+        
+        <summary type="html">&lt;p&gt;In a little over 100 lines of Rust code, we can build a simple shell program
+that can execute commands, supports piping, handles signals, and maintains
+command history. This tutorial will guide you through the process of creating
+a minimal shell, which we will call &quot;minishell&quot;, using Rust&#x27;s powerful standard
+library and some external crates.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>
