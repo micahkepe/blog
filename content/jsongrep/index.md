@@ -35,11 +35,13 @@ You can install `jsongrep` from [crates.io](https://crates.io/crates/jsongrep):
 cargo install jsongrep
 ```
 
-You can also install via Homebrew:
+You can also install via [Homebrew](https://brew.sh/):
 
 ```bash
 brew install jsongrep
 ```
+
+- Package repositories hosting `jsongrep`: [![Packaging status](https://repology.org/badge/tiny-repos/jsongrep.svg)](https://repology.org/project/jsongrep/versions)
 
 Like `ripgrep`, `jsongrep` is cross-platform (binaries available
 [here](https://github.com/micahkepe/jsongrep/releases/)) and written in Rust.
