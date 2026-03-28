@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - compilers</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/categories/compilers/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-10-23T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/categories/compilers/atom.xml</id>
+    <entry xml:lang="en">
+        <title>That Time Ken Thompson Wrote a Backdoor into the C Compiler</title>
+        <published>2025-10-23T00:00:00+00:00</published>
+        <updated>2025-10-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/thompson-trojan-horse/"/>
+        <id>https://micahkepe.com/blog/thompson-trojan-horse/</id>
+        
+        <summary type="html">&lt;p&gt;When Ken Thompson won the Turing Award jointly with Dennis Ritchie for their
+work in UNIX, he was expected like other Turing winners to write a paper that
+would be published in the ACM Computer Journal. What he ended up submitting was
+a paper about &quot;the cutest program [he] ever wrote&quot;-- a sneaky undetectable
+self-reproducing &quot;Trojan horse&quot; backdoor in the C compiler that would allow him
+to log into affected machines as any user.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>
