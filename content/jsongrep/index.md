@@ -41,7 +41,10 @@ You can also install via [Homebrew](https://brew.sh/):
 brew install jsongrep
 ```
 
-- Package repositories hosting `jsongrep`: [![Packaging status](https://repology.org/badge/tiny-repos/jsongrep.svg)](https://repology.org/project/jsongrep/versions)
+- Package repositories hosting `jsongrep`:
+  <a href="https://repology.org/project/jsongrep/versions">
+  <img src="https://repology.org/badge/tiny-repos/jsongrep.svg" alt="Packaging status">
+  </a>
 
 Like `ripgrep`, `jsongrep` is cross-platform (binaries available
 [here](https://github.com/micahkepe/jsongrep/releases/)) and written in Rust.
