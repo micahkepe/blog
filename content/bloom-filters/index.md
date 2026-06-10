@@ -201,17 +201,12 @@ print(f"Memory Usage: {bloom.size / 8 / 1024 / 1024:.2f} MB")
 
 Here's the results I got when running the Bloom filter simulation:
 
-{{ note(
-header="Bloom Filter Simulation Results"
-body="
-Bloom Filter Insertion Time: 3.457702159881592 seconds
-
-Bloom Filter Query Time: 0.10877871513366699 seconds
-
-False Positives: 121
-
+```
+Bloom Filter Insertion Time: 0.7536017894744873 seconds
+Bloom Filter Query Time: 0.02283501625061035 seconds
+False Positives: 114
 Memory Usage: 1.14 MB
-")}}
+```
 
 ### Hash Set
 
@@ -251,20 +246,15 @@ print(f"Memory Usage: {len(hash_set) * 50 / 1024 / 1024:.2f} MB")
 
 Here's the results I got when running the hash set simulation:
 
-{{ note(
-header="Hash Set Simulation Results"
-body="
-Hash Set Insertion Time: 0.6073956489562988 seconds
-
-Hash Set Query Time: 0.03299856185913086 seconds
-
+```
+Hash Set Insertion Time: 0.1741938591003418 seconds
+Hash Set Query Time: 0.01365804672241211 seconds
 False Positives: 0
-
-Memory Usage: 30.15 MB
-")}}
+Memory Usage: 30.14 MB
+```
 
 As you can see, the hash set is significantly more memory-intensive compared to
-the Bloom filter (**30.15 MB** vs. **1.14 MB**). However, it does not have any
+the Bloom filter (**30.14 MB** vs. **1.14 MB**). However, it does not have any
 false positives and is faster in terms of insertion and querying times. But,
 imagine a scenario where the blacklist is much larger, and the memory usage
 becomes a critical factor. This is where Bloom filters shine:
