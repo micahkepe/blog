@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - projects</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/categories/projects/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-02-28T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/categories/projects/atom.xml</id>
+    <entry xml:lang="en">
+        <title>jsongrep is faster than {jq, jmespath, jsonpath-rust, jql}</title>
+        <published>2026-02-28T00:00:00+00:00</published>
+        <updated>2026-02-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/jsongrep/"/>
+        <id>https://micahkepe.com/blog/jsongrep/</id>
+        
+        <summary type="html">&lt;p&gt;This article is both an introduction to a tool I have been working on called
+&lt;a rel=&quot;noopener noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;micahkepe&#x2F;jsongrep&quot;&gt;&lt;code&gt;jsongrep&lt;&#x2F;code&gt;&lt;&#x2F;a&gt;, as well as a technical
+explanation of the internal search engine it uses. I also discuss the
+benchmarking strategy used to compare the performance of &lt;code&gt;jsongrep&lt;&#x2F;code&gt; against
+other JSON path-like query tools and implementations.&lt;&#x2F;p&gt;
+&lt;p&gt;In this post I&#x27;ll first show you the tool, then explain &lt;em&gt;why&lt;&#x2F;em&gt; it&#x27;s fast
+(conceptually), then &lt;em&gt;how&lt;&#x2F;em&gt; it&#x27;s fast (the automata theory), and finally &lt;em&gt;prove&lt;&#x2F;em&gt;
+it (benchmarks).&lt;&#x2F;p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Upfront I would like to say that this article is heavily inspired by Andrew
+Gallant&#x27;s amazing &lt;a rel=&quot;noopener noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;BurntSushi&#x2F;ripgrep&quot;&gt;&lt;code&gt;ripgrep&lt;&#x2F;code&gt;&lt;&#x2F;a&gt; tool, and
+his associated blog post &lt;a rel=&quot;noopener noreferrer external&quot; target=&quot;_blank&quot; href=&quot;https:&#x2F;&#x2F;burntsushi.net&#x2F;ripgrep&#x2F;&quot;&gt;&quot;ripgrep is faster than {grep, ag, git grep, ucg,
+pt, sift}&quot;&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Building a Godot Game! The Making of &#x27;43 Monkeys&#x27;</title>
+        <published>2024-11-26T00:00:00+00:00</published>
+        <updated>2025-04-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/43-monkeys/"/>
+        <id>https://micahkepe.com/blog/43-monkeys/</id>
+        
+        <summary type="html">&lt;p&gt;As part of my design course requirements at Rice University, I will be creating
+a game in a &lt;a href=&quot;https:&#x2F;&#x2F;micahkepe.com&#x2F;blog&#x2F;43-monkeys&#x2F;#contributors&quot;&gt;group of 4 (&lt;em&gt;and more!&lt;&#x2F;em&gt;)&lt;&#x2F;a&gt; using the Godot engine
+over the upcoming semester. This blog post will serve as a progress log for
+the game&#x27;s development and hopefully provide some good insights into the game
+development process from someone who has never made a game before.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>vimtutor-sequel: The Extended vimtutor</title>
+        <published>2024-08-04T00:00:00+00:00</published>
+        <updated>2024-08-04T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/vimtutor-sequel/"/>
+        <id>https://micahkepe.com/blog/vimtutor-sequel/</id>
+        
+        <summary type="html">&lt;p&gt;The vimtutor program is the essential starting point for anyone looking to learn
+the basics of using Vim. In as little as a half hour, you can learn 90% of what
+you&#x27;ll ever need for vim, however, there are many useful motions and commands
+that are left out of the program. This article details the simple software
+package I wrote to address this limitation, &lt;code&gt;vimtutor-sequel&lt;&#x2F;code&gt;.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>

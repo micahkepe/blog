@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - software packages</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/tags/software-packages/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-06-04T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/tags/software-packages/atom.xml</id>
+    <entry xml:lang="en">
+        <title>How Do Software Packages Work?</title>
+        <published>2024-06-04T00:00:00+00:00</published>
+        <updated>2024-06-04T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/software-packages/"/>
+        <id>https://micahkepe.com/blog/software-packages/</id>
+        
+        <summary type="html">&lt;p&gt;How do software packages work behind the scenes? How are they created,
+distributed, and installed? In this post, we&#x27;ll explore the lifecycle of
+software packages, from creation to installation, using the Node Package
+Manager (NPM) and the Autoprefixer package as real-world examples.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>

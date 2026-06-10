@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - infosec</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/tags/infosec/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2025-10-23T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/tags/infosec/atom.xml</id>
+    <entry xml:lang="en">
+        <title>That Time Ken Thompson Wrote a Backdoor into the C Compiler</title>
+        <published>2025-10-23T00:00:00+00:00</published>
+        <updated>2025-10-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/thompson-trojan-horse/"/>
+        <id>https://micahkepe.com/blog/thompson-trojan-horse/</id>
+        
+        <summary type="html">&lt;p&gt;When Ken Thompson won the Turing Award jointly with Dennis Ritchie for their
+work in UNIX, he was expected like other Turing winners to write a paper that
+would be published in the ACM Computer Journal. What he ended up submitting was
+a paper about &quot;the cutest program [he] ever wrote&quot;-- a sneaky undetectable
+self-reproducing &quot;Trojan horse&quot; backdoor in the C compiler that would allow him
+to log into affected machines as any user.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>WebP: A Case Study in the Hidden Vulnerabilities of Image Formats</title>
+        <published>2024-05-13T00:00:00+00:00</published>
+        <updated>2024-05-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/webp-vulnerability/"/>
+        <id>https://micahkepe.com/blog/webp-vulnerability/</id>
+        
+        <summary type="html">&lt;p&gt;Hacked by an image? How could that be possible? This is the story of how a
+seemingly innocuous image format, WebP, was discovered to have a critical
+vulnerability that could be exploited to execute arbitrary code on a victim&#x27;s
+machine.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>

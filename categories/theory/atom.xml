@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Micah&#x27;s Secret Blog - theory</title>
+    <subtitle>An assortment of my ramblings and random adventures.</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://micahkepe.com/blog/categories/theory/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://micahkepe.com/blog"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-05-26T00:00:00+00:00</updated>
+    <id>https://micahkepe.com/blog/categories/theory/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Bloom Filters: Space-Efficient Probabilistic Data Structures</title>
+        <published>2024-05-25T00:00:00+00:00</published>
+        <updated>2024-05-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/bloom-filters/"/>
+        <id>https://micahkepe.com/blog/bloom-filters/</id>
+        
+        <summary type="html">&lt;p&gt;In the realm of computer science, efficiency is often the key to solving complex
+problems. One elegant solution that stands out for its efficiency is the Bloom
+filter. Despite being relatively lesser-known, Bloom filters offer a powerful
+method for determining set membership while using minimal space. This post
+explores what Bloom filters are, how they work, their applications in various
+fields, and compares them with other data structures.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>WebP: A Case Study in the Hidden Vulnerabilities of Image Formats</title>
+        <published>2024-05-13T00:00:00+00:00</published>
+        <updated>2024-05-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/webp-vulnerability/"/>
+        <id>https://micahkepe.com/blog/webp-vulnerability/</id>
+        
+        <summary type="html">&lt;p&gt;Hacked by an image? How could that be possible? This is the story of how a
+seemingly innocuous image format, WebP, was discovered to have a critical
+vulnerability that could be exploited to execute arbitrary code on a victim&#x27;s
+machine.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Ingenious Algorithms We Take for Granted: PageRank, Spell Checkers, and Shazam</title>
+        <published>2024-05-06T00:00:00+00:00</published>
+        <updated>2024-05-06T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Micah Kepe
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://micahkepe.com/blog/ingenious-algorithms/"/>
+        <id>https://micahkepe.com/blog/ingenious-algorithms/</id>
+        
+        <summary type="html">&lt;p&gt;Algorithms are all around us. They are the invisible forces that power our
+modern world, from the search engines we use to find information to the social
+networks we use to connect with friends and family. In this post, I share some
+ingenious algorithms that I have learned about both in courses and through my
+own research.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+</feed>
