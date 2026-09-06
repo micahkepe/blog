@@ -21,7 +21,7 @@ to log into affected machines as any user.
 
 <!-- more -->
 
-{{ youtube(id="OmVHkL0IWk4", start_time_s=9951, captions=true) }}
+{{<youtube id="OmVHkL0IWk4" start_time_s={9951} captions={true}/>}}
 
 ## Overview
 
@@ -94,11 +94,7 @@ There are two critical properties here to make note of for later:
 2. "This program can contain an arbitrary amount of excess baggage that will be
    reproduced along with the main algorithm."
 
-{{ note(
-hidden=true,
-header="'Simple Transliterations' Note from Original Paper",
-body='
-
+{% <note hidden={true} header="'Simple Transliterations' Note from Original Paper"> %}
 Here are some simple transliterations to allow a non-C programmer to read this
 code:
 
@@ -115,8 +111,7 @@ code:
 | _\\t_    | tab character                |
 | _\\n_    | newline character            |
 
-'
-) }}
+{% </note> %}
 
 Here's a classic Python quine to demonstrate the self-reproducing behavior:
 
@@ -431,18 +426,14 @@ repronih()
 }
 ```
 
-{{ note(
-hidden=false,
-header="Why Source Code Auditing Fails Here",
-body='
+{% <note hidden={false} header="Why Source Code Auditing Fails Here"> %}
 No amount of reviewing source code would catch this, because the malicious logic
 never appears in the source once the system is "trained." The infection exists
 one layer below—inside the binary that generates other binaries. This is the
 essence of the Trusting Trust problem: if your compiler (or any build tool) is
 compromised, every program it builds is potentially compromised—**even if their
 sources are pristine**.
-'
-) }}
+{% </note> %}
 
 ## The Training Process
 

@@ -23,21 +23,14 @@ vimtutor. After completing the original tutorial, I felt there were many
 advanced features that users could benefit from, which were not covered. Thus,
 `vimtutor-sequel` was born.
 
-{{
-    responsive(src="teaser.png",
-    alt="Screen shot of the vimtutor-sequel v1.0 program on launch.",
-    width=80)
-}}
+{{<responsive src="teaser.png" alt="Screen shot of the vimtutor-sequel v1.0 program on launch." width={80}/>}}
 
 ## Featured Lessons (as of 2024-08-04)
 
 The original vimtutor has 7 lessons, I created 8 additional lessons for
 `vimtutor-sequel`. Here is a list of the lessons:
 
-{{ note(
-header="Lesson Included"
-body="
-
+{% <note header="Lesson Included"> %}
 - Lesson 8: Splitting Screens
 - Lesson 9: Spellcheck
 - Lesson 10: Indenting, Commenting, and Changing Case
@@ -46,7 +39,7 @@ body="
 - Lesson 13: Vim Scripting
 - Lesson 14: Vim Plugins
 - Lesson 15: Vim Sessions and Registers
-  ")}}
+{% </note> %}
 
 ## Unexpected Popularity
 
@@ -69,14 +62,8 @@ The feedback has been tremendous. I've received valuable input from the issues
 tab on GitHub, as well as from Reddit responses and HackerNews comments. This
 feedback has been instrumental in planning further improvements to the project.
 
-{{
-    responsive(src="traffic.png",
-    alt="GitHub Traffic for vimtutor-sequel",
-    caption=
-    "Above: Snapshot of GitHub traffic for vimtutor-sequel showing the top
-    source of traffic from HackerNews with 2,834 views.",
-    width=60)
-}}
+{{<responsive src="traffic.png" alt="GitHub Traffic for vimtutor-sequel" caption="Above: Snapshot of GitHub traffic for vimtutor-sequel showing the top
+    source of traffic from HackerNews with 2,834 views." width={60}/>}}
 
 ## Future Plans
 

@@ -290,13 +290,11 @@ fn main() -> Result<(), Box<dyn Error>> {
 
 ```
 
-{{note(
-body="
+{% <note> %}
 The revised `main` function signature now returns a `Result<(), Box<dyn
 Error>>`, which allows us to handle errors more gracefully with `?` instead of
 panicking.
-"
-)}}
+{% </note> %}
 
 In this new version, we do the same whitespace splitting as before to get
 the command and its arguments. Next, in the match expression, we check
@@ -584,13 +582,8 @@ will execute each command in the pipeline, passing the output of one command
 as the input to the next command, with the final output displayed in the
 terminal.
 
-{{responsive(
-src="./images/piping-example.png",
-alt="Example of piping commands in a shell",
-caption="Example of piping commands in a shell; `ls | wc -l` counts the number
-of files in the current directory",
-width=75
-)}}
+{{<responsive src="./images/piping-example.png" alt="Example of piping commands in a shell" caption="Example of piping commands in a shell; `ls | wc -l` counts the number
+of files in the current directory" width={75}/>}}
 
 ---
 
@@ -702,11 +695,7 @@ With our shell now supporting command history, we can use the up and down
 arrow keys to navigate through previous commands, and we can use `Ctrl+R` to
 search for previous commands.
 
-{{ responsive(
-src="./images/reverse-cmd-search.png",
-alt="Demonstration of reverse command search in a shell",
-caption="Reverse command search using `rustyline`"
-)}}
+{{<responsive src="./images/reverse-cmd-search.png" alt="Demonstration of reverse command search in a shell" caption="Reverse command search using `rustyline`"/>}}
 
 ### Signal Handling
 
@@ -768,10 +757,7 @@ and exit gracefully, saving the command history to the specified file. Outside
 of the main REPL loop, we added an `Ok(())` return type to the `main` function
 to indicate that the shell exited successfully.
 
-{{note(
-header="`rustyline` as a _line editor_",
-
-body="
+{% <note header="`rustyline` as a _line editor_"> %}
 When I said before that `rustyline` was a **line editor**, it probably didn't
 make much sense. _What's the difference? I am still just inputting text on the
 prompt line like before?_
@@ -785,8 +771,7 @@ many features that `rustyline` provides as a line editor.
 
 Now you can easily edit your command line input, navigate through the
 command history, and even search for previous commands using `Ctrl+R`!
-"
-)}}
+{% </note> %}
 
 ---
 
@@ -832,11 +817,7 @@ We escape the string with `r#"` to allow for multi-line "raw" strings without
 escaping newlines or quotes. Now our shell will display a nice ASCII art logo
 when it starts, along with a welcome message.
 
-{{ responsive(
-src="./images/greeting.png",
-alt="Greeting message with ASCII art logo",
-caption="Greeting message with ASCII art logo"
-)}}
+{{<responsive src="./images/greeting.png" alt="Greeting message with ASCII art logo" caption="Greeting message with ASCII art logo"/>}}
 
 You can explore some other cool ASCII logo graphics here if you want a different
 logo: [Text to ASCII Generator](https://patorjk.com/software/taag/#p=display&f=Slant&t=minishell).

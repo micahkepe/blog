@@ -40,21 +40,13 @@ to another project? Do you close all of your tabs now, or open an entirely new
 terminal window? What if you have many projects you are switching between? This
 quickly grows unwieldy and disorganized.
 
-{{ responsive(
-src="./assets/non-tmux-workflow.png"
-alt="Traditional non-tmux Workflow"
-caption="Yikes"
-) }}
+{{<responsive src="./assets/non-tmux-workflow.png" alt="Traditional non-tmux Workflow" caption="Yikes"/>}}
 
 Instead, with a multiplexer, you can simply create a new session in `tmux` that
 can have an arbitrary amount of windows ("tabs"), which themselves can have
 multiple panes ("splits"/ views, such as vertical splits).
 
-{{ responsive(
-src="./assets/tmux-interactive-windows.png",
-alt="Interactive window switching in tmux",
-caption="Interactive window switching in tmux"
-) }}
+{{<responsive src="./assets/tmux-interactive-windows.png" alt="Interactive window switching in tmux" caption="Interactive window switching in tmux"/>}}
 
 ### Benefits
 
@@ -74,12 +66,7 @@ Some of my favorite aspects of a terminal multiplexer workflow are:
    I have to do is reattach to `tmux` and resume my work, exactly how I left it
    before.
 
-   {{ gif(
-   sources=["./assets/tmux-resume-cmp.mp4"],
-   alt="Example of resuming work with `tmux`",
-   caption="Example of resuming work with `tmux`"
-   width=100
-   ) }}
+   {{<gif sources={["./assets/tmux-resume-cmp.mp4"]} alt="Example of resuming work with `tmux`" caption="Example of resuming work with `tmux`" width={100}/>}}
 
    The benefit of this is most obvious in my opinion when working on remote
    machines. With a `tmux` server running on a remote server, I can SSH into the
@@ -91,15 +78,12 @@ Some of my favorite aspects of a terminal multiplexer workflow are:
 2. **Organized** &rarr; keep all your different projects organized with their
    own state and labeled with their respective directories or custom names.
 
-{{note(
-header="Note: `tmux` Alternative: GNU Screen"
-body="
+{% <note header="Note: `tmux` Alternative: GNU Screen"> %}
 Another terminal multiplexer you might have heard about is [GNU
 Screen](https://www.gnu.org/software/screen/manual/screen.html) (`screen`). I
 have used `screen` in the past but personally I prefer `tmux`, however, the core
 of both programs is essentially the same multiplexing workflow.
-"
-)}}
+{% </note> %}
 
 ### Further Learning
 
@@ -122,21 +106,11 @@ proficiency with `tmux` and its terminology (sessions, panes, windows, etc.).
 
 In this post we'll take your setup from the out-of-the-box experience...
 
-{{ responsive(
-src="./assets/default-tmux.png",
-alt="Out of the box tmux configuration.",
-caption="Out-of-the-box tmux configuration."
-width=100
-) }}
+{{<responsive src="./assets/default-tmux.png" alt="Out of the box tmux configuration." caption="Out-of-the-box tmux configuration." width={100}/>}}
 
 to this:
 
-{{ responsive(
-src="./assets/end-product-tmux.png",
-alt="End product tmux setup from this post.",
-caption="End product tmux setup from this post."
-width=100
-) }}
+{{<responsive src="./assets/end-product-tmux.png" alt="End product tmux setup from this post." caption="End product tmux setup from this post." width={100}/>}}
 
 We'll also change some of the stock options and keys to make using `tmux` more
 ergonomic (IMHO). Feel free to jump around with the Table of Contents to any
@@ -278,16 +252,9 @@ bind f run-shell "tmux neww ~/dotfiles/tmux/tmux-sessionizer.sh"
 
 Now we can do `prefix` + `f` to invoke the script:
 
-{{ gif(
-sources=["./assets/tmux-sessionizer-fzf-cmp.mp4"],
-alt="tmux-sessionizer script in action"
-caption="tmux-sessionizer script in action"
-width=100
-) }}
+{{<gif sources={["./assets/tmux-sessionizer-fzf-cmp.mp4"]} alt="tmux-sessionizer script in action" caption="tmux-sessionizer script in action" width={100}/>}}
 
-{{ note(
-header="Making `tmux-sessionizer` Available in Neovim"
-body='
+{% <note header="Making `tmux-sessionizer` Available in Neovim"> %}
 For Neovim, in `init.lua` or which ever module you define your keymaps:
 
 ```lua
@@ -296,8 +263,7 @@ vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
 
 Now while in Normal mode, I can hit `Ctrl` + `f` to execute the script in a new
 `tmux` window.
-'
-)}}
+{% </note> %}
 
 You can easily extend this script to make it your own. For example, you could do
 further setup of the session with some starter windows or support configuration
@@ -483,11 +449,7 @@ already, else it will reattach to the existing. The first check is to avoid
 session nesting in the case you accidentally hit the defined Spotify keybind
 within the "spotify" session.
 
-{{ responsive(
-src="./assets/spotify-player-popup.png",
-caption="Spotify Player TUI display popup."
-alt="Spotify Player TUI display popup."
-)}}
+{{<responsive src="./assets/spotify-player-popup.png" caption="Spotify Player TUI display popup." alt="Spotify Player TUI display popup."/>}}
 
 ### Navigating Sessions with fzf
 
@@ -517,11 +479,7 @@ The long list of options to `fzf`
 > just define the script separate and just specify the script path for `tmux`
 > using the `-E` flag for `display-popup`.
 
-{{ responsive(
-src="./assets/session-fzf.png",
-alt="Using fzf to fuzzy-find sessions in a display"
-caption="Using fzf to fuzzy-find sessions in a display"
-)}}
+{{<responsive src="./assets/session-fzf.png" alt="Using fzf to fuzzy-find sessions in a display" caption="Using fzf to fuzzy-find sessions in a display"/>}}
 
 ---
 
@@ -627,12 +585,7 @@ also shown on the `tmux` status line.
 Install the additional plugins with the `prefix` + `I` binding like we used
 before and check out our Catppuccin-themed status line:
 
-{{ responsive(
-src="./assets/catppuccin-status-line.png",
-alt="Catppuccin tmux status line.",
-caption="Catppuccin tmux status line."
-width=100
-) }}
+{{<responsive src="./assets/catppuccin-status-line.png" alt="Catppuccin tmux status line." caption="Catppuccin tmux status line." width={100}/>}}
 
 ---
 

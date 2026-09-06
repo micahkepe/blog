@@ -58,10 +58,7 @@ the number and quality of other pages that link to it. In other words, if many
 important pages link to a particular page, then that page must also be
 important. Mathematically, PageRank can be expressed as:
 
-{{ note(
-header="PageRank Formal Definition"
-body="
-
+{% <note header="PageRank Formal Definition"> %}
 \\[ PR(p_i) = \frac{1-d}{N} + d \sum_{p_j \in M(p_i)} \frac{PR(p_j)}{L(p_j)} \\]
 
 where:
@@ -73,8 +70,7 @@ where:
   jumping to a random page
 - $M(p_i)$ is the set of pages that link to $p_i$
 - $L(p_j)$ is the number of outgoing links from page $p_j$
-
-")}}
+{% </note> %}
 
 <br>
 
@@ -96,20 +92,12 @@ For example, consider a simple network of 4 web pages: A, B, C, and D. Suppose
 page B has a link to page A, page C has a link to page A, and page D has links
 to all three pages like so:
 
-{{ responsive(
-src="simple-network.png",
-alt="Simple Network Example",
-caption="Above: Simple network of 4 web pages: A, B, C, and D"
-width=80
-) }}
+{{<responsive src="simple-network.png" alt="Simple Network Example" caption="Above: Simple network of 4 web pages: A, B, C, and D" width={80}/>}}
 
 Initially, each page is assigned a PageRank of 0.25. After one iteration, page
 A's PageRank is updated as follows:
 
-{{ note(
-header="PageRank Iteration 1 Update"
-body="
-
+{% <note header="PageRank Iteration 1 Update"> %}
 \\[ PR(A) = \frac{1-0.85}{4} + \\]
 
 \\[0.85 \left( \frac{PR(B)}{1} + \frac{PR(C)}{1} +
@@ -118,20 +106,14 @@ body="
 \\[= 0.0375 + 0.85 \left(\frac{0.25}{1} + \frac{0.25}{1} - \frac{0.25}{3}\right) \\]
 
 \\[\boxed{ PR(A) \approx 0.46 }\\]
-
-")}}
+{% </note> %}
 
 After several iterations, the PageRank values converge to stable values that
 reflect the importance of each page in the network. The final PageRank values
 can then be used to rank the pages in search results.
 
-{{ responsive(
-    src="pagerank.gif",
-    alt="PageRank Calculation Example",
-    caption="Above: PageRank GIF showing the iterative calculation of
-        PageRank values for a simple network of web pages"
-    width=70
-) }}
+{{<responsive src="pagerank.gif" alt="PageRank Calculation Example" caption="Above: PageRank GIF showing the iterative calculation of
+        PageRank values for a simple network of web pages" width={70}/>}}
 
 One interesting property of PageRank is that it is a Markov chain, which means
 that the PageRank values can be interpreted as the probability of a random
@@ -207,10 +189,7 @@ Let $d(i, j)$ be the Levenshtein distance between the first $i$ characters of
 string $s_1$ and the first $j$ characters of string $s_2$. Then, $d(i, j)$ can
 be calculated using the following recurrence relation:
 
-{{ note(
-header="Levenshetin Distance Recurrence Relation"
-body="
-
+{% <note header="Levenshetin Distance Recurrence Relation"> %}
 $$
 d(i, j) =
 \begin{cases}
@@ -226,7 +205,7 @@ $$
 where $1*{s_1[i] \neq s_2[j]}$ is an indicator function that is 1 if the $i$-th
 character of $s_1$ is not equal to the $j$-th character of $s_2$, and 0
 otherwise.
-")}}
+{% </note> %}
 
 To check the spelling of a word, a spell checker typically compares the word to
 a dictionary of correctly spelled words using the Levenshtein distance
@@ -319,12 +298,7 @@ The key insight behind Shazam is that the spectrogram peaks are robust to noise
 and distortion, so they can be used to identify songs even in noisy environments
 or when the audio quality is poor.
 
-{{ responsive(
-src="spectrogram.png",
-alt="Spectrogram of 'Blurred Lines' by Robin Thicke",
-caption="Above: Spectrogram of 'Blurred Lines' by Robin Thicke."
-width=80
-) }}
+{{<responsive src="spectrogram.png" alt="Spectrogram of 'Blurred Lines' by Robin Thicke" caption="Above: Spectrogram of 'Blurred Lines' by Robin Thicke." width={80}/>}}
 
 For example, suppose you're at a noisy bar and hear a song playing that you want
 to identify. You open up Shazam and record a 10-second clip of the song. Shazam
@@ -334,12 +308,7 @@ The peaks are then hashed and combined into a fingerprint, which is compared to
 Shazam's database of over 11 million songs. Even though the clip is noisy and
 distorted, Shazam is still able to find a match and identify the song.
 
-{{ responsive(
-    src="signal-match.png",
-    alt="Signal Matching in Shazam",
-    caption="Above: Signal matching in Shazam."
-    width=80
-) }}
+{{<responsive src="signal-match.png" alt="Signal Matching in Shazam" caption="Above: Signal matching in Shazam." width={80}/>}}
 
 One interesting aspect of Shazam's algorithm is that it uses a technique called
 "combinatorial hashing" to efficiently search its database of song fingerprints.
@@ -348,12 +317,8 @@ subfingerprints and searching for matches for each subfingerprint separately.
 This allows Shazam to identify songs quickly even though its database contains
 millions of songs.
 
-{{ responsive(
-    src="shazam.png",
-    alt="Shazam Process",
-    caption="Above: Excerpt from Shazam's patent showing the process of
-        identifying a song."
-) }}
+{{<responsive src="shazam.png" alt="Shazam Process" caption="Above: Excerpt from Shazam's patent showing the process of
+        identifying a song."/>}}
 
 <br>
 

@@ -44,12 +44,7 @@ lost](https://www.mckinsey.com/featured-insights/future-of-work/ai-automation-an
 to automation by 2030. In countless media outlets since, the narrative has
 been repeated and amplified.
 
-{{ responsive(
-    src="1984-the-age-article.png",
-    alt="1984 The Age Article on Artificial Intelligence",
-    caption="Above: 1984 The Age Article on Artificial Intelligence",
-    width=75
-) }}
+{{<responsive src="1984-the-age-article.png" alt="1984 The Age Article on Artificial Intelligence" caption="Above: 1984 The Age Article on Artificial Intelligence" width={75}/>}}
 
 The proliferation of this narrative has led to widespread fear and
 uncertainty among software professionals. In 2019, Forbes published an
@@ -60,12 +55,7 @@ their job to AI." Fast forward to 2023, and a representative Gallup web poll
 of over 5,400 Americans found that 75% of respondents believe AI will reduce
 the total number of jobs in the United States in the next 10 years.
 
-{{ responsive(
-    src="2023-gallup-survey.png",
-    alt="2023 Gallup Poll on AI Job Impact",
-    caption="Above: The 2023 Gallup Poll on AI Job Impact",
-    width=80
-) }}
+{{<responsive src="2023-gallup-survey.png" alt="2023 Gallup Poll on AI Job Impact" caption="Above: The 2023 Gallup Poll on AI Job Impact" width={80}/>}}
 
 However, we don't have to accept this narrative based solely on projections
 and surveys—- the data is in and the results are more optimistic than you
@@ -82,14 +72,9 @@ report:
 
 - **AI makes workers more productive and leads to higher quality work.**
 
-{{ responsive(
-    src="copilot-productive.jpg",
-    alt="Cross-study comparison of AI's impact on task completion speed of
-        Copilot users",
-    caption="Above: Cross-study comparison of AI's impact on task completion
-        speed of Copilot users",
-    width=80
-) }}
+{{<responsive src="copilot-productive.jpg" alt="Cross-study comparison of AI's impact on task completion speed of
+        Copilot users" caption="Above: Cross-study comparison of AI's impact on task completion
+        speed of Copilot users" width={80}/>}}
 
 "AI has been shown to enable workers to complete tasks more quickly and
 **produce higher quality work**. A meta-review by Microsoft, which
@@ -100,12 +85,7 @@ time** than their counterparts without AI access" (AI Index, 2024, p. 272)
 
 - **AI is creating new jobs.**
 
-{{ responsive(
-    src="ai-private-investment.png",
-    alt="Private investment in AI by geographic area, 2023",
-    caption="Above: Private investment in AI by geographic area, 2023",
-    width=80
-) }}
+{{<responsive src="ai-private-investment.png" alt="Private investment in AI by geographic area, 2023" caption="Above: Private investment in AI by geographic area, 2023" width={80}/>}}
 
 "The United States once again led the world in terms of total AI private
 investment. In 2023, the **$67.2 billion invested** in the United States was
@@ -143,14 +123,9 @@ The U.S. Bureau of Labor Statistics data for employees in "custom computer
 programming services" from the Current Employment Statistics survey also
 shows a steady increase in employment over the past 10 years:
 
-{{ responsive(
-    src="bls-programming.png",
-    alt="Employment, Hours, and Earnings from the Current Employment
-        Statistics survey (National)",
-    caption="Above: Employment, Hours, and Earnings from the Current Employment
-        Statistics survey (National)",
-width=80
-) }}
+{{<responsive src="bls-programming.png" alt="Employment, Hours, and Earnings from the Current Employment
+        Statistics survey (National)" caption="Above: Employment, Hours, and Earnings from the Current Employment
+        Statistics survey (National)" width={80}/>}}
 
 ## Historical Precedent: The Rise of Spreadsheets
 

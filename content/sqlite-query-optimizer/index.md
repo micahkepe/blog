@@ -39,12 +39,7 @@ include:
 Of course, while these steps are common to all database engines, the way they
 are implemented can vary significantly from one engine to another.
 
-{{ responsive(
-    src="overview.png",
-    alt="Overview of the query execution process",
-    caption="Overview of the query execution process",
-    width=60)
-}}
+{{<responsive src="overview.png" alt="Overview of the query execution process" caption="Overview of the query execution process" width={60}/>}}
 
 ## SQLite's Approach to Query Optimization
 
@@ -116,12 +111,7 @@ we want to find all the beers that Ava likes with the following query:
 SELECT BEER FROM LIKES WHERE DRINKER = 'Ava';
 ```
 
-{{ responsive(
-    src="run-simple.png",
-    alt="Running the simple query",
-    caption="Results of the simple query",
-    width=80)
-}}
+{{<responsive src="run-simple.png" alt="Running the simple query" caption="Results of the simple query" width={80}/>}}
 
 As we can see, we get the expected results for this query. But how does SQLite's
 query optimizer actually execute this query?
@@ -420,12 +410,7 @@ additional work to achieve this sort order.
 
 Combining all these steps, we get the expected output:
 
-{{ responsive(
-    src="run-complex.png",
-    alt="Running the complex query",
-    caption="Results of the complex query",
-    width=80)
-}}
+{{<responsive src="run-complex.png" alt="Running the complex query" caption="Results of the complex query" width={80}/>}}
 
 <br>
 
@@ -451,14 +436,9 @@ By creating this multi-column index, SQLite can:
   index. This eliminates the need for a temporary B-tree, reducing the query’s
   overall execution time.
 
-{{ responsive(
-    src="multicolumn-idx.png",
-    alt="Example multicolumn index from the SQLite query planner documentation
-    illustrating a lookup using the index",
-    caption="Example multicolumn index from the SQLite query planner
-        documentation illustrating a lookup using the index.",
-    width=80
-) }}
+{{<responsive src="multicolumn-idx.png" alt="Example multicolumn index from the SQLite query planner documentation
+    illustrating a lookup using the index" caption="Example multicolumn index from the SQLite query planner
+        documentation illustrating a lookup using the index." width={80}/>}}
 
 ### Re-running the Query Plan
 

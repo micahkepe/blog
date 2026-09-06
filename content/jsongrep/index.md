@@ -151,11 +151,7 @@ parent zero-occurrence case.
 
 Here's a screenshot showing several of these features in action:
 
-{{ responsive(
-  src="./images/jg-quick-examples.png",
-  alt="Example of some of jsongrep's search query features in practice.",
-  caption="Example of some of jsongrep's search query features in practice."
-) }}
+{{<responsive src="./images/jg-quick-examples.png" alt="Example of some of jsongrep's search query features in practice." caption="Example of some of jsongrep's search query features in practice."/>}}
 
 > **NOTE**: `jsongrep` is smart about detecting if you are piping to another
 > command like `less` or `sort`, in which case it will not display the JSON
@@ -190,11 +186,7 @@ transition at each edge. No interpretation, no backtracking, one pass.
 
 As a consequence, `jsongrep` is fast-- like **really fast**:
 
-{{ responsive(
-  src="./images/e2e-xlarge.png",
-  alt="End-to-end search performance comparison over the xlarge (~190 MB) dataset.",
-  caption="End-to-end search performance comparison over the xlarge (~190 MB) dataset."
-) }}
+{{<responsive src="./images/e2e-xlarge.png" alt="End-to-end search performance comparison over the xlarge (~190 MB) dataset." caption="End-to-end search performance comparison over the xlarge (~190 MB) dataset."/>}}
 
 ---
 
@@ -297,11 +289,7 @@ null) are leaves.
 
 Our sample document forms this tree:
 
-{{ responsive(
-  src="./images/sample-json-tree.png",
-  alt="Sample JSON document as a tree.",
-  caption="Sample JSON document as a tree."
-) }}
+{{<responsive src="./images/sample-json-tree.png" alt="Sample JSON document as a tree." caption="Sample JSON document as a tree."/>}}
 
 A query, then, describes a set of **paths** from the root to matching nodes.
 The query `roommates[*].name` describes the path: take the `roommates` edge,
@@ -557,11 +545,11 @@ significantly reduces memory overhead on large documents.
 
 ## Benchmarking Methodology
 
-{{ note(body="
+{% <note> %}
 There is also more information on benchmarking, including how to reproduce
 the results, in the [benches/](https://github.com/micahkepe/jsongrep/tree/main/benches)
 directory of the `jsongrep` repository.
-") }}
+{% </note> %}
 
 All benchmarks use [Criterion.rs](https://github.com/bheisler/criterion.rs),
 a statistics-driven Rust benchmarking framework that provides confidence
@@ -642,11 +630,7 @@ performance impacts, but the full results are available
 
 ### Document Parse Time
 
-{{ responsive(
-  src="./images/document-parse-xlarge.png",
-  alt="Document parse times on xlarge dataset across all tools.",
-  caption="Document parse times on xlarge dataset across all tools."
-) }}
+{{<responsive src="./images/document-parse-xlarge.png" alt="Document parse times on xlarge dataset across all tools." caption="Document parse times on xlarge dataset across all tools."/>}}
 
 No surprises here: `serde_json_borrow` is the fastest, followed by
 `serde_json::Value` and `jmespath::Variable`.
@@ -658,29 +642,17 @@ No surprises here: `serde_json_borrow` is the fastest, followed by
 As expected, `jsongrep` takes time to compile the different queries and this is
 its largest cost:
 
-{{ responsive(
-  src="./images/query-compile-jsongrep-violin.png",
-  alt="jsongrep query compile time.",
-  caption="jsongrep query compile time."
-) }}
+{{<responsive src="./images/query-compile-jsongrep-violin.png" alt="jsongrep query compile time." caption="jsongrep query compile time."/>}}
 
 Compare this to the compile time of `jmespath` (an order of magnitude faster):
 
-{{ responsive(
-  src="./images/jmespath-query-compile-violin.png",
-  alt="jmespath query compile time.",
-  caption="jmespath query compile time."
-) }}
+{{<responsive src="./images/jmespath-query-compile-violin.png" alt="jmespath query compile time." caption="jmespath query compile time."/>}}
 
 [All `query_compile` results](https://micahkepe.com/jsongrep/query_compile/report/index.html)
 
 ### Search Time
 
-{{ responsive(
-  src="./images/query_search_xlarge.png",
-  alt="Searches times on xlarge dataset across all tools.",
-  caption="Searches times on xlarge dataset across all tools."
-) }}
+{{<responsive src="./images/query_search_xlarge.png" alt="Searches times on xlarge dataset across all tools." caption="Searches times on xlarge dataset across all tools."/>}}
 
 [All `query_search` xlarge results](https://micahkepe.com/jsongrep/query_search_xlarge/report/index.html)
 
@@ -689,11 +661,7 @@ Compare this to the compile time of `jmespath` (an order of magnitude faster):
 As shown at the beginning of the post, over the xlarge (~190 MB) dataset on the
 end-to-end benchmark, it's not even close:
 
-{{ responsive(
-  src="./images/e2e-xlarge.png",
-  alt="End-to-end search performance comparison over the xlarge (~190 MB) dataset.",
-  caption="End-to-end search performance comparison over the xlarge (~190 MB) dataset."
-) }}
+{{<responsive src="./images/e2e-xlarge.png" alt="End-to-end search performance comparison over the xlarge (~190 MB) dataset." caption="End-to-end search performance comparison over the xlarge (~190 MB) dataset."/>}}
 
 The full, interactive Criterion report is available at the
 [live benchmarking site](https://micahkepe.com/jsongrep/report/index.html).

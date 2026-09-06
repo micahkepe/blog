@@ -39,8 +39,7 @@ to do the configuration yourself, you can run these commands to add my setup as 
 
 **If you're interested in the nerdy details of my setup, keep reading!**
 
-{{ gif(sources=["demos/nvdash.mp4"]
-width=80) }}
+{{<gif sources={["demos/nvdash.mp4"]} width={80}/>}}
 
 ---
 
@@ -51,9 +50,7 @@ version of the Vi editor, which was originally developed in 1976 by Bill Joy for
 Unix systems. Vim quickly became popular due to its efficiency and ability to
 perform complex text manipulations with minimal keystrokes.
 
-{{ responsive(src="early-vi.png",
-alt="The original Vi program running with visuals.",
-caption="The original Vi program running with 'visuals'", width=80) }}
+{{<responsive src="early-vi.png" alt="The original Vi program running with visuals." caption="The original Vi program running with 'visuals'" width={80}/>}}
 
 However, Vim had its limitations, especially with handling modern development
 features such as better plugin systems, scripting flexibility, and ease of
@@ -76,7 +73,7 @@ To install Neovim, check the
 [INSTALL.md](https://github.com/neovim/neovim/blob/master/INSTALL.md) file on
 the Neovim repository for the instructions for your machine.
 
-{{ responsive(src="neovim-logo.png", alt="Neovim logo") }}
+{{<responsive src="neovim-logo.png" alt="Neovim logo"/>}}
 
 ## The Setup
 
@@ -100,7 +97,7 @@ I particularly like NVChad for the following reasons:
 - **Community Support**: NVChad’s [community](https://discord.com/invite/gADmkJb9Fb)
   is active, and the configuration gets frequent updates and improvements.
 
-{{ responsive(src="nvchad-logo.png", alt="NVChad logo", width=40) }}
+{{<responsive src="nvchad-logo.png" alt="NVChad logo" width={40}/>}}
 
 If you are following along, let's first install NVChad before we continue:
 
@@ -124,27 +121,17 @@ NVChad has the diagnostics displayed inline in red text. One consequence of this
 is that long diagnostic messages do not wrap at the end of the buffer, making it
 difficult to read the entire message:
 
-{{ responsive(
-    src="default-diagnostics.png",
-    width=80, alt="Diagnostics display in red text",
-    caption="NvChad default diagnostics"
-) }}
+{{<responsive src="default-diagnostics.png" width={80} alt="Diagnostics display in red text" caption="NvChad default diagnostics"/>}}
 
 To make the diagnostics more readable and "Visual-Studio-Code-like", I changed
 the diagnostics to underline the offending line and display to a floating window
 at the offending line on a cursor hold:
 
-{{ responsive(
-    src="new-diagnostics-ex1.png",
-    alt="Diagnostics display in a floating window on the screen"
-) }}
+{{<responsive src="new-diagnostics-ex1.png" alt="Diagnostics display in a floating window on the screen"/>}}
 
 <br>
 
-{{ responsive(
-    src="new-diagnostics-ex2.png",
-    alt="Diagnostics display in a floating window at the bottom of the screen"
-) }}
+{{<responsive src="new-diagnostics-ex2.png" alt="Diagnostics display in a floating window at the bottom of the screen"/>}}
 
 To do this, I created a separate file for the diagnostics configuration in
 `nvim/lua/configs/diagnostics.lua`:
@@ -273,7 +260,7 @@ These plugins work together to provide a fully-featured IDE-like experience
 right out of the box. NVChad's setup ensures that these plugins are configured
 to work well together, providing a smooth and cohesive editing experience.
 
-{{ gif(sources=["demos/nvchad-demo.mp4"], width=80)}}
+{{<gif sources={["demos/nvchad-demo.mp4"]} width={80}/>}}
 
 #### Added Plugins "Musts"
 
@@ -282,7 +269,7 @@ NVChad's base.
 
 ##### [`gelguy/wilder.nvim`](https://github.com/gelguy/wilder.nvim)
 
-{{ gif(sources=["demos/wilder-cmds.mp4"], width=80)}}
+{{<gif sources={["demos/wilder-cmds.mp4"]} width={80}/>}}
 
 Makes navigating the Neovim command line much faster with fuzzy search
 capabilities, providing instant suggestions as you type commands.
@@ -349,7 +336,7 @@ return {
 
 ##### [`3rd/image.nvim`](https://github.com/3rd/image.nvim)
 
-{{ gif(sources=["demos/image-nvim.mp4"], width=80)}}
+{{<gif sources={["demos/image-nvim.mp4"]} width={80}/>}}
 
 Enables image rendering in Neovim, essential for tasks like markdown previews
 and documentation editing. When editing markdown files or any other file format
@@ -488,7 +475,7 @@ return {
 
 ##### [`rmagatti/autosession`](https://github.com/rmagatti/auto-session)
 
-{{ gif(sources=["demos/autosession.mp4"], width=80)}}
+{{<gif sources={["demos/autosession.mp4"]} width={80}/>}}
 
 Automatically saves and restores Neovim sessions, allowing you to pick up your
 work right where you left off. If you close Neovim and reopen it later,
@@ -525,7 +512,7 @@ map("n", "<leader>wr", "<cmd>SessionRestore<CR>", { desc = "Restore session for 
 
 ##### [`christoomey/vim-tmux-navigator`](https://github.com/christoomey/vim-tmux-navigator)
 
-{{ gif(sources=["demos/navigator.mp4"], width=80)}}
+{{<gif sources={["demos/navigator.mp4"]} width={80}/>}}
 
 Enables smooth navigation between Neovim windows and
 [tmux](https://github.com/tmux/tmux/wiki) panes, making it feel like a unified
@@ -634,7 +621,7 @@ end,
 
 ##### [`stevearc/dressing.nvim`](https://github.com/stevearc/dressing.nvim)
 
-{{ responsive(src="dressing.png", alt="Dressing.nvim plugin in action") }}
+{{<responsive src="dressing.png" alt="Dressing.nvim plugin in action"/>}}
 
 This plugins provides way better styling to the default `vim.ui` interfaces. The
 biggest improvement in my opinion is over the `vim.input` interface that is used
@@ -707,7 +694,7 @@ These are the mappings I use for GitSigns, which I believe are fairly standard.
 `gitsigns` works in "hunks" of code, hence all of these mappings begin with an
 `h` after the leader.
 
-{{ gif(sources=["demos/gitsigns.mp4"], width=80)}}
+{{<gif sources={["demos/gitsigns.mp4"]} width={80}/>}}
 
 ```lua
 map("n", "<leader>hn", "<cmd>lua require'gitsigns'.next_hunk()<CR>", { desc = "Next hunk" })

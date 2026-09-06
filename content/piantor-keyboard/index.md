@@ -21,7 +21,7 @@ switch and how I'm finding it so far.
 A few months ago I stumbled upon a YouTube video[^1] that would start off this
 whole chain of events.
 
-{{ youtube(id="7UXsD7nSfDY") }}
+{{<youtube id="7UXsD7nSfDY"/>}}
 
 This seriously is an amazing video and I recommend giving it a watch. It's a
 great introduction to the world of custom keyboards and the rabbit hole that
@@ -99,9 +99,8 @@ With that out of the way, I placed my order and waited for the board to arrive.
 
 ### First Thoughts with the Board and Dialing It In
 
-{{ responsive( src="images/piantor.jpg", width=70, alt="The Piantor keyboard",
-caption="The Piantor keyboard. As you can see, it is a split keyboard with 42
-keys.") }}
+{{<responsive src="images/piantor.jpg" width={70} alt="The Piantor keyboard" caption="The Piantor keyboard. As you can see, it is a split keyboard with 42
+keys."/>}}
 
 The initial setup of any split keyboard requires patience. There's a significant
 learning curve, but the ergonomic benefits make it worthwhile. Here's my
@@ -136,10 +135,10 @@ for tons of keymaps and navigating around.
 
 #### The Base Layer: QWERTY + Thumb Keys
 
-{{ responsive( src="images/base-layer.png", width=70, alt="Base layer of the
-split keyboard", caption="The base layer of the split keyboard. As you can see,
+{{<responsive src="images/base-layer.png" width={70} alt="Base layer of the
+split keyboard" caption="The base layer of the split keyboard. As you can see,
 it is mostly a standard QWERTY layout except for the home row mods and the thumb
-keys.") }}
+keys."/>}}
 
 The base layer had the least amount of customization done. Ignore the `TD` keys
 for now, we'll go over those more in the section on home row mods. The main
@@ -154,9 +153,9 @@ required awkward pinky stretches or hand movement.
 
 #### The First Layer: Numbers and Symbols
 
-{{ responsive( src="images/layer-1.png", width=70, alt="First layer of the split
-keyboard", caption="The first layer of the split keyboard. This is where I am
-able to access my numbers and symbols.") }}
+{{<responsive src="images/layer-1.png" width={70} alt="First layer of the split
+keyboard" caption="The first layer of the split keyboard. This is where I am
+able to access my numbers and symbols."/>}}
 
 This is where things start to get a little more spicy.
 
@@ -170,9 +169,9 @@ get used to, but soon muscle memory took over.
 
 #### The Second Layer: Function Keys and Special Keys
 
-{{ responsive( src="images/layer-2.png", width=70, alt="Second layer of the
-split keyboard", caption="The second layer of the split keyboard. This is where
-I am able to access my function keys and other special keys.") }}
+{{<responsive src="images/layer-2.png" width={70} alt="Second layer of the
+split keyboard" caption="The second layer of the split keyboard. This is where
+I am able to access my function keys and other special keys."/>}}
 
 One of my favorite aspects of this layer is the arrow key placement. They map
 directly to the Vim movement keys (HJKL), which means I'm using the same spatial
@@ -247,14 +246,14 @@ For a way better overview and explanation of home row mods I highly recommend
 checking out this [blog post by
 precondition](https://precondition.github.io/home-row-mods).[^5]
 
-{{ note( header="Setting Up Home Row Mods on Built-in MacBook Keyboard",
-
-body="For configuring home row mods on the built-in Mac laptop keyboard, you can
+{% <note header="Setting Up Home Row Mods on Built-in MacBook Keyboard"> %}
+For configuring home row mods on the built-in Mac laptop keyboard, you can
 use Karabiner-Elements or [KMonad](https://github.com/kmonad/kmonad).
 Personally, I used Karabiner-Elements, which lets you set up home row mods using
 a JSON configuration file. I used the JSON from this [blog
 post](https://havn.blog/2024/03/03/a-good-way.html) to setup my home row mods on
-my Mac laptop keyboard. ")}}
+my Mac laptop keyboard.
+{% </note> %}
 
 ### Learning Tools: Retraining Muscle Memory
 

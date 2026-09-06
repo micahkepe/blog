@@ -272,7 +272,7 @@ but this should be enough to get you started writing some simple scripts.
 If you are interested in learning more, I recommend checking out the resources I
 have linked at the end of this post or this Youtube video:
 
-{{ youtube(id="tK9Oc6AEnR4", width=80)}}
+{{<youtube id="tK9Oc6AEnR4" width={80}/>}}
 
 ---
 
@@ -363,15 +363,12 @@ fzf --fish | source
 Relaunch your shell to source the new configuration. Now we can use the provided
 shell functionality.
 
-{{ note(
-header="Note for `fish` shell"
-body="
+{% <note header="Note for `fish` shell"> %}
 I use Fish shell, and while `fzf` has a fish plugin, but it doesn't seem well
 maintained and I had issues, use [fzf.fish](https://github.com/PatrickF1/fzf.fish)
 instead, which actually has a lot of bonus features as well like finding
 processes and variables.
-"
-)}}
+{% </note> %}
 
 #### `tmux`: terminal manager
 

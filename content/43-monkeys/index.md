@@ -28,10 +28,7 @@ a lot of inspiration from this news source:
 
 <br>
 
-{{ responsive(src="images/game-teaser.png",
-alt="A teaser image of our game idea from our initial project proposal.",
-caption="A teaser image of our game idea from our initial project proposal.",
-width=80) }}
+{{<responsive src="images/game-teaser.png" alt="A teaser image of our game idea from our initial project proposal." caption="A teaser image of our game idea from our initial project proposal." width={80}/>}}
 
 ## Game Description
 
@@ -51,12 +48,7 @@ collect power ups and new monkeys to add to their troop. Begin a rogue-like, the
 game will have perma-death, but the player can unlock shortcuts and new
 abilities to make future runs easier.
 
-{{ responsive(
-    src="./images/teaser1.png"
-    alt="A teaser image of gameplay from the final game"
-    width=80
-    caption="A snapshot of gameplay from the finished second level of the game."
-)}}
+{{<responsive src="./images/teaser1.png" alt="A teaser image of gameplay from the final game" width={80} caption="A snapshot of gameplay from the finished second level of the game."/>}}
 
 ---
 
@@ -98,12 +90,7 @@ as `*.tscn` files containing information about resource dependencies, metadata,
 and more. For example, here's the visual editor view of our game's eventual
 `level_1.tscn` file:
 
-{{ responsive(
-    src="./images/level-1-view.png",
-    alt="Level 1 scene in the Godot editor",
-    caption="Level 1 scene in the Godot editor",
-    width=80
-) }}
+{{<responsive src="./images/level-1-view.png" alt="Level 1 scene in the Godot editor" caption="Level 1 scene in the Godot editor" width={80}/>}}
 
 This brings us to both the **scene tree** and **nodes**. On the left hand side
 of the image above you can see the scene tree, which has all of the scenes
@@ -129,13 +116,7 @@ The last major thing to mention is **signals**. Signals allow for nodes to alert
 other nodes of an event. For example, in the main menu, we have a start button
 that, when pressed, transitions from the start screen to the level 1 transition:
 
-{{
-responsive(
-src="./images/start-btn-signal.png"
-alt="Start button signal emissions",
-width=60
-)
-}}
+{{<responsive src="./images/start-btn-signal.png" alt="Start button signal emissions" width={60}/>}}
 
 This can be handled in the `start_menu.gd` script programmatically:
 
@@ -155,24 +136,13 @@ Now that we have a big picture idea of how Godot operates, let's break down how
 we achieve something as seemingly simple as a navigating our character sprite
 around the screen like this:
 
-{{ gif(
-sources=["videos/basic-movt.mp4"],
-width=40,
-caption="Hurray movement!"
-)}}
+{{<gif sources={["videos/basic-movt.mp4"]} width={40} caption="Hurray movement!"/>}}
 
 First we have a **spritesheet** for our monkey. A spritesheet an image of
 animation cells arranged into rows and columns that we use to make up the
 individual frames of our animation:
 
-{{
-responsive(
-src="./images/monkey-spritesheet.png"
-alt="Base monkey spritesheet image"
-caption="Subsection of the spritesheet for the main monkey character."
-width=60
-)
-}}
+{{<responsive src="./images/monkey-spritesheet.png" alt="Base monkey spritesheet image" caption="Subsection of the spritesheet for the main monkey character." width={60}/>}}
 
 We can create a new scene for the player and set the root node to be a
 `CharacterBody2D`, which is "a 2D physics body specialized for characters
@@ -256,9 +226,7 @@ for animating 2D sprites.
 With a fun little open-source webapp called [BeepBox](https://www.beepbox.co/),
 we were able to make some fun 8-bit music for our game.
 
-{{ audio(
-source="music/fonky-loop.ogg"
-)}}
+{{<audio source="music/fonky-loop.ogg"/>}}
 
 <br>
 
@@ -283,10 +251,7 @@ We become interested in this concept because one of the unique features of
 our game is that the player will be able to control a group of monkeys that
 will follow the player around the map or move independently as a swarm.
 
-{{ gif(
-sources=["videos/boids-demo.mp4"],
-width = 80
-)}}
+{{<gif sources={["videos/boids-demo.mp4"]} width={80}/>}}
 
 The `boid.gd` script implements these behaviors for enemy or NPC characters,
 with additional features like wall avoidance and attacking. Below are key
@@ -395,16 +360,11 @@ polished up the art, etc.
 
 Little bit of the MVP demo in action:
 
-{{ gif(
-sources=["videos/mvp-demo.mp4"],
-width = 80
-)}}
+{{<gif sources={["videos/mvp-demo.mp4"]} width={80}/>}}
 
 Our pretty epic main theme (if I do say so myself):
 
-{{ audio(
-source="music/main-theme.ogg"
-)}}
+{{<audio source="music/main-theme.ogg"/>}}
 
 <br>
 
@@ -484,7 +444,7 @@ func _get_closest_target() -> Node2D:
 
 #### 2025-02-18 Progress Video
 
-{{ youtube(id="rKcuIBeEa2A", width=80) }}
+{{<youtube id="rKcuIBeEa2A" width={80}/>}}
 
 <br>
 

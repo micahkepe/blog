@@ -56,11 +56,7 @@ git config --global commit.verbose true
 Now, when you run `git commit`, Git will include the file diffs as well at the
 end of the template so that you can see what exactly you're committing:
 
-{{ responsive(
-  src="images/verbose-commit.png",
-  caption="Example of a Git commit with verbose output",
-  alt="Example of a Git commit with verbose output"
-) }}
+{{<responsive src="images/verbose-commit.png" caption="Example of a Git commit with verbose output" alt="Example of a Git commit with verbose output"/>}}
 
 ### Intuitive Sorting and Listings of Branches and Tags
 
@@ -179,11 +175,7 @@ By default, Git will show you diffs in a very compact form chalk full of @#$%!
 symbols that are hard to read, especially when you have a lot of cross file
 changes:
 
-{{ responsive(
-    src="images/diff-default.png",
-    caption="Example of a Git diff with a lot of cross file changes",
-    alt="Example of a Git diff with a lot of cross file changes"
-) }}
+{{<responsive src="images/diff-default.png" caption="Example of a Git diff with a lot of cross file changes" alt="Example of a Git diff with a lot of cross file changes"/>}}
 
 Instead, let's use [`diff-so-fancy`](https://github.com/so-fancy/diff-so-fancy)
 to make your `git diff` look like it deserves a frame.
@@ -202,11 +194,7 @@ Here's how to set it up:
    git config --global interactive.diffFilter "diff-so-fancy --patch"
    ```
 
-{{ responsive(
-    src="images/diff-so-fancy-sample.png",
-    caption="Example of a Git diff with a lot of cross file changes using diff-so-fancy",
-    alt="Example of a Git diff with a lot of cross file changes using diff-so-fancy"
-) }}
+{{<responsive src="images/diff-so-fancy-sample.png" caption="Example of a Git diff with a lot of cross file changes using diff-so-fancy" alt="Example of a Git diff with a lot of cross file changes using diff-so-fancy"/>}}
 
 #### **Bonus**: Change the Diff Algorithm
 
@@ -258,10 +246,7 @@ When you run a command that opens an editor, like `git commit` with no message
 specified, it will open an editor (default is usually `vi`, which is fine
 if you're stuck in 1975).
 
-{{ note(
-header="Note on Editor Variable Precedence",
-hidden=true,
-body='
+{% <note header="Note on Editor Variable Precedence" hidden={true}> %}
 You can also set the editor with the `GIT_EDITOR` environment variable, which
 has greater precedence than the `core.editor` configuration option:
 
@@ -279,8 +264,7 @@ However, it probably makes more sense if for whatever reason you do not want to
 set the editor in your `.gitconfig`, you could set it with the `VISUAL`
 environment variable instead since it will work with most other programs as
 well.
-
-') }}
+{% </note> %}
 
 Go ahead and set your editor to `nvim` (or `emacs` if you're a weirdo).
 
@@ -408,10 +392,7 @@ In `.gitconfig`:
   git ignore python,node >> .gitignore # same as above
   ```
 
-{{ note(
-header="Note on `$*` Expansion",
-hidden=true,
-body="
+{% <note header="Note on `$*` Expansion" hidden={true}> %}
 This is not directly related to Git, but I had fun figuring out how to do
 this with my `ignore` alias.
 
@@ -449,8 +430,7 @@ git ignore python node
 
 Now we have the same request sent but with the flexibility to pass a space-
 separated list and/or a comma-separated list.
-"
-)}}
+{% </note> %}
 
 ### Shell Aliases
 
@@ -590,11 +570,8 @@ Here’s the basic flow to get going:
 
    Pick the defaults unless you know what you’re doing.
 
-   {{ note(
-   header="Installing GPG on macOS",
-   body="
-
-   If you're on macOS, you'll want to install `gpg` with Homebrew:
+   {% <note header="Installing GPG on macOS"> %}
+If you're on macOS, you'll want to install `gpg` with Homebrew:
 
    ```bash
    brew install gnupg
@@ -613,9 +590,7 @@ Here’s the basic flow to get going:
    ```bash
    git config --global gpg.program /opt/homebrew/bin/gpg
    ```
-
-   "
-   )}}
+{% </note> %}
 
 2. **List your GPG key ID**
    Run:

@@ -29,11 +29,7 @@ definitely not in the set or that it might be in the set. This probabilistic
 nature makes Bloom filters incredibly space-efficient, but it also means they
 come with a small chance of false positives.
 
-{{ responsive(
-    src="bloom-filter.webp",
-    width=70,
-    alt="Bloom Filter Example"
-) }}
+{{<responsive src="bloom-filter.webp" width={70} alt="Bloom Filter Example"/>}}
 
 <br>
 
@@ -52,12 +48,7 @@ $k$ hash functions, resulting in $k$ array positions. The bits at these
 positions in the bit array are set to 1. If any of these bits are already set to
 1, they remain unchanged.
 
-{{ responsive(
-    src="insertion.png",
-    alt="Inserting an element into a Bloom filter",
-    caption="Above: Inserting an element into a Bloom filter",
-    width=80
-) }}
+{{<responsive src="insertion.png" alt="Inserting an element into a Bloom filter" caption="Above: Inserting an element into a Bloom filter" width={80}/>}}
 
 <br>
 
@@ -69,11 +60,7 @@ corresponding bits in the bit array are 1, the Bloom filter reports that the
 element might be in the set. If any of the bits are 0, the element is definitely
 not in the set.
 
-{{ responsive(
-src="bloom-filter-membership.png",
-alt="Querying an element in a Bloom filter",
-caption="Above: Querying an element in a Bloom filter"
-width=80) }}
+{{<responsive src="bloom-filter-membership.png" alt="Querying an element in a Bloom filter" caption="Above: Querying an element in a Bloom filter" width={80}/>}}
 
 <br>
 
@@ -86,11 +73,7 @@ when it is not). The probability of false positives depends on the size of the
 bit array $m$, the number of hash functions $k$, and the number of elements
 inserted $n$.
 
-{{ responsive(
-    src="bloom-filter-example.png",
-    alt="Example of a false positive in a Bloom filter",
-    caption="Above: Example of a false positive in a Bloom filter"
-) }}
+{{<responsive src="bloom-filter-example.png" alt="Example of a false positive in a Bloom filter" caption="Above: Example of a false positive in a Bloom filter"/>}}
 
 <br>
 

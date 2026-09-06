@@ -250,13 +250,8 @@ If you have set up the symbolic links correctly, running the `ls -a ~` command
 should show the symbolic links in your home directory pointing to the dotfiles
 in your repository like so:
 
-{{ responsive(
-    src="symlinks.png",
-    alt="Dotfiles in home directory",
-    caption="Above: My dotfiles in my home directory symlinked to my dotfiles
-        repository."
-    width=90
-) }}
+{{<responsive src="symlinks.png" alt="Dotfiles in home directory" caption="Above: My dotfiles in my home directory symlinked to my dotfiles
+        repository." width={90}/>}}
 
 4\. Add, commit, and push your dotfiles to your remote repository (e.g.,
 GitHub):
