@@ -109,11 +109,12 @@ Finally, the feature branch is merged back into the main branch. Now we have a
 A key benefit of rebasing is that it keeps the commit history clean and linear,
 making it easier to understand and navigate.
 
-> **NOTE** It is important to note that rebasing rewrites commit history, so
-> it should be used _with caution_, especially when working on shared
-> branches with collaborators. If working with others, use the
-> `--force-with-lease` flag when pushing rebased commits to a shared branch.
-> This flag ensures that if your changes conflict with the remote branch, you
+> [!NOTE]
+> It is important to note that rebasing rewrites commit history, so it should be
+> used _with caution_, especially when working on shared branches with
+> collaborators. If working with others, use the `--force-with-lease` flag when
+> pushing rebased commits to a shared branch. This flag ensures that if your
+> changes conflict with the remote branch, you
 > will not overwrite someone else's work.
 
 ### 1.3 Stashing changes

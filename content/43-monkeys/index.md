@@ -104,9 +104,10 @@ form a tree**, and this is seen in the scene tree. Godot provides a massive
 list of base node types that you can use and combine to create components
 out of the box.
 
-> **NOTE**: You might have noticed that nodes and scenes look the same in
-> the editor. When you save a tree of nodes as a scene, it then shows as a single
-> node, with its internal structure hidden in the editor.
+> [!NOTE]
+> You might have noticed that nodes and scenes look the same in the editor. When
+> you save a tree of nodes as a scene, it then shows as a single node, with its
+> internal structure hidden in the editor.
 
 Nodes and scene are scriptable and can be changed to function programmatically.
 Godot has its own scripting language called GDScript that can be used; C++ is

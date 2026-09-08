@@ -153,7 +153,8 @@ Here's a screenshot showing several of these features in action:
 
 {{<responsive src="./images/jg-quick-examples.png" alt="Example of some of jsongrep's search query features in practice." caption="Example of some of jsongrep's search query features in practice."/>}}
 
-> **NOTE**: `jsongrep` is smart about detecting if you are piping to another
+> [!NOTE]
+> `jsongrep` is smart about detecting if you are piping to another
 > command like `less` or `sort`, in which case it will not display the JSON
 > paths. This can be overridden though if desired with the `--with-path` option.
 

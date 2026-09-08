@@ -19,7 +19,8 @@ configuration to enhance the out-of-the-box experience.
 
 ## Context: What is `tmux` and Why Should I Use It?
 
-> **NOTE**: feel free to [skip ahead](#preview-of-changes) if you are familiar
+> [!NOTE]
+> feel free to [skip ahead](#preview-of-changes) if you are familiar
 > with `tmux`
 
 `tmux` is a [terminal multiplexer](https://en.wikipedia.org/wiki/Terminal_multiplexer)
@@ -428,7 +429,9 @@ With `cargo`:
 cargo install spotify_player --locked
 ```
 
-> **NOTE**: For other installation options, see the [spotify-player README](https://github.com/aome510/spotify-player?tab=readme-ov-file#installation).
+> [!NOTE]
+> For other installation options, see the [spotify-player
+> README](https://github.com/aome510/spotify-player?tab=readme-ov-file#installation).
 
 We can define a keybind to create a new display popup running `spotify-player`
 and then close with `prefix` + `d` like any other `tmux` window:

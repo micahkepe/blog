@@ -643,8 +643,9 @@ feel free to share it in the comments!
 
 ## **EXTRA**: Automating with Hammerspoon **(MacOS)**
 
-> **NOTE:** Sorry Windows and Linux users, this section is MacOS-specific. If you
-> have any suggestions for similar tools on Windows or Linux, please let me know!
+> [!NOTE]
+> Sorry Windows and Linux users, this section is MacOS-specific. If you have any
+> suggestions for similar tools on Windows or Linux, please let me know!
 
 Hammerspoon is a powerful macOS automation tool that allows you to write Lua
 scripts to automate your workflow. It is similar to Automator, but with more
