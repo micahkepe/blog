@@ -1,0 +1,10 @@
+{
+  "name": "Micah",
+  "favorite_drinks": ["coffee", "Dr. Pepper", "Monster Energy"],
+  "roommates": [
+    {
+      "name": "Alice",
+      "favorite_food": "pizza"
+    }
+  ]
+}
