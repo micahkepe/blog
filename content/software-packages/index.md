@@ -56,10 +56,11 @@ with its dependencies. Dependencies are other packages that your package
 relies on to function correctly.
 
 {% <note header="Package Manager Tasks"> %}
+
 1. **Download:** The package and its dependencies are fetched from the repository.
 2. **Install:** The package and its dependencies are installed in your project.
 3. **Configure:** The package manager ensures that all dependencies are compatible.
-{% </note> %}
+   {% </note> %}
 
 ### Dependency Resolution
 

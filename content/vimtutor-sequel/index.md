@@ -31,6 +31,7 @@ The original vimtutor has 7 lessons, I created 8 additional lessons for
 `vimtutor-sequel`. Here is a list of the lessons:
 
 {% <note header="Lesson Included"> %}
+
 - Lesson 8: Splitting Screens
 - Lesson 9: Spellcheck
 - Lesson 10: Indenting, Commenting, and Changing Case
@@ -39,7 +40,7 @@ The original vimtutor has 7 lessons, I created 8 additional lessons for
 - Lesson 13: Vim Scripting
 - Lesson 14: Vim Plugins
 - Lesson 15: Vim Sessions and Registers
-{% </note> %}
+  {% </note> %}
 
 ## Unexpected Popularity
 

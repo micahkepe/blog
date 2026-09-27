@@ -571,7 +571,7 @@ Here’s the basic flow to get going:
    Pick the defaults unless you know what you’re doing.
 
    {% <note header="Installing GPG on macOS"> %}
-If you're on macOS, you'll want to install `gpg` with Homebrew:
+   If you're on macOS, you'll want to install `gpg` with Homebrew:
 
    ```bash
    brew install gnupg
@@ -590,7 +590,8 @@ If you're on macOS, you'll want to install `gpg` with Homebrew:
    ```bash
    git config --global gpg.program /opt/homebrew/bin/gpg
    ```
-{% </note> %}
+
+   {% </note> %}
 
 2. **List your GPG key ID**
    Run:

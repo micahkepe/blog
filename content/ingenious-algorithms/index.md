@@ -70,7 +70,7 @@ where:
   jumping to a random page
 - $M(p_i)$ is the set of pages that link to $p_i$
 - $L(p_j)$ is the number of outgoing links from page $p_j$
-{% </note> %}
+  {% </note> %}
 
 <br>
 
@@ -190,6 +190,7 @@ string $s_1$ and the first $j$ characters of string $s_2$. Then, $d(i, j)$ can
 be calculated using the following recurrence relation:
 
 {% <note header="Levenshetin Distance Recurrence Relation"> %}
+
 $$
 d(i, j) =
 \begin{cases}
